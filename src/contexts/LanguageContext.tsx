@@ -1,11 +1,11 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useState, ReactNode } from "react";
 
 type Lang = "de" | "en";
 
 interface LanguageContextType {
   lang: Lang;
   setLang: (lang: Lang) => void;
-  t: (de: string, en: string) => string;
+  t: <T extends ReactNode>(de: T, en: T) => T;
 }
 
 const LanguageContext = createContext<LanguageContextType>({
