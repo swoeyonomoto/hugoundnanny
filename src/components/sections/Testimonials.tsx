@@ -19,7 +19,7 @@ const testimonials = [
     whereEn: "Hong Kong · 2024",
   },
   {
-    quoteDe: "Seit wir das erste Bild bekommen haben, wissen wir, dass das „Für immer" einer Hochzeit nicht nur im Ja-Wort liegt, sondern vor allem in all den Momenten, Emotionen und der Atmosphäre, die sie für uns für immer festgehalten haben. Der First Look mit unseren Bildern war einer unserer Lieblingsmomente und die Emotionen dabei unbezahlbar.",
+    quoteDe: 'Seit wir das erste Bild bekommen haben, wissen wir, dass das \u201EF\u00FCr immer\u201C einer Hochzeit nicht nur im Ja-Wort liegt, sondern vor allem in all den Momenten, Emotionen und der Atmosph\u00E4re, die sie f\u00FCr uns f\u00FCr immer festgehalten haben. Der First Look mit unseren Bildern war einer unserer Lieblingsmomente und die Emotionen dabei unbezahlbar.',
     quoteEn: "From the moment we received the first image, we knew that the 'forever' of a wedding isn't just in the vows — it's in all the moments, emotions, and atmosphere they captured for us forever. The first look at our photos was one of our favorite moments, and the emotions were priceless.",
     name: "Isabel & Peter",
     whereDe: "Hochzeit · 2024",
