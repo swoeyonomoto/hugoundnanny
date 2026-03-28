@@ -43,14 +43,15 @@ const Contact = () => {
           </RevealOnScroll>
 
           <RevealOnScroll className="rv2">
-            <iframe
-              src="https://hugo-nanny.de/contact/#contact-form"
-              width="100%"
-              height="700px"
-              frameBorder="0"
-              scrolling="no"
-              style={{ border: "none" }}
-            />
+            <a
+              href="https://wa.me/4916097813272?text=Hi%2C%20we%20are%20interested%20in%20getting%20to%20know%20more%20about%20you.%20We%20are..."
+              target="_blank"
+              rel="noopener noreferrer"
+              className="cf-submit"
+              style={{ display: "inline-block", textAlign: "center", textDecoration: "none" }}
+            >
+              {t("Schreib uns auf WhatsApp", "Message us on WhatsApp")}
+            </a>
           </RevealOnScroll>
         </div>
       </section>
