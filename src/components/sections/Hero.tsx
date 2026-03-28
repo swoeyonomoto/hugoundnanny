@@ -23,10 +23,6 @@ const Hero = () => {
           }}
         />
         <div className="hero-video-overlay" />
-        <div className="hero-video-labels">
-          <span className="hero-video-label-top">Weddingfilms</span>
-          <span className="hero-video-label-bottom">Season 2025</span>
-        </div>
       </div>
       <div className="hero-content">
         <h1 className="hero-headline">
