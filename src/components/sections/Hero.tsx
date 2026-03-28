@@ -27,8 +27,8 @@ const Hero = () => {
       <div className="hero-content">
         <h1 className="hero-headline">
           {t(
-            <>Wir erzählen eure Geschichten.<br />Authentisch. <em>Und echt.</em></>,
-            <>We tell your stories.<br />Authentic. <em>And raw.</em></>
+            <>Wir erzählen eure Geschichten.<br /><em>Authentisch und echt.</em></>,
+            <>We tell your stories.<br /><em>Authentic and raw.</em></>
           )}
         </h1>
         <div className="hero-right">
