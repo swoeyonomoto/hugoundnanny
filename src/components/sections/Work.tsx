@@ -2,9 +2,9 @@ import { useLang } from "@/contexts/LanguageContext";
 import RevealOnScroll from "@/components/RevealOnScroll";
 
 const films = [
-  { name: "Dario & Marie", loc: "Toskana, Italien", locEn: "Tuscany, Italy" },
-  { name: "Steph & Chris", loc: "Hamburg, Deutschland", locEn: "Hamburg, Germany" },
-  { name: "Dodi & Genie", loc: "Brüssel, Belgien", locEn: "Brussels, Belgium" },
+  { name: "Dario & Marie", loc: "Köln, Deutschland", locEn: "Cologne, Germany" },
+  { name: "Eddie & Mel", loc: "Hongkong", locEn: "Hong Kong" },
+  { name: "Toni & Freddi", loc: "Nizza, Frankreich", locEn: "Nice, France" },
 ];
 
 const Work = () => {
@@ -58,7 +58,7 @@ const Work = () => {
             </div>
           </RevealOnScroll>
 
-          <a href="#" className="work-link">
+          <a href="https://www.hugo-nanny.de" target="_blank" rel="noopener noreferrer" className="work-link">
             {t("Alle Hochzeiten ansehen", "See all weddings")} →
           </a>
         </div>
