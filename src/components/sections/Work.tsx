@@ -72,7 +72,7 @@ const Work = () => {
             <div className="photos">
               {photos.map((src, i) => (
                 <div className="photo" key={i}>
-                  <img src={src} alt={`Wedding photo ${i + 1}`} loading="lazy" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                  <img src={src} alt={`Wedding photo ${i + 1}`} loading="lazy" />
                 </div>
               ))}
             </div>
