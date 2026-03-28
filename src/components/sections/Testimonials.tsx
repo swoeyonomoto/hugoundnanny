@@ -10,6 +10,7 @@ const testimonials = [
     name: "Juliana & Stephan",
     whereDe: "Hochzeit · 2024",
     whereEn: "Wedding · 2024",
+    photo: "/photos/testi-01.png",
   },
   {
     quoteDe: "Sie haben alles gegeben und sich wirklich Zeit genommen, uns, unsere Beziehung und unsere besondere Woche kennenzulernen. Die Qualität der Fotos und Videos ist authentisch und einzigartig. Schaut unbedingt auf ihre Website, um die großartigen Produktionen zu sehen. Außerdem hatten wir einfach eine tolle Zeit mit ihnen bei der Hochzeit — sie haben die ganze Zeit über extra Liebe und Freude verbreitet!",
@@ -17,6 +18,7 @@ const testimonials = [
     name: "Eddie & Mel",
     whereDe: "Hongkong · 2024",
     whereEn: "Hong Kong · 2024",
+    photo: "/photos/testi-02.png",
   },
   {
     quoteDe: 'Seit wir das erste Bild bekommen haben, wissen wir, dass das \u201EF\u00FCr immer\u201C einer Hochzeit nicht nur im Ja-Wort liegt, sondern vor allem in all den Momenten, Emotionen und der Atmosph\u00E4re, die sie f\u00FCr uns f\u00FCr immer festgehalten haben. Der First Look mit unseren Bildern war einer unserer Lieblingsmomente und die Emotionen dabei unbezahlbar.',
@@ -24,6 +26,7 @@ const testimonials = [
     name: "Isabel & Peter",
     whereDe: "Hochzeit · 2024",
     whereEn: "Wedding · 2024",
+    photo: "/photos/testi-03.png",
   },
 ];
 
@@ -51,7 +54,7 @@ const Testimonials = () => {
               {testimonials.map((item, i) => (
                 <div className="testi-card" key={i}>
                   <div className="testi-stars">{"\u2605 \u2605 \u2605 \u2605 \u2605"}</div>
-                  <div className="testi-face">Foto</div>
+                  <img className="testi-face" src={item.photo} alt={item.name} style={{ width: 56, height: 56, borderRadius: '50%', objectFit: 'cover' }} />
                   <p className="testi-quote">{t(item.quoteDe, item.quoteEn)}</p>
                   <hr className="testi-hr" />
                   <div className="testi-name">{item.name}</div>

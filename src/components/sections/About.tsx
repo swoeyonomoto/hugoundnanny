@@ -12,8 +12,8 @@ const About = () => {
             <span className="label">{t("Wer wir sind", "Who we are")}</span>
             <h2 className="about-h">
               {t(
-                <>Wir sind Hugo<br /><em>& Nanny.</em></>,
-                <>We are Hugo<br /><em>& Nanny.</em></>
+                <>Wir erzählen eure Geschichten.<br /><em>Authentisch und echt.</em></>,
+                <>We tell your stories.<br /><em>Authentic and raw.</em></>
               )}
             </h2>
             {t(
