@@ -16,7 +16,7 @@ const LanguageContext = createContext<LanguageContextType>({
 
 export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [lang, setLang] = useState<Lang>("de");
-  const t = (de: string, en: string) => (lang === "de" ? de : en);
+  const t = <T extends ReactNode>(de: T, en: T): T => (lang === "de" ? de : en);
   return (
     <LanguageContext.Provider value={{ lang, setLang, t }}>
       {children}
