@@ -6,21 +6,21 @@ const GOOGLE_REVIEWS_URL = "https://www.google.com/search?sa=X&sca_esv=41127e9fb
 const testimonials = [
   {
     quoteDe: "Anfangs haben wir überlegt, ob wir auf ein Hochzeitsvideo verzichten können — zum Glück haben wir es nicht getan! Denn ein Video fängt Emotionen, Stimmen und Bewegungen ein, wie es Fotos allein niemals könnten. Es ermöglicht uns, den Tag immer wieder neu zu erleben.",
-    quoteEn: "Initially, we considered whether we could do without a wedding video — thankfully, we didn't! Because a video captures emotions, voices, and movements in a way that photos alone never could. It allows us to relive the day again and again.",
+    quoteEn: "At first we wondered whether we even needed a wedding film — thank god we didn't skip it. A film captures emotions, voices and movement in a way photos alone never could. It lets us relive the day again and again.",
     name: "Juliana & Stephan",
     whereDe: "Hochzeit · 2024",
     whereEn: "Wedding · 2024",
   },
   {
     quoteDe: "Sie haben alles gegeben und sich wirklich Zeit genommen, uns, unsere Beziehung und unsere besondere Woche kennenzulernen. Die Qualität der Fotos und Videos ist authentisch und einzigartig. Schaut unbedingt auf ihre Website, um die großartigen Produktionen zu sehen. Außerdem hatten wir einfach eine tolle Zeit mit ihnen bei der Hochzeit — sie haben die ganze Zeit über extra Liebe und Freude verbreitet!",
-    quoteEn: "They went above & beyond; really took time to get to know us, our relationship & our special week. The quality of the photos & videos are authentic & unique. Definitely check out their website to see the amazing productions to get a feel what could be created for you. On top, we just had a great time having them at the wedding & they offered extra love and joy the whole way!",
+    quoteEn: "They gave everything and truly took the time to get to know us, our relationship and our special week. The quality of the photos and videos is authentic and unique. And on top of that — they brought so much love and joy to our wedding day!",
     name: "Eddie & Mel",
     whereDe: "Hongkong · 2024",
     whereEn: "Hong Kong · 2024",
   },
   {
     quoteDe: 'Seit wir das erste Bild bekommen haben, wissen wir, dass das \u201EF\u00FCr immer\u201C einer Hochzeit nicht nur im Ja-Wort liegt, sondern vor allem in all den Momenten, Emotionen und der Atmosph\u00E4re, die sie f\u00FCr uns f\u00FCr immer festgehalten haben. Der First Look mit unseren Bildern war einer unserer Lieblingsmomente und die Emotionen dabei unbezahlbar.',
-    quoteEn: "From the moment we received the first image, we knew that the 'forever' of a wedding isn't just in the vows — it's in all the moments, emotions, and atmosphere they captured for us forever. The first look at our photos was one of our favorite moments, and the emotions were priceless.",
+    quoteEn: "Since receiving the first photo, we know that the 'forever' of a wedding isn't just in the vows — it's in all the moments, emotions and atmosphere they captured for us. The first look at our photos was one of our favourite moments, and the emotions were priceless.",
     name: "Isabel & Peter",
     whereDe: "Hochzeit · 2024",
     whereEn: "Wedding · 2024",

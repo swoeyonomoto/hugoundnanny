@@ -8,7 +8,6 @@ const Contact = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // TODO: integrate with backend
     alert(t("Nachricht gesendet!", "Message sent!"));
   };
 
@@ -24,8 +23,14 @@ const Contact = () => {
             </h2>
             <p className="contact-p">
               {t(
-                "Schreibt uns kurz, wann eure Hochzeit ist. Wir melden uns innerhalb von 24 Stunden — kein Druck, kein Skript. Einfach ein echtes Gespräch.",
-                "Tell us when your wedding is. We'll be back within 24 hours — no pressure, no script. Just a real conversation."
+                "Schreibt uns kurz, wann eure Hochzeit ist und was euch wichtig ist. Wir melden uns innerhalb von 24 Stunden — kein Druck, kein Skript. Einfach ein echtes Gespräch.",
+                "Tell us when your wedding is and what matters to you. We'll be back within 24 hours — no pressure, no script. Just a real conversation."
+              )}
+            </p>
+            <p className="contact-p">
+              {t(
+                "Wir freuen uns, von euch zu hören.",
+                "We look forward to hearing from you."
               )}
             </p>
             <div className="contact-meta">
@@ -79,6 +84,10 @@ const Contact = () => {
                 <textarea
                   value={form.message}
                   onChange={(e) => setForm({ ...form, message: e.target.value })}
+                  placeholder={t(
+                    "Wo heiratet ihr? Was ist euch am wichtigsten?",
+                    "Where are you getting married? What matters most to you?"
+                  )}
                 />
               </div>
               <button type="submit" className="cf-submit">
@@ -86,8 +95,8 @@ const Contact = () => {
               </button>
               <p className="cf-legal">
                 {t(
-                  "Eure Daten werden nur zur Kontaktaufnahme verwendet und nicht weitergegeben.",
-                  "Your data is used only for getting in touch and will not be shared."
+                  "Eure Daten werden nur zur Kontaktaufnahme verwendet und nicht an Dritte weitergegeben.",
+                  "Your details are used only to get in touch and will not be shared with third parties."
                 )}
               </p>
             </form>
