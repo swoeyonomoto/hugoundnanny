@@ -115,8 +115,8 @@ const Contact = () => {
                   )}
                 />
               </div>
-              <button type="submit" className="cf-submit">
-                {t("Nachricht senden", "Send message")}
+              <button type="submit" className="cf-submit" disabled={sending}>
+                {sending ? t("Wird gesendet…", "Sending…") : t("Nachricht senden", "Send message")}
               </button>
               <p className="cf-legal">
                 {t(
