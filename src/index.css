@@ -240,6 +240,11 @@ body {
   overflow: hidden; background: #c8c6c3;
   display: flex; align-items: center; justify-content: center;
   color: #aaa; font-size: 9px; letter-spacing: .14em; text-transform: uppercase;
+  position: relative;
+}
+.photo img {
+  width: 100%; height: 100%; object-fit: cover;
+  image-orientation: from-image;
 }
 .photo:nth-child(1) { aspect-ratio: 3/4; }
 .photo:nth-child(2) { aspect-ratio: 3/4; }
