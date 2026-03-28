@@ -32,11 +32,27 @@
   body { @apply bg-background text-foreground; }
 }
 
+/* ─── CUSTOM FONTS ─── */
+@font-face {
+  font-family: 'Ginora Sans Bold';
+  src: url('/fonts/GinoraSansBold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Libre Caslon Display';
+  src: url('/fonts/LibreCaslonDisplay-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* ─── BASE ─── */
 html { scroll-behavior: smooth; }
 body {
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 300;
+  font-family: 'Lora', serif;
+  font-weight: 400;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -47,7 +63,7 @@ body {
 }
 .lang-btn {
   background: none; border: none; cursor: pointer;
-  font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 400;
+  font-family: 'Ginora Sans Bold', sans-serif; font-size: 10px; font-weight: 400;
   letter-spacing: .14em; text-transform: uppercase;
   color: #111; padding: 6px 10px; opacity: .4; transition: opacity .2s;
 }
@@ -58,7 +74,7 @@ body {
 .sticky-cta {
   position: fixed; bottom: 32px; right: 32px; z-index: 400;
   background: #111; color: #fff;
-  font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 400;
+  font-family: 'Ginora Sans Bold', sans-serif; font-size: 10px; font-weight: 400;
   letter-spacing: .18em; text-transform: uppercase;
   text-decoration: none; padding: 13px 28px;
   opacity: 0; transform: translateY(6px);
@@ -92,7 +108,7 @@ body {
   display: flex; align-items: flex-end; justify-content: space-between; gap: 40px;
 }
 .hero-headline {
-  font-family: 'EB Garamond', serif;
+  font-family: 'Libre Caslon Display', serif;
   font-size: clamp(44px, 6.5vw, 88px);
   font-weight: 400; line-height: 1.0; color: #fff;
   animation: fadeUp .9s .2s both;
@@ -145,13 +161,13 @@ body {
   display: grid; grid-template-columns: 1fr 1fr; gap: 88px; align-items: start;
 }
 .about-h {
-  font-family: 'EB Garamond', serif;
+  font-family: 'Libre Caslon Display', serif;
   font-size: clamp(30px, 3.2vw, 48px); font-weight: 400; line-height: 1.15; margin-bottom: 32px;
 }
 .about-h em { font-style: italic; }
 .about-p { font-size: 15px; line-height: 1.95; color: #444; margin-bottom: 18px; }
 .about-sig {
-  font-family: 'EB Garamond', serif;
+  font-family: 'Libre Caslon Display', serif;
   font-size: 21px; font-style: italic; margin-top: 28px; color: #111;
 }
 .about-img {
@@ -166,7 +182,7 @@ body {
   display: grid; grid-template-columns: 1fr 1fr; align-items: end; margin-bottom: 52px;
 }
 .work-h {
-  font-family: 'EB Garamond', serif;
+  font-family: 'Libre Caslon Display', serif;
   font-size: clamp(30px, 3.2vw, 48px); font-weight: 400; line-height: 1.1;
 }
 .work-h em { font-style: italic; }
@@ -200,7 +216,7 @@ body {
 .film:hover .film-play { opacity: 1; transform: translate(-50%,-50%) scale(1); }
 .film-info { position: absolute; bottom: 0; left: 0; right: 0; padding: 20px; }
 .film-name {
-  font-family: 'EB Garamond', serif; font-size: 19px; font-style: italic;
+  font-family: 'Libre Caslon Display', serif; font-size: 19px; font-style: italic;
   color: #fff; margin-bottom: 3px;
 }
 .film-loc { font-size: 9px; letter-spacing: .16em; text-transform: uppercase; color: rgba(255,255,255,.55); }
@@ -233,7 +249,7 @@ body {
   display: grid; grid-template-columns: 1fr 1fr; align-items: end; margin-bottom: 60px;
 }
 .testi-h {
-  font-family: 'EB Garamond', serif;
+  font-family: 'Libre Caslon Display', serif;
   font-size: clamp(30px, 3.2vw, 48px); font-weight: 400; line-height: 1.1;
 }
 .testi-h em { font-style: italic; }
@@ -255,11 +271,11 @@ body {
   color: #aaa; font-size: 8px; letter-spacing: .1em; text-transform: uppercase;
 }
 .testi-quote {
-  font-family: 'EB Garamond', serif; font-size: 16px; font-style: italic;
+  font-family: 'Libre Caslon Display', serif; font-size: 16px; font-style: italic;
   line-height: 1.78; color: #333; margin-bottom: 24px;
 }
 .testi-hr { border: none; border-top: 1px solid #e8e8e6; margin-bottom: 18px; }
-.testi-name { font-family: 'EB Garamond', serif; font-size: 17px; margin-bottom: 3px; }
+.testi-name { font-family: 'Libre Caslon Display', serif; font-size: 17px; margin-bottom: 3px; }
 .testi-where { font-size: 9px; letter-spacing: .16em; text-transform: uppercase; color: #999; }
 
 /* ─── PRICING ─── */
@@ -268,7 +284,7 @@ body {
   display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; margin-bottom: 68px;
 }
 .pricing-h {
-  font-family: 'EB Garamond', serif;
+  font-family: 'Libre Caslon Display', serif;
   font-size: clamp(30px, 3.2vw, 48px); font-weight: 400; line-height: 1.1;
 }
 .pricing-h em { font-style: italic; }
@@ -282,7 +298,7 @@ body {
 }
 .card.hi .card-tag { color: rgba(255,255,255,.4); }
 .card-name {
-  font-family: 'EB Garamond', serif; font-size: 24px; font-weight: 400;
+  font-family: 'Libre Caslon Display', serif; font-size: 24px; font-weight: 400;
   line-height: 1.22; margin-bottom: 24px;
 }
 .card-hr { border: none; border-top: 1px solid #e8e8e6; margin-bottom: 22px; }
@@ -290,7 +306,7 @@ body {
 .card-from { font-size: 9px; letter-spacing: .16em; text-transform: uppercase; color: #999; margin-bottom: 4px; }
 .card.hi .card-from { color: rgba(255,255,255,.38); }
 .card-price {
-  font-family: 'EB Garamond', serif; font-size: 46px; font-weight: 400;
+  font-family: 'Libre Caslon Display', serif; font-size: 46px; font-weight: 400;
   line-height: 1; margin-bottom: 24px;
 }
 .card-price.ask { font-size: 30px; padding-top: 8px; }
@@ -322,7 +338,7 @@ body {
 #faq { padding: 108px 0; }
 .faq-inner { max-width: 760px; }
 .faq-h {
-  font-family: 'EB Garamond', serif;
+  font-family: 'Libre Caslon Display', serif;
   font-size: clamp(30px, 3.2vw, 48px); font-weight: 400; line-height: 1.1; margin-bottom: 56px;
 }
 .faq-h em { font-style: italic; }
@@ -332,7 +348,7 @@ body {
   display: flex; justify-content: space-between; align-items: center;
   gap: 24px; padding: 24px 0; cursor: pointer; user-select: none;
 }
-.faq-qt { font-family: 'EB Garamond', serif; font-size: 19px; font-weight: 400; }
+.faq-qt { font-family: 'Libre Caslon Display', serif; font-size: 19px; font-weight: 400; }
 .faq-ic { flex-shrink: 0; width: 22px; height: 22px; position: relative; }
 .faq-ic::before, .faq-ic::after {
   content: ''; position: absolute; background: #111;
@@ -350,7 +366,7 @@ body {
   display: grid; grid-template-columns: 1fr 1fr; gap: 96px; align-items: start;
 }
 .contact-h {
-  font-family: 'EB Garamond', serif;
+  font-family: 'Libre Caslon Display', serif;
   font-size: clamp(30px, 3.2vw, 48px); font-weight: 400; line-height: 1.1; margin-bottom: 24px;
 }
 .contact-h em { font-style: italic; }
@@ -371,7 +387,7 @@ body {
 }
 .cf input, .cf textarea {
   background: none; border: none; outline: none;
-  font-family: 'Montserrat', sans-serif; font-size: 15px; font-weight: 300;
+  font-family: 'Lora', serif; font-size: 15px; font-weight: 400;
   color: #111; -webkit-appearance: none;
 }
 .cf input::placeholder, .cf textarea::placeholder { color: #ccc; }
@@ -380,7 +396,7 @@ body {
 .cf-submit {
   margin-top: 36px; align-self: flex-start;
   background: #111; color: #fff; border: none;
-  font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 400;
+  font-family: 'Ginora Sans Bold', sans-serif; font-size: 10px; font-weight: 400;
   letter-spacing: .18em; text-transform: uppercase;
   padding: 14px 36px; cursor: pointer; transition: background .2s;
 }
@@ -392,7 +408,7 @@ footer {
   padding: 26px 64px; border-top: 1px solid #e8e8e6;
   display: flex; justify-content: space-between; align-items: center;
 }
-.f-logo { font-family: 'Montserrat', sans-serif; font-size: 14px; font-weight: 400; letter-spacing: .02em; }
+.f-logo { font-family: 'Ginora Sans Bold', sans-serif; font-size: 14px; font-weight: 400; letter-spacing: .02em; }
 .f-links { display: flex; gap: 24px; }
 .f-links a {
   font-size: 9px; letter-spacing: .14em; text-transform: uppercase;
