@@ -38,7 +38,7 @@ const Hero = () => {
               "We always strive to capture what cannot be planned. The spontaneous looks, the touches, the laughs — the real moments."
             )}
           </p>
-          <a href="https://api.whatsapp.com/send/?phone=4916097813272&text=Hi+Hugo+%26+Nanny%2C+wir+w%C3%BCrden+gerne+mehr+Infos+zu+euch+und+eurer+Arbeitsweise+erfahren.+Habt+ihr+Zeit+f%C3%BCr+einen+kurzen+Call+in+den+n%C3%A4chsten+Tagen%3F+Hier+ein+paar+Infos+%C3%BCber+uns%3A&type=phone_number&app_absent=0" target="_blank" rel="noopener noreferrer" className="hero-cta">
+          <a href="https://wa.me/4916097813272?text=Hi%2C%20we%20are%20interested%20in%20getting%20to%20know%20more%20about%20you.%20We%20are..." target="_blank" rel="noopener noreferrer" className="hero-cta">
             {t("Termin anfragen", "Get in touch")}
           </a>
         </div>
