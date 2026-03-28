@@ -2,9 +2,18 @@ import { useLang } from "@/contexts/LanguageContext";
 import RevealOnScroll from "@/components/RevealOnScroll";
 
 const films = [
-  { name: "Dario & Marie", loc: "Köln, Deutschland", locEn: "Cologne, Germany" },
-  { name: "Eddie & Mel", loc: "Hongkong", locEn: "Hong Kong" },
-  { name: "Toni & Freddi", loc: "Nizza, Frankreich", locEn: "Nice, France" },
+  { name: "Dario & Marie", loc: "Köln, Deutschland", locEn: "Cologne, Germany", mediaId: "ejclzzj2uc" },
+  { name: "Eddie & Mel", loc: "Hongkong", locEn: "Hong Kong", mediaId: "1tt9dtcb3n" },
+  { name: "Toni & Freddi", loc: "Nizza, Frankreich", locEn: "Nice, France", mediaId: "shthso9t3v" },
+];
+
+const photos = [
+  "/photos/02.png",
+  "/photos/03.png",
+  "/photos/08.png",
+  "/photos/10.png",
+  "/photos/11.png",
+  "/photos/14.png",
 ];
 
 const Work = () => {
@@ -38,9 +47,18 @@ const Work = () => {
             <div className="films">
               {films.map((f, i) => (
                 <div className="film" key={i}>
-                  <div className="film-bg">Thumbnail</div>
+                  <wistia-player
+                    media-id={f.mediaId}
+                    aspect="1.7777777777777777"
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      position: "absolute",
+                      top: 0,
+                      left: 0,
+                    }}
+                  />
                   <div className="film-shade" />
-                  <div className="film-play">▶</div>
                   <div className="film-info">
                     <div className="film-name">{f.name}</div>
                     <div className="film-loc">{t(f.loc, f.locEn)}</div>
@@ -52,8 +70,10 @@ const Work = () => {
 
           <RevealOnScroll>
             <div className="photos">
-              {[1, 2, 3, 4, 5, 6].map((n) => (
-                <div className="photo" key={n}>Foto {n}</div>
+              {photos.map((src, i) => (
+                <div className="photo" key={i}>
+                  <img src={src} alt={`Wedding photo ${i + 1}`} loading="lazy" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                </div>
               ))}
             </div>
           </RevealOnScroll>
