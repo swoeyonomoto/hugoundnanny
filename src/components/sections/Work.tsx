@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useLang } from "@/contexts/LanguageContext";
 import RevealOnScroll from "@/components/RevealOnScroll";
 
@@ -18,6 +19,8 @@ const photos = [
 
 const Work = () => {
   const { t } = useLang();
+  const [playing, setPlaying] = useState<number | null>(null);
+
   return (
     <>
       <hr className="rule" />
@@ -46,19 +49,31 @@ const Work = () => {
           <RevealOnScroll>
             <div className="films">
               {films.map((f, i) => (
-                <div className="film" key={i}>
-                  <wistia-player
-                    media-id={f.mediaId}
-                    aspect="1.7777777777777777"
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                      position: "absolute",
-                      top: 0,
-                      left: 0,
-                    }}
-                  />
-                  <div className="film-shade" />
+                <div className="film" key={i} onClick={() => setPlaying(i)}>
+                  {playing === i ? (
+                    <wistia-player
+                      media-id={f.mediaId}
+                      aspect="1.7777777777777777"
+                      autoplay
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        position: "absolute",
+                        top: 0,
+                        left: 0,
+                      }}
+                    />
+                  ) : (
+                    <>
+                      <img
+                        className="film-bg"
+                        src={`https://fast.wistia.com/embed/medias/${f.mediaId}/swatch`}
+                        alt={f.name}
+                      />
+                      <div className="film-shade" />
+                      <div className="film-play">▶</div>
+                    </>
+                  )}
                   <div className="film-info">
                     <div className="film-name">{f.name}</div>
                     <div className="film-loc">{t(f.loc, f.locEn)}</div>
