@@ -15,11 +15,10 @@ const Pricing = () => {
       price: "€ 3.500",
       special: true,
       items: [
-        t("Bis zu 10 Stunden", "Up to 10 hours"),
+        t("1 Tag Begleitung — Hochzeitstag (10h)", "1 day of coverage — Wedding day (10h)"),
         t("1 Kameramann (Foto oder Video)", "1 cinematographer (photo or video)"),
-        t("Online-Galerie (alle Fotos)", "Online gallery (all photos)"),
-        t("Professionelle Bearbeitung", "Professional editing"),
-        t("Lieferung in 6 Wochen", "Delivery in 6 weeks"),
+        t("Kinokamera & Drohne", "Cinema camera & drone"),
+        t("Hochzeitsfilm: 4–6 Minuten oder 400 Fotos (digital)", "Wedding film: 4–6 minutes or 400 photos (digital)"),
       ],
       hi: false,
     },
@@ -27,16 +26,17 @@ const Pricing = () => {
       tag: t("Beliebtestes Paket", "Most popular"),
       name: t(<>Foto + Film.<br /><em>Vollständig.</em></>, <>Photo + Film.<br /><em>Complete.</em></>),
       from: t("Ab", "From"),
-      oldPrice: "€ 5.900",
+      oldPrice: "€ 6.500",
       price: "€ 5.800",
       special: true,
       items: [
-        t("Zwei-Tages-Begleitung", "Two-day coverage"),
+        t("2 Tage Begleitung — Welcome (3h) Hochzeitstag (12h)", "2 days of coverage — Welcome (3h) Wedding day (12h)"),
         t("2 Kameraleute (Foto oder Video)", "2 cinematographers (photo or video)"),
-        t("Online-Galerie (alle Fotos)", "Online gallery (all photos)"),
-        t("Hochzeitsfilm (8–12 Min.)", "Wedding film (8–12 min)"),
-        t("Highlight-Reel (2–3 Min.)", "Highlight reel (2–3 min)"),
-        t("Lieferung in 8 Wochen", "Delivery in 8 weeks"),
+        t("Kinokameras & Drohne + Highend-Fotokamera, Analogkamera (1× 36 Filme)", "Cinema cameras & drone + Highend Photocamera, Analogue Camera (1x 36 Films)"),
+        t("Hochzeitsfilm: 4–6 Minuten", "Wedding film: 4–6 minutes"),
+        t("Wedding Short (20–40 Sekunden)", "Wedding short (20–40 seconds)"),
+        t("500 Fotos (digital)", "500 photos (digital)"),
+        t("72 Fotos (analog)", "72 photos (analogue)"),
       ],
       hi: true,
     },
@@ -118,6 +118,12 @@ const Pricing = () => {
             </div>
           </RevealOnScroll>
 
+          <p className="pricing-note">
+            {t(
+              "*Ticket- und Übernachtungskosten sind nicht enthalten // Alle Preise verstehen sich zzgl. MwSt.",
+              "*Ticket and accommodation costs are not included // All prices exclude VAT"
+            )}
+          </p>
           <p className="pricing-note">
             {t(
               "Alle Pakete beinhalten ein kostenloses Kennenlerngespräch. Keine versteckten Kosten.",
