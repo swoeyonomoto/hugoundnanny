@@ -9,12 +9,12 @@ const films = [
 ];
 
 const photos = [
-  "/photos/02.png",
+  "/photos/02.jpg",
   "/photos/03.png",
-  "/photos/08.png",
-  "/photos/10.png",
-  "/photos/11.png",
-  "/photos/14.png",
+  "/photos/07.jpg",
+  "/photos/08.jpg",
+  "/photos/11.jpg",
+  "/photos/14.jpg",
 ];
 
 const Work = () => {
