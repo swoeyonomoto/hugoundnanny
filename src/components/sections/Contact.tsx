@@ -6,9 +6,34 @@ const Contact = () => {
   const { t } = useLang();
   const [form, setForm] = useState({ name: "", date: "", email: "", message: "" });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [sending, setSending] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    alert(t("Nachricht gesendet!", "Message sent!"));
+    setSending(true);
+    try {
+      const res = await fetch("https://formsubmit.co/ajax/info@hugo-nanny.de", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          name: form.name,
+          email: form.email,
+          "Wedding date": form.date,
+          message: form.message,
+          _subject: "Neue Anfrage über hugo-nanny.de",
+        }),
+      });
+      if (res.ok) {
+        alert(t("Nachricht gesendet!", "Message sent!"));
+        setForm({ name: "", date: "", email: "", message: "" });
+      } else {
+        alert(t("Fehler beim Senden. Bitte versuche es erneut.", "Failed to send. Please try again."));
+      }
+    } catch {
+      alert(t("Fehler beim Senden. Bitte versuche es erneut.", "Failed to send. Please try again."));
+    } finally {
+      setSending(false);
+    }
   };
 
   return (
@@ -36,7 +61,7 @@ const Contact = () => {
             <div className="contact-meta">
               <div className="meta-row">
                 <span className="meta-lbl">Email</span>
-                <span className="meta-val">hallo@hugo-nanny.de</span>
+                <span className="meta-val">info@hugo-nanny.de</span>
               </div>
               <div className="meta-row">
                 <span className="meta-lbl">Instagram</span>
@@ -90,8 +115,8 @@ const Contact = () => {
                   )}
                 />
               </div>
-              <button type="submit" className="cf-submit">
-                {t("Nachricht senden", "Send message")}
+              <button type="submit" className="cf-submit" disabled={sending}>
+                {sending ? t("Wird gesendet…", "Sending…") : t("Nachricht senden", "Send message")}
               </button>
               <p className="cf-legal">
                 {t(
