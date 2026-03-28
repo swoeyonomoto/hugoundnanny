@@ -11,7 +11,9 @@ const Pricing = () => {
       tag: t("Fotografie", "Photography"),
       name: t(<>Ein Tag.<br /><em>Eure Geschichte.</em></>, <>One day.<br /><em>Your story.</em></>),
       from: t("Ab", "From"),
-      price: "€ 3.900",
+      oldPrice: "€ 3.900",
+      price: "€ 3.500",
+      special: true,
       items: [
         t("Bis zu 10 Stunden", "Up to 10 hours"),
         t("2 Fotografen", "2 photographers"),
@@ -25,7 +27,9 @@ const Pricing = () => {
       tag: t("Beliebtestes Paket", "Most popular"),
       name: t(<>Foto + Film.<br /><em>Vollständig.</em></>, <>Photo + Film.<br /><em>Complete.</em></>),
       from: t("Ab", "From"),
-      price: "€ 5.900",
+      oldPrice: "€ 5.900",
+      price: "€ 5.800",
+      special: true,
       items: [
         t("Zwei-Tages-Begleitung", "Two-day coverage"),
         t("2 Fotografen + 1 Filmmaker", "2 photographers + 1 filmmaker"),
@@ -94,7 +98,13 @@ const Pricing = () => {
                   <h3 className="card-name">{pkg.name}</h3>
                   <hr className="card-hr" />
                   <span className="card-from">{pkg.from}</span>
+                  {pkg.oldPrice && (
+                    <div className="card-old-price">{pkg.oldPrice}</div>
+                  )}
                   <div className={`card-price ${pkg.priceClass || ""}`}>{pkg.price}</div>
+                  {pkg.special && (
+                    <span className="card-special">{t("Sonderangebot", "Special offer")}</span>
+                  )}
                   <ul className="card-list">
                     {pkg.items.map((item, j) => (
                       <li key={j}>{item}</li>

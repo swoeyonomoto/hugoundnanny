@@ -324,6 +324,16 @@ body {
   font-family: 'Libre Caslon Display', serif; font-size: 46px; font-weight: 400;
   line-height: 1; margin-bottom: 24px;
 }
+.card-old-price {
+  font-family: 'Libre Caslon Display', serif; font-size: 22px; font-weight: 400;
+  text-decoration: line-through; color: #999; margin-bottom: 2px;
+}
+.card.hi .card-old-price { color: rgba(255,255,255,.35); }
+.card-special {
+  display: inline-block; font-size: 9px; letter-spacing: .16em; text-transform: uppercase;
+  color: #b45309; margin-bottom: 20px;
+}
+.card.hi .card-special { color: #fbbf24; }
 .card-price.ask { font-size: 30px; padding-top: 8px; }
 .card-list { list-style: none; flex: 1; margin-bottom: 32px; padding: 0; }
 .card-list li {
