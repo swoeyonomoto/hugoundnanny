@@ -16,7 +16,7 @@ const Pricing = () => {
       special: true,
       items: [
         t("Bis zu 10 Stunden", "Up to 10 hours"),
-        t("2 Fotografen", "2 photographers"),
+        t("1 Kameramann (Foto oder Video)", "1 cinematographer (photo or video)"),
         t("Online-Galerie (alle Fotos)", "Online gallery (all photos)"),
         t("Professionelle Bearbeitung", "Professional editing"),
         t("Lieferung in 6 Wochen", "Delivery in 6 weeks"),
@@ -32,7 +32,7 @@ const Pricing = () => {
       special: true,
       items: [
         t("Zwei-Tages-Begleitung", "Two-day coverage"),
-        t("2 Fotografen + 1 Filmmaker", "2 photographers + 1 filmmaker"),
+        t("2 Kameraleute (Foto oder Video)", "2 cinematographers (photo or video)"),
         t("Online-Galerie (alle Fotos)", "Online gallery (all photos)"),
         t("Hochzeitsfilm (8–12 Min.)", "Wedding film (8–12 min)"),
         t("Highlight-Reel (2–3 Min.)", "Highlight reel (2–3 min)"),
