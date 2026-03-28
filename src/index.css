@@ -387,7 +387,7 @@ body {
 }
 .cf input, .cf textarea {
   background: none; border: none; outline: none;
-  font-family: 'Ginora Sans Bold', sans-serif; font-size: 15px; font-weight: 300;
+  font-family: 'Lora', serif; font-size: 15px; font-weight: 400;
   color: #111; -webkit-appearance: none;
 }
 .cf input::placeholder, .cf textarea::placeholder { color: #ccc; }
