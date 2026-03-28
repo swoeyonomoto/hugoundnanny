@@ -1,6 +1,8 @@
 import { useLang } from "@/contexts/LanguageContext";
 import RevealOnScroll from "@/components/RevealOnScroll";
 
+const CONTACT_URL = "https://hugo-nanny.de/contact/";
+
 const Pricing = () => {
   const { t } = useLang();
 
@@ -98,7 +100,7 @@ const Pricing = () => {
                       <li key={j}>{item}</li>
                     ))}
                   </ul>
-                  <a href="#contact" className="card-btn">
+                  <a href={CONTACT_URL} target="_blank" rel="noopener noreferrer" className="card-btn">
                     {t("Anfragen", "Enquire")}
                   </a>
                 </div>
