@@ -3,10 +3,6 @@ import RevealOnScroll from "@/components/RevealOnScroll";
 
 const Contact = () => {
   const { t } = useLang();
-  const [form, setForm] = useState({ name: "", date: "", email: "", message: "" });
-
-  const [sending, setSending] = useState(false);
-
 
   return (
     <>
