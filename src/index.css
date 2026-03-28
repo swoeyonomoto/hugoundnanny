@@ -47,6 +47,13 @@
   font-style: normal;
   font-display: swap;
 }
+@font-face {
+  font-family: 'Lora';
+  src: url('/fonts/Lora-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
 
 /* ─── BASE ─── */
 html { scroll-behavior: smooth; }
@@ -92,15 +99,19 @@ body {
 .hero-video {
   position: absolute; inset: 0; background: #111;
 }
-.hero-video-placeholder {
-  width: 100%; height: 100%;
-  background: linear-gradient(160deg, #0e0e0e 0%, #1e1b18 55%, #151210 100%);
-  display: flex; align-items: center; justify-content: center;
-  color: rgba(255,255,255,.08); font-size: 11px; letter-spacing: .22em; text-transform: uppercase;
-}
-.hero-video::after {
-  content: ''; position: absolute; inset: 0;
+.hero-video-overlay {
+  position: absolute; inset: 0; z-index: 1;
   background: linear-gradient(to top, rgba(0,0,0,.72) 0%, rgba(0,0,0,.18) 55%, rgba(0,0,0,.08) 100%);
+}
+.hero-video-labels {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  z-index: 1; display: flex; flex-direction: column; align-items: center; gap: 4px;
+  pointer-events: none;
+}
+.hero-video-label-top,
+.hero-video-label-bottom {
+  font-family: 'Ginora Sans Bold', sans-serif; font-size: 10px;
+  letter-spacing: .22em; text-transform: uppercase; color: rgba(255,255,255,.35);
 }
 .hero-content {
   position: relative; z-index: 2;
