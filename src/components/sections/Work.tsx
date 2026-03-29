@@ -128,7 +128,9 @@ const Work = () => {
                     alt={f.name}
                   />
                   <div className="film-shade" />
-                  <div className="film-play">▶</div>
+                  <div className="film-play">
+                    <svg width="10" height="12" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>
+                  </div>
                   <div className="film-info">
                     <div className="film-name">{f.name}</div>
                     <div className="film-loc">{t(f.loc, f.locEn)}</div>

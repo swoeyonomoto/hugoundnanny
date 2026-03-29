@@ -1,4 +1,4 @@
-import { useState, FormEvent } from "react";
+import { useState, FormEvent, useEffect } from "react";
 import { useLang } from "@/contexts/LanguageContext";
 import RevealOnScroll from "@/components/RevealOnScroll";
 
@@ -10,6 +10,17 @@ const Contact = () => {
   const { t } = useLang();
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [lookingFor, setLookingFor] = useState("");
+  const [budget, setBudget] = useState("");
+
+  useEffect(() => {
+    const handler = (e: CustomEvent) => {
+      if (e.detail?.lookingFor) setLookingFor(e.detail.lookingFor);
+      if (e.detail?.budget) setBudget(e.detail.budget);
+    };
+    window.addEventListener("prefill-contact", handler as EventListener);
+    return () => window.removeEventListener("prefill-contact", handler as EventListener);
+  }, []);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -111,7 +122,7 @@ const Contact = () => {
                 <div className="cf-row">
                   <div className="cf">
                     <label>{t("Ihr sucht", "Looking For")}</label>
-                    <select name="looking_for" required defaultValue="">
+                    <select name="looking_for" required value={lookingFor} onChange={e => setLookingFor(e.target.value)}>
                       <option value="" disabled>{t("Bitte wählen", "Please select")}</option>
                       <option value="Photo">Photo</option>
                       <option value="Video">Video</option>
@@ -120,7 +131,7 @@ const Contact = () => {
                   </div>
                   <div className="cf">
                     <label>{t("Budget", "Your Foto / Film Budget")}</label>
-                    <select name="budget" required defaultValue="">
+                    <select name="budget" required value={budget} onChange={e => setBudget(e.target.value)}>
                       <option value="" disabled>{t("Bitte wählen", "Please select")}</option>
                       <option value="€2.000 – €3.000">€2.000 – €3.000</option>
                       <option value="€3.000 – €5.000">€3.000 – €5.000</option>
