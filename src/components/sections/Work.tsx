@@ -3,9 +3,9 @@ import { useLang } from "@/contexts/LanguageContext";
 import RevealOnScroll from "@/components/RevealOnScroll";
 
 const films = [
-  { name: "Dario & Marie", loc: "Köln, Deutschland", locEn: "Cologne, Germany", mediaId: "ejclzzj2uc" },
-  { name: "Eddie & Mel", loc: "Hongkong", locEn: "Hong Kong", mediaId: "1tt9dtcb3n" },
-  { name: "Toni & Freddi", loc: "Nizza, Frankreich", locEn: "Nice, France", mediaId: "shthso9t3v" },
+  { name: "Dario & Marie", loc: "Köln, Deutschland", locEn: "Cologne, Germany", mediaId: "ejclzzj2uc", thumb: "/photos/dario-marie-thumb.jpg" },
+  { name: "Eddie & Mel", loc: "Hongkong", locEn: "Hong Kong", mediaId: "1tt9dtcb3n", thumb: "/photos/eddie-mel-thumb.jpg" },
+  { name: "Toni & Freddi", loc: "Nizza, Frankreich", locEn: "Nice, France", mediaId: "shthso9t3v", thumb: "/photos/toni-freddi-thumb.jpg" },
 ];
 
 const photos = [
@@ -116,7 +116,7 @@ const Work = () => {
                 <div className="film" key={i} onClick={() => { setActiveFilm(i); setIsPlaying(true); }}>
                   <img
                     className="film-bg"
-                    src={`https://fast.wistia.com/embed/medias/${f.mediaId}/swatch`}
+                    src={f.thumb}
                     alt={f.name}
                   />
                   <div className="film-shade" />
