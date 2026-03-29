@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { useLang } from "@/contexts/LanguageContext";
 import RevealOnScroll from "@/components/RevealOnScroll";
 
@@ -21,6 +21,7 @@ const Work = () => {
   const { t } = useLang();
   const [activeFilm, setActiveFilm] = useState<number | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [isMuted, setIsMuted] = useState(false);
   const overlayRef = useRef<HTMLDivElement>(null);
   const wistiaRef = useRef<any>(null);
 
@@ -73,6 +74,13 @@ const Work = () => {
     } else {
       wistiaRef.current.play();
     }
+  };
+
+  const toggleMute = () => {
+    if (!wistiaRef.current) return;
+    const newMuted = !isMuted;
+    wistiaRef.current.volume(newMuted ? 0 : 1);
+    setIsMuted(newMuted);
   };
 
   const toggleFullscreen = () => {
@@ -146,10 +154,12 @@ const Work = () => {
         </div>
       </section>
 
-      {/* Minimal fullscreen video overlay */}
       {activeFilm !== null && (
         <div className="video-overlay" ref={overlayRef}>
           <div className="video-overlay-bg" onClick={handleClose} />
+          <button className="video-overlay-close" onClick={handleClose} aria-label="Close">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
           <div className="video-overlay-player">
             <wistia-player
               media-id={films[activeFilm].mediaId}
@@ -157,21 +167,25 @@ const Work = () => {
               autoplay
               style={{ width: "100%", height: "100%" }}
             />
-          </div>
-          <div className="video-overlay-controls">
-            <button className="vo-btn" onClick={togglePlay} aria-label={isPlaying ? "Pause" : "Play"}>
-              {isPlaying ? (
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
-              ) : (
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>
-              )}
-            </button>
-            <button className="vo-btn" onClick={toggleFullscreen} aria-label="Fullscreen">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
-            </button>
-            <button className="vo-btn" onClick={handleClose} aria-label="Close">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-            </button>
+            <div className="video-playbar">
+              <button className="vp-btn" onClick={togglePlay} aria-label={isPlaying ? "Pause" : "Play"}>
+                {isPlaying ? (
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+                ) : (
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>
+                )}
+              </button>
+              <button className="vp-btn" onClick={toggleMute} aria-label={isMuted ? "Unmute" : "Mute"}>
+                {isMuted ? (
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+                ) : (
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+                )}
+              </button>
+              <button className="vp-btn" onClick={toggleFullscreen} aria-label="Fullscreen">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+              </button>
+            </div>
           </div>
         </div>
       )}

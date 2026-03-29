@@ -43,7 +43,7 @@ const Hero = () => {
           </a>
         </div>
       </div>
-      <span className="hero-scroll">Scroll</span>
+      
     </section>
   );
 };
