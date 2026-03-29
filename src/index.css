@@ -463,3 +463,32 @@ footer {
   .lang-bar { top: 16px; right: 16px; }
   .cf-row { grid-template-columns: 1fr; }
 }
+
+/* ─── VIDEO OVERLAY ─── */
+.video-overlay {
+  position: fixed; inset: 0; z-index: 9999;
+  display: flex; align-items: center; justify-content: center;
+}
+.video-overlay-bg {
+  position: absolute; inset: 0; background: rgba(0,0,0,.92);
+}
+.video-overlay-player {
+  position: relative; z-index: 1;
+  width: 90vw; max-width: 1100px; aspect-ratio: 16/9;
+}
+.video-overlay-controls {
+  position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%);
+  z-index: 2; display: flex; gap: 8px;
+}
+.vo-btn {
+  background: rgba(255,255,255,.12); border: none; color: #fff;
+  width: 36px; height: 36px; border-radius: 50%; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  backdrop-filter: blur(8px); transition: background .2s;
+}
+.vo-btn:hover { background: rgba(255,255,255,.25); }
+
+@media (max-width: 960px) {
+  .video-overlay-player { width: 100vw; }
+  .video-overlay-controls { bottom: 16px; }
+}
