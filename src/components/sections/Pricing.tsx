@@ -76,14 +76,8 @@ const Pricing = () => {
               <div>
                 <p className="pricing-intro-p">
                   {t(
-                    "Wir glauben an Klarheit. Deswegen nennen wir unsere Preise von Anfang an — damit nur Paare anfragen, bei denen es wirklich passt.",
-                    "We believe in transparency. That's why we share our prices upfront — so only couples who are genuinely aligned reach out."
-                  )}
-                </p>
-                <p className="pricing-intro-p">
-                  {t(
-                    "Unsere Pakete sind ein Ausgangspunkt. Was ihr wirklich braucht, besprechen wir gemeinsam.",
-                    "Our packages are a starting point. What you actually need, we'll figure out together."
+                    "Wir glauben an Transparenz. Deshalb nennen wir unsere Preise von Anfang an — keine Überraschungen, keine unangenehmen Gespräche im Nachhinein. Unsere Pakete sind ein Ausgangspunkt. Was ihr wirklich braucht, besprechen wir gemeinsam.",
+                    "We believe in transparency. That's why we share our prices upfront — no surprises, no awkward conversations later. Our packages are a starting point. What you actually need, we'll figure out together."
                   )}
                 </p>
               </div>
