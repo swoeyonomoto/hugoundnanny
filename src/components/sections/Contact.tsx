@@ -129,16 +129,16 @@ const Contact = () => {
                     </select>
                   </div>
                 </div>
+                <div className="cf">
+                  <label>Instagram</label>
+                  <input type="text" name="instagram" placeholder="@yourhandle" />
+                </div>
                 <div className="cf inquiry-ready">
                   <label>{t("Seid ihr bereit?", "Are you ready?")}</label>
                   <label className="ready-option">
                     <input type="radio" name="ready" value="FUCK YEAH! 🖤" required />
                     <span>FUCK YEAH! 🖤</span>
                   </label>
-                </div>
-                <div className="cf">
-                  <label>Instagram</label>
-                  <input type="text" name="instagram" placeholder="@yourhandle" />
                 </div>
                 <button type="submit" className="cf-submit" disabled={submitting}>
                   {submitting ? t("Wird gesendet…", "Sending…") : t("Anfrage senden", "Send Inquiry")}
