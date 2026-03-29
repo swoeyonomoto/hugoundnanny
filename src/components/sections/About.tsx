@@ -8,6 +8,11 @@ const About = () => {
       <hr className="rule" />
       <section id="about">
         <div className="wrap about-grid">
+          <RevealOnScroll className="rv2">
+            <div className="about-img">
+              <img src="/photos/about.jpg" alt="Hugo & Nanny" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+            </div>
+          </RevealOnScroll>
           <RevealOnScroll>
             <span className="label">{t("Wer wir sind", "Who we are")}</span>
             <h2 className="about-h">
@@ -29,11 +34,6 @@ const About = () => {
               </>
             )}
             <p className="about-sig">Hugo & Nanny</p>
-          </RevealOnScroll>
-          <RevealOnScroll className="rv2">
-            <div className="about-img">
-              <img src="/photos/about.jpg" alt="Hugo & Nanny" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-            </div>
           </RevealOnScroll>
         </div>
       </section>
