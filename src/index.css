@@ -422,35 +422,48 @@ body {
 .cf-submit:hover { background: #333; }
 .cf-legal { margin-top: 14px; font-size: 11px; color: #aaa; line-height: 1.65; }
 
-/* ─── INQUIRY FORM ─── */
-#inquiry { padding: 108px 0; }
-.inquiry-inner { max-width: 760px; }
+/* ─── INQUIRY FORM STYLES ─── */
 .inquiry-thanks { text-align: center; padding: 80px 0; }
 
-#inquiry .cf select {
+.cf select {
   background: none; border: none; outline: none;
   font-family: 'Lora', serif; font-size: 15px; font-weight: 400;
   color: #111; -webkit-appearance: none; appearance: none;
-  cursor: pointer; padding: 0;
+  cursor: pointer; padding: 2px 0; width: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='7' viewBox='0 0 12 7'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23999' stroke-width='1.2' fill='none'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0 center;
+  padding-right: 20px;
 }
-#inquiry .cf select option { font-family: 'Lora', serif; }
-#inquiry .cf select:invalid { color: #ccc; }
-#inquiry .cf select option[value=""] { color: #ccc; }
-#inquiry .cf select option:not([value=""]) { color: #111; }
+.cf select option { font-family: 'Lora', serif; color: #111; }
+.cf select:invalid { color: #ccc; }
+.cf select option[value=""] { color: #999; }
 
-#inquiry .cf input[type="date"] {
+.cf input[type="date"] {
   font-family: 'Lora', serif; font-size: 15px; color: #111;
   -webkit-appearance: none; appearance: none;
 }
 
 .inquiry-ready { border-bottom: none !important; padding-bottom: 0 !important; }
 .ready-option {
-  display: flex; align-items: center; gap: 10px; cursor: pointer;
+  display: flex; align-items: center; gap: 12px; cursor: pointer;
   font-family: 'Ginora Sans Bold', sans-serif; font-size: 13px;
-  letter-spacing: .08em; color: #111; margin-top: 4px;
+  letter-spacing: .08em; color: #111; margin-top: 6px;
+  user-select: none;
 }
 .ready-option input[type="radio"] {
-  width: 16px; height: 16px; accent-color: #111; cursor: pointer;
+  -webkit-appearance: none; appearance: none;
+  width: 18px; height: 18px; border: 1.5px solid #bbb; border-radius: 50%;
+  cursor: pointer; position: relative; flex-shrink: 0;
+  transition: border-color .2s;
+}
+.ready-option input[type="radio"]:checked {
+  border-color: #111;
+}
+.ready-option input[type="radio"]:checked::after {
+  content: ''; position: absolute;
+  top: 3px; left: 3px; width: 10px; height: 10px;
+  background: #111; border-radius: 50%;
 }
 .ready-option span {
   font-family: 'Ginora Sans Bold', sans-serif; font-size: 13px;
