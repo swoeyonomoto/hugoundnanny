@@ -141,12 +141,6 @@ body {
   transition: background .2s, color .2s;
 }
 .hero-cta:hover { background: rgba(255,255,255,.85); }
-.hero-scroll {
-  position: absolute; bottom: 32px; left: 64px; z-index: 2;
-  color: rgba(255,255,255,.35); font-size: 9px; letter-spacing: .22em; text-transform: uppercase;
-  writing-mode: vertical-rl;
-  animation: fadeUp .9s .7s both;
-}
 
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(18px); }
@@ -208,7 +202,7 @@ body {
   transition: transform .65s ease, filter .35s;
   position: absolute; top: 0; left: 0;
 }
-.film:hover .film-bg { transform: scale(1.04); filter: grayscale(50%); }
+.film:hover .film-bg { transform: scale(1.04); filter: grayscale(0%); }
 .film-shade {
   position: absolute; inset: 0;
   background: linear-gradient(to top, rgba(0,0,0,.72) 0%, transparent 50%);
