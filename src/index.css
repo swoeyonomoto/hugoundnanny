@@ -422,6 +422,41 @@ body {
 .cf-submit:hover { background: #333; }
 .cf-legal { margin-top: 14px; font-size: 11px; color: #aaa; line-height: 1.65; }
 
+/* ─── INQUIRY FORM ─── */
+#inquiry { padding: 108px 0; }
+.inquiry-inner { max-width: 760px; }
+.inquiry-thanks { text-align: center; padding: 80px 0; }
+
+#inquiry .cf select {
+  background: none; border: none; outline: none;
+  font-family: 'Lora', serif; font-size: 15px; font-weight: 400;
+  color: #111; -webkit-appearance: none; appearance: none;
+  cursor: pointer; padding: 0;
+}
+#inquiry .cf select option { font-family: 'Lora', serif; }
+#inquiry .cf select:invalid { color: #ccc; }
+#inquiry .cf select option[value=""] { color: #ccc; }
+#inquiry .cf select option:not([value=""]) { color: #111; }
+
+#inquiry .cf input[type="date"] {
+  font-family: 'Lora', serif; font-size: 15px; color: #111;
+  -webkit-appearance: none; appearance: none;
+}
+
+.inquiry-ready { border-bottom: none !important; padding-bottom: 0 !important; }
+.ready-option {
+  display: flex; align-items: center; gap: 10px; cursor: pointer;
+  font-family: 'Ginora Sans Bold', sans-serif; font-size: 13px;
+  letter-spacing: .08em; color: #111; margin-top: 4px;
+}
+.ready-option input[type="radio"] {
+  width: 16px; height: 16px; accent-color: #111; cursor: pointer;
+}
+.ready-option span {
+  font-family: 'Ginora Sans Bold', sans-serif; font-size: 13px;
+  letter-spacing: .08em;
+}
+
 /* ─── FOOTER ─── */
 footer {
   padding: 26px 64px; border-top: 1px solid #e8e8e6;
