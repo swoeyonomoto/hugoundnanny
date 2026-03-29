@@ -39,7 +39,7 @@ const Hero = () => {
             )}
           </p>
           <a href="https://wa.me/4916097813272?text=Hi%20Hugo%20%26%20Nanny!%20%F0%9F%91%8B%20We%20came%20across%20your%20work%20and%20love%20your%20style.%20Here%E2%80%99s%20a%20little%20about%20us%3A%0A%0ANames%3A%20%5Byour%20names%5D%0AWedding%20date%3A%20%5Bdate%20%26%20location%5D%0AWhat%20we%E2%80%99re%20looking%20for%3A%20%5Bphoto%20%2F%20video%20%2F%20both%5D%0ABudget%20range%3A%20%5Bapprox.%5D%0A%0ALooking%20forward%20to%20hearing%20from%20you!" target="_blank" rel="noopener noreferrer" className="hero-cta">
-            {t("Termin anfragen", "Get in touch")}
+            {t("Schreib uns", "Chat with us")}
           </a>
         </div>
       </div>
