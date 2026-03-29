@@ -169,7 +169,7 @@ body {
 /* ─── ABOUT ─── */
 #about { padding: 108px 0; }
 .about-grid {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 88px; align-items: start;
+  display: grid; grid-template-columns: 1fr; gap: 48px; align-items: start;
 }
 .about-h {
   font-family: 'Libre Caslon Display', serif;
@@ -182,7 +182,7 @@ body {
   font-size: 21px; font-style: italic; margin-top: 28px; color: #111;
 }
 .about-img {
-  aspect-ratio: 3/4; overflow: hidden; background: #d4d2cf;
+  aspect-ratio: 16/9; overflow: hidden; background: #d4d2cf;
   display: flex; align-items: center; justify-content: center;
   color: #aaa; font-size: 10px; letter-spacing: .15em; text-transform: uppercase;
 }
