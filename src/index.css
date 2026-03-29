@@ -441,7 +441,7 @@ footer {
   .wrap { padding: 0 28px; }
   .rule { margin: 0 28px; }
   #hero .hero-content { padding: 0 28px 52px; }
-  .hero-scroll { left: 28px; }
+  
   .about-grid, .work-top, .testi-top, .pricing-top, .contact-grid { grid-template-columns: 1fr; gap: 40px; }
   .about-img { order: -1; aspect-ratio: 16/9; }
   .films { grid-template-columns: 1fr 1fr; }
