@@ -39,8 +39,8 @@ const Contact = () => {
             <div className="inquiry-thanks">
               <h2 className="contact-h">
                 {t(
-                  <>Wir melden uns bald. <span style={{ fontStyle: "normal" }}>🖤</span></>,
-                  <>We'll be in touch soon. <span style={{ fontStyle: "normal" }}>🖤</span></>
+                  "Wir haben eure Nachricht. Gebt uns 24 Stunden. Wir melden uns bald.",
+                  "We got you. Give us 24 hours. We'll be in touch soon."
                 )}
               </h2>
             </div>
@@ -135,6 +135,10 @@ const Contact = () => {
                     <input type="radio" name="ready" value="FUCK YEAH! 🖤" required />
                     <span>FUCK YEAH! 🖤</span>
                   </label>
+                </div>
+                <div className="cf">
+                  <label>Instagram</label>
+                  <input type="text" name="instagram" placeholder="@yourhandle" />
                 </div>
                 <button type="submit" className="cf-submit" disabled={submitting}>
                   {submitting ? t("Wird gesendet…", "Sending…") : t("Anfrage senden", "Send Inquiry")}
