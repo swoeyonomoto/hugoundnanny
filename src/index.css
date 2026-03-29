@@ -380,7 +380,7 @@ body {
 .faq-item.open .faq-body { max-height: 280px; }
 
 /* ─── CONTACT ─── */
-#contact { padding: 108px 0; background: #f7f7f5; }
+#contact { padding: 108px 0; background: #fff; }
 .contact-grid {
   display: grid; grid-template-columns: 1fr 1fr; gap: 96px; align-items: start;
 }
