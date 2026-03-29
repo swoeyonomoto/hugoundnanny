@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useLang } from "@/contexts/LanguageContext";
 import RevealOnScroll from "@/components/RevealOnScroll";
 
@@ -19,7 +19,71 @@ const photos = [
 
 const Work = () => {
   const { t } = useLang();
-  const [playing, setPlaying] = useState<number | null>(null);
+  const [activeFilm, setActiveFilm] = useState<number | null>(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const overlayRef = useRef<HTMLDivElement>(null);
+  const wistiaRef = useRef<any>(null);
+
+  // Lock body scroll when overlay is open
+  useEffect(() => {
+    if (activeFilm !== null) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => { document.body.style.overflow = ""; };
+  }, [activeFilm]);
+
+  // Listen for Wistia player events
+  useEffect(() => {
+    if (activeFilm === null) return;
+
+    const interval = setInterval(() => {
+      const el = overlayRef.current?.querySelector("wistia-player") as any;
+      if (el && el._wistiaApi) {
+        wistiaRef.current = el._wistiaApi;
+        setIsPlaying(true);
+        clearInterval(interval);
+
+        el._wistiaApi.bind("play", () => setIsPlaying(true));
+        el._wistiaApi.bind("pause", () => setIsPlaying(false));
+        el._wistiaApi.bind("end", () => {
+          setIsPlaying(false);
+          setActiveFilm(null);
+        });
+      }
+    }, 200);
+
+    return () => clearInterval(interval);
+  }, [activeFilm]);
+
+  const handleClose = () => {
+    if (wistiaRef.current) {
+      wistiaRef.current.pause();
+    }
+    wistiaRef.current = null;
+    setActiveFilm(null);
+    setIsPlaying(false);
+  };
+
+  const togglePlay = () => {
+    if (!wistiaRef.current) return;
+    if (isPlaying) {
+      wistiaRef.current.pause();
+    } else {
+      wistiaRef.current.play();
+    }
+  };
+
+  const toggleFullscreen = () => {
+    const el = overlayRef.current;
+    if (!el) return;
+    if (document.fullscreenElement) {
+      document.exitFullscreen();
+    } else {
+      el.requestFullscreen();
+    }
+  };
 
   return (
     <>
@@ -49,31 +113,14 @@ const Work = () => {
           <RevealOnScroll>
             <div className="films">
               {films.map((f, i) => (
-                <div className="film" key={i} onClick={() => setPlaying(i)}>
-                  {playing === i ? (
-                    <wistia-player
-                      media-id={f.mediaId}
-                      aspect="1.7777777777777777"
-                      autoplay
-                      style={{
-                        width: "100%",
-                        height: "100%",
-                        position: "absolute",
-                        top: 0,
-                        left: 0,
-                      }}
-                    />
-                  ) : (
-                    <>
-                      <img
-                        className="film-bg"
-                        src={`https://fast.wistia.com/embed/medias/${f.mediaId}/swatch`}
-                        alt={f.name}
-                      />
-                      <div className="film-shade" />
-                      <div className="film-play">▶</div>
-                    </>
-                  )}
+                <div className="film" key={i} onClick={() => { setActiveFilm(i); setIsPlaying(true); }}>
+                  <img
+                    className="film-bg"
+                    src={`https://fast.wistia.com/embed/medias/${f.mediaId}/swatch`}
+                    alt={f.name}
+                  />
+                  <div className="film-shade" />
+                  <div className="film-play">▶</div>
                   <div className="film-info">
                     <div className="film-name">{f.name}</div>
                     <div className="film-loc">{t(f.loc, f.locEn)}</div>
@@ -98,6 +145,36 @@ const Work = () => {
           </a>
         </div>
       </section>
+
+      {/* Minimal fullscreen video overlay */}
+      {activeFilm !== null && (
+        <div className="video-overlay" ref={overlayRef}>
+          <div className="video-overlay-bg" onClick={handleClose} />
+          <div className="video-overlay-player">
+            <wistia-player
+              media-id={films[activeFilm].mediaId}
+              aspect="1.7777777777777777"
+              autoplay
+              style={{ width: "100%", height: "100%" }}
+            />
+          </div>
+          <div className="video-overlay-controls">
+            <button className="vo-btn" onClick={togglePlay} aria-label={isPlaying ? "Pause" : "Play"}>
+              {isPlaying ? (
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+              ) : (
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>
+              )}
+            </button>
+            <button className="vo-btn" onClick={toggleFullscreen} aria-label="Fullscreen">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+            </button>
+            <button className="vo-btn" onClick={handleClose} aria-label="Close">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+          </div>
+        </div>
+      )}
     </>
   );
 };
