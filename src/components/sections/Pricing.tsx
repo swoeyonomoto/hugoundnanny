@@ -104,7 +104,18 @@ const Pricing = () => {
                       <li key={j}>{item}</li>
                     ))}
                   </ul>
-                  <a href={CONTACT_URL} target="_blank" rel="noopener noreferrer" className="card-btn">
+                  <a
+                    href="#contact"
+                    className="card-btn"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      const prefill: Record<string, string> = { lookingFor: "Photo & Video" };
+                      if (i === 0) prefill.budget = "€3.000 – €5.000";
+                      if (i === 1) prefill.budget = "€5.000 – €10.000";
+                      window.dispatchEvent(new CustomEvent("prefill-contact", { detail: prefill }));
+                      document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
+                    }}
+                  >
                     {t("Anfragen", "Enquire")}
                   </a>
                 </div>
