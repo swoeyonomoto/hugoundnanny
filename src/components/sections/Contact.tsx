@@ -112,7 +112,7 @@ const Contact = () => {
                 <div className="cf-row">
                   <div className="cf">
                     <label>{t("Hochzeitsdatum", "Wedding Date")}</label>
-                    <input type="date" name="wedding_date" required />
+                    <input type="text" name="wedding_date" placeholder={t("TT.MM.JJJJ", "DD.MM.YYYY")} onFocus={(e) => { e.currentTarget.type = 'date'; }} onBlur={(e) => { if (!e.currentTarget.value) e.currentTarget.type = 'text'; }} required />
                   </div>
                   <div className="cf">
                     <label>{t("Location", "Venue / Location")}</label>
