@@ -387,8 +387,14 @@ body {
 .faq-ic::after { width: 13px; height: 1px; top: 10.5px; left: 4.5px; }
 .faq-item.open .faq-ic::before { opacity: 0; }
 .faq-body { overflow: hidden; max-height: 0; transition: max-height .4s ease; }
-.faq-body p { font-size: 14px; line-height: 1.9; color: #555; padding-bottom: 24px; max-width: 600px; }
-.faq-item.open .faq-body { max-height: 280px; }
+.faq-body p { font-size: 14px; line-height: 1.9; color: #555; padding-bottom: 12px; max-width: 600px; }
+.faq-item.open .faq-body { max-height: 400px; }
+.faq-wa-btn {
+  display: inline-block; font-size: 10px; letter-spacing: .14em; text-transform: uppercase;
+  color: #111; text-decoration: none; border-bottom: 1px solid #111;
+  padding-bottom: 2px; margin-bottom: 24px; transition: opacity .2s;
+}
+.faq-wa-btn:hover { opacity: .6; }
 
 /* ─── CONTACT ─── */
 #contact { padding: 108px 0; background: #fff; }
@@ -479,6 +485,56 @@ body {
 .ready-option span {
   font-family: 'Ginora Sans Bold', sans-serif; font-size: 13px;
   letter-spacing: .08em;
+}
+
+/* ─── ABOUT CTA LINK ─── */
+.about-cta-link {
+  display: inline-block; margin-top: 24px;
+  font-size: 10px; letter-spacing: .16em; text-transform: uppercase;
+  color: #111; text-decoration: none; border-bottom: 1px solid #111;
+  padding-bottom: 2px; transition: opacity .2s;
+}
+.about-cta-link:hover { opacity: .6; }
+
+/* ─── ABOUT US PAGE ─── */
+.aboutus-hero { padding: 140px 0 80px; }
+.aboutus-back {
+  display: inline-block; margin-bottom: 48px;
+  font-size: 10px; letter-spacing: .14em; text-transform: uppercase;
+  color: #999; text-decoration: none; transition: color .2s;
+}
+.aboutus-back:hover { color: #111; }
+.aboutus-title {
+  font-family: 'Libre Caslon Display', serif;
+  font-size: clamp(34px, 4vw, 56px); font-weight: 400; line-height: 1.12; margin-bottom: 28px;
+}
+.aboutus-title em { font-style: italic; }
+.aboutus-intro { font-size: 16px; line-height: 1.9; color: #444; max-width: 600px; }
+
+.aboutus-person { padding: 80px 0; }
+.aboutus-person-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center;
+}
+.aboutus-person-grid.reverse .aboutus-photo { order: 2; }
+.aboutus-photo {
+  aspect-ratio: 3/4; overflow: hidden; background: #d4d2cf;
+}
+.aboutus-name {
+  font-family: 'Libre Caslon Display', serif;
+  font-size: clamp(28px, 3vw, 42px); font-weight: 400; line-height: 1.15; margin-bottom: 24px;
+}
+.aboutus-bio { font-size: 15px; line-height: 1.95; color: #444; margin-bottom: 16px; }
+
+.aboutus-cta-section { padding: 80px 0; }
+.aboutus-cta-h {
+  font-family: 'Libre Caslon Display', serif;
+  font-size: clamp(26px, 3vw, 40px); font-weight: 400; line-height: 1.15; margin-bottom: 32px;
+}
+.aboutus-cta-h em { font-style: italic; }
+
+@media (max-width: 960px) {
+  .aboutus-person-grid { grid-template-columns: 1fr; gap: 40px; }
+  .aboutus-person-grid.reverse .aboutus-photo { order: -1; }
 }
 
 /* ─── FOOTER ─── */

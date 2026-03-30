@@ -34,6 +34,9 @@ const About = () => {
               </>
             )}
             <p className="about-sig">Hugo & Nanny</p>
+            <a href="/about-us" className="about-cta-link">
+              {t("Lern uns kennen →", "Get to know us →")}
+            </a>
           </RevealOnScroll>
         </div>
       </section>
