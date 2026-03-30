@@ -83,7 +83,7 @@ const AboutUsContent = () => {
       <section className="aboutus-magazine">
         <div className="wrap">
           {team.map((member, i) => (
-            <div key={member.name} className={`mag-card mag-${member.layout}`}>
+            <div key={member.name} className="mag-card">
               <RevealOnScroll className="mag-card-photo-wrap">
                 <div className="mag-card-photo">
                   <img src={member.photo} alt={member.name} />
