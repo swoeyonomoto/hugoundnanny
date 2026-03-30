@@ -4,7 +4,7 @@ const Footer = () => {
   const { t } = useLang();
   return (
     <footer>
-      <span className="f-logo">hugo + nanny</span>
+      <a href="/"><img src="/photos/logo.png" alt="hugo + nanny" className="f-logo-img" /></a>
       <div className="f-links">
         <a href="#">{t("Impressum", "Imprint")}</a>
         <a href="#">{t("Datenschutz", "Privacy")}</a>

@@ -51,6 +51,7 @@ const AboutUsContent = () => {
 
   return (
     <>
+      <LogoHeader />
       <LangBar />
 
       {/* Sticky back button */}
