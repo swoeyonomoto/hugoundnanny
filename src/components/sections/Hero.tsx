@@ -29,17 +29,17 @@ const Hero = () => {
       <div className="hero-video">
         <wistia-player
           media-id="n9jj0nzep3"
-          aspect="1.7777777777777777"
           autoplay
           muted
           loop
           playsinline
           style={{
             position: "absolute",
-            top: 0,
-            left: 0,
-            width: "100%",
-            height: "100%",
+            top: "50%",
+            left: "50%",
+            width: "max(100%, 177.78vh)",
+            height: "max(100%, 56.25vw)",
+            transform: "translate(-50%, -50%)",
             objectFit: "cover",
             pointerEvents: "none",
           }}

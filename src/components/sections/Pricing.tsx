@@ -11,9 +11,7 @@ const Pricing = () => {
       tag: t("Fotografie", "Photography"),
       name: t(<>Ein Tag.<br /><em>Eure Geschichte.</em></>, <>One day.<br /><em>Your story.</em></>),
       from: t("Ab", "From"),
-      oldPrice: "€ 3.900",
       price: "€ 3.500",
-      special: true,
       items: [
         t("1 Tag Begleitung — Hochzeitstag (10h)", "1 day of coverage — Wedding day (10h)"),
         t("1 Kameramann (Foto oder Video)", "1 cinematographer (photo or video)"),
@@ -26,9 +24,8 @@ const Pricing = () => {
       tag: t("Beliebtestes Paket", "Most popular"),
       name: t(<>Foto + Film.<br /><em>Vollständig.</em></>, <>Photo + Film.<br /><em>Complete.</em></>),
       from: t("Ab", "From"),
-      oldPrice: "€ 6.500",
       price: "€ 5.800",
-      special: true,
+      emotionalLine: true,
       items: [
         t("2 Tage Begleitung — Welcome (3h) Hochzeitstag (12h)", "2 days of coverage — Welcome (3h) Wedding day (12h)"),
         t("2 Kameraleute (Foto oder Video)", "2 cinematographers (photo or video)"),
@@ -92,12 +89,12 @@ const Pricing = () => {
                   <h3 className="card-name">{pkg.name}</h3>
                   <hr className="card-hr" />
                   <span className="card-from">{pkg.from}</span>
-                  {pkg.oldPrice && (
-                    <div className="card-old-price">{pkg.oldPrice}</div>
-                  )}
                   <div className={`card-price ${pkg.priceClass || ""}`}>{pkg.price}</div>
-                  {pkg.special && (
-                    <span className="card-special">{t("Sonderangebot", "Special offer")}</span>
+                  {pkg.price !== t("Auf Anfrage", "On request") && (
+                    <span className="card-deadline">{t("Frühbucherpreis — verfügbar für Hochzeiten bis 30. April 2025", "Early booking rate — available for weddings booked until 30 April 2025")}</span>
+                  )}
+                  {pkg.emotionalLine && (
+                    <p className="card-emotional">{t("Zwei von uns. Zwei Kameras. Jeder Winkel des Tages — nichts geht verloren.", "Two of us. Two cameras. Every angle of the day — nothing gets missed.")}</p>
                   )}
                   <ul className="card-list">
                     {pkg.items.map((item, j) => (
