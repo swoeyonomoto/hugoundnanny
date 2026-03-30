@@ -515,55 +515,60 @@ body {
 .aboutus-title em { font-style: italic; }
 .aboutus-intro { font-size: 16px; line-height: 1.9; color: #444; max-width: 600px; }
 
-/* ─── MAGAZINE GRID ─── */
+/* ─── MAGAZINE LAYOUT — editorial, breathing ─── */
 .aboutus-magazine { padding: 40px 0 80px; }
 .aboutus-magazine .wrap {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0;
+  display: flex; flex-direction: column; gap: 120px;
+  max-width: 1200px;
 }
 
 .mag-card {
-  display: grid; gap: 0; overflow: hidden;
-  border-bottom: 1px solid #e5e3de;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 64px;
+  align-items: center;
 }
-.mag-card:nth-child(odd) { border-right: 1px solid #e5e3de; }
-.mag-card:nth-child(-n+2) { border-top: 1px solid #e5e3de; }
 
+/* Staggered offsets for visual rhythm */
+.mag-card:nth-child(1) { padding-left: 0; }
+.mag-card:nth-child(2) { direction: rtl; padding-right: 0; }
+.mag-card:nth-child(2) > * { direction: ltr; }
+.mag-card:nth-child(3) { padding-left: 8%; }
+.mag-card:nth-child(4) { direction: rtl; padding-right: 4%; }
+.mag-card:nth-child(4) > * { direction: ltr; }
+
+/* Varying photo proportions */
 .mag-card-photo-wrap { overflow: hidden; }
 .mag-card-photo {
-  aspect-ratio: 4/5; overflow: hidden; background: #d4d2cf;
+  overflow: hidden; background: #d4d2cf;
 }
+.mag-card:nth-child(1) .mag-card-photo { aspect-ratio: 3/4; }
+.mag-card:nth-child(2) .mag-card-photo { aspect-ratio: 4/5; }
+.mag-card:nth-child(3) .mag-card-photo { aspect-ratio: 2/3; }
+.mag-card:nth-child(4) .mag-card-photo { aspect-ratio: 4/5; }
+
+/* Varying photo widths for asymmetry */
+.mag-card:nth-child(1) { grid-template-columns: 1.1fr 1fr; }
+.mag-card:nth-child(2) { grid-template-columns: 1fr 1.2fr; }
+.mag-card:nth-child(3) { grid-template-columns: 0.9fr 1fr; }
+.mag-card:nth-child(4) { grid-template-columns: 1fr 1.1fr; }
+
 .mag-card-photo img {
   width: 100%; height: 100%; object-fit: cover;
-  transition: transform .6s cubic-bezier(.25,.1,.25,1);
+  transition: transform .7s cubic-bezier(.25,.1,.25,1);
 }
-.mag-card:hover .mag-card-photo img { transform: scale(1.04); }
+.mag-card:hover .mag-card-photo img { transform: scale(1.03); }
 
-.mag-card-text { padding: 36px 40px 48px; }
+.mag-card-text { padding: 0; }
 
 .mag-card-name {
   font-family: 'Libre Caslon Display', serif;
-  font-size: clamp(26px, 2.5vw, 38px); font-weight: 400;
-  line-height: 1.15; margin-bottom: 18px;
+  font-size: clamp(28px, 3vw, 44px); font-weight: 400;
+  line-height: 1.15; margin-bottom: 20px;
 }
 .mag-card-bio {
-  font-size: 15px; line-height: 1.95; color: #444;
+  font-size: 15px; line-height: 2; color: #444; max-width: 480px;
 }
 
-/* Alternating layouts for visual rhythm */
-.mag-card:nth-child(1) .mag-card-photo { aspect-ratio: 4/5; }
-.mag-card:nth-child(2) .mag-card-photo { aspect-ratio: 3/4; }
-.mag-card:nth-child(3) .mag-card-photo { aspect-ratio: 3/4; }
-.mag-card:nth-child(4) .mag-card-photo { aspect-ratio: 4/5; }
-
-/* Reverse order for 2nd and 3rd cards (text first, photo second) */
-.mag-card:nth-child(2) { direction: rtl; }
-.mag-card:nth-child(2) > * { direction: ltr; }
-.mag-card:nth-child(3) { direction: rtl; }
-.mag-card:nth-child(3) > * { direction: ltr; }
-
-.aboutus-cta-section { padding: 80px 0; }
+.aboutus-cta-section { padding: 100px 0; }
 .aboutus-cta-h {
   font-family: 'Libre Caslon Display', serif;
   font-size: clamp(26px, 3vw, 40px); font-weight: 400; line-height: 1.15; margin-bottom: 32px;
@@ -572,11 +577,15 @@ body {
 
 @media (max-width: 768px) {
   .aboutus-back-sticky { top: 16px; left: 16px; padding: 8px 14px; }
-  .aboutus-magazine .wrap { grid-template-columns: 1fr; }
-  .mag-card { border-right: none !important; }
+  .aboutus-magazine .wrap { gap: 80px; }
+  .mag-card {
+    grid-template-columns: 1fr !important;
+    padding-left: 0 !important; padding-right: 0 !important;
+    gap: 32px;
+  }
   .mag-card:nth-child(2),
-  .mag-card:nth-child(3) { direction: ltr; }
-  .mag-card-text { padding: 28px 20px 40px; }
+  .mag-card:nth-child(4) { direction: ltr; }
+  .mag-card-bio { max-width: 100%; }
 }
 
 /* ─── FOOTER ─── */
