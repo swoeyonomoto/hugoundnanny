@@ -565,9 +565,16 @@ body {
 
 /* ─── LOGO HEADER ─── */
 .logo-header {
-  position: absolute; top: 24px; left: 64px; z-index: 20;
+  position: absolute; top: 0; left: 0; right: 0; z-index: 20;
+  display: flex; align-items: center; justify-content: center;
+  gap: 40px; padding: 28px 64px;
 }
-.logo-header-img { height: 18px; width: auto; display: block; }
+.logo-header-img { height: 22px; width: auto; display: block; }
+.logo-header-link {
+  font-size: 9px; letter-spacing: .16em; text-transform: uppercase;
+  color: rgba(255,255,255,.85); text-decoration: none; transition: color .2s;
+}
+.logo-header-link:hover { color: #fff; }
 
 /* ─── FOOTER ─── */
 footer {
