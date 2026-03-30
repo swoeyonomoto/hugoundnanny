@@ -102,7 +102,7 @@ const AboutUsContent = () => {
       <hr className="rule" />
 
       <section className="aboutus-cta-section">
-        <div className="wrap" style={{ textAlign: 'center' }}>
+        <div className="wrap" style={{ textAlign: 'left' }}>
           <RevealOnScroll>
             <h2 className="aboutus-cta-h">
               {t(
