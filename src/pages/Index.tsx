@@ -13,7 +13,7 @@ import Footer from "@/components/sections/Footer";
 
 const Index = () => (
   <LanguageProvider>
-    <LogoHeader />
+    <LogoHeader variant="auto" />
     <LangBar />
     <StickyCta />
     <Hero />
