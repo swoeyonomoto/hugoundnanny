@@ -1,5 +1,4 @@
 import { useLang } from "@/contexts/LanguageContext";
-import { Link } from "react-router-dom";
 
 interface LogoHeaderProps {
   variant?: "white" | "black";
