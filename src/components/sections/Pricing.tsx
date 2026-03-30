@@ -89,12 +89,9 @@ const Pricing = () => {
                   <h3 className="card-name">{pkg.name}</h3>
                   <hr className="card-hr" />
                   <span className="card-from">{pkg.from}</span>
-                  {pkg.oldPrice && (
-                    <div className="card-old-price">{pkg.oldPrice}</div>
-                  )}
                   <div className={`card-price ${pkg.priceClass || ""}`}>{pkg.price}</div>
-                  {pkg.special && (
-                    <span className="card-special">{t("Sonderangebot", "Special offer")}</span>
+                  {pkg.price !== t("Auf Anfrage", "On request") && (
+                    <span className="card-deadline">{t("Frühbucherpreis — verfügbar für Hochzeiten bis 30. April 2025", "Early booking rate — available for weddings booked until 30 April 2025")}</span>
                   )}
                   <ul className="card-list">
                     {pkg.items.map((item, j) => (
