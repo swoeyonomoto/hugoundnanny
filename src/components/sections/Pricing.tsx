@@ -96,8 +96,8 @@ const Pricing = () => {
                   {pkg.price !== t("Auf Anfrage", "On request") && (
                     <span className="card-deadline">{t("Frühbucherpreis — verfügbar für Hochzeiten bis 30. April 2025", "Early booking rate — available for weddings booked until 30 April 2025")}</span>
                   )}
-                  {pkg.emotionalLine && (
-                    <p className="card-emotional">{t("Zwei von uns. Zwei Kameras. Jeder Winkel des Tages — nichts geht verloren.", "Two of us. Two cameras. Every angle of the day — nothing gets missed.")}</p>
+                  {pkg.emotionalLine && pkg.emotionalText && (
+                    <p className="card-emotional">{pkg.emotionalText}</p>
                   )}
                   <ul className="card-list">
                     {pkg.items.map((item, j) => (
