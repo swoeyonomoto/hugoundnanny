@@ -1,5 +1,6 @@
 import { LanguageProvider } from "@/contexts/LanguageContext";
 import LangBar from "@/components/LangBar";
+import LogoHeader from "@/components/LogoHeader";
 import StickyCta from "@/components/StickyCta";
 import Hero from "@/components/sections/Hero";
 import About from "@/components/sections/About";
