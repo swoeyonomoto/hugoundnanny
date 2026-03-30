@@ -6,6 +6,49 @@ import { Link } from "react-router-dom";
 
 const WHATSAPP_URL = "https://wa.me/4916097813272?text=Hi%20Hugo%20%26%20Nanny!%20%F0%9F%96%A4%0A%0AWe%20came%20across%20your%20work%20and%20love%20your%20style.%20Here%27s%20a%20little%20about%20us%3A%0A%0ANames%3A%20%5Byour%20names%5D%0AWedding%20date%20%26%20location%3A%20%5Bdate%20%26%20location%5D%0ALooking%20for%3A%20%5Bphoto%20%2F%20video%20%2F%20both%5D%0ABudget%3A%20%5Bapprox.%5D%0A%0ALooking%20forward%20to%20hearing%20from%20you!";
 
+const team = [
+  {
+    name: "Joey",
+    role: { de: "Gründer · Videograf · Fotograf", en: "Founder · Videographer · Photographer" },
+    bio: {
+      de: "Joey, Gründer von Hugo & Nanny, liebt Hochzeiten seit 7 Jahren wie am ersten Tag. Tagsüber Videograf, nachts Maler — und unser Ass im Ärmel, wenn es um Fotografie geht. Ein moderner Ninja mit Charme. Falls ihr ihn nicht findet: schaut bei den Süßigkeiten.",
+      en: "Joey, founder of Hugo & Nanny, has loved weddings for 7 years like it was day one. Videographer by day, painter by night—and our ace up the sleeve when it comes to photography. A modern-world ninja with charm. If you can't find him: check by the sweets.",
+    },
+    photo: "/photos/about.jpg",
+    layout: "wide-left" as const,
+  },
+  {
+    name: "Seli",
+    role: { de: "Künstlerin · Fotografin", en: "Artist · Photographer" },
+    bio: {
+      de: "Seli, Künstlerin und selbsternannte Ästhetin — zu Recht. Ihr Gespür dafür, Momente in Kunst zu verwandeln, ist unübertroffen. Heimlich unser Web-Nerd: Schaut man eine Sekunde weg, ist die Website schon neu gestaltet.",
+      en: "Seli, artist and self-proclaimed aesthete—rightfully so. Her instinct for transforming moments into art is unmatched. Secretly our web nerd: look away for a second, and the website is already redesigned.",
+    },
+    photo: "/photos/about.jpg",
+    layout: "tall-right" as const,
+  },
+  {
+    name: "Tilmann",
+    role: { de: "Hochzeitsfilmer", en: "Wedding Filmmaker" },
+    bio: {
+      de: "Tilmann, unser Hochzeitsfilm-Maestro mit einer Schwäche für Keyframes, Schnitte und die Kelly Family — mit der er regelmäßig auf Tour geht. Stellt ihn in die richtige Ecke und er verzaubert die Gäste mit seinen stoischen Gedanken.",
+      en: "Tilmann, our wedding film maestro with a soft spot for keyframes, cuts and the Kelly Family—with whom he regularly goes on tour. Put him in the right corner, and he'll enchant the guests with his stoic thoughts.",
+    },
+    photo: "/photos/about.jpg",
+    layout: "wide-right" as const,
+  },
+  {
+    name: "Chiara",
+    role: { de: "Fotografin · Künstlerin", en: "Photographer · Artist" },
+    bio: {
+      de: "Chiara, unsere künstlerischste Seele. Sie fotografiert Hochzeiten, aber immer mit einem besonderen Twist. Wenn sie nicht hinter der Linse steht, erschafft sie Kunstobjekte und studiert Kunst an einer der renommiertesten Akademien Deutschlands.",
+      en: "Chiara, our most artistic soul. She shoots wedding photos but always with a twist. When she's not behind the lenses, she's crafting art objects and studies arts at one of the most renowned academies in Germany.",
+    },
+    photo: "/photos/about.jpg",
+    layout: "tall-left" as const,
+  },
+];
+
 const AboutUsContent = () => {
   const { t } = useLang();
 
@@ -13,17 +56,19 @@ const AboutUsContent = () => {
     <>
       <LangBar />
 
+      {/* Sticky back button */}
+      <Link to="/" className="aboutus-back-sticky">
+        ← {t("Zurück", "Back")}
+      </Link>
+
       <section className="aboutus-hero">
         <div className="wrap">
-          <Link to="/" className="aboutus-back">
-            ← {t("Zurück", "Back")}
-          </Link>
           <RevealOnScroll>
             <span className="label">{t("Über uns", "About us")}</span>
             <h1 className="aboutus-title">
               {t(
-                <>Zwei Menschen.<br /><em>Eine Leidenschaft.</em></>,
-                <>Two people.<br /><em>One passion.</em></>
+                <>Mehr als ein Team.<br /><em>Eine Familie.</em></>,
+                <>More than a team.<br /><em>A family.</em></>
               )}
             </h1>
             <p className="aboutus-intro">
@@ -38,57 +83,23 @@ const AboutUsContent = () => {
 
       <hr className="rule" />
 
-      <section className="aboutus-person">
-        <div className="wrap aboutus-person-grid">
-          <RevealOnScroll className="rv2">
-            <div className="aboutus-photo">
-              <img src="/photos/about.jpg" alt="Hugo" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+      {/* Magazine-style team grid */}
+      <section className="aboutus-magazine">
+        <div className="wrap">
+          {team.map((member, i) => (
+            <div key={member.name} className={`mag-card mag-${member.layout}`}>
+              <RevealOnScroll className="mag-card-photo-wrap">
+                <div className="mag-card-photo">
+                  <img src={member.photo} alt={member.name} />
+                </div>
+              </RevealOnScroll>
+              <RevealOnScroll className="mag-card-text">
+                <span className="label">{t(member.role.de, member.role.en)}</span>
+                <h2 className="mag-card-name">{member.name}</h2>
+                <p className="mag-card-bio">{t(member.bio.de, member.bio.en)}</p>
+              </RevealOnScroll>
             </div>
-          </RevealOnScroll>
-          <RevealOnScroll>
-            <span className="label">{t("Videograf", "Videographer")}</span>
-            <h2 className="aboutus-name">Hugo</h2>
-            <p className="aboutus-bio">
-              {t(
-                "Hugo ist Filmemacher aus Leidenschaft. Schon als Kind hat er Geschichten durch die Linse erzählt — heute macht er daraus Kunst. Sein Stil ist ruhig, filmisch und emotional. Er fängt die Momente ein, die man sonst vergessen würde: ein Blick, ein Lachen, eine stille Träne. Für Hugo geht es nicht um perfekte Bilder, sondern um echte Gefühle.",
-                "Hugo is a filmmaker by passion. Even as a child, he told stories through the lens — today he turns them into art. His style is calm, cinematic, and emotional. He captures the moments you'd otherwise forget: a glance, a laugh, a quiet tear. For Hugo, it's not about perfect images — it's about real feelings."
-              )}
-            </p>
-            <p className="aboutus-bio">
-              {t(
-                "Wenn er nicht gerade dreht, findet man ihn beim Surfen, in der Natur oder bei einem guten Espresso — meistens alles gleichzeitig.",
-                "When he's not filming, you'll find him surfing, in nature, or with a good espresso — usually all at once."
-              )}
-            </p>
-          </RevealOnScroll>
-        </div>
-      </section>
-
-      <hr className="rule" />
-
-      <section className="aboutus-person">
-        <div className="wrap aboutus-person-grid reverse">
-          <RevealOnScroll className="rv2">
-            <div className="aboutus-photo">
-              <img src="/photos/about.jpg" alt="Nanny" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-            </div>
-          </RevealOnScroll>
-          <RevealOnScroll>
-            <span className="label">{t("Fotografin", "Photographer")}</span>
-            <h2 className="aboutus-name">Nanny</h2>
-            <p className="aboutus-bio">
-              {t(
-                "Nanny sieht die Welt in Farben, Licht und Gefühlen. Ihre Fotografie ist intuitiv — sie spürt den richtigen Moment und drückt genau dann ab. Ihre Bilder sind warm, ehrlich und voller Leben. Sie glaubt daran, dass jede Hochzeit ihre eigene Sprache hat — und sie hört genau zu.",
-                "Nanny sees the world in colors, light, and feelings. Her photography is intuitive — she senses the right moment and clicks at exactly the right time. Her images are warm, honest, and full of life. She believes every wedding has its own language — and she listens carefully."
-              )}
-            </p>
-            <p className="aboutus-bio">
-              {t(
-                "Abseits der Kamera liebt sie gutes Essen, lange Spaziergänge und das Meer. Und ja — sie weint auf fast jeder Hochzeit. Aber pssst.",
-                "Away from the camera, she loves good food, long walks, and the sea. And yes — she cries at almost every wedding. But shhh."
-              )}
-            </p>
-          </RevealOnScroll>
+          ))}
         </div>
       </section>
 

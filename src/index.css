@@ -497,13 +497,17 @@ body {
 .about-cta-link:hover { opacity: .6; }
 
 /* ─── ABOUT US PAGE ─── */
-.aboutus-hero { padding: 140px 0 80px; }
-.aboutus-back {
-  display: inline-block; margin-bottom: 48px;
+.aboutus-back-sticky {
+  position: fixed; top: 24px; left: 24px; z-index: 100;
+  display: inline-flex; align-items: center; padding: 10px 18px;
   font-size: 10px; letter-spacing: .14em; text-transform: uppercase;
-  color: #999; text-decoration: none; transition: color .2s;
+  color: #111; text-decoration: none; background: rgba(255,255,255,.85);
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(0,0,0,.08); transition: all .25s;
 }
-.aboutus-back:hover { color: #111; }
+.aboutus-back-sticky:hover { background: #111; color: #fff; }
+
+.aboutus-hero { padding: 140px 0 80px; }
 .aboutus-title {
   font-family: 'Libre Caslon Display', serif;
   font-size: clamp(34px, 4vw, 56px); font-weight: 400; line-height: 1.12; margin-bottom: 28px;
@@ -511,19 +515,53 @@ body {
 .aboutus-title em { font-style: italic; }
 .aboutus-intro { font-size: 16px; line-height: 1.9; color: #444; max-width: 600px; }
 
-.aboutus-person { padding: 80px 0; }
-.aboutus-person-grid {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center;
+/* ─── MAGAZINE GRID ─── */
+.aboutus-magazine { padding: 40px 0 80px; }
+.aboutus-magazine .wrap {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
 }
-.aboutus-person-grid.reverse .aboutus-photo { order: 2; }
-.aboutus-photo {
-  aspect-ratio: 3/4; overflow: hidden; background: #d4d2cf;
+
+.mag-card {
+  display: grid; gap: 0; overflow: hidden;
+  border-bottom: 1px solid #e5e3de;
 }
-.aboutus-name {
+.mag-card:nth-child(odd) { border-right: 1px solid #e5e3de; }
+.mag-card:nth-child(-n+2) { border-top: 1px solid #e5e3de; }
+
+.mag-card-photo-wrap { overflow: hidden; }
+.mag-card-photo {
+  aspect-ratio: 4/5; overflow: hidden; background: #d4d2cf;
+}
+.mag-card-photo img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform .6s cubic-bezier(.25,.1,.25,1);
+}
+.mag-card:hover .mag-card-photo img { transform: scale(1.04); }
+
+.mag-card-text { padding: 36px 40px 48px; }
+
+.mag-card-name {
   font-family: 'Libre Caslon Display', serif;
-  font-size: clamp(28px, 3vw, 42px); font-weight: 400; line-height: 1.15; margin-bottom: 24px;
+  font-size: clamp(26px, 2.5vw, 38px); font-weight: 400;
+  line-height: 1.15; margin-bottom: 18px;
 }
-.aboutus-bio { font-size: 15px; line-height: 1.95; color: #444; margin-bottom: 16px; }
+.mag-card-bio {
+  font-size: 15px; line-height: 1.95; color: #444;
+}
+
+/* Alternating layouts for visual rhythm */
+.mag-card:nth-child(1) .mag-card-photo { aspect-ratio: 4/5; }
+.mag-card:nth-child(2) .mag-card-photo { aspect-ratio: 3/4; }
+.mag-card:nth-child(3) .mag-card-photo { aspect-ratio: 3/4; }
+.mag-card:nth-child(4) .mag-card-photo { aspect-ratio: 4/5; }
+
+/* Reverse order for 2nd and 3rd cards (text first, photo second) */
+.mag-card:nth-child(2) { direction: rtl; }
+.mag-card:nth-child(2) > * { direction: ltr; }
+.mag-card:nth-child(3) { direction: rtl; }
+.mag-card:nth-child(3) > * { direction: ltr; }
 
 .aboutus-cta-section { padding: 80px 0; }
 .aboutus-cta-h {
@@ -532,9 +570,13 @@ body {
 }
 .aboutus-cta-h em { font-style: italic; }
 
-@media (max-width: 960px) {
-  .aboutus-person-grid { grid-template-columns: 1fr; gap: 40px; }
-  .aboutus-person-grid.reverse .aboutus-photo { order: -1; }
+@media (max-width: 768px) {
+  .aboutus-back-sticky { top: 16px; left: 16px; padding: 8px 14px; }
+  .aboutus-magazine .wrap { grid-template-columns: 1fr; }
+  .mag-card { border-right: none !important; }
+  .mag-card:nth-child(2),
+  .mag-card:nth-child(3) { direction: ltr; }
+  .mag-card-text { padding: 28px 20px 40px; }
 }
 
 /* ─── FOOTER ─── */
