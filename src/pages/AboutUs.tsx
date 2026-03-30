@@ -1,5 +1,6 @@
 import { LanguageProvider, useLang } from "@/contexts/LanguageContext";
 import LangBar from "@/components/LangBar";
+import LogoHeader from "@/components/LogoHeader";
 import RevealOnScroll from "@/components/RevealOnScroll";
 import Footer from "@/components/sections/Footer";
 import { Link } from "react-router-dom";
