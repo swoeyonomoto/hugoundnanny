@@ -2,7 +2,16 @@ import { useState } from "react";
 import { useLang } from "@/contexts/LanguageContext";
 import RevealOnScroll from "@/components/RevealOnScroll";
 
+const WHATSAPP_URL = "https://wa.me/4916097813272?text=Hi%20Hugo%20%26%20Nanny!%20%F0%9F%96%A4%0A%0AWe%20came%20across%20your%20work%20and%20love%20your%20style.%20Here%27s%20a%20little%20about%20us%3A%0A%0ANames%3A%20%5Byour%20names%5D%0AWedding%20date%20%26%20location%3A%20%5Bdate%20%26%20location%5D%0ALooking%20for%3A%20%5Bphoto%20%2F%20video%20%2F%20both%5D%0ABudget%3A%20%5Bapprox.%5D%0A%0ALooking%20forward%20to%20hearing%20from%20you!";
+
 const faqs = [
+  {
+    qDe: "Können wir vorher mal reden?",
+    qEn: "Can we have a chat before booking?",
+    aDe: "Ja, absolut — und das wünschen wir uns sogar. Wir würden niemals etwas bestätigen, ohne dass wir uns vorher gut kennenlernen und austauschen konnten. Schreib uns einfach.",
+    aEn: "Yes, absolutely — and we'd actually love that. We would never confirm anything without having had a good chance to connect and exchange first. Just write us.",
+    hasWhatsApp: true,
+  },
   {
     qDe: "Wie weit im Voraus sollten wir buchen?",
     qEn: "How far in advance should we book?",
@@ -46,7 +55,7 @@ const FAQ = () => {
                   <>Questions couples<br /><em>always ask.</em></>
                 )}
               </h2>
-              {faqs.map((faq, i) => (
+                {faqs.map((faq, i) => (
                 <div className={`faq-item ${openIndex === i ? "open" : ""}`} key={i}>
                   <div className="faq-q" onClick={() => setOpenIndex(openIndex === i ? null : i)}>
                     <span className="faq-qt">{t(faq.qDe, faq.qEn)}</span>
@@ -54,6 +63,17 @@ const FAQ = () => {
                   </div>
                   <div className="faq-body">
                     <p>{t(faq.aDe, faq.aEn)}</p>
+                    {"hasWhatsApp" in faq && faq.hasWhatsApp && (
+                      <a
+                        href={WHATSAPP_URL}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="faq-wa-btn"
+                        onClick={() => (window as any).fbq?.('track', 'Contact', { content_name: 'WhatsApp Click' })}
+                      >
+                        {t("Schreib uns auf WhatsApp →", "Write us on WhatsApp →")}
+                      </a>
+                    )}
                   </div>
                 </div>
               ))}
