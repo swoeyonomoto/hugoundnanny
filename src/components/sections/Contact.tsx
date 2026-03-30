@@ -144,6 +144,10 @@ const Contact = () => {
                   <label>Instagram</label>
                   <input type="text" name="instagram" placeholder="@yourhandle" />
                 </div>
+                <div className="cf">
+                  <label>{t("NOCH ETWAS, DAS WIR WISSEN SOLLTEN?", "ANYTHING ELSE WE SHOULD KNOW?")}</label>
+                  <textarea name="message" rows={3} placeholder={t("Erzählt uns von eurer Hochzeit, eurer Vision oder allem, was euch wichtig ist.", "Tell us about your wedding, your vision, or anything that matters to you.")} />
+                </div>
                 <div className="cf inquiry-ready">
                   <label>{t("Seid ihr bereit?", "Are you ready?")}</label>
                   <label className="ready-option">
