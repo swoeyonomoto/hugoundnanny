@@ -24,7 +24,7 @@ const Pricing = () => {
     },
     {
       tag: t("Beliebtestes Paket", "Most popular"),
-      name: t(<>Foto + Film.<br /><em>Vollständig.</em></>, <>Photo + Film.<br /><em>Complete.</em></>),
+      name: t(<>Zwei Kameras.<br /><em>Eine Geschichte.</em></>, <>Two cameras.<br /><em>One story.</em></>),
       from: t("Ab", "From"),
       price: "€ 5.800",
       emotionalLine: true,
