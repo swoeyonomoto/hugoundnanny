@@ -564,11 +564,7 @@ body {
 @media (max-width: 768px) {
   .aboutus-back-sticky { top: 16px; left: 16px; padding: 8px 14px; }
   .aboutus-magazine .wrap { gap: 80px; }
-  .mag-card {
-    grid-template-columns: 1fr !important;
-    padding-left: 0 !important; padding-right: 0 !important;
-    gap: 32px;
-  }
+  .mag-card { gap: 24px; }
   .mag-card-bio { max-width: 100%; }
 }
 
