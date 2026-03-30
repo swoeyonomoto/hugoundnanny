@@ -11,9 +11,7 @@ const Pricing = () => {
       tag: t("Fotografie", "Photography"),
       name: t(<>Ein Tag.<br /><em>Eure Geschichte.</em></>, <>One day.<br /><em>Your story.</em></>),
       from: t("Ab", "From"),
-      oldPrice: "€ 3.900",
       price: "€ 3.500",
-      special: true,
       items: [
         t("1 Tag Begleitung — Hochzeitstag (10h)", "1 day of coverage — Wedding day (10h)"),
         t("1 Kameramann (Foto oder Video)", "1 cinematographer (photo or video)"),
