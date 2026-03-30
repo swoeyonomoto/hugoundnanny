@@ -563,11 +563,18 @@ body {
   .mag-card-bio { max-width: 100%; }
 }
 
+/* ─── LOGO HEADER ─── */
+.logo-header {
+  position: absolute; top: 24px; left: 64px; z-index: 20;
+}
+.logo-header-img { height: 18px; width: auto; display: block; }
+
 /* ─── FOOTER ─── */
 footer {
   padding: 26px 64px; border-top: 1px solid #e8e8e6;
   display: flex; justify-content: space-between; align-items: center;
 }
+.f-logo-img { height: 14px; width: auto; display: block; }
 .f-logo { font-family: 'Ginora Sans Bold', sans-serif; font-size: 14px; font-weight: 400; letter-spacing: .02em; }
 .f-links { display: flex; gap: 24px; }
 .f-links a {
