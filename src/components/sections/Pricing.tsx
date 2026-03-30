@@ -30,7 +30,7 @@ const Pricing = () => {
       emotionalLine: true,
       items: [
         t("2 Tage Begleitung — Welcome (3h) Hochzeitstag (12h)", "2 days of coverage — Welcome (3h) Wedding day (12h)"),
-        t("2 Kameraleute (Foto oder Video)", "2 cinematographers (photo or video)"),
+        t("2 Kameraleute — Film & Foto, oder beide auf Film", "2 cinematographers — film & photo, or both on film"),
         t("Kinokameras & Drohne + Highend-Fotokamera, Analogkamera (1× 36 Filme)", "Cinema cameras & drone + Highend Photocamera, Analogue Camera (1x 36 Films)"),
         t("Hochzeitsfilm: 4–6 Minuten", "Wedding film: 4–6 minutes"),
         t("Wedding Short (20–40 Sekunden)", "Wedding short (20–40 seconds)"),
