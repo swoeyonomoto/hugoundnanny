@@ -24,9 +24,8 @@ const Pricing = () => {
       tag: t("Beliebtestes Paket", "Most popular"),
       name: t(<>Foto + Film.<br /><em>Vollständig.</em></>, <>Photo + Film.<br /><em>Complete.</em></>),
       from: t("Ab", "From"),
-      oldPrice: "€ 6.500",
       price: "€ 5.800",
-      special: true,
+      emotionalLine: true,
       items: [
         t("2 Tage Begleitung — Welcome (3h) Hochzeitstag (12h)", "2 days of coverage — Welcome (3h) Wedding day (12h)"),
         t("2 Kameraleute (Foto oder Video)", "2 cinematographers (photo or video)"),
