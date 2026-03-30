@@ -9,7 +9,7 @@ const Pricing = () => {
   const packages = [
     {
       tag: t("Fotografie", "Photography"),
-      name: t(<>Ein Tag.<br /><em>Eine Person, voll und ganz für euch da.</em></>, <>One day.<br /><em>One person, fully present.</em></>),
+      name: t(<>Ein Tag.<br /><em>Eure Geschichte.</em></>, <>One day.<br /><em>Your story.</em></>),
       emotionalLine: true,
       emotionalText: t("Ein Kameramann — ruhig, aufmerksam und komplett auf euren Tag fokussiert.", "One cinematographer — quiet, attentive, and completely focused on your day."),
       from: t("Ab", "From"),
