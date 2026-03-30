@@ -9,7 +9,9 @@ const Pricing = () => {
   const packages = [
     {
       tag: t("Fotografie", "Photography"),
-      name: t(<>Ein Tag.<br /><em>Eure Geschichte.</em></>, <>One day.<br /><em>Your story.</em></>),
+      name: t(<>Ein Tag.<br /><em>Eine Person, voll und ganz für euch da.</em></>, <>One day.<br /><em>One person, fully present.</em></>),
+      emotionalLine: true,
+      emotionalText: t("Ein Kameramann — ruhig, aufmerksam und komplett auf euren Tag fokussiert.", "One cinematographer — quiet, attentive, and completely focused on your day."),
       from: t("Ab", "From"),
       price: "€ 3.500",
       items: [
@@ -22,13 +24,14 @@ const Pricing = () => {
     },
     {
       tag: t("Beliebtestes Paket", "Most popular"),
-      name: t(<>Foto + Film.<br /><em>Vollständig.</em></>, <>Photo + Film.<br /><em>Complete.</em></>),
+      name: t(<>Zwei Kameras.<br /><em>Eine Geschichte.</em></>, <>Two cameras.<br /><em>One story.</em></>),
       from: t("Ab", "From"),
       price: "€ 5.800",
       emotionalLine: true,
+      emotionalText: t("Wir beide am Set — einer filmt, einer fotografiert. Oder beide filmen. Wir finden das Setup, das zu eurem Tag passt.", "Both of us on set — one on film, one on photo. Or both on film. We'll find the setup that fits your day."),
       items: [
         t("2 Tage Begleitung — Welcome (3h) Hochzeitstag (12h)", "2 days of coverage — Welcome (3h) Wedding day (12h)"),
-        t("2 Kameraleute (Foto oder Video)", "2 cinematographers (photo or video)"),
+        t("2 Kameraleute — Film & Foto, oder beide auf Film", "2 cinematographers — film & photo, or both on film"),
         t("Kinokameras & Drohne + Highend-Fotokamera, Analogkamera (1× 36 Filme)", "Cinema cameras & drone + Highend Photocamera, Analogue Camera (1x 36 Films)"),
         t("Hochzeitsfilm: 4–6 Minuten", "Wedding film: 4–6 minutes"),
         t("Wedding Short (20–40 Sekunden)", "Wedding short (20–40 seconds)"),
@@ -93,8 +96,8 @@ const Pricing = () => {
                   {pkg.price !== t("Auf Anfrage", "On request") && (
                     <span className="card-deadline">{t("Frühbucherpreis — verfügbar für Hochzeiten bis 30. April 2025", "Early booking rate — available for weddings booked until 30 April 2025")}</span>
                   )}
-                  {pkg.emotionalLine && (
-                    <p className="card-emotional">{t("Zwei von uns. Zwei Kameras. Jeder Winkel des Tages — nichts geht verloren.", "Two of us. Two cameras. Every angle of the day — nothing gets missed.")}</p>
+                  {pkg.emotionalLine && pkg.emotionalText && (
+                    <p className="card-emotional">{pkg.emotionalText}</p>
                   )}
                   <ul className="card-list">
                     {pkg.items.map((item, j) => (
