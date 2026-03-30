@@ -28,6 +28,7 @@ const Pricing = () => {
       from: t("Ab", "From"),
       price: "€ 5.800",
       emotionalLine: true,
+      emotionalText: t("Wir beide am Set — einer filmt, einer fotografiert. Oder beide filmen. Wir finden das Setup, das zu eurem Tag passt.", "Both of us on set — one on film, one on photo. Or both on film. We'll find the setup that fits your day."),
       items: [
         t("2 Tage Begleitung — Welcome (3h) Hochzeitstag (12h)", "2 days of coverage — Welcome (3h) Wedding day (12h)"),
         t("2 Kameraleute — Film & Foto, oder beide auf Film", "2 cinematographers — film & photo, or both on film"),
