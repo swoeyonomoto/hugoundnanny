@@ -14,8 +14,7 @@ const team = [
       de: "Joey, Gründer von Hugo & Nanny, liebt Hochzeiten seit 7 Jahren wie am ersten Tag. Tagsüber Videograf, nachts Maler — und unser Ass im Ärmel, wenn es um Fotografie geht. Ein moderner Ninja mit Charme. Falls ihr ihn nicht findet: schaut bei den Süßigkeiten.",
       en: "Joey, founder of Hugo & Nanny, has loved weddings for 7 years like it was day one. Videographer by day, painter by night—and our ace up the sleeve when it comes to photography. A modern-world ninja with charm. If you can't find him: check by the sweets.",
     },
-    photo: "/photos/about.jpg",
-    layout: "wide-left" as const,
+    photo: "/photos/joey.jpg",
   },
   {
     name: "Seli",
@@ -24,8 +23,7 @@ const team = [
       de: "Seli, Künstlerin und selbsternannte Ästhetin — zu Recht. Ihr Gespür dafür, Momente in Kunst zu verwandeln, ist unübertroffen. Heimlich unser Web-Nerd: Schaut man eine Sekunde weg, ist die Website schon neu gestaltet.",
       en: "Seli, artist and self-proclaimed aesthete—rightfully so. Her instinct for transforming moments into art is unmatched. Secretly our web nerd: look away for a second, and the website is already redesigned.",
     },
-    photo: "/photos/about.jpg",
-    layout: "tall-right" as const,
+    photo: "/photos/seli.jpg",
   },
   {
     name: "Tilmann",
@@ -35,7 +33,6 @@ const team = [
       en: "Tilmann, our wedding film maestro with a soft spot for keyframes, cuts and the Kelly Family—with whom he regularly goes on tour. Put him in the right corner, and he'll enchant the guests with his stoic thoughts.",
     },
     photo: "/photos/about.jpg",
-    layout: "wide-right" as const,
   },
   {
     name: "Chiara",
@@ -44,8 +41,7 @@ const team = [
       de: "Chiara, unsere künstlerischste Seele. Sie fotografiert Hochzeiten, aber immer mit einem besonderen Twist. Wenn sie nicht hinter der Linse steht, erschafft sie Kunstobjekte und studiert Kunst an einer der renommiertesten Akademien Deutschlands.",
       en: "Chiara, our most artistic soul. She shoots wedding photos but always with a twist. When she's not behind the lenses, she's crafting art objects and studies arts at one of the most renowned academies in Germany.",
     },
-    photo: "/photos/about.jpg",
-    layout: "tall-left" as const,
+    photo: "/photos/chiara.jpg",
   },
 ];
 
@@ -87,7 +83,7 @@ const AboutUsContent = () => {
       <section className="aboutus-magazine">
         <div className="wrap">
           {team.map((member, i) => (
-            <div key={member.name} className={`mag-card mag-${member.layout}`}>
+            <div key={member.name} className="mag-card">
               <RevealOnScroll className="mag-card-photo-wrap">
                 <div className="mag-card-photo">
                   <img src={member.photo} alt={member.name} />
