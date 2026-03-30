@@ -523,19 +523,14 @@ body {
 }
 
 .mag-card {
-  display: flex; flex-direction: column; gap: 32px;
-  align-items: flex-start;
+  display: grid; grid-template-columns: 1fr 1.2fr; gap: 48px;
+  align-items: start;
 }
 
-/* All cards left-aligned */
-.mag-card-photo-wrap { overflow: hidden; width: 100%; }
+.mag-card-photo-wrap { overflow: hidden; }
 .mag-card-photo {
-  overflow: hidden; background: #d4d2cf;
+  overflow: hidden; background: #d4d2cf; aspect-ratio: 3/4;
 }
-.mag-card:nth-child(1) .mag-card-photo { aspect-ratio: 3/4; }
-.mag-card:nth-child(2) .mag-card-photo { aspect-ratio: 4/5; }
-.mag-card:nth-child(3) .mag-card-photo { aspect-ratio: 2/3; }
-.mag-card:nth-child(4) .mag-card-photo { aspect-ratio: 4/5; }
 
 .mag-card-photo img {
   width: 100%; height: 100%; object-fit: cover;
@@ -564,7 +559,7 @@ body {
 @media (max-width: 768px) {
   .aboutus-back-sticky { top: 16px; left: 16px; padding: 8px 14px; }
   .aboutus-magazine .wrap { gap: 80px; }
-  .mag-card { gap: 24px; }
+  .mag-card { grid-template-columns: 1fr; gap: 24px; }
   .mag-card-bio { max-width: 100%; }
 }
 
