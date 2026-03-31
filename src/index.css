@@ -650,3 +650,132 @@ footer {
   .video-overlay-player { width: 100vw; }
   .video-playbar { opacity: 1; }
 }
+
+/* ─── HOMEPAGE ─── */
+.home-about-link {
+  position: fixed; top: 24px; right: 120px; z-index: 500;
+}
+.home-about-link a {
+  font-family: 'Ginora Sans Bold', sans-serif; font-size: 10px; font-weight: 400;
+  letter-spacing: .18em; text-transform: uppercase;
+  color: #111; text-decoration: none; opacity: .6; transition: opacity .2s;
+}
+.home-about-link a:hover { opacity: 1; }
+
+.home-layout {
+  display: grid; grid-template-columns: 1fr 1fr;
+  min-height: 100vh;
+}
+.home-video-mobile { display: none; }
+
+.home-form-col {
+  padding: 120px 64px 80px;
+  display: flex; flex-direction: column; justify-content: center;
+}
+.home-form-inner { max-width: 520px; }
+.home-form-h {
+  font-family: 'Libre Caslon Display', serif;
+  font-size: clamp(28px, 3vw, 42px); font-weight: 400; line-height: 1.12;
+  margin-bottom: 20px;
+}
+.home-form-h em { font-style: italic; }
+.home-form-sub {
+  font-family: 'Lora', serif; font-size: 14px; font-weight: 300;
+  line-height: 1.85; color: #888; margin-bottom: 40px; max-width: 440px;
+}
+.home-submit {
+  width: 100%; text-align: center; margin-top: 36px;
+  padding: 16px 36px;
+}
+
+.home-video-col {
+  position: relative; overflow: hidden;
+}
+.home-video-sticky {
+  position: sticky; top: 0;
+  height: 100vh; overflow: hidden; background: #111;
+}
+.home-video-overlay {
+  position: absolute; inset: 0; z-index: 1;
+  background: linear-gradient(to top, rgba(0,0,0,.6) 0%, rgba(0,0,0,.1) 50%, rgba(0,0,0,.05) 100%);
+}
+.home-video-text {
+  position: absolute; bottom: 48px; left: 48px; right: 48px; z-index: 2;
+}
+.home-video-headline {
+  font-family: 'Libre Caslon Display', serif;
+  font-size: clamp(28px, 3vw, 44px); font-weight: 400; line-height: 1.08;
+  color: #fff; margin-bottom: 12px;
+}
+.home-video-headline em { font-style: italic; }
+.home-video-sub {
+  font-family: 'Ginora Sans Bold', sans-serif; font-size: 9px;
+  letter-spacing: .2em; text-transform: uppercase; color: rgba(255,255,255,.4);
+}
+
+@media (max-width: 960px) {
+  .home-about-link { top: 16px; right: 80px; }
+  .home-layout { grid-template-columns: 1fr; }
+  .home-video-col { display: none; }
+  .home-video-mobile {
+    display: block; position: relative;
+    height: 35vh; max-height: 280px; overflow: hidden; background: #111;
+  }
+  .home-video-mobile .home-video-inner {
+    position: relative; width: 100%; height: 100%; overflow: hidden;
+  }
+  .home-video-mobile .home-video-overlay {
+    position: absolute; inset: 0; z-index: 1;
+    background: linear-gradient(to top, rgba(0,0,0,.55) 0%, rgba(0,0,0,.08) 100%);
+  }
+  .home-video-mobile .home-video-text {
+    position: absolute; bottom: 20px; left: 20px; right: 20px; z-index: 2;
+  }
+  .home-video-mobile .home-video-headline {
+    font-size: 22px; margin-bottom: 6px;
+  }
+  .home-video-mobile .home-video-sub { font-size: 8px; }
+  .home-form-col { padding: 32px 28px 60px; }
+  .home-form-h { font-size: 26px; }
+}
+
+/* ─── THANK YOU PAGE ─── */
+.thankyou-section {
+  padding: 140px 0 80px;
+}
+.thankyou-h {
+  font-family: 'Libre Caslon Display', serif;
+  font-size: clamp(30px, 4vw, 52px); font-weight: 400; line-height: 1.12;
+  margin-bottom: 28px;
+}
+.thankyou-body {
+  font-size: 15px; line-height: 1.95; color: #444; max-width: 560px; margin-bottom: 20px;
+}
+.thankyou-ig {
+  display: inline-block; font-family: 'Ginora Sans Bold', sans-serif;
+  font-size: 12px; letter-spacing: .14em; text-transform: uppercase;
+  color: #111; text-decoration: none; border-bottom: 1px solid #111;
+  padding-bottom: 2px; margin-bottom: 32px; transition: opacity .2s;
+}
+.thankyou-ig:hover { opacity: .6; }
+.thankyou-signoff {
+  font-family: 'Libre Caslon Display', serif;
+  font-size: 18px; font-style: italic; margin-bottom: 24px; color: #111;
+}
+.thankyou-ps {
+  font-size: 12px; color: #999; line-height: 1.7; max-width: 480px;
+}
+.thankyou-photos { padding: 0 0 40px; }
+.thankyou-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 3px;
+  max-width: 1240px; margin: 0 auto; padding: 0 64px;
+}
+.thankyou-photo {
+  aspect-ratio: 3/4; overflow: hidden; background: #d4d2cf;
+}
+.thankyou-photo img {
+  width: 100%; height: 100%; object-fit: cover;
+}
+@media (max-width: 960px) {
+  .thankyou-grid { grid-template-columns: 1fr 1fr; padding: 0 28px; }
+}
