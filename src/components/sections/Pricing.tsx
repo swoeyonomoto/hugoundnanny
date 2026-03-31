@@ -10,8 +10,11 @@ const Pricing = () => {
       name: t(<>One eye.<br /><em>Your story.</em></>, <>One eye.<br /><em>Your story.</em></>),
       from: t("Ab", "From"),
       price: "€ 3.900",
-      emotionalLine: false,
-      emotionalText: "",
+      emotionalLine: true,
+      emotionalText: t(
+        "Eine Person, ganz bei euch. Jemand, der euren Tag so sieht, wie er wirklich ist.",
+        "One person, completely present. Someone who sees your day the way it actually happens."
+      ),
       items: [
         { label: t("Abdeckung", "Coverage"), value: t("Hochzeitstag (10h)", "Wedding day (10h)") },
         { label: t("Team", "Crew"), value: t("1 Kameramann", "1 cinematographer") },
