@@ -97,11 +97,13 @@ const HomepageContent = () => {
               </a>
               <Link to="/about" className="home-desktop-about">{t("ÜBER UNS", "ABOUT US")}</Link>
             </div>
-            <div className="home-desktop-nav-right">
-              <button className={`lang-btn ${lang === "de" ? "active" : ""}`} onClick={() => setLang("de")}>DE</button>
-              <button className={`lang-btn ${lang === "en" ? "active" : ""}`} onClick={() => setLang("en")}>EN</button>
-            </div>
           </nav>
+
+          {/* Desktop language toggle: fixed over video */}
+          <div className="home-desktop-lang">
+            <button className={`lang-btn ${lang === "de" ? "active" : ""}`} onClick={() => setLang("de")}>DE</button>
+            <button className={`lang-btn ${lang === "en" ? "active" : ""}`} onClick={() => setLang("en")}>EN</button>
+          </div>
 
           <div className="home-form-inner">
             <span className="label">{t(<>Eure Geschichten.<br /><em>Authentisch und echt.</em></>, <>Your stories.<br /><em>Authentic and raw.</em></>)}</span>
