@@ -104,8 +104,8 @@ const Work = () => {
                 <span className="label">{t("Unsere Arbeit", "Our work")}</span>
                 <h2 className="work-h">
                   {t(
-                    <>Echte Momente.<br /><em>Echte Geschichten.</em></>,
-                    <>Real moments.<br /><em>Real stories.</em></>
+                    <em>Echte Momente.<br />Echte Geschichten.</em>,
+                    <em>Real moments.<br />Real stories.</em>
                   )}
                 </h2>
               </div>

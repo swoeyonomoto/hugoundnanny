@@ -77,9 +77,9 @@ const Pricing = () => {
               <div>
                 <span className="label">{t("Investition", "Investment")}</span>
                 <h2 className="pricing-h">
-                  {t(
-                    <>Damit ihr wisst,<br /><em>ob wir zusammenpassen.</em></>,
-                    <>So you know<br /><em>if we're a good fit.</em></>
+                {t(
+                    <em>Damit ihr wisst,<br />ob wir zusammenpassen.</em>,
+                    <em>So you know<br />if we're a good fit.</em>
                   )}
                 </h2>
               </div>

@@ -51,8 +51,8 @@ const FAQ = () => {
             <div className="faq-inner">
               <h2 className="faq-h">
                 {t(
-                  <>Was euch meistens<br /><em>bewegt.</em></>,
-                  <>Questions couples<br /><em>always ask.</em></>
+                  <em>Was euch meistens<br />bewegt.</em>,
+                  <em>Questions couples<br />always ask.</em>
                 )}
               </h2>
                 {faqs.map((faq, i) => (

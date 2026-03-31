@@ -69,7 +69,7 @@ const Contact = () => {
           <RevealOnScroll>
             <span className="label">{t("Kontakt", "Contact")}</span>
             <h2 className="contact-h">
-              {t(<>Lasst uns<br /><em>reden.</em></>, <>Let's<br /><em>talk.</em></>)}
+              {t(<em>Lasst uns<br />reden.</em>, <em>Let's<br />talk.</em>)}
             </h2>
             <p className="contact-p" style={{ maxWidth: 560 }}>
               {t(
