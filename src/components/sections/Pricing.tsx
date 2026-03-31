@@ -18,7 +18,7 @@ const Pricing = () => {
       items: [
         { label: t("Abdeckung", "Coverage"), value: t("Hochzeitstag (10h)", "Wedding day (10h)") },
         { label: t("Team", "Crew"), value: t("1 Kameramann", "1 cinematographer") },
-        { label: t("Kamera", "Camera"), value: t("Kinokamera & Drohne", "Cinema camera & drone") },
+        { label: t("Kamera", "Camera"), value: t(<>Kinokamera<br />+ Drohne</>, <>Cinema camera<br />+ drone</>) },
         { label: "Film", value: t("Highlightfilm 4–5 Min.", "Highlight film 4–5 min") },
         { label: "Social", value: "—" },
         { label: t("Fotos", "Photos"), value: t("400 digital", "400 digital") },
