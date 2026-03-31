@@ -55,7 +55,7 @@ const AboutUsContent = () => {
       <LangBar />
 
       {/* Sticky back button */}
-      <Link to="/" className="aboutus-back-sticky">
+      <Link to="/about" className="aboutus-back-sticky">
         ← {t("Zurück", "Back")}
       </Link>
 
