@@ -61,7 +61,7 @@ const Pricing = () => {
         { label: t("Kamera", "Camera"), value: t("Cinema + Super 8 + VHS & Drohne + Highend Fotokamera + Analog (72 Bilder)", "Cinema + Super 8 + VHS + drone + Highend Photocamera + Analogue (72 frames)") },
         { label: "Film", value: t("Highlightfilm 7–8 Min. + Redenfilm", "Highlight film 7–8 min + Speeches film") },
         { label: "Social", value: t("2x Social Shorts + Super VHS Nostalgiefilm", "2x Social shorts + Super VHS nostalgic film") },
-        { label: t("Fotos", "Photos"), value: t("600 digital + analog", "600 digital + analogue") },
+        { label: t("Fotos", "Photos"), value: t("600 digital + analog (72 Bilder)", "600 digital + analogue (72 frames)") },
       ],
       hi: false,
     },
