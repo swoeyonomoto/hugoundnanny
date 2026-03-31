@@ -131,27 +131,27 @@ const HomepageContent = () => {
             <form className="cform" onSubmit={handleSubmit}>
               <div className="cf-row">
                 <div className="cf">
-                  <label>{t("Mein(e) Verlobte(r) und ich", "My fiancé(e) and I")}</label>
+                  <label>{t("Mein(e) Verlobte(r) und ich", "My fiancé(e) and I")} *</label>
                   <input type="text" name="names" placeholder={t("Anna & Max", "Anna & Max")} required />
                 </div>
                 <div className="cf">
-                  <label>{t("Erreicht uns unter", "Reach us at")}</label>
+                  <label>{t("Erreicht uns unter", "Reach us at")} *</label>
                   <input type="email" name="email" placeholder="hello@example.com" required />
                 </div>
               </div>
               <div className="cf-row">
                 <div className="cf">
-                  <label>{t("Heiraten am", "Are getting married on")}</label>
+                  <label>{t("Heiraten am", "Are getting married on")} *</label>
                   <input type="text" name="wedding_date" placeholder={t("TT.MM.JJJJ", "DD.MM.YYYY")} onFocus={(e) => { e.currentTarget.type = 'date'; }} onBlur={(e) => { if (!e.currentTarget.value) e.currentTarget.type = 'text'; }} required />
                 </div>
                 <div className="cf">
-                  <label>{t("In", "At")}</label>
+                  <label>{t("In", "At")} *</label>
                   <input type="text" name="venue" placeholder={t("Toskana, Italien", "Tuscany, Italy")} required />
                 </div>
               </div>
               <div className="cf-row">
                 <div className="cf">
-                  <label>{t("Und wir suchen", "And we are looking for")}</label>
+                  <label>{t("Und wir suchen", "And we are looking for")} *</label>
                   <select name="looking_for" required value={lookingFor} onChange={e => setLookingFor(e.target.value)}>
                     <option value="" disabled>{t("Bitte wählen", "Please select")}</option>
                     <option value="Photo">Photo</option>
@@ -160,7 +160,7 @@ const HomepageContent = () => {
                   </select>
                 </div>
                 <div className="cf">
-                  <label>{t("Unser Budget ist", "Our budget is")}</label>
+                  <label>{t("Unser Budget ist", "Our budget is")} *</label>
                   <select name="budget" required value={budget} onChange={e => setBudget(e.target.value)}>
                     <option value="" disabled>{t("Bitte wählen", "Please select")}</option>
                     <option value="€3.500 — One day · 1 cinematographer">{t("€ 3.500 — Ein Tag · 1 Kameramann", "€ 3.500 — One day · 1 cinematographer")}</option>
