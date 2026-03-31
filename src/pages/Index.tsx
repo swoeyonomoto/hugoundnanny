@@ -109,8 +109,8 @@ const HomepageContent = () => {
             <span className="label">{t(<>Eure Geschichte.<br /><em>Authentisch und echt.</em></>, <>Your story.<br /><em>Authentic and raw.</em></>)}</span>
             <h1 className="home-form-h">
               {t(
-                <>Limited 2026 dates.<br /><em>Find out if yours is free…</em></>,
-                <>Limited 2026 dates.<br /><em>Find out if yours is free…</em></>
+                <em>Limited 2026 dates.<br />Find out if yours is free…</em>,
+                <em>Limited 2026 dates.<br />Find out if yours is free…</em>
               )}
             </h1>
             <p className="home-form-sub">
