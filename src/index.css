@@ -65,7 +65,7 @@ body {
 
 /* ─── LANG BAR ─── */
 .lang-bar {
-  position: fixed; top: 24px; right: 32px; z-index: 500;
+  position: fixed; top: 24px; right: 32px; z-index: 9990;
   display: flex;
 }
 .lang-btn {
