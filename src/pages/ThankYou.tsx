@@ -6,10 +6,10 @@ import { Link } from "react-router-dom";
 import RevealOnScroll from "@/components/RevealOnScroll";
 
 const photos = [
-  "/photos/02.jpg",
-  "/photos/03.png",
-  "/photos/07.jpg",
-  "/photos/08.jpg",
+  "/photos/thankyou-01.jpg",
+  "/photos/thankyou-02.jpg",
+  "/photos/thankyou-03.jpg",
+  "/photos/thankyou-04.jpg",
 ];
 
 const ThankYouContent = () => {
