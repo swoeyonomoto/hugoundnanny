@@ -18,7 +18,7 @@ const Pricing = () => {
       items: [
         { label: t("Abdeckung", "Coverage"), value: t("Hochzeitstag (10h)", "Wedding day (10h)") },
         { label: t("Team", "Crew"), value: t("1 Kameramann", "1 cinematographer") },
-        { label: t("Kamera", "Camera"), value: t("Kinokamera & Drohne", "Cinema camera & drone") },
+        { label: t("Kamera", "Camera"), value: t(<>Kinokamera<br />+ Drohne</>, <>Cinema camera<br />+ drone</>) },
         { label: "Film", value: t("Highlightfilm 4–5 Min.", "Highlight film 4–5 min") },
         { label: "Social", value: "—" },
         { label: t("Fotos", "Photos"), value: t("400 digital", "400 digital") },
@@ -38,7 +38,7 @@ const Pricing = () => {
       items: [
         { label: t("Abdeckung", "Coverage"), value: t("Welcome (3h) + Hochzeitstag (12h)", "Welcome (3h) + Wedding day (12h)") },
         { label: t("Team", "Crew"), value: t("2 Kameraleute", "2 cinematographers") },
-        { label: t("Kamera", "Camera"), value: t("Cinema + Highend Fotokamera + Analog (36 Bilder)", "Cinema + Highend Photocamera + Analogue (36 frames)") },
+        { label: t("Kamera", "Camera"), value: t("Cinema + Highend Fotokamera + Drohne + Analog (36 Bilder)", "Cinema + Highend Photocamera + drone + Analogue (36 frames)") },
         { label: "Film", value: t("Highlightfilm 4–5 Min.", "Highlight film 4–5 min") },
         { label: "Social", value: t("Social Shorts", "Social shorts") },
         { label: t("Fotos", "Photos"), value: t("500 digital + analog", "500 digital + analogue") },
@@ -119,9 +119,12 @@ const Pricing = () => {
                     className="card-btn"
                     onClick={(e) => {
                       e.preventDefault();
-                      const prefill: Record<string, string> = { lookingFor: "Photo & Video" };
-                      if (i === 0) prefill.budget = "€3.000 – €5.000";
-                      if (i === 1) prefill.budget = "€5.000 – €10.000";
+                      const budgetMap = [
+                        "€3.900 — One day · 1 cinematographer (film or photo)",
+                        "€5.800 — Two days · 2 cinematographers (film or photo)",
+                        "€8.500 — Two days · 2 cinematographers + photographer",
+                      ];
+                      const prefill: Record<string, string> = { lookingFor: "Photo & Video", budget: budgetMap[i] };
                       window.dispatchEvent(new CustomEvent("prefill-contact", { detail: prefill }));
                       document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
                     }}
