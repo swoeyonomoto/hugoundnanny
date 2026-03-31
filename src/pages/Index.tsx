@@ -163,7 +163,7 @@ const HomepageContent = () => {
                 </div>
               </div>
               <div className="cf">
-                <label>Instagram</label>
+                <label>{t("Unser Instagram", "Our Instagram")}</label>
                 <input type="text" name="instagram" placeholder="@yourhandle" />
               </div>
               <div className="cf">
