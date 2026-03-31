@@ -176,15 +176,6 @@ const HomepageContent = () => {
               }}
             />
             <div className="home-video-overlay" />
-            <div className="home-video-text">
-              <h2 className="home-video-headline">
-                {t(
-                  <>Eure Geschichten.<br /><em>Authentisch und echt.</em></>,
-                  <>Your stories.<br /><em>Authentic and raw.</em></>
-                )}
-              </h2>
-              <span className="home-video-sub">hugo + nanny — Wedding Film & Photography</span>
-            </div>
           </div>
         </div>
       </div>
