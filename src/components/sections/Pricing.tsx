@@ -41,7 +41,7 @@ const Pricing = () => {
         { label: t("Kamera", "Camera"), value: t("Cinema + Highend Fotokamera + Drohne + Analog (36 Bilder)", "Cinema + Highend Photocamera + drone + Analogue (36 frames)") },
         { label: "Film", value: t("Highlightfilm 4–5 Min.", "Highlight film 4–5 min") },
         { label: "Social", value: t("Social Shorts", "Social shorts") },
-        { label: t("Fotos", "Photos"), value: t("500 digital + analog", "500 digital + analogue") },
+        { label: t("Fotos", "Photos"), value: t("500 digital + analog (36 Bilder)", "500 digital + analogue (36 frames)") },
       ],
       hi: true,
     },
