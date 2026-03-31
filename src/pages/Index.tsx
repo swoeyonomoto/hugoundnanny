@@ -50,7 +50,7 @@ const HomepageContent = () => {
 
   return (
     <>
-      <LogoHeader variant="black" />
+      <LogoHeader variant="auto" />
       <LangBar />
       <nav className="home-about-link">
         <Link to="/about">{t("ÜBER UNS", "ABOUT US")}</Link>
