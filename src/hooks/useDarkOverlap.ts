@@ -1,10 +1,10 @@
 import { useEffect, useState, useRef, useCallback } from "react";
 
-const DARK_SELECTORS = "#hero, .films, .photos, .about-img, .home-video-sticky, .home-video-inner";
+const DEFAULT_DARK_SELECTORS = "#hero, .films, .photos, .about-img, .home-video-sticky, .home-video-inner";
 
 type ClipData = { white: string; black: string };
 
-export const useDarkOverlap = () => {
+export const useDarkOverlap = (darkSelectors: string = DEFAULT_DARK_SELECTORS) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [clipData, setClipData] = useState<ClipData>({
     white: "inset(0 0 100% 0)",
@@ -18,7 +18,7 @@ export const useDarkOverlap = () => {
     const h = rect.height;
     if (h === 0) return;
 
-    const darkEls = document.querySelectorAll(DARK_SELECTORS);
+    const darkEls = document.querySelectorAll(darkSelectors);
     type Band = { top: number; bottom: number };
     const darkBands: Band[] = [];
 
@@ -75,7 +75,7 @@ export const useDarkOverlap = () => {
     } else {
       setClipData({ white: "inset(0 0 100% 0)", black: "inset(0 0 0 0)" });
     }
-  }, []);
+  }, [darkSelectors]);
 
   useEffect(() => {
     update();
