@@ -135,7 +135,7 @@ const HomepageContent = () => {
                   <input type="text" name="names" placeholder={t("Anna & Max", "Anna & Max")} required />
                 </div>
                 <div className="cf">
-                  <label>{t("Erreicht uns unter", "Reach us at")}</label>
+                  <label>{t("Erreicht uns unter", "Reach us at")} *</label>
                   <input type="email" name="email" placeholder="hello@example.com" required />
                 </div>
               </div>
