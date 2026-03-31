@@ -11,7 +11,7 @@ const AutoColorNav = ({ children, className = "", style }: AutoColorNavProps) =>
   const { containerRef, clipData } = useDarkOverlap();
 
   return (
-    <div ref={containerRef} className={className} style={{ ...style, position: "relative" }}>
+    <div ref={containerRef} className={className} style={{ ...style }}>
       {/* White version (for dark backgrounds) */}
       <div style={{ clipPath: clipData.white, color: "#fff" }} className="auto-color-white">
         {children}
