@@ -40,9 +40,9 @@ const Testimonials = () => {
           <RevealOnScroll>
             <div className="testi-top">
               <h2 className="testi-h">
-                {t(
-                  <>Was Paare<br /><em>{"über uns sagen."}</em></>,
-                  <>What couples<br /><em>say about us.</em></>
+              {t(
+                  <em>Was Paare<br />über uns sagen.</em>,
+                  <em>What couples<br />say about us.</em>
                 )}
               </h2>
               <a href={GOOGLE_REVIEWS_URL} target="_blank" rel="noopener noreferrer" className="testi-reviews-link">{"Google Reviews \u2192"}</a>
