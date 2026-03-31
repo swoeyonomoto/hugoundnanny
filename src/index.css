@@ -577,6 +577,11 @@ body {
 }
 .logo-header-img { height: 31px; width: auto; display: block; }
 
+/* Homepage: logo left-aligned */
+body:has(.home-layout) .logo-header {
+  justify-content: flex-start;
+}
+
 /* ─── FOOTER ─── */
 footer {
   padding: 26px 64px; border-top: 1px solid #e8e8e6;
