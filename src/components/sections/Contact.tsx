@@ -101,27 +101,27 @@ const Contact = () => {
               <form className="cform" onSubmit={handleSubmit}>
                 <div className="cf-row">
                   <div className="cf">
-                    <label>{t("Eure Namen", "Your Names")}</label>
+                    <label>{t("Mein(e) Verlobte(r) und ich", "My fiancé(e) and I")} *</label>
                     <input type="text" name="names" placeholder={t("Anna & Max", "Anna & Max")} required />
                   </div>
                   <div className="cf">
-                    <label>Email</label>
+                    <label>{t("Erreicht uns unter", "Reach us at")} *</label>
                     <input type="email" name="email" placeholder="hello@example.com" required />
                   </div>
                 </div>
                 <div className="cf-row">
                   <div className="cf">
-                    <label>{t("Hochzeitsdatum", "Wedding Date")}</label>
+                    <label>{t("Heiraten am", "Are getting married on")} *</label>
                     <input type="text" name="wedding_date" placeholder={t("TT.MM.JJJJ", "DD.MM.YYYY")} onFocus={(e) => { e.currentTarget.type = 'date'; }} onBlur={(e) => { if (!e.currentTarget.value) e.currentTarget.type = 'text'; }} required />
                   </div>
                   <div className="cf">
-                    <label>{t("Location", "Venue / Location")}</label>
+                    <label>{t("In", "At")} *</label>
                     <input type="text" name="venue" placeholder={t("Toskana, Italien", "Tuscany, Italy")} required />
                   </div>
                 </div>
                 <div className="cf-row">
                   <div className="cf">
-                    <label>{t("Ihr sucht", "Looking For")}</label>
+                    <label>{t("Und wir suchen", "And we are looking for")} *</label>
                     <select name="looking_for" required value={lookingFor} onChange={e => setLookingFor(e.target.value)}>
                       <option value="" disabled>{t("Bitte wählen", "Please select")}</option>
                       <option value="Photo">Photo</option>
@@ -130,33 +130,31 @@ const Contact = () => {
                     </select>
                   </div>
                   <div className="cf">
-                    <label>{t("Budget", "Your Foto / Film Budget")}</label>
+                    <label>{t("Unser Budget ist", "Our budget is")} *</label>
                     <select name="budget" required value={budget} onChange={e => setBudget(e.target.value)}>
                       <option value="" disabled>{t("Bitte wählen", "Please select")}</option>
-                      <option value="€2.000 – €3.000">€2.000 – €3.000</option>
-                      <option value="€3.000 – €5.000">€3.000 – €5.000</option>
-                      <option value="€5.000 – €10.000">€5.000 – €10.000</option>
-                      <option value="€10.000+">€10.000+</option>
+                      <option value="€3.900 — One day · 1 cinematographer (film or photo)">{t("€ 3.900 — Ein Tag · 1 Kameramann (Film oder Foto)", "€ 3.900 — One day · 1 cinematographer (film or photo)")}</option>
+                      <option value="€5.800 — Two days · 2 cinematographers (film or photo)">{t("€ 5.800 — Zwei Tage · 2 Kameraleute (Film oder Foto)", "€ 5.800 — Two days · 2 cinematographers (film or photo)")}</option>
+                      <option value="€8.500 — Two days · 2 cinematographers + photographer">{t("€ 8.500 — Zwei Tage · 2 Kameraleute + Fotograf", "€ 8.500 — Two days · 2 cinematographers + photographer")}</option>
+                      <option value="Custom — destination wedding or special request">{t("Custom — Hochzeit im Ausland oder Sonderwunsch", "Custom — destination wedding or special request")}</option>
+                      <option value="Not sure yet — send me the guide">{t("Noch unsicher — schickt mir den Guide", "Not sure yet — send me the guide")}</option>
                     </select>
                   </div>
                 </div>
                 <div className="cf">
-                  <label>Instagram</label>
+                  <label>{t("Unser Instagram", "Our Instagram")}</label>
                   <input type="text" name="instagram" placeholder="@yourhandle" />
                 </div>
                 <div className="cf">
-                  <label>{t("NOCH ETWAS, DAS WIR WISSEN SOLLTEN?", "ANYTHING ELSE WE SHOULD KNOW?")}</label>
+                  <label>{t("Oder ruf uns an / WhatsApp", "Or call / WhatsApp us")}</label>
+                  <input type="tel" name="phone" placeholder="+49 123 456 7890" />
+                </div>
+                <div className="cf">
+                  <label>{t("Und das ist unsere Geschichte", "And this is our story")}</label>
                   <textarea name="message" rows={3} placeholder={t("Erzählt uns von eurer Hochzeit, eurer Vision oder allem, was euch wichtig ist.", "Tell us about your wedding, your vision, or anything that matters to you.")} />
                 </div>
-                <div className="cf inquiry-ready">
-                  <label>{t("Seid ihr bereit?", "Are you ready?")}</label>
-                  <label className="ready-option">
-                    <input type="radio" name="ready" value="FUCK YEAH! 🖤" required />
-                    <span>FUCK YEAH! 🖤</span>
-                  </label>
-                </div>
                 <button type="submit" className="cf-submit" disabled={submitting}>
-                  {submitting ? t("Wird gesendet…", "Sending…") : t("Anfrage senden", "Send Inquiry")}
+                  {submitting ? t("Wird gesendet…", "Sending…") : t("VERFÜGBARKEIT PRÜFEN ♥", "CHECK AVAILABILITY ♥")}
                 </button>
               </form>
             </RevealOnScroll>
