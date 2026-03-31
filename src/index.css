@@ -728,7 +728,7 @@ footer {
 }
 
 @media (max-width: 960px) {
-  .home-about-link { top: 16px; right: auto; left: 28px; }
+  .home-about-link { top: 16px; left: 16px; }
   .home-lang { top: 16px; right: 16px; }
   .home-layout { grid-template-columns: 1fr; }
   .home-video-col { display: none; }
