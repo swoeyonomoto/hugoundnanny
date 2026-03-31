@@ -165,6 +165,8 @@ body {
   font-size: 9px; letter-spacing: .22em; text-transform: uppercase;
   color: #999; margin-bottom: 22px; display: block;
 }
+.label em { font-style: italic; }
+}
 
 /* Reveal */
 .rv { opacity: 0; transform: translateY(16px); transition: opacity .7s ease, transform .7s ease; }
