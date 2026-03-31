@@ -50,8 +50,11 @@ const Pricing = () => {
       name: t(<>Three eyes.<br /><em>Every last moment.</em></>, <>Three eyes.<br /><em>Every last moment.</em></>),
       from: t("Ab", "From"),
       price: "€ 8.500",
-      emotionalLine: false,
-      emotionalText: "",
+      emotionalLine: true,
+      emotionalText: t(
+        "Drei von uns, die alles abdecken — Film, Foto und die Momente dazwischen. Nichts geht verloren.",
+        "Three of us, covering everything — film, photo, and the moments in between. Nothing slips through."
+      ),
       items: [
         { label: t("Abdeckung", "Coverage"), value: t("Welcome (3h) + Hochzeitstag (12h)", "Welcome (3h) + Wedding day (12h)") },
         { label: t("Team", "Crew"), value: t("2 Kameraleute + 1 Fotograf", "2 cinematographers + 1 photographer") },
