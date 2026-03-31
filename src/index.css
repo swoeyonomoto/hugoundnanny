@@ -758,6 +758,7 @@ footer {
 
 @media (max-width: 960px) {
   .home-desktop-nav { display: none; }
+  .home-desktop-lang { display: none; }
   .home-mobile-nav { display: block; }
   .home-about-link { top: 18px; left: 16px; display: flex; align-items: center; }
   .home-lang { top: 18px; right: 16px; }
