@@ -95,7 +95,7 @@ const Pricing = () => {
                   <h3 className="card-name">{pkg.name}</h3>
                   <hr className="card-hr" />
                   <span className="card-from">{pkg.from}</span>
-                  <div className={`card-price ${pkg.priceClass || ""}`}>{pkg.price}</div>
+                  <div className="card-price">{pkg.price}</div>
                   {pkg.emotionalLine && pkg.emotionalText && (
                     <p className="card-emotional">{pkg.emotionalText}</p>
                   )}
