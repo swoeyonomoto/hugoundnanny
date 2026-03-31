@@ -684,8 +684,6 @@ footer {
   position: fixed; top: 24px; right: 32px; z-index: 100;
   display: flex;
 }
-.home-desktop-lang .lang-btn { color: #fff; }
-.home-desktop-lang .lang-btn.active { border-bottom-color: #fff; }
 
 /* Mobile: hide desktop nav, show floating elements */
 .home-mobile-nav { display: none; }
