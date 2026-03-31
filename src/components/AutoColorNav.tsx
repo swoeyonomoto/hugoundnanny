@@ -5,19 +5,18 @@ interface AutoColorNavProps {
   children: ReactNode;
   className?: string;
   style?: React.CSSProperties;
+  darkSelectors?: string;
 }
 
-const AutoColorNav = ({ children, className = "", style }: AutoColorNavProps) => {
-  const { containerRef, clipData } = useDarkOverlap();
+const AutoColorNav = ({ children, className = "", style, darkSelectors }: AutoColorNavProps) => {
+  const { containerRef, clipData } = useDarkOverlap(darkSelectors);
 
   return (
     <div ref={containerRef} className={className} style={{ ...style }}>
       <div style={{ position: "relative" }}>
-        {/* White version (for dark backgrounds) */}
         <div style={{ clipPath: clipData.white, color: "#fff" }} className="auto-color-white">
           {children}
         </div>
-        {/* Black version (for light backgrounds) */}
         <div
           style={{
             position: "absolute",
