@@ -1,62 +1,84 @@
 import { useLang } from "@/contexts/LanguageContext";
 import RevealOnScroll from "@/components/RevealOnScroll";
 
-const CONTACT_URL = "https://hugo-nanny.de/contact/";
-
 const Pricing = () => {
   const { t } = useLang();
 
-  const packages = [
+  const columns = [
     {
       tag: t("Fotografie", "Photography"),
-      name: t(<>Ein Tag.<br /><em>Eure Geschichte.</em></>, <>One day.<br /><em>Your story.</em></>),
-      emotionalLine: false,
-      emotionalText: "",
-      from: t("Ab", "From"),
-      price: "€ 3.900",
-      items: [
-        t("1 Tag Begleitung — Hochzeitstag (10h)", "1 day of coverage — Wedding day (10h)"),
-        t("1 Kameramann (Foto oder Video)", "1 cinematographer (photo or video)"),
-        t("Kinokamera & Drohne", "Cinema camera & drone"),
-        t("Hochzeitsfilm: 4–6 Minuten oder 400 Fotos (digital)", "Wedding film: 4–6 minutes or 400 photos (digital)"),
-      ],
+      name: t(<>One eye. <em>Your story.</em></>, <>One eye. <em>Your story.</em></>),
       hi: false,
     },
     {
       tag: t("Beliebtestes Paket", "Most popular"),
-      name: t(<>Zwei Kameras.<br /><em>Eine Geschichte.</em></>, <>Two cameras.<br /><em>One story.</em></>),
-      from: t("Ab", "From"),
-      price: "€ 5.800",
-      emotionalLine: true,
-      emotionalText: t("Wir beide am Set — einer filmt, einer fotografiert. Oder beide filmen. Wir finden das Setup, das zu eurem Tag passt.", "Both of us on set — one on film, one on photo. Or both on film. We'll find the setup that fits your day."),
-      items: [
-        t("2 Tage Begleitung — Welcome (3h) Hochzeitstag (12h)", "2 days of coverage — Welcome (3h) Wedding day (12h)"),
-        t("2 Kameraleute — Film & Foto, oder beide auf Film", "2 cinematographers — film & photo, or both on film"),
-        t("Kinokameras & Drohne + Highend-Fotokamera, Analogkamera (1× 36 Filme)", "Cinema cameras & drone + Highend Photocamera, Analogue Camera (1x 36 Films)"),
-        t("Hochzeitsfilm: 4–6 Minuten", "Wedding film: 4–6 minutes"),
-        t("Wedding Short (20–40 Sekunden)", "Wedding short (20–40 seconds)"),
-        t("500 Fotos (digital + analog)", "500 photos (digital + analogue)"),
-      ],
+      name: t(<>Two eyes. <em>Your full story.</em></>, <>Two eyes. <em>Your full story.</em></>),
       hi: true,
     },
     {
       tag: "Platinum",
-      name: t(<>Zwei Tage.<br /><em>Jeder Moment.</em></>, <>Two days.<br /><em>Every moment.</em></>),
-      from: t("Ab", "From"),
-      price: "€ 8.500",
-      emotionalLine: false,
-      emotionalText: "",
-      items: [
-        t("2 Tage Begleitung — Welcome (3h) und Hochzeitstag (12h)", "2 days of coverage — Welcome (3h) and Wedding day (12h)"),
-        t("2 Kameraleute + 1 Fotograf", "2 cinematographers + 1 photographer"),
-        t("Kinokameras, Super 8, VHS & Drohne + Highend-Fotokamera, Analogkamera (2× 36 Filme)", "Cinema cameras, Super 8, VHS & drone + Highend Photocamera, Analogue Camera (2x 36 Films)"),
-        t("Hochzeitsfilm: 7–8 Minuten", "Wedding film: 7–8 minutes"),
-        t("2 Wedding Shorts (20–40 Sekunden)", "2 wedding shorts (20–40 seconds)"),
-        t("Redenfilm", "Speeches film"),
-        t("Super-8-Film", "Super 8 film"),
-        t("600 Fotos (digital + analog)", "600 photos (digital + analogue)"),
-      ],
+      name: t(<>Three eyes. <em>Every last moment.</em></>, <>Three eyes. <em>Every last moment.</em></>),
       hi: false,
+    },
+  ];
+
+  const rows = [
+    {
+      label: t("Abdeckung", "Coverage"),
+      values: [
+        t("Hochzeitstag (10h)", "Wedding day (10h)"),
+        t("Welcome (3h) + Hochzeitstag (12h)", "Welcome (3h) + Wedding day (12h)"),
+        t("Welcome (3h) + Hochzeitstag (12h)", "Welcome (3h) + Wedding day (12h)"),
+      ],
+    },
+    {
+      label: t("Team", "Crew"),
+      values: [
+        t("1 Kameramann", "1 cinematographer"),
+        t("2 Kameraleute", "2 cinematographers"),
+        t("2 Kameraleute + 1 Fotograf", "2 cinematographers + 1 photographer"),
+      ],
+    },
+    {
+      label: t("Kamera", "Camera"),
+      values: [
+        t("Kinokamera & Drohne", "Cinema camera & drone"),
+        t("Cinema + Highend Fotokamera + Analog (36 Bilder)", "Cinema + Highend Photocamera + Analogue (36 frames)"),
+        t("Cinema + Super 8 + VHS & Drohne + Highend Fotokamera + Analog (72 Bilder)", "Cinema + Super 8 + VHS + drone + Highend Photocamera + Analogue (72 frames)"),
+      ],
+    },
+    {
+      label: "Film",
+      values: [
+        t("Highlightfilm 4–5 Min.", "Highlight film 4–5 min"),
+        t("Highlightfilm 4–5 Min.", "Highlight film 4–5 min"),
+        t("Highlightfilm 7–8 Min. + Redenfilm", "Highlight film 7–8 min + Speeches film"),
+      ],
+    },
+    {
+      label: "Social",
+      values: [
+        "—",
+        t("Social Shorts", "Social shorts"),
+        t("2x Social Shorts + Super VHS Nostalgiefilm", "2x Social shorts + Super VHS nostalgic film"),
+      ],
+    },
+    {
+      label: t("Fotos", "Photos"),
+      values: [
+        t("400 digital", "400 digital"),
+        t("500 digital + analog", "500 digital + analogue"),
+        t("600 digital + analog", "600 digital + analogue"),
+      ],
+    },
+    {
+      label: t("Preis", "Price"),
+      values: [
+        t("Ab € 3.900", "From € 3.900"),
+        t("Ab € 5.800", "From € 5.800"),
+        t("Ab € 8.500", "From € 8.500"),
+      ],
+      isPrice: true,
     },
   ];
 
@@ -88,38 +110,52 @@ const Pricing = () => {
           </RevealOnScroll>
 
           <RevealOnScroll>
-            <div className="cards">
-              {packages.map((pkg, i) => (
-                <div className={`card ${pkg.hi ? "hi" : ""}`} key={i}>
-                  <span className="card-tag">{pkg.tag}</span>
-                  <h3 className="card-name">{pkg.name}</h3>
-                  <hr className="card-hr" />
-                  <span className="card-from">{pkg.from}</span>
-                  <div className="card-price">{pkg.price}</div>
-                  {pkg.emotionalLine && pkg.emotionalText && (
-                    <p className="card-emotional">{pkg.emotionalText}</p>
-                  )}
-                  <ul className="card-list">
-                    {pkg.items.map((item, j) => (
-                      <li key={j}>{item}</li>
-                    ))}
-                  </ul>
-                  <a
-                    href="#contact"
-                    className="card-btn"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      const prefill: Record<string, string> = { lookingFor: "Photo & Video" };
-                      if (i === 0) prefill.budget = "€3.000 – €5.000";
-                      if (i === 1) prefill.budget = "€5.000 – €10.000";
-                      window.dispatchEvent(new CustomEvent("prefill-contact", { detail: prefill }));
-                      document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
-                    }}
-                  >
-                    {t("Anfragen", "Enquire")}
-                  </a>
+            <div className="pricing-table">
+              {/* Header row */}
+              <div className="pricing-table-row pricing-table-header">
+                <div className="pricing-table-label" />
+                {columns.map((col, i) => (
+                  <div key={i} className={`pricing-table-col-header ${col.hi ? "hi" : ""}`}>
+                    <span className="card-tag">{col.tag}</span>
+                    <h3 className="card-name">{col.name}</h3>
+                  </div>
+                ))}
+              </div>
+
+              {/* Data rows */}
+              {rows.map((row, ri) => (
+                <div key={ri} className={`pricing-table-row ${row.isPrice ? "pricing-table-row-price" : ""}`}>
+                  <div className="pricing-table-label">{row.label}</div>
+                  {row.values.map((val, ci) => (
+                    <div key={ci} className={`pricing-table-cell ${columns[ci].hi ? "hi" : ""} ${row.isPrice ? "price-cell" : ""}`}>
+                      {val}
+                    </div>
+                  ))}
                 </div>
               ))}
+
+              {/* Enquire buttons row */}
+              <div className="pricing-table-row pricing-table-row-btn">
+                <div className="pricing-table-label" />
+                {columns.map((col, i) => (
+                  <div key={i} className={`pricing-table-cell ${col.hi ? "hi" : ""}`}>
+                    <a
+                      href="#contact"
+                      className={`card-btn ${col.hi ? "hi-btn" : ""}`}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        const prefill: Record<string, string> = { lookingFor: "Photo & Video" };
+                        if (i === 0) prefill.budget = "€3.000 – €5.000";
+                        if (i === 1) prefill.budget = "€5.000 – €10.000";
+                        window.dispatchEvent(new CustomEvent("prefill-contact", { detail: prefill }));
+                        document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
+                      }}
+                    >
+                      {t("Anfragen", "Enquire")}
+                    </a>
+                  </div>
+                ))}
+              </div>
             </div>
           </RevealOnScroll>
 

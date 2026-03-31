@@ -370,6 +370,33 @@ body {
   text-align: center; margin-top: 40px; font-size: 12px; color: #999; line-height: 1.75;
 }
 
+/* Pricing comparison table */
+.pricing-table { border-top: 1px solid #e8e8e6; }
+.pricing-table-row {
+  display: grid; grid-template-columns: 120px repeat(3, 1fr); border-bottom: 1px solid #e8e8e6;
+}
+.pricing-table-header { border-bottom: 2px solid #222; }
+.pricing-table-label {
+  font-family: 'Libre Caslon Display', serif; font-size: 14px; font-weight: 700;
+  padding: 20px 16px 20px 0; color: #111; display: flex; align-items: flex-start;
+}
+.pricing-table-col-header { padding: 28px 24px; }
+.pricing-table-col-header .card-tag { margin-bottom: 8px; display: block; }
+.pricing-table-col-header .card-name { font-size: 20px; margin-bottom: 0; }
+.pricing-table-col-header.hi { background: #111; color: #fff; }
+.pricing-table-col-header.hi .card-tag { color: rgba(255,255,255,.4); }
+.pricing-table-cell { padding: 20px 24px; font-size: 14px; line-height: 1.65; color: #444; }
+.pricing-table-cell.hi { background: #111; color: rgba(255,255,255,.75); }
+.pricing-table-cell.price-cell {
+  font-family: 'Libre Caslon Display', serif; font-size: 22px; font-weight: 400; color: #111;
+}
+.pricing-table-cell.price-cell.hi { color: #fff; }
+.pricing-table-row-btn { border-bottom: none; }
+.pricing-table-row-btn .pricing-table-cell { padding-top: 28px; }
+.pricing-table-row-btn .card-btn { max-width: 200px; }
+.pricing-table-row-btn .hi-btn { border-color: #fff; color: #fff; }
+.pricing-table-row-btn .hi-btn:hover { background: #fff; color: #111; }
+
 /* ─── FAQ ─── */
 #faq { padding: 108px 0; }
 .faq-inner { max-width: 760px; }
@@ -606,6 +633,12 @@ footer {
   .photos { grid-template-columns: 1fr 1fr; }
   .photo:nth-child(3), .photo:nth-child(4) { grid-column: span 1; aspect-ratio: 3/4; }
   .testis, .cards { grid-template-columns: 1fr; }
+  .pricing-table { overflow-x: auto; }
+  .pricing-table-row { grid-template-columns: 90px repeat(3, minmax(160px, 1fr)); }
+  .pricing-table-label { font-size: 12px; padding: 14px 8px 14px 0; }
+  .pricing-table-cell { padding: 14px 12px; font-size: 13px; }
+  .pricing-table-col-header { padding: 20px 12px; }
+  .pricing-table-col-header .card-name { font-size: 16px; }
   .work-intro, .testi-reviews-link { justify-self: start; }
   .hero-content { flex-direction: column; align-items: flex-start; }
   .hero-right { align-items: flex-start; }
