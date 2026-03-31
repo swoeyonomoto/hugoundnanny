@@ -577,10 +577,7 @@ body {
 }
 .logo-header-img { height: 31px; width: auto; display: block; }
 
-/* Homepage: logo left-aligned */
-body:has(.home-layout) .logo-header {
-  justify-content: flex-start;
-}
+/* Homepage: logo stays centered */
 
 /* ─── FOOTER ─── */
 footer {
