@@ -10,7 +10,7 @@ declare global {
 }
 
 const HomepageContent = () => {
-  const { t } = useLang();
+  const { t, lang, setLang } = useLang();
   const navigate = useNavigate();
   const [submitting, setSubmitting] = useState(false);
   const [lookingFor, setLookingFor] = useState("");
