@@ -1,8 +1,8 @@
 import { useState, useEffect, useRef, FormEvent } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { LanguageProvider, useLang } from "@/contexts/LanguageContext";
-import LangBar from "@/components/LangBar";
 import LogoHeader from "@/components/LogoHeader";
+import AutoColorNav from "@/components/AutoColorNav";
 import Footer from "@/components/sections/Footer";
 
 declare global {
