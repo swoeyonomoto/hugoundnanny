@@ -143,7 +143,7 @@ const HomepageContent = () => {
               </div>
               <div className="cf-row">
                 <div className="cf">
-                  <label>{t("Ihr sucht", "Looking For")}</label>
+                  <label>{t("Und wir suchen", "And we are looking for")}</label>
                   <select name="looking_for" required value={lookingFor} onChange={e => setLookingFor(e.target.value)}>
                     <option value="" disabled>{t("Bitte wählen", "Please select")}</option>
                     <option value="Photo">Photo</option>
