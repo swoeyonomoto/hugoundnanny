@@ -141,7 +141,7 @@ const HomepageContent = () => {
               </div>
               <div className="cf-row">
                 <div className="cf">
-                  <label>{t("Heiraten am", "Are getting married on")}</label>
+                  <label>{t("Heiraten am", "Are getting married on")} *</label>
                   <input type="text" name="wedding_date" placeholder={t("TT.MM.JJJJ", "DD.MM.YYYY")} onFocus={(e) => { e.currentTarget.type = 'date'; }} onBlur={(e) => { if (!e.currentTarget.value) e.currentTarget.type = 'text'; }} required />
                 </div>
                 <div className="cf">
