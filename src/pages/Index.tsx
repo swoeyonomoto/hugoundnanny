@@ -93,8 +93,8 @@ const HomepageContent = () => {
             </h1>
             <p className="home-form-sub">
               {t(
-                "Die Kontaktaufnahme dauert 2 Minuten. Wir melden uns innerhalb von 24 Stunden — kein Druck, kein Skript. Einfach ein echtes Gespräch.",
-                "Getting in touch takes 2 minutes. We'll be back within 24 hours — no pressure, no script. Just a real conversation."
+                "Früh anzufragen heißt: Ihr wisst sofort, ob euer Datum frei ist — und bekommt unseren Couple's Guide mit allen Infos zu unserer Arbeit, zur Vorbereitung und zu den Kosten, damit ihr in Ruhe entscheiden könnt.",
+                "Reaching out early means you'll know if your date is free and we'll send you our couple's guide — everything about the work, how to prepare and what it costs, so you have all you need to decide."
               )}
             </p>
 
