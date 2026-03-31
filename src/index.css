@@ -679,6 +679,7 @@ footer {
 .home-layout {
   display: grid; grid-template-columns: 1fr 1fr;
   min-height: 100vh;
+  margin-top: 0; padding-top: 0;
 }
 .home-video-mobile { display: none; }
 
