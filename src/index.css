@@ -659,7 +659,7 @@ footer {
 /* Desktop navbar: white background, static */
 .home-desktop-nav {
   display: flex; align-items: center; justify-content: space-between;
-  padding: 20px 64px; background: #fff; position: relative; z-index: 50;
+  padding: 20px 0 40px; position: relative; z-index: 50;
 }
 .home-desktop-nav-left {
   display: flex; align-items: center; gap: 28px;
