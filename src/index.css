@@ -653,7 +653,7 @@ footer {
 
 /* ─── HOMEPAGE ─── */
 .home-about-link {
-  position: fixed; top: 24px; right: 120px; z-index: 500;
+  position: fixed; top: 24px; left: 64px; z-index: 500;
 }
 .home-about-link a {
   font-family: 'Ginora Sans Bold', sans-serif; font-size: 10px; font-weight: 400;
