@@ -167,7 +167,7 @@ const HomepageContent = () => {
                 <input type="text" name="instagram" placeholder="@yourhandle" />
               </div>
               <div className="cf">
-                <label>{t("TELEFONNUMMER (OPTIONAL)", "PHONE NUMBER (OPTIONAL)")}</label>
+                <label>{t("Oder ruf uns an / WhatsApp", "Or call / WhatsApp us")}</label>
                 <input type="tel" name="phone" placeholder="+49 123 456 7890" />
               </div>
               <div className="cf">
