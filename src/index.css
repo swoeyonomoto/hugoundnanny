@@ -370,32 +370,12 @@ body {
   text-align: center; margin-top: 40px; font-size: 12px; color: #999; line-height: 1.75;
 }
 
-/* Pricing comparison table */
-.pricing-table { border-top: 1px solid #e8e8e6; }
-.pricing-table-row {
-  display: grid; grid-template-columns: 120px repeat(3, 1fr); border-bottom: 1px solid #e8e8e6;
+/* Card list labels */
+.card-list-label {
+  display: block; font-size: 9px; letter-spacing: .16em; text-transform: uppercase;
+  color: #999; margin-bottom: 2px;
 }
-.pricing-table-header { border-bottom: 2px solid #222; }
-.pricing-table-label {
-  font-family: 'Libre Caslon Display', serif; font-size: 14px; font-weight: 700;
-  padding: 20px 16px 20px 0; color: #111; display: flex; align-items: flex-start;
-}
-.pricing-table-col-header { padding: 28px 24px; }
-.pricing-table-col-header .card-tag { margin-bottom: 8px; display: block; }
-.pricing-table-col-header .card-name { font-size: 20px; margin-bottom: 0; }
-.pricing-table-col-header.hi { background: #111; color: #fff; }
-.pricing-table-col-header.hi .card-tag { color: rgba(255,255,255,.4); }
-.pricing-table-cell { padding: 20px 24px; font-size: 14px; line-height: 1.65; color: #444; }
-.pricing-table-cell.hi { background: #111; color: rgba(255,255,255,.75); }
-.pricing-table-cell.price-cell {
-  font-family: 'Libre Caslon Display', serif; font-size: 22px; font-weight: 400; color: #111;
-}
-.pricing-table-cell.price-cell.hi { color: #fff; }
-.pricing-table-row-btn { border-bottom: none; }
-.pricing-table-row-btn .pricing-table-cell { padding-top: 28px; }
-.pricing-table-row-btn .card-btn { max-width: 200px; }
-.pricing-table-row-btn .hi-btn { border-color: #fff; color: #fff; }
-.pricing-table-row-btn .hi-btn:hover { background: #fff; color: #111; }
+.card.hi .card-list-label { color: rgba(255,255,255,.38); }
 
 /* ─── FAQ ─── */
 #faq { padding: 108px 0; }
