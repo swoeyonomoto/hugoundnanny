@@ -93,7 +93,7 @@ const HomepageContent = () => {
           <nav className="home-desktop-nav">
             <div className="home-desktop-nav-left">
               <a href="/">
-                <img src="/photos/logo.png" alt="hugo + nanny" className="logo-header-img" />
+                <img src="/photos/logo-left.png" alt="hugo + nanny" className="logo-header-img" />
               </a>
               <Link to="/about" className="home-desktop-about">{t("ÜBER UNS", "ABOUT US")}</Link>
             </div>
