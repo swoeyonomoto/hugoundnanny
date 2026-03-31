@@ -145,7 +145,7 @@ const HomepageContent = () => {
                   <input type="text" name="wedding_date" placeholder={t("TT.MM.JJJJ", "DD.MM.YYYY")} onFocus={(e) => { e.currentTarget.type = 'date'; }} onBlur={(e) => { if (!e.currentTarget.value) e.currentTarget.type = 'text'; }} required />
                 </div>
                 <div className="cf">
-                  <label>{t("In", "At")}</label>
+                  <label>{t("In", "At")} *</label>
                   <input type="text" name="venue" placeholder={t("Toskana, Italien", "Tuscany, Italy")} required />
                 </div>
               </div>
