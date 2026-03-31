@@ -32,7 +32,7 @@ const ThankYouContent = () => {
             <p className="thankyou-body">
               {t(
                 "Wir melden uns innerhalb von 24 Stunden — oft viel schneller. In der Zwischenzeit könnt ihr gerne unsere neuesten Arbeiten auf Instagram stalken.",
-                "We'll be back within 24 hours — often much sooner. In the meantime, feel free to stalk our latest work on Instagram."
+                "We'll be back within 24 hours — often much sooner. In the meantime, feel free to check out our latest work on Instagram."
               )}
             </p>
             <a
