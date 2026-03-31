@@ -96,9 +96,6 @@ const Pricing = () => {
                   <hr className="card-hr" />
                   <span className="card-from">{pkg.from}</span>
                   <div className={`card-price ${pkg.priceClass || ""}`}>{pkg.price}</div>
-                  {pkg.price !== t("Auf Anfrage", "On request") && (
-                    <span className="card-deadline">{t("Frühbucherpreis — verfügbar für Hochzeiten bis 30. April 2025", "Early booking rate — available for weddings booked until 30 April 2025")}</span>
-                  )}
                   {pkg.emotionalLine && pkg.emotionalText && (
                     <p className="card-emotional">{pkg.emotionalText}</p>
                   )}

@@ -163,9 +163,9 @@ const HomepageContent = () => {
                   <label>{t("Unser Budget ist", "Our budget is")} *</label>
                   <select name="budget" required value={budget} onChange={e => setBudget(e.target.value)}>
                     <option value="" disabled>{t("Bitte wählen", "Please select")}</option>
-                    <option value="€3.500 — One day · 1 cinematographer">{t("€ 3.500 — Ein Tag · 1 Kameramann", "€ 3.500 — One day · 1 cinematographer")}</option>
-                    <option value="€5.800 — Two days · 2 cinematographers">{t("€ 5.800 — Zwei Tage · 2 Kameraleute", "€ 5.800 — Two days · 2 cinematographers")}</option>
-                    <option value="€6.500 — Two days · 2 cinematographers + photographer">{t("€ 6.500 — Zwei Tage · 2 Kameraleute + Fotograf", "€ 6.500 — Two days · 2 cinematographers + photographer")}</option>
+                    <option value="€3.900 — One day · 1 cinematographer (film or photo)">{t("€ 3.900 — Ein Tag · 1 Kameramann (Film oder Foto)", "€ 3.900 — One day · 1 cinematographer (film or photo)")}</option>
+                    <option value="€5.800 — Two days · 2 cinematographers (film or photo)">{t("€ 5.800 — Zwei Tage · 2 Kameraleute (Film oder Foto)", "€ 5.800 — Two days · 2 cinematographers (film or photo)")}</option>
+                    <option value="€8.500 — Two days · 2 cinematographers + photographer">{t("€ 8.500 — Zwei Tage · 2 Kameraleute + Fotograf", "€ 8.500 — Two days · 2 cinematographers + photographer")}</option>
                     <option value="Custom — destination wedding or special request">{t("Custom — Hochzeit im Ausland oder Sonderwunsch", "Custom — destination wedding or special request")}</option>
                     <option value="Not sure yet — send me the guide">{t("Noch unsicher — schickt mir den Guide", "Not sure yet — send me the guide")}</option>
                   </select>
