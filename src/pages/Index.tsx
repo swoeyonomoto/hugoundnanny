@@ -152,7 +152,7 @@ const HomepageContent = () => {
                   </select>
                 </div>
                 <div className="cf">
-                  <label>{t("Budget", "Your Foto / Film Budget")}</label>
+                  <label>{t("Unser Budget ist", "Our budget is")}</label>
                   <select name="budget" required value={budget} onChange={e => setBudget(e.target.value)}>
                     <option value="" disabled>{t("Bitte wählen", "Please select")}</option>
                     <option value="€2.000 – €3.000">€2.000 – €3.000</option>
