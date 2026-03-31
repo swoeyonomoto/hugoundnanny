@@ -119,9 +119,12 @@ const Pricing = () => {
                     className="card-btn"
                     onClick={(e) => {
                       e.preventDefault();
-                      const prefill: Record<string, string> = { lookingFor: "Photo & Video" };
-                      if (i === 0) prefill.budget = "€3.000 – €5.000";
-                      if (i === 1) prefill.budget = "€5.000 – €10.000";
+                      const budgetMap = [
+                        "€3.900 — One day · 1 cinematographer (film or photo)",
+                        "€5.800 — Two days · 2 cinematographers (film or photo)",
+                        "€8.500 — Two days · 2 cinematographers + photographer",
+                      ];
+                      const prefill: Record<string, string> = { lookingFor: "Photo & Video", budget: budgetMap[i] };
                       window.dispatchEvent(new CustomEvent("prefill-contact", { detail: prefill }));
                       document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
                     }}
