@@ -50,14 +50,31 @@ const HomepageContent = () => {
 
   return (
     <>
-      <LogoHeader variant="auto" />
-      <AutoColorNav className="lang-bar home-lang" style={{ position: "fixed", zIndex: 500 }}>
-        <button className={`lang-btn ${lang === "de" ? "active" : ""}`} onClick={() => setLang("de")}>DE</button>
-        <button className={`lang-btn ${lang === "en" ? "active" : ""}`} onClick={() => setLang("en")}>EN</button>
-      </AutoColorNav>
-      <AutoColorNav className="home-about-link" style={{ position: "fixed", zIndex: 500 }}>
-        <Link to="/about">{t("ÜBER UNS", "ABOUT US")}</Link>
-      </AutoColorNav>
+      {/* Desktop navbar: white bar, not floating */}
+      <nav className="home-desktop-nav">
+        <div className="home-desktop-nav-left">
+          <a href="/">
+            <img src="/photos/logo.png" alt="hugo + nanny" className="logo-header-img" />
+          </a>
+          <Link to="/about" className="home-desktop-about">{t("ÜBER UNS", "ABOUT US")}</Link>
+        </div>
+        <div className="home-desktop-nav-right">
+          <button className={`lang-btn ${lang === "de" ? "active" : ""}`} onClick={() => setLang("de")}>DE</button>
+          <button className={`lang-btn ${lang === "en" ? "active" : ""}`} onClick={() => setLang("en")}>EN</button>
+        </div>
+      </nav>
+
+      {/* Mobile: floating nav elements over video */}
+      <div className="home-mobile-nav">
+        <LogoHeader variant="auto" />
+        <AutoColorNav className="lang-bar home-lang" style={{ position: "fixed", zIndex: 500 }}>
+          <button className={`lang-btn ${lang === "de" ? "active" : ""}`} onClick={() => setLang("de")}>DE</button>
+          <button className={`lang-btn ${lang === "en" ? "active" : ""}`} onClick={() => setLang("en")}>EN</button>
+        </AutoColorNav>
+        <AutoColorNav className="home-about-link" style={{ position: "fixed", zIndex: 500 }}>
+          <Link to="/about">{t("ÜBER UNS", "ABOUT US")}</Link>
+        </AutoColorNav>
+      </div>
 
       <div className="home-layout">
         {/* Mobile: compact video at top */}
