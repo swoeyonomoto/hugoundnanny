@@ -5,7 +5,7 @@ interface LogoHeaderProps {
 }
 
 // Selectors for elements with dark backgrounds where white logo is needed
-const DARK_SELECTORS = "#hero, .films, .photos, .about-img";
+const DARK_SELECTORS = "#hero, .films, .photos, .about-img, .home-video-sticky, .home-video-inner";
 
 const LogoHeader = ({ variant = "auto" }: LogoHeaderProps) => {
   const containerRef = useRef<HTMLDivElement>(null);

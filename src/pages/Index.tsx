@@ -50,7 +50,7 @@ const HomepageContent = () => {
 
   return (
     <>
-      <LogoHeader variant="black" />
+      <LogoHeader variant="auto" />
       <LangBar />
       <nav className="home-about-link">
         <Link to="/about">{t("ÜBER UNS", "ABOUT US")}</Link>
@@ -78,22 +78,13 @@ const HomepageContent = () => {
               }}
             />
             <div className="home-video-overlay" />
-            <div className="home-video-text">
-              <h2 className="home-video-headline">
-                {t(
-                  <>Eure Geschichten.<br /><em>Authentisch und echt.</em></>,
-                  <>Your stories.<br /><em>Authentic and raw.</em></>
-                )}
-              </h2>
-              <span className="home-video-sub">hugo + nanny — Wedding Film & Photography</span>
-            </div>
           </div>
         </div>
 
         {/* Left: Form */}
         <div className="home-form-col">
           <div className="home-form-inner">
-            <span className="label">WEDDING FILM & PHOTOGRAPHY</span>
+            <span className="label">{t(<>Eure Geschichten.<br /><em>Authentisch und echt.</em></>, <>Your stories.<br /><em>Authentic and raw.</em></>)}</span>
             <h1 className="home-form-h">
               {t(
                 <>Limited 2026 dates.<br /><em>Find out if yours is free…</em></>,
@@ -185,15 +176,6 @@ const HomepageContent = () => {
               }}
             />
             <div className="home-video-overlay" />
-            <div className="home-video-text">
-              <h2 className="home-video-headline">
-                {t(
-                  <>Eure Geschichten.<br /><em>Authentisch und echt.</em></>,
-                  <>Your stories.<br /><em>Authentic and raw.</em></>
-                )}
-              </h2>
-              <span className="home-video-sub">hugo + nanny — Wedding Film & Photography</span>
-            </div>
           </div>
         </div>
       </div>
