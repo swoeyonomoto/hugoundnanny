@@ -752,8 +752,11 @@ footer {
 }
 
 @media (max-width: 960px) {
-  .home-about-link { top: 16px; left: 16px; }
-  .home-lang { top: 16px; right: 16px; }
+  .home-desktop-nav { display: none; }
+  .home-mobile-nav { display: block; }
+  .home-about-link { top: 18px; left: 16px; display: flex; align-items: center; }
+  .home-lang { top: 18px; right: 16px; }
+  .home-mobile-nav .logo-header { padding: 14px 64px; }
   .home-layout { grid-template-columns: 1fr; }
   .home-video-col { display: none; }
   .home-video-mobile {
