@@ -577,10 +577,7 @@ body {
 }
 .logo-header-img { height: 31px; width: auto; display: block; }
 
-/* Homepage: logo left-aligned */
-body:has(.home-layout) .logo-header {
-  justify-content: flex-start;
-}
+/* Homepage: logo stays centered */
 
 /* ─── FOOTER ─── */
 footer {
@@ -659,7 +656,7 @@ footer {
 
 /* ─── HOMEPAGE ─── */
 .home-about-link {
-  top: 26px; right: calc(50% + 40px);
+  position: fixed; top: 26px; left: 32px; z-index: 500;
 }
 .home-about-link a {
   font-family: 'Ginora Sans Bold', sans-serif; font-size: 10px; font-weight: 400;
@@ -731,7 +728,7 @@ footer {
 }
 
 @media (max-width: 960px) {
-  .home-about-link { top: 16px; right: auto; left: 28px; }
+  .home-about-link { top: 16px; left: 16px; }
   .home-lang { top: 16px; right: 16px; }
   .home-layout { grid-template-columns: 1fr; }
   .home-video-col { display: none; }
