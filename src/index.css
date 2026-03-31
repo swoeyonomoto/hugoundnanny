@@ -425,7 +425,7 @@ body {
 }
 .cf label {
   font-size: 9px; letter-spacing: .2em; text-transform: uppercase;
-  color: #999; margin-bottom: 7px;
+  color: #666; margin-bottom: 7px;
 }
 .cf input, .cf textarea {
   background: none; border: none; outline: none;

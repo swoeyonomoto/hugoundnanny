@@ -123,27 +123,27 @@ const HomepageContent = () => {
             <form className="cform" onSubmit={handleSubmit}>
               <div className="cf-row">
                 <div className="cf">
-                  <label>{t("Eure Namen", "Your Names")}</label>
+                  <label>{t("Mein(e) Verlobte(r) und ich", "My fiancé(e) and I")}</label>
                   <input type="text" name="names" placeholder={t("Anna & Max", "Anna & Max")} required />
                 </div>
                 <div className="cf">
-                  <label>Email</label>
+                  <label>{t("Erreicht uns unter", "Reach us at")}</label>
                   <input type="email" name="email" placeholder="hello@example.com" required />
                 </div>
               </div>
               <div className="cf-row">
                 <div className="cf">
-                  <label>{t("Hochzeitsdatum", "Wedding Date")}</label>
+                  <label>{t("Heiraten am", "Are getting married on")}</label>
                   <input type="text" name="wedding_date" placeholder={t("TT.MM.JJJJ", "DD.MM.YYYY")} onFocus={(e) => { e.currentTarget.type = 'date'; }} onBlur={(e) => { if (!e.currentTarget.value) e.currentTarget.type = 'text'; }} required />
                 </div>
                 <div className="cf">
-                  <label>{t("Location", "Venue / Location")}</label>
+                  <label>{t("In", "At")}</label>
                   <input type="text" name="venue" placeholder={t("Toskana, Italien", "Tuscany, Italy")} required />
                 </div>
               </div>
               <div className="cf-row">
                 <div className="cf">
-                  <label>{t("Ihr sucht", "Looking For")}</label>
+                  <label>{t("Und wir suchen", "And we are looking for")}</label>
                   <select name="looking_for" required value={lookingFor} onChange={e => setLookingFor(e.target.value)}>
                     <option value="" disabled>{t("Bitte wählen", "Please select")}</option>
                     <option value="Photo">Photo</option>
@@ -152,7 +152,7 @@ const HomepageContent = () => {
                   </select>
                 </div>
                 <div className="cf">
-                  <label>{t("Budget", "Your Foto / Film Budget")}</label>
+                  <label>{t("Unser Budget ist", "Our budget is")}</label>
                   <select name="budget" required value={budget} onChange={e => setBudget(e.target.value)}>
                     <option value="" disabled>{t("Bitte wählen", "Please select")}</option>
                     <option value="€2.000 – €3.000">€2.000 – €3.000</option>
@@ -163,15 +163,15 @@ const HomepageContent = () => {
                 </div>
               </div>
               <div className="cf">
-                <label>Instagram</label>
+                <label>{t("Unser Instagram", "Our Instagram")}</label>
                 <input type="text" name="instagram" placeholder="@yourhandle" />
               </div>
               <div className="cf">
-                <label>{t("TELEFONNUMMER (OPTIONAL)", "PHONE NUMBER (OPTIONAL)")}</label>
+                <label>{t("Oder ruf uns an / WhatsApp", "Or call / WhatsApp us")}</label>
                 <input type="tel" name="phone" placeholder="+49 123 456 7890" />
               </div>
               <div className="cf">
-                <label>{t("NOCH ETWAS, DAS WIR WISSEN SOLLTEN?", "ANYTHING ELSE WE SHOULD KNOW?")}</label>
+                <label>{t("Und das ist unsere Geschichte", "And this is our story")}</label>
                 <textarea name="message" rows={3} placeholder={t("Erzählt uns von eurer Hochzeit, eurer Vision oder allem, was euch wichtig ist.", "Tell us about your wedding, your vision, or anything that matters to you.")} />
               </div>
               <button type="submit" className="cf-submit home-submit" disabled={submitting}>
