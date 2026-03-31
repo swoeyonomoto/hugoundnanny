@@ -171,7 +171,7 @@ const HomepageContent = () => {
                 <input type="tel" name="phone" placeholder="+49 123 456 7890" />
               </div>
               <div className="cf">
-                <label>{t("NOCH ETWAS, DAS WIR WISSEN SOLLTEN?", "ANYTHING ELSE WE SHOULD KNOW?")}</label>
+                <label>{t("Und das ist unsere Geschichte", "And this is our story")}</label>
                 <textarea name="message" rows={3} placeholder={t("Erzählt uns von eurer Hochzeit, eurer Vision oder allem, was euch wichtig ist.", "Tell us about your wedding, your vision, or anything that matters to you.")} />
               </div>
               <button type="submit" className="cf-submit home-submit" disabled={submitting}>
