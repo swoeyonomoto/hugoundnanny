@@ -93,7 +93,7 @@ const HomepageContent = () => {
         {/* Left: Form */}
         <div className="home-form-col">
           <div className="home-form-inner">
-            <span className="label">WEDDING FILM & PHOTOGRAPHY</span>
+            <span className="label">{t(<>Eure Geschichten.<br /><em>Authentisch und echt.</em></>, <>Your stories.<br /><em>Authentic and raw.</em></>)}</span>
             <h1 className="home-form-h">
               {t(
                 <>Limited 2026 dates.<br /><em>Find out if yours is free…</em></>,
