@@ -51,10 +51,13 @@ const HomepageContent = () => {
   return (
     <>
       <LogoHeader variant="auto" />
-      <LangBar />
-      <nav className="home-about-link">
+      <AutoColorNav className="lang-bar home-lang" style={{ position: "fixed", zIndex: 500 }}>
+        <button className={`lang-btn ${lang === "de" ? "active" : ""}`} onClick={() => setLang("de")}>DE</button>
+        <button className={`lang-btn ${lang === "en" ? "active" : ""}`} onClick={() => setLang("en")}>EN</button>
+      </AutoColorNav>
+      <AutoColorNav className="home-about-link" style={{ position: "fixed", zIndex: 500 }}>
         <Link to="/about">{t("ÜBER UNS", "ABOUT US")}</Link>
-      </nav>
+      </AutoColorNav>
 
       <div className="home-layout">
         {/* Mobile: compact video at top */}
