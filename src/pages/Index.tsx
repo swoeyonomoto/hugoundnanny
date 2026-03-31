@@ -120,6 +120,14 @@ const HomepageContent = () => {
               )}
             </p>
 
+            <a
+              href="https://wa.me/4916097813272?text=Hi%20Hugo%20%26%20Nanny%2C%20ich%20interessiere%20mich%20f%C3%BCr%20eure%20Hochzeitsfotografie%20und%20%E2%80%93film.%20K%C3%B6nnt%20ihr%20mir%20mehr%20Infos%20schicken%3F"
+              rel="noopener noreferrer"
+              style={{ display: "block", marginTop: 24, marginBottom: 28, fontSize: 11, letterSpacing: "0.08em", textTransform: "uppercase" as const, color: "#888", textDecoration: "none" }}
+            >
+              {t("💬 Lieber per WhatsApp? Schreibt uns direkt →", "💬 Prefer WhatsApp? Message us directly →")}
+            </a>
+
             <form className="cform" onSubmit={handleSubmit}>
               <div className="cf-row">
                 <div className="cf">
@@ -155,10 +163,11 @@ const HomepageContent = () => {
                   <label>{t("Unser Budget ist", "Our budget is")}</label>
                   <select name="budget" required value={budget} onChange={e => setBudget(e.target.value)}>
                     <option value="" disabled>{t("Bitte wählen", "Please select")}</option>
-                    <option value="€2.000 – €3.000">€2.000 – €3.000</option>
-                    <option value="€3.000 – €5.000">€3.000 – €5.000</option>
-                    <option value="€5.000 – €10.000">€5.000 – €10.000</option>
-                    <option value="€10.000+">€10.000+</option>
+                    <option value="€3.500 — One day · 1 cinematographer">{t("€ 3.500 — Ein Tag · 1 Kameramann", "€ 3.500 — One day · 1 cinematographer")}</option>
+                    <option value="€5.800 — Two days · 2 cinematographers">{t("€ 5.800 — Zwei Tage · 2 Kameraleute", "€ 5.800 — Two days · 2 cinematographers")}</option>
+                    <option value="€6.500 — Two days · 2 cinematographers + photographer">{t("€ 6.500 — Zwei Tage · 2 Kameraleute + Fotograf", "€ 6.500 — Two days · 2 cinematographers + photographer")}</option>
+                    <option value="Custom — destination wedding or special request">{t("Custom — Hochzeit im Ausland oder Sonderwunsch", "Custom — destination wedding or special request")}</option>
+                    <option value="Not sure yet — send me the guide">{t("Noch unsicher — schickt mir den Guide", "Not sure yet — send me the guide")}</option>
                   </select>
                 </div>
               </div>
@@ -177,14 +186,6 @@ const HomepageContent = () => {
               <button type="submit" className="cf-submit home-submit" disabled={submitting}>
                 {submitting ? t("Wird gesendet…", "Sending…") : t("VERFÜGBARKEIT PRÜFEN ♥", "CHECK AVAILABILITY ♥")}
               </button>
-              <a
-                href="https://wa.me/4916097813272?text=Hi%20Hugo%20%26%20Nanny%2C%20ich%20interessiere%20mich%20f%C3%BCr%20eure%20Hochzeitsfotografie%20und%20%E2%80%93film.%20K%C3%B6nnt%20ihr%20mir%20mehr%20Infos%20schicken%3F"
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{ display: "block", textAlign: "center", marginTop: 16, fontSize: 11, letterSpacing: "0.08em", textTransform: "uppercase" as const, color: "#888", textDecoration: "none" }}
-              >
-                {t("Lieber per WhatsApp? Schreibt uns direkt →", "Prefer WhatsApp? Message us directly →")}
-              </a>
             </form>
           </div>
         </div>
