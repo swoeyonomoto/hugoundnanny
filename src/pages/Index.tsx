@@ -50,20 +50,6 @@ const HomepageContent = () => {
 
   return (
     <>
-      {/* Desktop navbar: white bar, not floating */}
-      <nav className="home-desktop-nav">
-        <div className="home-desktop-nav-left">
-          <a href="/">
-            <img src="/photos/logo.png" alt="hugo + nanny" className="logo-header-img" />
-          </a>
-          <Link to="/about" className="home-desktop-about">{t("ÜBER UNS", "ABOUT US")}</Link>
-        </div>
-        <div className="home-desktop-nav-right">
-          <button className={`lang-btn ${lang === "de" ? "active" : ""}`} onClick={() => setLang("de")}>DE</button>
-          <button className={`lang-btn ${lang === "en" ? "active" : ""}`} onClick={() => setLang("en")}>EN</button>
-        </div>
-      </nav>
-
       {/* Mobile: floating nav elements over video */}
       <div className="home-mobile-nav">
         <LogoHeader variant="auto" />
@@ -103,6 +89,20 @@ const HomepageContent = () => {
 
         {/* Left: Form */}
         <div className="home-form-col">
+          {/* Desktop navbar inside form column */}
+          <nav className="home-desktop-nav">
+            <div className="home-desktop-nav-left">
+              <a href="/">
+                <img src="/photos/logo.png" alt="hugo + nanny" className="logo-header-img" />
+              </a>
+              <Link to="/about" className="home-desktop-about">{t("ÜBER UNS", "ABOUT US")}</Link>
+            </div>
+            <div className="home-desktop-nav-right">
+              <button className={`lang-btn ${lang === "de" ? "active" : ""}`} onClick={() => setLang("de")}>DE</button>
+              <button className={`lang-btn ${lang === "en" ? "active" : ""}`} onClick={() => setLang("en")}>EN</button>
+            </div>
+          </nav>
+
           <div className="home-form-inner">
             <span className="label">{t(<>Eure Geschichten.<br /><em>Authentisch und echt.</em></>, <>Your stories.<br /><em>Authentic and raw.</em></>)}</span>
             <h1 className="home-form-h">
