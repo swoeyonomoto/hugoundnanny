@@ -8,7 +8,7 @@ const Footer = () => {
       <div className="f-links">
         <a href="#">{t("Impressum", "Imprint")}</a>
         <a href="#">{t("Datenschutz", "Privacy")}</a>
-        <a href="#">Instagram</a>
+        <a href="https://www.instagram.com/hugoundnanny" target="_blank" rel="noopener noreferrer">@hugoundnanny</a>
       </div>
       <span className="f-copy">© 2025 Hugo & Nanny</span>
     </footer>
