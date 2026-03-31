@@ -707,8 +707,8 @@ footer {
 .home-video-mobile { display: none; }
 
 .home-form-col {
-  padding: 120px 64px 80px;
-  display: flex; flex-direction: column; justify-content: center;
+  padding: 20px 64px 80px;
+  display: flex; flex-direction: column;
 }
 .home-form-inner { max-width: 520px; }
 .home-form-h {
