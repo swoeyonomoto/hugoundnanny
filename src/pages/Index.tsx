@@ -1,8 +1,8 @@
 import { useState, useEffect, useRef, FormEvent } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { LanguageProvider, useLang } from "@/contexts/LanguageContext";
-import LangBar from "@/components/LangBar";
 import LogoHeader from "@/components/LogoHeader";
+import AutoColorNav from "@/components/AutoColorNav";
 import Footer from "@/components/sections/Footer";
 
 declare global {
@@ -10,7 +10,7 @@ declare global {
 }
 
 const HomepageContent = () => {
-  const { t } = useLang();
+  const { t, lang, setLang } = useLang();
   const navigate = useNavigate();
   const [submitting, setSubmitting] = useState(false);
   const [lookingFor, setLookingFor] = useState("");
@@ -51,10 +51,13 @@ const HomepageContent = () => {
   return (
     <>
       <LogoHeader variant="auto" />
-      <LangBar />
-      <nav className="home-about-link">
+      <AutoColorNav className="lang-bar home-lang" style={{ position: "fixed", zIndex: 500 }}>
+        <button className={`lang-btn ${lang === "de" ? "active" : ""}`} onClick={() => setLang("de")}>DE</button>
+        <button className={`lang-btn ${lang === "en" ? "active" : ""}`} onClick={() => setLang("en")}>EN</button>
+      </AutoColorNav>
+      <AutoColorNav className="home-about-link" style={{ position: "fixed", zIndex: 500 }}>
         <Link to="/about">{t("ÜBER UNS", "ABOUT US")}</Link>
-      </nav>
+      </AutoColorNav>
 
       <div className="home-layout">
         {/* Mobile: compact video at top */}
