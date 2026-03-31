@@ -167,12 +167,24 @@ const HomepageContent = () => {
                 <input type="text" name="instagram" placeholder="@yourhandle" />
               </div>
               <div className="cf">
+                <label>{t("TELEFONNUMMER (OPTIONAL)", "PHONE NUMBER (OPTIONAL)")}</label>
+                <input type="tel" name="phone" placeholder="+49 123 456 7890" />
+              </div>
+              <div className="cf">
                 <label>{t("NOCH ETWAS, DAS WIR WISSEN SOLLTEN?", "ANYTHING ELSE WE SHOULD KNOW?")}</label>
                 <textarea name="message" rows={3} placeholder={t("Erzählt uns von eurer Hochzeit, eurer Vision oder allem, was euch wichtig ist.", "Tell us about your wedding, your vision, or anything that matters to you.")} />
               </div>
               <button type="submit" className="cf-submit home-submit" disabled={submitting}>
                 {submitting ? t("Wird gesendet…", "Sending…") : t("VERFÜGBARKEIT PRÜFEN ♥", "CHECK AVAILABILITY ♥")}
               </button>
+              <a
+                href="https://wa.me/4916097813272?text=Hi%20Hugo%20%26%20Nanny%2C%20ich%20interessiere%20mich%20f%C3%BCr%20eure%20Hochzeitsfotografie%20und%20%E2%80%93film.%20K%C3%B6nnt%20ihr%20mir%20mehr%20Infos%20schicken%3F"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ display: "block", textAlign: "center", marginTop: 16, fontSize: 11, letterSpacing: "0.08em", textTransform: "uppercase" as const, color: "#888", textDecoration: "none" }}
+              >
+                {t("Lieber per WhatsApp? Schreibt uns direkt →", "Prefer WhatsApp? Message us directly →")}
+              </a>
             </form>
           </div>
         </div>
