@@ -1,5 +1,5 @@
 import { LanguageProvider } from "@/contexts/LanguageContext";
-import LangBar from "@/components/LangBar";
+import AutoColorNav from "@/components/AutoColorNav";
 import LogoHeader from "@/components/LogoHeader";
 import StickyCta from "@/components/StickyCta";
 import Hero from "@/components/sections/Hero";
@@ -22,10 +22,20 @@ const AboutNav = () => {
   );
 };
 
+const AboutLangBar = () => {
+  const { lang, setLang } = useLang();
+  return (
+    <AutoColorNav className="lang-bar" style={{ position: "fixed", top: 26, right: 32, zIndex: 500 }}>
+      <button className={`lang-btn ${lang === "de" ? "active" : ""}`} onClick={() => setLang("de")}>DE</button>
+      <button className={`lang-btn ${lang === "en" ? "active" : ""}`} onClick={() => setLang("en")}>EN</button>
+    </AutoColorNav>
+  );
+};
+
 const AboutPage = () => (
   <LanguageProvider>
     <LogoHeader variant="auto" />
-    <LangBar />
+    <AboutLangBar />
     <AboutNav />
     <StickyCta />
     <Hero />
