@@ -131,7 +131,7 @@ const HomepageContent = () => {
             <form className="cform" onSubmit={handleSubmit}>
               <div className="cf-row">
                 <div className="cf">
-                  <label>{t("Mein(e) Verlobte(r) und ich", "My fiancé(e) and I")}</label>
+                  <label>{t("Mein(e) Verlobte(r) und ich", "My fiancé(e) and I")} *</label>
                   <input type="text" name="names" placeholder={t("Anna & Max", "Anna & Max")} required />
                 </div>
                 <div className="cf">
