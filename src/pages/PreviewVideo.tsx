@@ -59,11 +59,11 @@ const PreviewVideoInner = () => {
             letterSpacing: "0.15em",
             fontSize: "0.75rem",
             color: "hsl(var(--muted-foreground))",
-            marginBottom: "0.5rem",
+            marginBottom: "2.5rem",
           }}
         >
           {t("EXKLUSIVE VORSCHAU", "EXCLUSIVE PREVIEW")}
-        </h1>
+        </p>
 
         {/* Wistia Video */}
         <div
