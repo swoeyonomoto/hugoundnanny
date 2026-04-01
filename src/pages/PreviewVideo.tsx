@@ -29,17 +29,16 @@ const PreviewVideoInner = () => {
   return (
     <div className="preview-page" style={{ minHeight: "100vh", background: "hsl(var(--background))" }}>
       {/* Header */}
-      <div style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 100, display: "flex", alignItems: "center", justifyContent: "space-between", padding: "1.5rem 2rem" }}>
+      <div style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 100, display: "flex", alignItems: "center", justifyContent: "space-between", padding: "1.2rem 1.5rem" }}>
         <LogoHeader variant="black" />
-        <div style={{ display: "flex", alignItems: "center", gap: "2rem" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "1.5rem" }}>
           <Link
             to="/gang"
-            className="nav-link"
             style={{
               fontFamily: "'Ginora Sans Bold', sans-serif",
               textTransform: "uppercase",
               letterSpacing: "0.15em",
-              fontSize: "0.85rem",
+              fontSize: "0.65rem",
               color: "hsl(var(--foreground))",
               textDecoration: "none",
             }}
