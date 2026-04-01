@@ -2,22 +2,21 @@ import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useLang, LanguageProvider } from "@/contexts/LanguageContext";
 import LogoHeader from "@/components/LogoHeader";
-import AutoColorNav from "@/components/AutoColorNav";
 import LangBar from "@/components/LangBar";
 
-const PreviewVideoInner = () => {
+const PreviewMarieInner = () => {
   const { t } = useLang();
 
   useEffect(() => {
-    // Load Wistia player script
     const script = document.createElement("script");
-    script.src = "https://fast.wistia.com/embed/medias/1tt9dtcb3n.jsonp";
+    script.src = "https://fast.wistia.com/player.js";
     script.async = true;
     document.head.appendChild(script);
 
     const script2 = document.createElement("script");
-    script2.src = "https://fast.wistia.com/assets/external/E-v1.js";
+    script2.src = "https://fast.wistia.com/embed/83ovti5vtu.js";
     script2.async = true;
+    script2.type = "module";
     document.head.appendChild(script2);
 
     return () => {
@@ -66,50 +65,16 @@ const PreviewVideoInner = () => {
         </p>
 
         {/* Wistia Video */}
-        <div
-          className="wistia_responsive_padding"
-          style={{ padding: "56.25% 0 0 0", position: "relative" }}
-        >
-          <div
-            className="wistia_responsive_wrapper"
-            style={{ height: "100%", left: 0, position: "absolute", top: 0, width: "100%" }}
-          >
-            <div
-              className="wistia_embed wistia_async_1tt9dtcb3n seo=true videoFoam=true"
-              style={{ height: "100%", position: "relative", width: "100%" }}
-            >
-              <div
-                className="wistia_swatch"
-                style={{
-                  height: "100%",
-                  left: 0,
-                  opacity: 0,
-                  overflow: "hidden",
-                  position: "absolute",
-                  top: 0,
-                  transition: "opacity 200ms",
-                  width: "100%",
-                }}
-              >
-                <img
-                  src="https://fast.wistia.com/embed/medias/1tt9dtcb3n/swatch"
-                  style={{ filter: "blur(5px)", height: "100%", objectFit: "contain", width: "100%" }}
-                  alt=""
-                  aria-hidden="true"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
+        <wistia-player media-id="83ovti5vtu" aspect="1.3333333333333333" />
       </div>
     </div>
   );
 };
 
-const PreviewVideo = () => (
+const PreviewMarie = () => (
   <LanguageProvider>
-    <PreviewVideoInner />
+    <PreviewMarieInner />
   </LanguageProvider>
 );
 
-export default PreviewVideo;
+export default PreviewMarie;
