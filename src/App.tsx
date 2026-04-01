@@ -9,6 +9,7 @@ import AboutPage from "./pages/About.tsx";
 import AboutUs from "./pages/AboutUs.tsx";
 import ThankYou from "./pages/ThankYou.tsx";
 import NotFound from "./pages/NotFound.tsx";
+import PreviewVideo from "./pages/PreviewVideo.tsx";
 
 const queryClient = new QueryClient();
 
