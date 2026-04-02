@@ -30,7 +30,7 @@ const Hero = () => {
       <div className="hero-video">
         <WistiaAutoplayPlayer
           ref={playerRef}
-          media-id="n9jj0nzep3"
+          mediaId="n9jj0nzep3"
           style={{
             position: "absolute",
             top: "50%",
