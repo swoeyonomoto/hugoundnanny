@@ -97,6 +97,7 @@ const HomepageContent = () => {
               muted
               loop
               playsInline
+              controls={false}
               preload="auto"
               style={{
                 position: "absolute",
