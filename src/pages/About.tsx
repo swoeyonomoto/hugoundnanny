@@ -35,13 +35,13 @@ const AboutLangBar = () => {
 const IntroText = () => {
   const { t } = useLang();
   return (
-    <section style={{ padding: '64px 0 0' }}>
+    <section style={{ padding: '28px 0 0' }}>
       <div className="wrap">
         <RevealOnScroll>
           <p className="about-p" style={{ maxWidth: 620 }}>
             {t(
-              <>Klickt unten auf <em>'Let's get rolling'</em> — wenn ihr schon wisst, dass ihr mit uns arbeiten wollt und euer Datum checken möchtet. Wenn ihr uns erst kennenlernen wollt, haben wir <a href="/gang" style={{ textDecoration: 'underline' }}>hier</a> ein bisschen was über uns zusammengestellt:</>,
-              <>Hit <em>'Let's get rolling'</em> below — if you already know you want to work with us and check your date. If you'd like to get to know us first, we've put together a little about who we are:</>
+              <>Scrollt runter, um uns kennenzulernen — oder springt direkt zu <em>'Let's get rolling'</em>, wenn ihr schon wisst.</>,
+              <>Scroll to meet us — or skip straight to <em>'Let's get rolling'</em> if you already know.</>
             )}
           </p>
         </RevealOnScroll>
