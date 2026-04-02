@@ -33,6 +33,7 @@ const Hero = () => {
           muted
           loop
           playsinline
+          silentAutoPlay="allow"
           style={{
             position: "absolute",
             top: "50%",
