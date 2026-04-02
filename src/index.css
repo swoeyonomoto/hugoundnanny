@@ -665,6 +665,13 @@ footer {
   .hero-scroll-indicator { bottom: 10px; }
 }
 
+/* Mobile /about: disable scroll-linked layout shifts */
+@media (max-width: 960px) {
+  .rv { opacity: 1; transform: none; transition: none; }
+  .rv2 { transition-delay: 0s; }
+  #hero { height: 100vh; height: -webkit-fill-available; }
+}
+
 /* ─── VIDEO OVERLAY ─── */
 .video-overlay {
   position: fixed; inset: 0; z-index: 9999;
