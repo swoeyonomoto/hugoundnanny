@@ -86,8 +86,8 @@ const Contact = () => {
             </a>
             <p className="about-p" style={{ maxWidth: 560 }}>
               {t(
-                <>Wenn ihr schon wisst, dass ihr mit uns arbeiten wollt — klickt unten auf <em>'Let's get rolling'</em>. Wenn ihr uns erst kennenlernen wollt, haben wir <a href="/gang" style={{ textDecoration: 'underline' }}>hier</a> ein bisschen was über uns zusammengestellt.</>,
-                <>If you already know you want to work with us — hit <em>'Let's get rolling'</em> below. If you'd like to get to know us first, we've put together a little about who we are <a href="/gang" style={{ textDecoration: 'underline' }}>right here</a>.</>
+                <>Klickt unten auf <em>'Let's get rolling'</em> — wenn ihr schon wisst, dass ihr mit uns arbeiten wollt und euer Datum checken möchtet. Wenn ihr uns erst kennenlernen wollt, haben wir <a href="/gang" style={{ textDecoration: 'underline' }}>hier</a> ein bisschen was über uns zusammengestellt:</>,
+                <>Hit <em>'Let's get rolling'</em> below — if you already know you want to work with us and check your date. If you'd like to get to know us first, we've put together a little about who we are:</>
               )}
             </p>
           </RevealOnScroll>
