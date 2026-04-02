@@ -183,8 +183,12 @@ const HomepageContent = () => {
         {/* Right: Sticky video (desktop only) */}
         <div className="home-video-col">
           <div className="home-video-sticky">
-            <WistiaAutoplayPlayer
-              mediaId="n9jj0nzep3"
+            <video
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="auto"
               style={{
                 position: "absolute",
                 top: "50%",
@@ -195,7 +199,9 @@ const HomepageContent = () => {
                 objectFit: "cover",
                 pointerEvents: "none",
               }}
-            />
+            >
+              <source src={VIDEO_SRC} type="video/mp4" />
+            </video>
             <div className="home-video-overlay" />
           </div>
         </div>

@@ -18,9 +18,13 @@ const Hero = () => {
   return (
     <section id="hero">
       <div className="hero-video">
-        <WistiaAutoplayPlayer
-          ref={playerRef}
-          mediaId="n9jj0nzep3"
+        <video
+          ref={videoRef}
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
           style={{
             position: "absolute",
             top: "50%",
@@ -31,7 +35,9 @@ const Hero = () => {
             objectFit: "cover",
             pointerEvents: "none",
           }}
-        />
+        >
+          <source src={VIDEO_SRC} type="video/mp4" />
+        </video>
         <div className="hero-video-overlay" />
         <button className="hero-mute-btn" onClick={toggleMute} aria-label={isMuted ? "Unmute" : "Mute"}>
           {isMuted ? (
