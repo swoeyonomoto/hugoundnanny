@@ -1,9 +1,10 @@
-import { useState, useEffect, useRef, FormEvent } from "react";
+import { useState, FormEvent } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { LanguageProvider, useLang } from "@/contexts/LanguageContext";
 import LogoHeader from "@/components/LogoHeader";
 import AutoColorNav from "@/components/AutoColorNav";
 import Footer from "@/components/sections/Footer";
+import WistiaAutoplayPlayer from "@/components/WistiaAutoplayPlayer";
 
 declare global {
   interface Window { fbq?: (...args: unknown[]) => void; }
@@ -15,19 +16,6 @@ const HomepageContent = () => {
   const [submitting, setSubmitting] = useState(false);
   const [lookingFor, setLookingFor] = useState("");
   const [budget, setBudget] = useState("");
-  const wistiaRef = useRef<any>(null);
-  const [isMuted, setIsMuted] = useState(true);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      const el = document.querySelector(".home-video-col wistia-player") as any;
-      if (el && el._wistiaApi) {
-        wistiaRef.current = el._wistiaApi;
-        clearInterval(interval);
-      }
-    }, 300);
-    return () => clearInterval(interval);
-  }, []);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -66,12 +54,8 @@ const HomepageContent = () => {
         {/* Mobile: compact video at top */}
         <div className="home-video-mobile">
           <div className="home-video-inner">
-            <wistia-player
-              media-id="n9jj0nzep3"
-              autoplay
-              muted
-              loop
-              playsinline
+            <WistiaAutoplayPlayer
+              mediaId="n9jj0nzep3"
               style={{
                 position: "absolute",
                 top: "50%",
@@ -79,7 +63,7 @@ const HomepageContent = () => {
                 width: "max(100%, 177.78vh)",
                 height: "max(100%, 56.25vw)",
                 transform: "translate(-50%, -50%)",
-                objectFit: "cover" as any,
+                objectFit: "cover",
                 pointerEvents: "none",
               }}
             />
@@ -193,12 +177,8 @@ const HomepageContent = () => {
         {/* Right: Sticky video (desktop only) */}
         <div className="home-video-col">
           <div className="home-video-sticky">
-            <wistia-player
-              media-id="n9jj0nzep3"
-              autoplay
-              muted
-              loop
-              playsinline
+            <WistiaAutoplayPlayer
+              mediaId="n9jj0nzep3"
               style={{
                 position: "absolute",
                 top: "50%",
@@ -206,7 +186,7 @@ const HomepageContent = () => {
                 width: "max(100%, 177.78vh)",
                 height: "max(100%, 56.25vw)",
                 transform: "translate(-50%, -50%)",
-                objectFit: "cover" as any,
+                objectFit: "cover",
                 pointerEvents: "none",
               }}
             />
