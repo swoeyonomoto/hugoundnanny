@@ -194,6 +194,7 @@ const HomepageContent = () => {
         <div className="home-video-col">
           <div className="home-video-sticky">
             <video
+              ref={desktopVideoRef}
               autoPlay
               muted
               loop
