@@ -28,9 +28,9 @@ const About = () => {
                 <p className="about-p">Was ihr von uns bekommt, ist kein Album. Es ist ein Portal zurück — zu genau dem Gefühl, das ihr an diesem Tag hattet.</p>
               </>,
               <>
-                <p className="about-p">We're not a studio. We're two people who fell deeply in love with weddings — not for the glamour, but for the honesty. Because no other day holds this much at once.</p>
-                <p className="about-p">Our job is simple: we're there. Quiet, attentive — so no moment gets lost. No posed shots, no stiff directions. Just what really happens.</p>
-                <p className="about-p">What you get from us isn't an album. It's a portal back — to exactly how it felt that day.</p>
+                <p className="about-p">We're not a studio. We're two people who fell deeply in love with weddings - not for the glamour, but for the honesty. Because no other day holds this much at once.</p>
+                <p className="about-p">Our job is simple: we're there. Quiet, attentive - so no moment gets lost. No posed shots, no stiff directions. Just what really happens.</p>
+                <p className="about-p">What you get from us isn't an album. It's a portal back - to exactly how it felt that day.</p>
               </>
             )}
             <p className="about-sig">Hugo & Nanny</p>
