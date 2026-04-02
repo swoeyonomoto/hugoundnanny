@@ -7,7 +7,16 @@ const Hero = () => {
   const { t } = useLang();
   const [isMuted, setIsMuted] = useState(true);
   const [isPlaying, setIsPlaying] = useState(true);
+  const [showScroll, setShowScroll] = useState(true);
   const videoRef = useRef<HTMLVideoElement | null>(null);
+
+  useEffect(() => {
+    const onScroll = () => {
+      setShowScroll(window.scrollY < 80);
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   useEffect(() => {
     const video = videoRef.current;
