@@ -8,6 +8,14 @@ const Hero = () => {
   const [isMuted, setIsMuted] = useState(true);
   const videoRef = useRef<HTMLVideoElement | null>(null);
 
+  useEffect(() => {
+    const video = videoRef.current;
+    if (video) {
+      video.muted = true;
+      video.play().catch(() => {});
+    }
+  }, []);
+
   const toggleMute = () => {
     if (!videoRef.current) return;
     const newMuted = !isMuted;
