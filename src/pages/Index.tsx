@@ -24,12 +24,17 @@ const HomepageContent = () => {
   useEffect(() => {
     [mobileVideoRef, desktopVideoRef].forEach(ref => {
       const v = ref.current;
-      if (v) {
-        v.muted = true;
-        v.load();
-        const p = v.play();
-        if (p !== undefined) p.then(() => setIsPlaying(true)).catch(() => setIsPlaying(false));
-      }
+      if (!v) return;
+
+      v.defaultMuted = true;
+      v.muted = true;
+      v.playsInline = true;
+      v.setAttribute("playsinline", "");
+      v.setAttribute("webkit-playsinline", "");
+      v.load();
+
+      const p = v.play();
+      if (p !== undefined) p.then(() => setIsPlaying(true)).catch(() => setIsPlaying(false));
     });
   }, []);
 
@@ -97,10 +102,12 @@ const HomepageContent = () => {
             <video
               ref={mobileVideoRef}
               autoPlay
-              muted
+              muted={isMuted}
               loop
               playsInline
               controls={false}
+              disablePictureInPicture
+              controlsList="nodownload nofullscreen noremoteplayback"
               preload="auto"
               style={{
                 position: "absolute",
@@ -244,10 +251,12 @@ const HomepageContent = () => {
             <video
               ref={desktopVideoRef}
               autoPlay
-              muted
+              muted={isMuted}
               loop
               playsInline
               controls={false}
+              disablePictureInPicture
+              controlsList="nodownload nofullscreen noremoteplayback"
               preload="auto"
               style={{
                 position: "absolute",
