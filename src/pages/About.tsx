@@ -41,14 +41,12 @@ const IntroText = () => {
           <span className="label">
             {t("Scrollt runter, um uns kennenzulernen — oder", "Scroll to meet us — or")}
           </span>
-          <h2 className="about-h intro-headline">
-            <em>
-              {t(
-                <>springt direkt zu 'Let's get rolling', wenn ihr schon wisst.</>,
-                <>skip straight to 'Let's get rolling' if you already know.</>
-              )}
-            </em>
-          </h2>
+          <p className="about-p" style={{ maxWidth: 560 }}>
+            {t(
+              "springt direkt zu 'Let's get rolling', wenn ihr schon wisst.",
+              "skip straight to 'Let's get rolling' if you already know."
+            )}
+          </p>
           <hr className="intro-rule" />
         </RevealOnScroll>
       </div>
