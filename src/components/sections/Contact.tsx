@@ -74,7 +74,7 @@ const Contact = () => {
             <p className="contact-p" style={{ maxWidth: 560 }}>
               {t(
                 "Früh anzufragen heißt: Ihr wisst sofort, ob euer Datum frei ist — und bekommt unseren Couple's Guide mit allen Infos zu unserer Arbeit, zur Vorbereitung und zu den Kosten, damit ihr in Ruhe entscheiden könnt.",
-                "Reaching out early means you'll know if your date is free and we'll send you our couple's guide — everything about the work, how to prepare and what it costs, so you have all you need to decide."
+                "Reaching out early means you'll know if your date is free and we'll send you our couple's guide - everything about the work, how to prepare and what it costs, so you have all you need to decide."
               )}
             </p>
             <a

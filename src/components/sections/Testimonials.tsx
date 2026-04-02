@@ -6,7 +6,7 @@ const GOOGLE_REVIEWS_URL = "https://www.google.com/search?sa=X&sca_esv=41127e9fb
 const testimonials = [
   {
     quoteDe: "Anfangs haben wir überlegt, ob wir auf ein Hochzeitsvideo verzichten können — zum Glück haben wir es nicht getan! Denn ein Video fängt Emotionen, Stimmen und Bewegungen ein, wie es Fotos allein niemals könnten. Es ermöglicht uns, den Tag immer wieder neu zu erleben.",
-    quoteEn: "At first we wondered whether we even needed a wedding film — thank god we didn't skip it. A film captures emotions, voices and movement in a way photos alone never could. It lets us relive the day again and again.",
+    quoteEn: "At first we wondered whether we even needed a wedding film - thank god we didn't skip it. A film captures emotions, voices and movement in a way photos alone never could. It lets us relive the day again and again.",
     name: "Juliana & Stephan",
     whereDe: "Hochzeit · 2024",
     whereEn: "Wedding · 2024",
