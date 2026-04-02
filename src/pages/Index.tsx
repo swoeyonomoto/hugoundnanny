@@ -24,12 +24,17 @@ const HomepageContent = () => {
   useEffect(() => {
     [mobileVideoRef, desktopVideoRef].forEach(ref => {
       const v = ref.current;
-      if (v) {
-        v.muted = true;
-        v.load();
-        const p = v.play();
-        if (p !== undefined) p.then(() => setIsPlaying(true)).catch(() => setIsPlaying(false));
-      }
+      if (!v) return;
+
+      v.defaultMuted = true;
+      v.muted = true;
+      v.playsInline = true;
+      v.setAttribute("playsinline", "");
+      v.setAttribute("webkit-playsinline", "");
+      v.load();
+
+      const p = v.play();
+      if (p !== undefined) p.then(() => setIsPlaying(true)).catch(() => setIsPlaying(false));
     });
   }, []);
 
