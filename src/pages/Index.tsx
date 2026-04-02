@@ -1,4 +1,4 @@
-import { useState, FormEvent } from "react";
+import { useState, useRef, useEffect, FormEvent } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { LanguageProvider, useLang } from "@/contexts/LanguageContext";
 import LogoHeader from "@/components/LogoHeader";
@@ -16,6 +16,15 @@ const HomepageContent = () => {
   const [submitting, setSubmitting] = useState(false);
   const [lookingFor, setLookingFor] = useState("");
   const [budget, setBudget] = useState("");
+  const mobileVideoRef = useRef<HTMLVideoElement>(null);
+  const desktopVideoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    [mobileVideoRef, desktopVideoRef].forEach(ref => {
+      const v = ref.current;
+      if (v) { v.muted = true; v.play().catch(() => {}); }
+    });
+  }, []);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -55,6 +64,7 @@ const HomepageContent = () => {
         <div className="home-video-mobile">
           <div className="home-video-inner">
             <video
+              ref={mobileVideoRef}
               autoPlay
               muted
               loop
@@ -184,6 +194,7 @@ const HomepageContent = () => {
         <div className="home-video-col">
           <div className="home-video-sticky">
             <video
+              ref={desktopVideoRef}
               autoPlay
               muted
               loop
