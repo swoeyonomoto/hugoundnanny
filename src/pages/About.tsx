@@ -10,6 +10,7 @@ import Pricing from "@/components/sections/Pricing";
 import FAQ from "@/components/sections/FAQ";
 import Contact from "@/components/sections/Contact";
 import Footer from "@/components/sections/Footer";
+import RevealOnScroll from "@/components/RevealOnScroll";
 import { Link } from "react-router-dom";
 import { useLang } from "@/contexts/LanguageContext";
 
@@ -31,6 +32,23 @@ const AboutLangBar = () => {
     </AutoColorNav>
   );
 };
+const IntroText = () => {
+  const { t } = useLang();
+  return (
+    <section style={{ padding: '64px 0 0' }}>
+      <div className="wrap">
+        <RevealOnScroll>
+          <p className="about-p" style={{ maxWidth: 620 }}>
+            {t(
+              <>Wenn ihr schon wisst, dass ihr mit uns arbeiten wollt — klickt unten auf <em>'Let's get rolling'</em>. Wenn ihr uns erst kennenlernen wollt, haben wir <a href="/gang" style={{ textDecoration: 'underline' }}>hier</a> ein bisschen was über uns zusammengestellt.</>,
+              <>If you already know you want to work with us — hit <em>'Let's get rolling'</em> below. If you'd like to get to know us first, we've put together a little about who we are <a href="/gang" style={{ textDecoration: 'underline' }}>right here</a>.</>
+            )}
+          </p>
+        </RevealOnScroll>
+      </div>
+    </section>
+  );
+};
 
 const AboutPage = () => (
   <LanguageProvider>
@@ -39,6 +57,7 @@ const AboutPage = () => (
     <AboutNav />
     <StickyCta />
     <Hero />
+    <IntroText />
     <About />
     <Work />
     <Testimonials />
