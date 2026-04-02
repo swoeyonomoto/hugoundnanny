@@ -4,11 +4,6 @@ export type WistiaPlayerElement = HTMLElement & {
   _wistiaApi?: {
     volume: (level: number) => void;
   };
-  autoplay?: boolean;
-  loop?: boolean;
-  muted?: boolean;
-  playsinline?: boolean;
-  silentAutoPlay?: string;
 };
 
 interface WistiaAutoplayPlayerProps {
@@ -24,28 +19,29 @@ const WistiaAutoplayPlayer = forwardRef<WistiaPlayerElement, WistiaAutoplayPlaye
 
     useImperativeHandle(ref, () => innerRef.current as WistiaPlayerElement);
 
+    // Load the media-specific embed script dynamically
     useEffect(() => {
-      if (!innerRef.current) return;
-
-      Object.assign(innerRef.current, {
-        autoplay: true,
-        muted: true,
-        playsinline: true,
-        loop: true,
-        silentAutoPlay: "allow",
-      });
+      const scriptId = `wistia-embed-${mediaId}`;
+      if (!document.getElementById(scriptId)) {
+        const s = Object.assign(document.createElement("script"), {
+          id: scriptId,
+          src: `https://fast.wistia.com/embed/${mediaId}.js`,
+          async: true,
+          type: "module",
+        });
+        document.head.appendChild(s);
+      }
     }, [mediaId]);
 
     return (
       <wistia-player
         ref={innerRef}
         media-id={mediaId}
-        aspect={aspect}
+        aspect={aspect ?? "1.7777777777777777"}
         autoplay
         muted
-        loop
         playsinline
-        silentAutoPlay="allow"
+        silent-autoplay="allow"
         className={className}
         style={style}
       />

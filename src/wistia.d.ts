@@ -8,7 +8,7 @@ declare namespace JSX {
         muted?: boolean;
         loop?: boolean;
         playsinline?: boolean;
-        silentAutoPlay?: string;
+        "silent-autoplay"?: string;
       },
       HTMLElement
     >;
