@@ -22,7 +22,7 @@ const testimonials = [
   },
   {
     quoteDe: 'Seit wir das erste Bild bekommen haben, wissen wir, dass das \u201EF\u00FCr immer\u201C einer Hochzeit nicht nur im Ja-Wort liegt, sondern vor allem in all den Momenten, Emotionen und der Atmosph\u00E4re, die sie f\u00FCr uns f\u00FCr immer festgehalten haben. Der First Look mit unseren Bildern war einer unserer Lieblingsmomente und die Emotionen dabei unbezahlbar.',
-    quoteEn: "Since receiving the first photo, we know that the 'forever' of a wedding isn't just in the vows — it's in all the moments, emotions and atmosphere they captured for us. The first look at our photos was one of our favourite moments, and the emotions were priceless.",
+    quoteEn: "Since receiving the first photo, we know that the 'forever' of a wedding isn't just in the vows - it's in all the moments, emotions and atmosphere they captured for us. The first look at our photos was one of our favourite moments, and the emotions were priceless.",
     name: "Isabel & Peter",
     whereDe: "Hochzeit · 2024",
     whereEn: "Wedding · 2024",
