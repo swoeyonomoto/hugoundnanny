@@ -153,15 +153,6 @@ const Work = () => {
           <a href="https://www.hugo-nanny.de" target="_blank" rel="noopener noreferrer" className="work-link">
             {t("Alle Hochzeiten ansehen", "See all weddings")} →
           </a>
-
-          <RevealOnScroll>
-            <p className="about-p" style={{ maxWidth: 620, marginTop: 64 }}>
-              {t(
-                <>Wenn ihr schon wisst, dass ihr mit uns arbeiten wollt — klickt unten auf <em>'Let's get rolling'</em>. Wenn ihr uns erst kennenlernen wollt, haben wir <a href="/gang" style={{ textDecoration: 'underline' }}>hier</a> ein bisschen was über uns zusammengestellt.</>,
-                <>If you already know you want to work with us — hit <em>'Let's get rolling'</em> below. If you'd like to get to know us first, we've put together a little about who we are <a href="/gang" style={{ textDecoration: 'underline' }}>right here</a>.</>
-              )}
-            </p>
-          </RevealOnScroll>
         </div>
       </section>
 

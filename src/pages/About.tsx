@@ -39,6 +39,7 @@ const AboutPage = () => (
     <AboutNav />
     <StickyCta />
     <Hero />
+    <IntroText />
     <About />
     <Work />
     <Testimonials />
