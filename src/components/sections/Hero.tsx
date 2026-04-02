@@ -7,7 +7,16 @@ const Hero = () => {
   const { t } = useLang();
   const [isMuted, setIsMuted] = useState(true);
   const [isPlaying, setIsPlaying] = useState(true);
+  const [showScroll, setShowScroll] = useState(true);
   const videoRef = useRef<HTMLVideoElement | null>(null);
+
+  useEffect(() => {
+    const onScroll = () => {
+      setShowScroll(window.scrollY < 80);
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -115,6 +124,11 @@ const Hero = () => {
             {t("Schreib uns", "Chat with us")}
           </a>
         </div>
+      </div>
+      <div className={`hero-scroll-indicator ${showScroll ? "" : "hidden"}`}>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+          <polyline points="6 9 12 15 18 9" />
+        </svg>
       </div>
     </section>
   );
