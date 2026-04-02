@@ -50,10 +50,12 @@ const Hero = () => {
         <video
           ref={videoRef}
           autoPlay
-          muted
+          muted={isMuted}
           loop
           playsInline
           controls={false}
+          disablePictureInPicture
+          controlsList="nodownload nofullscreen noremoteplayback"
           preload="auto"
           style={{
             position: "absolute",
