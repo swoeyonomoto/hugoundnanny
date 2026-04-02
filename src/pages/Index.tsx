@@ -245,8 +245,8 @@ const HomepageContent = () => {
         </div>
 
         {/* Right: Sticky video (desktop only) */}
-        <div className="home-video-col">
-          <div className="home-video-sticky">
+        <div className="home-video-col" onClick={togglePlay} style={{ cursor: "pointer" }}>
+          <div className="home-video-sticky" style={{ pointerEvents: "none" }}>
             <video
               ref={desktopVideoRef}
               autoPlay
@@ -265,21 +265,20 @@ const HomepageContent = () => {
                 height: "max(100%, 56.25vw)",
                 transform: "translate(-50%, -50%)",
                 objectFit: "cover",
-                pointerEvents: "none",
               }}
             >
               <source src={VIDEO_SRC} type="video/mp4" />
             </video>
             <div className="home-video-overlay" />
-            <div className="hero-video-controls">
-              <button className="hero-mute-btn" onClick={togglePlay} aria-label={isPlaying ? "Pause" : "Play"}>
+            <div className="hero-video-controls" style={{ pointerEvents: "auto" }}>
+              <button className="hero-mute-btn" onClick={(e) => { e.stopPropagation(); togglePlay(); }} aria-label={isPlaying ? "Pause" : "Play"}>
                 {isPlaying ? (
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="6" y="4" width="4" height="16" /><rect x="14" y="4" width="4" height="16" /></svg>
                 ) : (
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><polygon points="5 3 19 12 5 21 5 3" /></svg>
                 )}
               </button>
-              <button className="hero-mute-btn" onClick={toggleMute} aria-label={isMuted ? "Unmute" : "Mute"}>
+              <button className="hero-mute-btn" onClick={(e) => { e.stopPropagation(); toggleMute(); }} aria-label={isMuted ? "Unmute" : "Mute"}>
                 {isMuted ? (
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
                 ) : (
