@@ -35,7 +35,7 @@ const AboutLangBar = () => {
 const IntroText = () => {
   const { t } = useLang();
   return (
-    <section style={{ padding: '28px 0 0' }}>
+    <section style={{ padding: '56px 0 0' }}>
       <div className="wrap">
         <RevealOnScroll>
           <p className="about-p" style={{ maxWidth: 620 }}>
