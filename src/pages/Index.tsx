@@ -54,12 +54,18 @@ const HomepageContent = () => {
   };
 
   const togglePlay = () => {
-    [mobileVideoRef, desktopVideoRef].forEach(ref => {
-      const v = ref.current;
-      if (!v) return;
-      if (isPlaying) { v.pause(); } else { v.muted = isMuted; v.play().catch(() => {}); }
-    });
-    setIsPlaying(!isPlaying);
+    const active = getActiveVideo();
+    const inactive = active === desktopVideoRef.current ? mobileVideoRef.current : desktopVideoRef.current;
+    // Always pause the hidden video
+    inactive?.pause();
+    if (!active) return;
+    if (isPlaying) {
+      active.pause();
+      setIsPlaying(false);
+    } else {
+      active.muted = isMuted;
+      active.play().then(() => setIsPlaying(true)).catch(() => {});
+    }
   };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
