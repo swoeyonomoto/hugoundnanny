@@ -84,12 +84,6 @@ const Contact = () => {
             >
               {t("💬 Lieber per WhatsApp? Schreibt uns direkt →", "💬 Prefer WhatsApp? Message us directly →")}
             </a>
-            <p className="about-p" style={{ maxWidth: 560 }}>
-              {t(
-                <>Scrollt runter, um uns kennenzulernen — oder springt direkt zu <em>'Let's get rolling'</em>, wenn ihr schon wisst.</>,
-                <>Scroll to meet us — or skip straight to <em>'Let's get rolling'</em> if you already know.</>
-              )}
-            </p>
           </RevealOnScroll>
 
           <div className="contact-grid" style={{ marginTop: 56 }}>
