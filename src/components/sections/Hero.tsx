@@ -1,16 +1,17 @@
 import { useState, useEffect, useRef } from "react";
 import { useLang } from "@/contexts/LanguageContext";
+import WistiaAutoplayPlayer, { WistiaPlayerElement } from "@/components/WistiaAutoplayPlayer";
 
 const Hero = () => {
   const { t } = useLang();
   const [isMuted, setIsMuted] = useState(true);
+  const playerRef = useRef<WistiaPlayerElement | null>(null);
   const wistiaRef = useRef<any>(null);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      const el = document.querySelector("#hero wistia-player") as any;
-      if (el && el._wistiaApi) {
-        wistiaRef.current = el._wistiaApi;
+      if (playerRef.current?._wistiaApi) {
+        wistiaRef.current = playerRef.current._wistiaApi;
         clearInterval(interval);
       }
     }, 300);
@@ -27,13 +28,9 @@ const Hero = () => {
   return (
     <section id="hero">
       <div className="hero-video">
-        <wistia-player
+        <WistiaAutoplayPlayer
+          ref={playerRef}
           media-id="n9jj0nzep3"
-          autoplay
-          muted
-          loop
-          playsinline
-          silentAutoPlay="allow"
           style={{
             position: "absolute",
             top: "50%",
