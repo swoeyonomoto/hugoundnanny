@@ -641,6 +641,7 @@ footer {
   footer { flex-direction: column; gap: 14px; text-align: center; padding: 24px; }
   .lang-bar { top: 16px; right: 16px; }
   .cf-row { grid-template-columns: 1fr; }
+  .hero-scroll-indicator { bottom: 10px; }
 }
 
 /* ─── VIDEO OVERLAY ─── */
