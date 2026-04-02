@@ -24,7 +24,12 @@ const HomepageContent = () => {
   useEffect(() => {
     [mobileVideoRef, desktopVideoRef].forEach(ref => {
       const v = ref.current;
-      if (v) { v.muted = true; v.play().then(() => setIsPlaying(true)).catch(() => setIsPlaying(false)); }
+      if (v) {
+        v.muted = true;
+        v.load();
+        const p = v.play();
+        if (p !== undefined) p.then(() => setIsPlaying(true)).catch(() => setIsPlaying(false));
+      }
     });
   }, []);
 
@@ -35,7 +40,6 @@ const HomepageContent = () => {
 
   const toggleMute = () => {
     const newMuted = !isMuted;
-    // Always keep both visually playing but only unmute the visible one
     [mobileVideoRef, desktopVideoRef].forEach(ref => {
       if (ref.current) ref.current.muted = true;
     });
@@ -48,9 +52,8 @@ const HomepageContent = () => {
     [mobileVideoRef, desktopVideoRef].forEach(ref => {
       const v = ref.current;
       if (!v) return;
-      if (isPlaying) { v.pause(); } else { v.muted = true; v.play().catch(() => {}); }
+      if (isPlaying) { v.pause(); } else { v.muted = isMuted; v.play().catch(() => {}); }
     });
-    if (!isPlaying) setIsMuted(true);
     setIsPlaying(!isPlaying);
   };
 

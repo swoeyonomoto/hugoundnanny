@@ -13,7 +13,11 @@ const Hero = () => {
     const video = videoRef.current;
     if (video) {
       video.muted = true;
-      video.play().then(() => setIsPlaying(true)).catch(() => setIsPlaying(false));
+      video.load();
+      const playPromise = video.play();
+      if (playPromise !== undefined) {
+        playPromise.then(() => setIsPlaying(true)).catch(() => setIsPlaying(false));
+      }
     }
   }, []);
 
@@ -30,8 +34,7 @@ const Hero = () => {
       videoRef.current.pause();
       setIsPlaying(false);
     } else {
-      videoRef.current.muted = true;
-      setIsMuted(true);
+      videoRef.current.muted = isMuted;
       videoRef.current.play().then(() => setIsPlaying(true)).catch(() => {});
     }
   };
