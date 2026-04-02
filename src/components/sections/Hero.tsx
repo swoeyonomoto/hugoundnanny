@@ -6,13 +6,14 @@ const VIDEO_SRC = "https://cdcjyvwghreyukugihjx.supabase.co/storage/v1/object/pu
 const Hero = () => {
   const { t } = useLang();
   const [isMuted, setIsMuted] = useState(true);
+  const [isPlaying, setIsPlaying] = useState(true);
   const videoRef = useRef<HTMLVideoElement | null>(null);
 
   useEffect(() => {
     const video = videoRef.current;
     if (video) {
       video.muted = true;
-      video.play().catch(() => {});
+      video.play().then(() => setIsPlaying(true)).catch(() => setIsPlaying(false));
     }
   }, []);
 
@@ -21,6 +22,18 @@ const Hero = () => {
     const newMuted = !isMuted;
     videoRef.current.muted = newMuted;
     setIsMuted(newMuted);
+  };
+
+  const togglePlay = () => {
+    if (!videoRef.current) return;
+    if (isPlaying) {
+      videoRef.current.pause();
+      setIsPlaying(false);
+    } else {
+      videoRef.current.muted = true;
+      setIsMuted(true);
+      videoRef.current.play().then(() => setIsPlaying(true)).catch(() => {});
+    }
   };
 
   return (
