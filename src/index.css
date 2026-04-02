@@ -203,6 +203,27 @@ body {
 }
 .about-h em { font-style: italic; }
 .about-p { font-size: 15px; line-height: 1.95; color: #444; margin-bottom: 18px; }
+
+/* Intro text section on /about */
+.intro-text-section { padding: 56px 0 0; }
+.intro-headline { max-width: 720px; }
+.intro-rule {
+  border: none; border-top: 1px solid #d4d2cf; margin: 48px 0 0; width: 100%;
+}
+
+@media (max-width: 767px) {
+  .intro-headline {
+    font-family: inherit;
+    font-size: 15px;
+    line-height: 1.95;
+    color: #444;
+    font-weight: 400;
+    margin-bottom: 18px;
+  }
+  .intro-headline em { font-style: normal; }
+  .intro-rule { display: none; }
+  .intro-text-section { padding: 28px 0 0; }
+}
 .about-sig {
   font-family: 'Libre Caslon Display', serif;
   font-size: 21px; font-style: italic; margin-top: 28px; color: #111;
