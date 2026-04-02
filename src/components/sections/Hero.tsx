@@ -1,27 +1,17 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useRef } from "react";
 import { useLang } from "@/contexts/LanguageContext";
-import WistiaAutoplayPlayer, { WistiaPlayerElement } from "@/components/WistiaAutoplayPlayer";
+
+const VIDEO_SRC = "https://cdcjyvwghreyukugihjx.supabase.co/storage/v1/object/public/Hugo%20Nanny%20Header/Hugo%20%26%20Nanny%20Reel%204%2016-9_1.mp4";
 
 const Hero = () => {
   const { t } = useLang();
   const [isMuted, setIsMuted] = useState(true);
-  const playerRef = useRef<WistiaPlayerElement | null>(null);
-  const wistiaRef = useRef<any>(null);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (playerRef.current?._wistiaApi) {
-        wistiaRef.current = playerRef.current._wistiaApi;
-        clearInterval(interval);
-      }
-    }, 300);
-    return () => clearInterval(interval);
-  }, []);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
 
   const toggleMute = () => {
-    if (!wistiaRef.current) return;
+    if (!videoRef.current) return;
     const newMuted = !isMuted;
-    wistiaRef.current.volume(newMuted ? 0 : 1);
+    videoRef.current.muted = newMuted;
     setIsMuted(newMuted);
   };
 
