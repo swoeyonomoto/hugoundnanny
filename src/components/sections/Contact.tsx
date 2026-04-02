@@ -69,33 +69,31 @@ const Contact = () => {
           <RevealOnScroll>
             <span className="label">{t("Kontakt", "Contact")}</span>
             <h2 className="contact-h">
-              {t(<em>Lasst uns<br />reden.</em>, <em>Let's<br />talk.</em>)}
+              <em>Limited 2026 dates.<br />Find out if yours is free…</em>
             </h2>
             <p className="contact-p" style={{ maxWidth: 560 }}>
               {t(
-                "Schreibt uns kurz, wann eure Hochzeit ist und was euch wichtig ist. Wir melden uns innerhalb von 24 Stunden — kein Druck, kein Skript. Einfach ein echtes Gespräch.",
-                "Tell us when your wedding is and what matters to you. We'll be back within 24 hours — no pressure, no script. Just a real conversation."
+                "Früh anzufragen heißt: Ihr wisst sofort, ob euer Datum frei ist — und bekommt unseren Couple's Guide mit allen Infos zu unserer Arbeit, zur Vorbereitung und zu den Kosten, damit ihr in Ruhe entscheiden könnt.",
+                "Reaching out early means you'll know if your date is free and we'll send you our couple's guide — everything about the work, how to prepare and what it costs, so you have all you need to decide."
+              )}
+            </p>
+            <a
+              href="https://wa.me/4916097813272?text=Hi%20Hugo%20%26%20Nanny%2C%20ich%20interessiere%20mich%20f%C3%BCr%20eure%20Hochzeitsfotografie%20und%20%E2%80%93film.%20K%C3%B6nnt%20ihr%20mir%20mehr%20Infos%20schicken%3F"
+              rel="noopener noreferrer"
+              style={{ display: "block", marginTop: 24, marginBottom: 28, fontSize: 11, letterSpacing: "0.08em", textTransform: "uppercase" as const, color: "#888", textDecoration: "none" }}
+            >
+              {t("💬 Lieber per WhatsApp? Schreibt uns direkt →", "💬 Prefer WhatsApp? Message us directly →")}
+            </a>
+            <p className="about-p" style={{ maxWidth: 560 }}>
+              {t(
+                <>Wenn ihr schon wisst, dass ihr mit uns arbeiten wollt — klickt unten auf <em>'Let's get rolling'</em>. Wenn ihr uns erst kennenlernen wollt, haben wir <a href="/gang" style={{ textDecoration: 'underline' }}>hier</a> ein bisschen was über uns zusammengestellt.</>,
+                <>If you already know you want to work with us — hit <em>'Let's get rolling'</em> below. If you'd like to get to know us first, we've put together a little about who we are <a href="/gang" style={{ textDecoration: 'underline' }}>right here</a>.</>
               )}
             </p>
           </RevealOnScroll>
 
           <div className="contact-grid" style={{ marginTop: 56 }}>
-            <RevealOnScroll>
-              <div className="contact-meta" style={{ marginTop: 0 }}>
-                <div className="meta-row">
-                  <span className="meta-lbl">Email</span>
-                  <span className="meta-val">info@hugo-nanny.de</span>
-                </div>
-                <div className="meta-row">
-                  <span className="meta-lbl">Instagram</span>
-                  <span className="meta-val">@hugoundnanny</span>
-                </div>
-                <div className="meta-row">
-                  <span className="meta-lbl">{t("Standort", "Based")}</span>
-                  <span className="meta-val">{t("Deutschland & weltweit", "Germany & worldwide")}</span>
-                </div>
-              </div>
-            </RevealOnScroll>
+
 
             <RevealOnScroll className="rv2">
               <form className="cform" onSubmit={handleSubmit}>
