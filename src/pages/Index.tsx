@@ -4,7 +4,7 @@ import { LanguageProvider, useLang } from "@/contexts/LanguageContext";
 import LogoHeader from "@/components/LogoHeader";
 import AutoColorNav from "@/components/AutoColorNav";
 import Footer from "@/components/sections/Footer";
-import WistiaAutoplayPlayer from "@/components/WistiaAutoplayPlayer";
+const VIDEO_SRC = "https://cdcjyvwghreyukugihjx.supabase.co/storage/v1/object/public/Hugo%20Nanny%20Header/Hugo%20%26%20Nanny%20Reel%204%2016-9_1.mp4";
 
 declare global {
   interface Window { fbq?: (...args: unknown[]) => void; }
