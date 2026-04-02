@@ -14,7 +14,7 @@ const testimonials = [
   },
   {
     quoteDe: "Sie haben alles gegeben und sich wirklich Zeit genommen, uns, unsere Beziehung und unsere besondere Woche kennenzulernen. Die Qualität der Fotos und Videos ist authentisch und einzigartig. Schaut unbedingt auf ihre Website, um die großartigen Produktionen zu sehen. Außerdem hatten wir einfach eine tolle Zeit mit ihnen bei der Hochzeit — sie haben die ganze Zeit über extra Liebe und Freude verbreitet!",
-    quoteEn: "They gave everything and truly took the time to get to know us, our relationship and our special week. The quality of the photos and videos is authentic and unique. And on top of that — they brought so much love and joy to our wedding day!",
+    quoteEn: "They gave everything and truly took the time to get to know us, our relationship and our special week. The quality of the photos and videos is authentic and unique. And on top of that - they brought so much love and joy to our wedding day!",
     name: "Eddie & Mel",
     whereDe: "Hongkong · 2024",
     whereEn: "Hong Kong · 2024",
