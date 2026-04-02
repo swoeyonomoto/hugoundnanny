@@ -38,11 +38,14 @@ const IntroText = () => {
     <section className="intro-text-section">
       <div className="wrap">
         <RevealOnScroll>
+          <span className="label">
+            {t("Scrollt runter, um uns kennenzulernen — oder", "Scroll to meet us — or")}
+          </span>
           <h2 className="about-h intro-headline">
             <em>
               {t(
-                <>Scrollt runter, um uns kennenzulernen — oder springt direkt zu 'Let's get rolling', wenn ihr schon wisst.</>,
-                <>Scroll to meet us — or skip straight to 'Let's get rolling' if you already know.</>
+                <>springt direkt zu 'Let's get rolling', wenn ihr schon wisst.</>,
+                <>skip straight to 'Let's get rolling' if you already know.</>
               )}
             </em>
           </h2>
