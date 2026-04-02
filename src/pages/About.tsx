@@ -10,6 +10,7 @@ import Pricing from "@/components/sections/Pricing";
 import FAQ from "@/components/sections/FAQ";
 import Contact from "@/components/sections/Contact";
 import Footer from "@/components/sections/Footer";
+import RevealOnScroll from "@/components/RevealOnScroll";
 import { Link } from "react-router-dom";
 import { useLang } from "@/contexts/LanguageContext";
 
