@@ -4,7 +4,7 @@ import { LanguageProvider, useLang } from "@/contexts/LanguageContext";
 import LogoHeader from "@/components/LogoHeader";
 import AutoColorNav from "@/components/AutoColorNav";
 import Footer from "@/components/sections/Footer";
-import WistiaAutoplayPlayer from "@/components/WistiaAutoplayPlayer";
+const VIDEO_SRC = "https://cdcjyvwghreyukugihjx.supabase.co/storage/v1/object/public/Hugo%20Nanny%20Header/Hugo%20%26%20Nanny%20Reel%204%2016-9_1.mp4";
 
 declare global {
   interface Window { fbq?: (...args: unknown[]) => void; }
@@ -54,8 +54,12 @@ const HomepageContent = () => {
         {/* Mobile: compact video at top */}
         <div className="home-video-mobile">
           <div className="home-video-inner">
-            <WistiaAutoplayPlayer
-              mediaId="n9jj0nzep3"
+            <video
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="auto"
               style={{
                 position: "absolute",
                 top: "50%",
@@ -66,7 +70,9 @@ const HomepageContent = () => {
                 objectFit: "cover",
                 pointerEvents: "none",
               }}
-            />
+            >
+              <source src={VIDEO_SRC} type="video/mp4" />
+            </video>
             <div className="home-video-overlay" />
           </div>
         </div>
@@ -177,8 +183,12 @@ const HomepageContent = () => {
         {/* Right: Sticky video (desktop only) */}
         <div className="home-video-col">
           <div className="home-video-sticky">
-            <WistiaAutoplayPlayer
-              mediaId="n9jj0nzep3"
+            <video
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="auto"
               style={{
                 position: "absolute",
                 top: "50%",
@@ -189,7 +199,9 @@ const HomepageContent = () => {
                 objectFit: "cover",
                 pointerEvents: "none",
               }}
-            />
+            >
+              <source src={VIDEO_SRC} type="video/mp4" />
+            </video>
             <div className="home-video-overlay" />
           </div>
         </div>

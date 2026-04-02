@@ -1,36 +1,30 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useRef } from "react";
 import { useLang } from "@/contexts/LanguageContext";
-import WistiaAutoplayPlayer, { WistiaPlayerElement } from "@/components/WistiaAutoplayPlayer";
+
+const VIDEO_SRC = "https://cdcjyvwghreyukugihjx.supabase.co/storage/v1/object/public/Hugo%20Nanny%20Header/Hugo%20%26%20Nanny%20Reel%204%2016-9_1.mp4";
 
 const Hero = () => {
   const { t } = useLang();
   const [isMuted, setIsMuted] = useState(true);
-  const playerRef = useRef<WistiaPlayerElement | null>(null);
-  const wistiaRef = useRef<any>(null);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (playerRef.current?._wistiaApi) {
-        wistiaRef.current = playerRef.current._wistiaApi;
-        clearInterval(interval);
-      }
-    }, 300);
-    return () => clearInterval(interval);
-  }, []);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
 
   const toggleMute = () => {
-    if (!wistiaRef.current) return;
+    if (!videoRef.current) return;
     const newMuted = !isMuted;
-    wistiaRef.current.volume(newMuted ? 0 : 1);
+    videoRef.current.muted = newMuted;
     setIsMuted(newMuted);
   };
 
   return (
     <section id="hero">
       <div className="hero-video">
-        <WistiaAutoplayPlayer
-          ref={playerRef}
-          mediaId="n9jj0nzep3"
+        <video
+          ref={videoRef}
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
           style={{
             position: "absolute",
             top: "50%",
@@ -41,7 +35,9 @@ const Hero = () => {
             objectFit: "cover",
             pointerEvents: "none",
           }}
-        />
+        >
+          <source src={VIDEO_SRC} type="video/mp4" />
+        </video>
         <div className="hero-video-overlay" />
         <button className="hero-mute-btn" onClick={toggleMute} aria-label={isMuted ? "Unmute" : "Mute"}>
           {isMuted ? (
