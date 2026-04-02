@@ -6,8 +6,16 @@ const StickyCta = () => {
   const [show, setShow] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setShow(window.scrollY > window.innerHeight * 0.5);
-    window.addEventListener("scroll", onScroll);
+    const onScroll = () => {
+      const intro = document.querySelector(".intro-text-section");
+      if (intro) {
+        const rect = intro.getBoundingClientRect();
+        setShow(rect.top < window.innerHeight * 0.66);
+      } else {
+        setShow(window.scrollY > window.innerHeight * 0.3);
+      }
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
