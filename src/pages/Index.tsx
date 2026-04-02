@@ -28,11 +28,20 @@ const HomepageContent = () => {
     });
   }, []);
 
+  const getActiveVideo = () => {
+    const isMobile = window.innerWidth < 900;
+    return isMobile ? mobileVideoRef.current : desktopVideoRef.current;
+  };
+
   const toggleMute = () => {
+    const newMuted = !isMuted;
+    // Always keep both visually playing but only unmute the visible one
     [mobileVideoRef, desktopVideoRef].forEach(ref => {
-      if (ref.current) ref.current.muted = !isMuted;
+      if (ref.current) ref.current.muted = true;
     });
-    setIsMuted(!isMuted);
+    const active = getActiveVideo();
+    if (active) active.muted = newMuted;
+    setIsMuted(newMuted);
   };
 
   const togglePlay = () => {
