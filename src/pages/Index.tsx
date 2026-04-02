@@ -16,15 +16,34 @@ const HomepageContent = () => {
   const [submitting, setSubmitting] = useState(false);
   const [lookingFor, setLookingFor] = useState("");
   const [budget, setBudget] = useState("");
+  const [isMuted, setIsMuted] = useState(true);
+  const [isPlaying, setIsPlaying] = useState(true);
   const mobileVideoRef = useRef<HTMLVideoElement>(null);
   const desktopVideoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
     [mobileVideoRef, desktopVideoRef].forEach(ref => {
       const v = ref.current;
-      if (v) { v.muted = true; v.play().catch(() => {}); }
+      if (v) { v.muted = true; v.play().then(() => setIsPlaying(true)).catch(() => setIsPlaying(false)); }
     });
   }, []);
+
+  const toggleMute = () => {
+    [mobileVideoRef, desktopVideoRef].forEach(ref => {
+      if (ref.current) ref.current.muted = !isMuted;
+    });
+    setIsMuted(!isMuted);
+  };
+
+  const togglePlay = () => {
+    [mobileVideoRef, desktopVideoRef].forEach(ref => {
+      const v = ref.current;
+      if (!v) return;
+      if (isPlaying) { v.pause(); } else { v.muted = true; v.play().catch(() => {}); }
+    });
+    if (!isPlaying) setIsMuted(true);
+    setIsPlaying(!isPlaying);
+  };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
