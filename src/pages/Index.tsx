@@ -64,6 +64,7 @@ const HomepageContent = () => {
         <div className="home-video-mobile">
           <div className="home-video-inner">
             <video
+              ref={mobileVideoRef}
               autoPlay
               muted
               loop
