@@ -2,15 +2,14 @@ import { useState, useRef, useEffect } from "react";
 import { useLang } from "@/contexts/LanguageContext";
 import { useIsMobile } from "@/hooks/use-mobile";
 
-const BUNNY_BASE = "https://player.mediadelivery.net/embed/631498/b16359ac-5b5d-45af-b1af-179ed85b37be?autoplay=true&loop=true&responsive=true&preload=true";
+const MUX_PLAYBACK_ID = "rR8P8mSaKDzz02TsftugTUdI00cQPJX00oy";
 
 const Hero = () => {
   const { t } = useLang();
   const [showScroll, setShowScroll] = useState(true);
   const [isMuted, setIsMuted] = useState(true);
-  const iframeRef = useRef<HTMLIFrameElement | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
-  const srcRemovedRef = useRef(false);
+  const playerRef = useRef<HTMLElement | null>(null);
   const isMobile = useIsMobile();
 
   useEffect(() => {
@@ -19,28 +18,33 @@ const Hero = () => {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // Intersection Observer for pause/resume
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
     const observer = new IntersectionObserver(
       ([entry]) => {
-        const iframe = iframeRef.current;
-        if (!iframe) return;
+        const player = playerRef.current as any;
+        if (!player) return;
         if (entry.isIntersecting) {
-          if (srcRemovedRef.current) {
-            iframe.src = `${BUNNY_BASE}&muted=${isMuted}`;
-            srcRemovedRef.current = false;
-          }
+          player.play?.();
         } else {
-          iframe.src = "";
-          srcRemovedRef.current = true;
+          player.pause?.();
         }
       },
       { threshold: 0.6 }
     );
     observer.observe(container);
     return () => observer.disconnect();
-  }, [isMuted]);
+  }, []);
+
+  const toggleMute = () => {
+    const player = playerRef.current as any;
+    if (player) {
+      player.muted = !player.muted;
+      setIsMuted(player.muted);
+    }
+  };
 
   // Mute button: desktop=center, mobile=bottom-right
   const muteStyle: React.CSSProperties = isMobile
@@ -50,33 +54,30 @@ const Hero = () => {
   return (
     <section id="hero">
       <div className="hero-video" ref={containerRef}>
-        <iframe
-          ref={iframeRef}
-          src={`${BUNNY_BASE}&muted=true`}
-          loading="lazy"
+        <mux-player
+          ref={playerRef as any}
+          playback-id={MUX_PLAYBACK_ID}
+          autoplay
+          loop
+          muted
+          stream-type="on-demand"
+          default-hidden-captions
           style={{
-            border: 0,
             position: "absolute",
             top: 0,
             left: 0,
-            height: "100%",
             width: "100%",
-          }}
-          allow="accelerometer;gyroscope;autoplay;encrypted-media;picture-in-picture;"
-          allowFullScreen
+            height: "100%",
+            // @ts-ignore
+            "--media-object-fit": "cover",
+            "--controls": "none",
+          } as React.CSSProperties}
         />
         <div className="hero-video-overlay" />
         <button
           className="hero-mute-btn"
           style={muteStyle}
-          onClick={() => {
-            const next = !isMuted;
-            setIsMuted(next);
-            if (iframeRef.current) {
-              iframeRef.current.src = `${BUNNY_BASE}&muted=${next}`;
-              srcRemovedRef.current = false;
-            }
-          }}
+          onClick={toggleMute}
           aria-label={isMuted ? "Unmute" : "Mute"}
         >
           {isMuted ? (

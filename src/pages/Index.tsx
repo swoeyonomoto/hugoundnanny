@@ -5,7 +5,8 @@ import LogoHeader from "@/components/LogoHeader";
 import AutoColorNav from "@/components/AutoColorNav";
 import Footer from "@/components/sections/Footer";
 import { useIsMobile } from "@/hooks/use-mobile";
-const BUNNY_BASE = "https://player.mediadelivery.net/embed/631498/b16359ac-5b5d-45af-b1af-179ed85b37be?autoplay=true&loop=true&responsive=true&preload=true";
+
+const MUX_PLAYBACK_ID = "rR8P8mSaKDzz02TsftugTUdI00cQPJX00oy";
 
 declare global {
   interface Window { fbq?: (...args: unknown[]) => void; }
@@ -31,6 +32,28 @@ const MuteButton = ({ isMuted, onClick, position }: { isMuted: boolean; onClick:
   );
 };
 
+const MuxVideo = ({ playerRef, style }: { playerRef: React.RefObject<HTMLElement | null>; style?: React.CSSProperties }) => (
+  <mux-player
+    ref={playerRef as any}
+    playback-id={MUX_PLAYBACK_ID}
+    autoplay
+    loop
+    muted
+    stream-type="on-demand"
+    default-hidden-captions
+    style={{
+      position: "absolute",
+      top: 0,
+      left: 0,
+      width: "100%",
+      height: "100%",
+      "--media-object-fit": "cover",
+      "--controls": "none",
+      ...style,
+    } as React.CSSProperties}
+  />
+);
+
 const HomepageContent = () => {
   const { t, lang, setLang } = useLang();
   const isMobile = useIsMobile();
@@ -39,55 +62,44 @@ const HomepageContent = () => {
   const [lookingFor, setLookingFor] = useState("");
   const [budget, setBudget] = useState("");
   const [isMuted, setIsMuted] = useState(true);
-  const mobileIframeRef = useRef<HTMLIFrameElement>(null);
-  const desktopIframeRef = useRef<HTMLIFrameElement>(null);
+  const mobilePlayerRef = useRef<HTMLElement>(null);
+  const desktopPlayerRef = useRef<HTMLElement>(null);
   const mobileContainerRef = useRef<HTMLDivElement>(null);
   const desktopContainerRef = useRef<HTMLDivElement>(null);
-  const mobileSrcRemovedRef = useRef(false);
-  const desktopSrcRemovedRef = useRef(false);
-
-  const bunnySrc = `${BUNNY_BASE}&muted=${isMuted}`;
 
   const toggleMute = () => {
     const next = !isMuted;
     setIsMuted(next);
-    const newSrc = `${BUNNY_BASE}&muted=${next}`;
-    if (mobileIframeRef.current) { mobileIframeRef.current.src = newSrc; mobileSrcRemovedRef.current = false; }
-    if (desktopIframeRef.current) { desktopIframeRef.current.src = newSrc; desktopSrcRemovedRef.current = false; }
+    [mobilePlayerRef, desktopPlayerRef].forEach(ref => {
+      const p = ref.current as any;
+      if (p) p.muted = next;
+    });
   };
 
+  // Intersection observers for pause/resume
   useEffect(() => {
     const container = mobileContainerRef.current;
     if (!container) return;
     const observer = new IntersectionObserver(([entry]) => {
-      const iframe = mobileIframeRef.current;
-      if (!iframe) return;
-      if (entry.isIntersecting) {
-        if (mobileSrcRemovedRef.current) { iframe.src = `${BUNNY_BASE}&muted=${isMuted}`; mobileSrcRemovedRef.current = false; }
-      } else {
-        iframe.src = ""; mobileSrcRemovedRef.current = true;
-      }
+      const player = mobilePlayerRef.current as any;
+      if (!player) return;
+      entry.isIntersecting ? player.play?.() : player.pause?.();
     }, { threshold: 0.6 });
     observer.observe(container);
     return () => observer.disconnect();
-  }, [isMuted]);
+  }, []);
 
   useEffect(() => {
     const container = desktopContainerRef.current;
     if (!container) return;
     const observer = new IntersectionObserver(([entry]) => {
-      const iframe = desktopIframeRef.current;
-      if (!iframe) return;
-      if (entry.isIntersecting) {
-        if (desktopSrcRemovedRef.current) { iframe.src = `${BUNNY_BASE}&muted=${isMuted}`; desktopSrcRemovedRef.current = false; }
-      } else {
-        iframe.src = ""; desktopSrcRemovedRef.current = true;
-      }
+      const player = desktopPlayerRef.current as any;
+      if (!player) return;
+      entry.isIntersecting ? player.play?.() : player.pause?.();
     }, { threshold: 0.6 });
     observer.observe(container);
     return () => observer.disconnect();
-  }, [isMuted]);
-  
+  }, []);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -126,21 +138,7 @@ const HomepageContent = () => {
         {/* Mobile: compact video at top */}
         <div className="home-video-mobile" ref={mobileContainerRef}>
           <div className="home-video-inner" style={{ position: "relative" }}>
-            <iframe
-              ref={mobileIframeRef}
-              src={`${BUNNY_BASE}&muted=true`}
-              loading="lazy"
-              style={{
-                border: 0,
-                position: "absolute",
-                top: 0,
-                left: 0,
-                height: "100%",
-                width: "100%",
-              }}
-              allow="accelerometer;gyroscope;autoplay;encrypted-media;picture-in-picture;"
-              allowFullScreen
-            />
+            <MuxVideo playerRef={mobilePlayerRef} />
             <div className="home-video-overlay" />
             <MuteButton isMuted={isMuted} onClick={toggleMute} position="mobile-right" />
           </div>
@@ -252,21 +250,7 @@ const HomepageContent = () => {
         {/* Right: Sticky video (desktop only) */}
         <div className="home-video-col" ref={desktopContainerRef}>
           <div className="home-video-sticky" style={{ position: "relative" }}>
-            <iframe
-              ref={desktopIframeRef}
-              src={`${BUNNY_BASE}&muted=true`}
-              loading="lazy"
-              style={{
-                border: 0,
-                position: "absolute",
-                top: 0,
-                left: 0,
-                height: "100%",
-                width: "100%",
-              }}
-              allow="accelerometer;gyroscope;autoplay;encrypted-media;picture-in-picture;"
-              allowFullScreen
-            />
+            <MuxVideo playerRef={desktopPlayerRef} />
             <div className="home-video-overlay" />
             <MuteButton isMuted={isMuted} onClick={toggleMute} position="desktop-left" />
           </div>
