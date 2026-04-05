@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { useLang } from "@/contexts/LanguageContext";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const BUNNY_BASE = "https://player.mediadelivery.net/embed/631498/b16359ac-5b5d-45af-b1af-179ed85b37be?autoplay=true&loop=true&responsive=true&preload=true";
 
@@ -10,11 +11,10 @@ const Hero = () => {
   const iframeRef = useRef<HTMLIFrameElement | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
   const srcRemovedRef = useRef(false);
+  const isMobile = useIsMobile();
 
   useEffect(() => {
-    const onScroll = () => {
-      setShowScroll(window.scrollY < 80);
-    };
+    const onScroll = () => setShowScroll(window.scrollY < 80);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
@@ -22,40 +22,30 @@ const Hero = () => {
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
-
     const observer = new IntersectionObserver(
       ([entry]) => {
         const iframe = iframeRef.current;
         if (!iframe) return;
-
         if (entry.isIntersecting) {
-          try {
-            iframe.contentWindow?.postMessage('{"event":"command","func":"play","method":"play"}', "*");
-          } catch {}
           if (srcRemovedRef.current) {
-            iframe.src = `${BUNNY_BASE}&muted=true`;
+            iframe.src = `${BUNNY_BASE}&muted=${isMuted}`;
             srcRemovedRef.current = false;
           }
         } else {
-          try {
-            iframe.contentWindow?.postMessage('{"event":"command","func":"pause","method":"pause"}', "*");
-          } catch {}
-          setTimeout(() => {
-            if (iframe && !containerRef.current?.getBoundingClientRect()) return;
-            const rect = containerRef.current?.getBoundingClientRect();
-            if (rect && (rect.bottom < 0 || rect.top > window.innerHeight)) {
-              iframe.src = "";
-              srcRemovedRef.current = true;
-            }
-          }, 300);
+          iframe.src = "";
+          srcRemovedRef.current = true;
         }
       },
-      { threshold: 0.05 }
+      { threshold: 0.6 }
     );
-
     observer.observe(container);
     return () => observer.disconnect();
-  }, []);
+  }, [isMuted]);
+
+  // Mute button: desktop=center, mobile=bottom-right
+  const muteStyle: React.CSSProperties = isMobile
+    ? { position: "absolute", bottom: 56, right: 16, left: "auto", zIndex: 20 }
+    : { position: "absolute", bottom: 56, left: "50%", transform: "translateX(-50%)", zIndex: 20 };
 
   return (
     <section id="hero">
@@ -78,12 +68,13 @@ const Hero = () => {
         <div className="hero-video-overlay" />
         <button
           className="hero-mute-btn"
-          style={{ position: "absolute", bottom: 56, left: 16, zIndex: 20 }}
+          style={muteStyle}
           onClick={() => {
             const next = !isMuted;
             setIsMuted(next);
             if (iframeRef.current) {
               iframeRef.current.src = `${BUNNY_BASE}&muted=${next}`;
+              srcRemovedRef.current = false;
             }
           }}
           aria-label={isMuted ? "Unmute" : "Mute"}

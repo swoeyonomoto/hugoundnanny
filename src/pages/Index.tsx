@@ -1,32 +1,39 @@
-import { useState, useRef, useEffect, useCallback, FormEvent } from "react";
+import { useState, useRef, useEffect, FormEvent } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { LanguageProvider, useLang } from "@/contexts/LanguageContext";
 import LogoHeader from "@/components/LogoHeader";
 import AutoColorNav from "@/components/AutoColorNav";
 import Footer from "@/components/sections/Footer";
+import { useIsMobile } from "@/hooks/use-mobile";
 const BUNNY_BASE = "https://player.mediadelivery.net/embed/631498/b16359ac-5b5d-45af-b1af-179ed85b37be?autoplay=true&loop=true&responsive=true&preload=true";
 
 declare global {
   interface Window { fbq?: (...args: unknown[]) => void; }
 }
 
-const MuteButton = ({ isMuted, onClick, style }: { isMuted: boolean; onClick: () => void; style?: React.CSSProperties }) => (
-  <button
-    className="hero-mute-btn"
-    style={{ position: "absolute", bottom: 56, left: 16, zIndex: 20, ...style }}
-    onClick={onClick}
-    aria-label={isMuted ? "Unmute" : "Mute"}
-  >
-    {isMuted ? (
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
-    ) : (
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
-    )}
-  </button>
-);
+const MuteButton = ({ isMuted, onClick, position }: { isMuted: boolean; onClick: () => void; position: "desktop-left" | "mobile-right" }) => {
+  const style: React.CSSProperties = position === "mobile-right"
+    ? { position: "absolute", bottom: 56, right: 16, left: "auto", zIndex: 20 }
+    : { position: "absolute", bottom: 56, left: 16, zIndex: 20 };
+  return (
+    <button
+      className="hero-mute-btn"
+      style={style}
+      onClick={onClick}
+      aria-label={isMuted ? "Unmute" : "Mute"}
+    >
+      {isMuted ? (
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+      ) : (
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+      )}
+    </button>
+  );
+};
 
 const HomepageContent = () => {
   const { t, lang, setLang } = useLang();
+  const isMobile = useIsMobile();
   const navigate = useNavigate();
   const [submitting, setSubmitting] = useState(false);
   const [lookingFor, setLookingFor] = useState("");
@@ -45,11 +52,10 @@ const HomepageContent = () => {
     const next = !isMuted;
     setIsMuted(next);
     const newSrc = `${BUNNY_BASE}&muted=${next}`;
-    if (mobileIframeRef.current) mobileIframeRef.current.src = newSrc;
-    if (desktopIframeRef.current) desktopIframeRef.current.src = newSrc;
+    if (mobileIframeRef.current) { mobileIframeRef.current.src = newSrc; mobileSrcRemovedRef.current = false; }
+    if (desktopIframeRef.current) { desktopIframeRef.current.src = newSrc; desktopSrcRemovedRef.current = false; }
   };
 
-  // Intersection Observer for mobile iframe
   useEffect(() => {
     const container = mobileContainerRef.current;
     if (!container) return;
@@ -57,21 +63,15 @@ const HomepageContent = () => {
       const iframe = mobileIframeRef.current;
       if (!iframe) return;
       if (entry.isIntersecting) {
-        try { iframe.contentWindow?.postMessage('{"event":"command","func":"play","method":"play"}', "*"); } catch {}
-        if (mobileSrcRemovedRef.current) { iframe.src = `${BUNNY_BASE}&muted=true`; mobileSrcRemovedRef.current = false; }
+        if (mobileSrcRemovedRef.current) { iframe.src = `${BUNNY_BASE}&muted=${isMuted}`; mobileSrcRemovedRef.current = false; }
       } else {
-        try { iframe.contentWindow?.postMessage('{"event":"command","func":"pause","method":"pause"}', "*"); } catch {}
-        setTimeout(() => {
-          const rect = container.getBoundingClientRect();
-          if (rect.bottom < 0 || rect.top > window.innerHeight) { iframe.src = ""; mobileSrcRemovedRef.current = true; }
-        }, 300);
+        iframe.src = ""; mobileSrcRemovedRef.current = true;
       }
-    }, { threshold: 0.05 });
+    }, { threshold: 0.6 });
     observer.observe(container);
     return () => observer.disconnect();
-  }, []);
+  }, [isMuted]);
 
-  // Intersection Observer for desktop iframe
   useEffect(() => {
     const container = desktopContainerRef.current;
     if (!container) return;
@@ -79,19 +79,15 @@ const HomepageContent = () => {
       const iframe = desktopIframeRef.current;
       if (!iframe) return;
       if (entry.isIntersecting) {
-        try { iframe.contentWindow?.postMessage('{"event":"command","func":"play","method":"play"}', "*"); } catch {}
-        if (desktopSrcRemovedRef.current) { iframe.src = `${BUNNY_BASE}&muted=true`; desktopSrcRemovedRef.current = false; }
+        if (desktopSrcRemovedRef.current) { iframe.src = `${BUNNY_BASE}&muted=${isMuted}`; desktopSrcRemovedRef.current = false; }
       } else {
-        try { iframe.contentWindow?.postMessage('{"event":"command","func":"pause","method":"pause"}', "*"); } catch {}
-        setTimeout(() => {
-          const rect = container.getBoundingClientRect();
-          if (rect.bottom < 0 || rect.top > window.innerHeight) { iframe.src = ""; desktopSrcRemovedRef.current = true; }
-        }, 300);
+        iframe.src = ""; desktopSrcRemovedRef.current = true;
       }
-    }, { threshold: 0.05 });
+    }, { threshold: 0.6 });
     observer.observe(container);
     return () => observer.disconnect();
-  }, []);
+  }, [isMuted]);
+  
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -146,7 +142,7 @@ const HomepageContent = () => {
               allowFullScreen
             />
             <div className="home-video-overlay" />
-            <MuteButton isMuted={isMuted} onClick={toggleMute} />
+            <MuteButton isMuted={isMuted} onClick={toggleMute} position="mobile-right" />
           </div>
         </div>
 
@@ -272,7 +268,7 @@ const HomepageContent = () => {
               allowFullScreen
             />
             <div className="home-video-overlay" />
-            <MuteButton isMuted={isMuted} onClick={toggleMute} />
+            <MuteButton isMuted={isMuted} onClick={toggleMute} position="desktop-left" />
           </div>
         </div>
       </div>
