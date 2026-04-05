@@ -56,7 +56,6 @@ const HomepageContent = () => {
     if (desktopIframeRef.current) { desktopIframeRef.current.src = newSrc; desktopSrcRemovedRef.current = false; }
   };
 
-  // Intersection Observer for mobile iframe
   useEffect(() => {
     const container = mobileContainerRef.current;
     if (!container) return;
@@ -64,19 +63,14 @@ const HomepageContent = () => {
       const iframe = mobileIframeRef.current;
       if (!iframe) return;
       if (entry.isIntersecting) {
-        try { iframe.contentWindow?.postMessage('{"event":"command","func":"play","method":"play"}', "*"); } catch {}
-        if (mobileSrcRemovedRef.current) { iframe.src = `${BUNNY_BASE}&muted=true`; mobileSrcRemovedRef.current = false; }
+        if (mobileSrcRemovedRef.current) { iframe.src = `${BUNNY_BASE}&muted=${isMuted}`; mobileSrcRemovedRef.current = false; }
       } else {
-        try { iframe.contentWindow?.postMessage('{"event":"command","func":"pause","method":"pause"}', "*"); } catch {}
-        setTimeout(() => {
-          const rect = container.getBoundingClientRect();
-          if (rect.bottom < 0 || rect.top > window.innerHeight) { iframe.src = ""; mobileSrcRemovedRef.current = true; }
-        }, 300);
+        iframe.src = ""; mobileSrcRemovedRef.current = true;
       }
-    }, { threshold: 0.05 });
+    }, { threshold: 0.6 });
     observer.observe(container);
     return () => observer.disconnect();
-  }, []);
+  }, [isMuted]);
 
   // Intersection Observer for desktop iframe
   useEffect(() => {
