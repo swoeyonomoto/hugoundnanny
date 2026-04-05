@@ -227,47 +227,24 @@ const HomepageContent = () => {
         </div>
 
         {/* Right: Sticky video (desktop only) */}
-        <div className="home-video-col" onClick={togglePlay} style={{ cursor: "pointer" }}>
-          <div className="home-video-sticky" style={{ pointerEvents: "none" }}>
-            <video
-              ref={desktopVideoRef}
-              autoPlay
-              muted={isMuted}
-              loop
-              playsInline
-              controls={false}
-              disablePictureInPicture
-              controlsList="nodownload nofullscreen noremoteplayback"
-              preload="auto"
+        <div className="home-video-col" ref={desktopContainerRef}>
+          <div className="home-video-sticky">
+            <iframe
+              ref={desktopIframeRef}
+              src={BUNNY_SRC}
+              loading="lazy"
               style={{
+                border: 0,
                 position: "absolute",
-                top: "50%",
-                left: "50%",
-                width: "max(100%, 177.78vh)",
-                height: "max(100%, 56.25vw)",
-                transform: "translate(-50%, -50%)",
-                objectFit: "cover",
+                top: 0,
+                left: 0,
+                height: "100%",
+                width: "100%",
               }}
-            >
-              <source src={VIDEO_SRC} type="video/mp4" />
-            </video>
+              allow="accelerometer;gyroscope;autoplay;encrypted-media;picture-in-picture;"
+              allowFullScreen
+            />
             <div className="home-video-overlay" />
-            <div className="hero-video-controls" style={{ pointerEvents: "auto" }}>
-              <button className="hero-mute-btn" onClick={(e) => { e.stopPropagation(); togglePlay(); }} aria-label={isPlaying ? "Pause" : "Play"}>
-                {isPlaying ? (
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="6" y="4" width="4" height="16" /><rect x="14" y="4" width="4" height="16" /></svg>
-                ) : (
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><polygon points="5 3 19 12 5 21 5 3" /></svg>
-                )}
-              </button>
-              <button className="hero-mute-btn" onClick={(e) => { e.stopPropagation(); toggleMute(); }} aria-label={isMuted ? "Unmute" : "Mute"}>
-                {isMuted ? (
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
-                ) : (
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
-                )}
-              </button>
-            </div>
           </div>
         </div>
       </div>
