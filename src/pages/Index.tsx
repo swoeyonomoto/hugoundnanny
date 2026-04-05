@@ -23,52 +23,49 @@ const HomepageContent = () => {
   const mobileSrcRemovedRef = useRef(false);
   const desktopSrcRemovedRef = useRef(false);
 
+  // Intersection Observer for mobile iframe
   useEffect(() => {
-    [mobileVideoRef, desktopVideoRef].forEach(ref => {
-      const v = ref.current;
-      if (!v) return;
-
-      v.defaultMuted = true;
-      v.muted = true;
-      v.playsInline = true;
-      v.setAttribute("playsinline", "");
-      v.setAttribute("webkit-playsinline", "");
-      v.load();
-
-      const p = v.play();
-      if (p !== undefined) p.then(() => setIsPlaying(true)).catch(() => setIsPlaying(false));
-    });
+    const container = mobileContainerRef.current;
+    if (!container) return;
+    const observer = new IntersectionObserver(([entry]) => {
+      const iframe = mobileIframeRef.current;
+      if (!iframe) return;
+      if (entry.isIntersecting) {
+        try { iframe.contentWindow?.postMessage('{"event":"command","func":"play","method":"play"}', "*"); } catch {}
+        if (mobileSrcRemovedRef.current) { iframe.src = BUNNY_SRC; mobileSrcRemovedRef.current = false; }
+      } else {
+        try { iframe.contentWindow?.postMessage('{"event":"command","func":"pause","method":"pause"}', "*"); } catch {}
+        setTimeout(() => {
+          const rect = container.getBoundingClientRect();
+          if (rect.bottom < 0 || rect.top > window.innerHeight) { iframe.src = ""; mobileSrcRemovedRef.current = true; }
+        }, 300);
+      }
+    }, { threshold: 0.05 });
+    observer.observe(container);
+    return () => observer.disconnect();
   }, []);
 
-  const getActiveVideo = () => {
-    const isMobile = window.innerWidth < 900;
-    return isMobile ? mobileVideoRef.current : desktopVideoRef.current;
-  };
-
-  const toggleMute = () => {
-    const newMuted = !isMuted;
-    [mobileVideoRef, desktopVideoRef].forEach(ref => {
-      if (ref.current) ref.current.muted = true;
-    });
-    const active = getActiveVideo();
-    if (active) active.muted = newMuted;
-    setIsMuted(newMuted);
-  };
-
-  const togglePlay = () => {
-    const active = getActiveVideo();
-    const inactive = active === desktopVideoRef.current ? mobileVideoRef.current : desktopVideoRef.current;
-    // Always pause the hidden video
-    inactive?.pause();
-    if (!active) return;
-    if (isPlaying) {
-      active.pause();
-      setIsPlaying(false);
-    } else {
-      active.muted = isMuted;
-      active.play().then(() => setIsPlaying(true)).catch(() => {});
-    }
-  };
+  // Intersection Observer for desktop iframe
+  useEffect(() => {
+    const container = desktopContainerRef.current;
+    if (!container) return;
+    const observer = new IntersectionObserver(([entry]) => {
+      const iframe = desktopIframeRef.current;
+      if (!iframe) return;
+      if (entry.isIntersecting) {
+        try { iframe.contentWindow?.postMessage('{"event":"command","func":"play","method":"play"}', "*"); } catch {}
+        if (desktopSrcRemovedRef.current) { iframe.src = BUNNY_SRC; desktopSrcRemovedRef.current = false; }
+      } else {
+        try { iframe.contentWindow?.postMessage('{"event":"command","func":"pause","method":"pause"}', "*"); } catch {}
+        setTimeout(() => {
+          const rect = container.getBoundingClientRect();
+          if (rect.bottom < 0 || rect.top > window.innerHeight) { iframe.src = ""; desktopSrcRemovedRef.current = true; }
+        }, 300);
+      }
+    }, { threshold: 0.05 });
+    observer.observe(container);
+    return () => observer.disconnect();
+  }, []);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
