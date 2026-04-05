@@ -1,19 +1,14 @@
-import { useState, useRef, useEffect, useCallback } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useLang } from "@/contexts/LanguageContext";
 import { useIsMobile } from "@/hooks/use-mobile";
-
-const MUX_BASE = "https://player.mux.com/ir3Oo00t5PY11sOMI1Vy02rA4wZsLpS1M81XGhdgf00rVw?metadata-video-title=Hugo+%26+Nanny+Reel+&video-title=Hugo+%26+Nanny+Reel+&autoplay=true&loop=true";
 
 const Hero = () => {
   const { t } = useLang();
   const [showScroll, setShowScroll] = useState(true);
   const [isMuted, setIsMuted] = useState(true);
   const containerRef = useRef<HTMLDivElement | null>(null);
-  const iframeRef = useRef<HTMLIFrameElement | null>(null);
-  const srcRemovedRef = useRef(false);
+  const playerRef = useRef<HTMLElement | null>(null);
   const isMobile = useIsMobile();
-
-  const getIframeSrc = useCallback((muted: boolean) => `${MUX_BASE}&muted=${muted}`, []);
 
   useEffect(() => {
     const onScroll = () => setShowScroll(window.scrollY < 80);
@@ -21,41 +16,29 @@ const Hero = () => {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Intersection Observer for pause/resume
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
     const observer = new IntersectionObserver(
       ([entry]) => {
-        const iframe = iframeRef.current;
-        if (!iframe) return;
-        if (entry.isIntersecting) {
-          if (srcRemovedRef.current) {
-            iframe.src = getIframeSrc(isMuted);
-            srcRemovedRef.current = false;
-          }
-        } else {
-          iframe.src = "";
-          srcRemovedRef.current = true;
-        }
+        const player = playerRef.current as any;
+        if (!player) return;
+        entry.isIntersecting ? player.play?.() : player.pause?.();
       },
       { threshold: 0.6 }
     );
     observer.observe(container);
     return () => observer.disconnect();
-  }, [isMuted, getIframeSrc]);
+  }, []);
 
   const toggleMute = () => {
-    const next = !isMuted;
-    setIsMuted(next);
-    const iframe = iframeRef.current;
-    if (iframe) {
-      iframe.src = getIframeSrc(next);
-      srcRemovedRef.current = false;
+    const player = playerRef.current as any;
+    if (player) {
+      player.muted = !player.muted;
+      setIsMuted(player.muted);
     }
   };
 
-  // Mute button: desktop=center, mobile=bottom-right
   const muteStyle: React.CSSProperties = isMobile
     ? { position: "absolute", bottom: 56, right: 16, left: "auto", zIndex: 20 }
     : { position: "absolute", bottom: 56, left: "50%", transform: "translateX(-50%)", zIndex: 20 };
@@ -63,19 +46,23 @@ const Hero = () => {
   return (
     <section id="hero">
       <div className="hero-video" ref={containerRef}>
-        <iframe
-          ref={iframeRef}
-          src={getIframeSrc(true)}
+        <mux-player
+          ref={playerRef as any}
+          playback-id="rR8P8mSaKDzz02TsftugTUdI00cQPJX00oy"
+          autoplay
+          loop
+          muted
+          stream-type="on-demand"
+          default-hidden-captions
           style={{
             position: "absolute",
             top: 0,
             left: 0,
             width: "100%",
             height: "100%",
-            border: "none",
-          }}
-          allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
-          allowFullScreen
+            "--media-object-fit": "cover",
+            "--controls": "none",
+          } as React.CSSProperties}
         />
         <div className="hero-video-overlay" />
         <button
