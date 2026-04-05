@@ -33,6 +33,7 @@ const MuteButton = ({ isMuted, onClick, position }: { isMuted: boolean; onClick:
 
 const HomepageContent = () => {
   const { t, lang, setLang } = useLang();
+  const isMobile = useIsMobile();
   const navigate = useNavigate();
   const [submitting, setSubmitting] = useState(false);
   const [lookingFor, setLookingFor] = useState("");
