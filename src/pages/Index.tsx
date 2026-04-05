@@ -142,7 +142,7 @@ const HomepageContent = () => {
               allowFullScreen
             />
             <div className="home-video-overlay" />
-            <MuteButton isMuted={isMuted} onClick={toggleMute} />
+            <MuteButton isMuted={isMuted} onClick={toggleMute} position="mobile-right" />
           </div>
         </div>
 
