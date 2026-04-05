@@ -33,7 +33,7 @@ const MuteButton = ({ isMuted, onClick, position }: { isMuted: boolean; onClick:
 const MuxVideo = ({ playerRef, style }: { playerRef: React.RefObject<HTMLElement | null>; style?: React.CSSProperties }) => (
   <mux-player
     ref={playerRef as any}
-    playback-id="rR8P8mSaKDzz02TsftugTUdI00cQPJX00oy"
+    playback-id="ir3Oo00t5PY11sOMI1Vy02rA4wZsLpS1M81XGhdgf00rVw"
     autoplay
     loop
     muted
