@@ -1,12 +1,10 @@
-import { useState, useRef, useEffect, useCallback, FormEvent } from "react";
+import { useState, useRef, useEffect, FormEvent } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { LanguageProvider, useLang } from "@/contexts/LanguageContext";
 import LogoHeader from "@/components/LogoHeader";
 import AutoColorNav from "@/components/AutoColorNav";
 import Footer from "@/components/sections/Footer";
 import { useIsMobile } from "@/hooks/use-mobile";
-
-const MUX_BASE = "https://player.mux.com/ir3Oo00t5PY11sOMI1Vy02rA4wZsLpS1M81XGhdgf00rVw?metadata-video-title=Hugo+%26+Nanny+Reel+&video-title=Hugo+%26+Nanny+Reel+&autoplay=true&loop=true";
 
 declare global {
   interface Window { fbq?: (...args: unknown[]) => void; }
@@ -32,21 +30,25 @@ const MuteButton = ({ isMuted, onClick, position }: { isMuted: boolean; onClick:
   );
 };
 
-const MuxIframe = ({ iframeRef, muted, style }: { iframeRef: React.RefObject<HTMLIFrameElement | null>; muted: boolean; style?: React.CSSProperties }) => (
-  <iframe
-    ref={iframeRef}
-    src={`${MUX_BASE}&muted=${muted}`}
+const MuxVideo = ({ playerRef, style }: { playerRef: React.RefObject<HTMLElement | null>; style?: React.CSSProperties }) => (
+  <mux-player
+    ref={playerRef as any}
+    playback-id="rR8P8mSaKDzz02TsftugTUdI00cQPJX00oy"
+    autoplay
+    loop
+    muted
+    stream-type="on-demand"
+    default-hidden-captions
     style={{
       position: "absolute",
       top: 0,
       left: 0,
       width: "100%",
       height: "100%",
-      border: "none",
+      "--media-object-fit": "cover",
+      "--controls": "none",
       ...style,
-    }}
-    allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
-    allowFullScreen
+    } as React.CSSProperties}
   />
 );
 
@@ -58,66 +60,43 @@ const HomepageContent = () => {
   const [lookingFor, setLookingFor] = useState("");
   const [budget, setBudget] = useState("");
   const [isMuted, setIsMuted] = useState(true);
-  const mobileIframeRef = useRef<HTMLIFrameElement>(null);
-  const desktopIframeRef = useRef<HTMLIFrameElement>(null);
+  const mobilePlayerRef = useRef<HTMLElement>(null);
+  const desktopPlayerRef = useRef<HTMLElement>(null);
   const mobileContainerRef = useRef<HTMLDivElement>(null);
   const desktopContainerRef = useRef<HTMLDivElement>(null);
-  const mobileSrcRemovedRef = useRef(false);
-  const desktopSrcRemovedRef = useRef(false);
-
-  const getIframeSrc = useCallback((muted: boolean) => `${MUX_BASE}&muted=${muted}`, []);
 
   const toggleMute = () => {
     const next = !isMuted;
     setIsMuted(next);
-    [mobileIframeRef, desktopIframeRef].forEach(ref => {
-      const iframe = ref.current;
-      if (iframe) iframe.src = getIframeSrc(next);
+    [mobilePlayerRef, desktopPlayerRef].forEach(ref => {
+      const p = ref.current as any;
+      if (p) p.muted = next;
     });
-    mobileSrcRemovedRef.current = false;
-    desktopSrcRemovedRef.current = false;
   };
 
-  // Intersection observers for pause/resume
   useEffect(() => {
     const container = mobileContainerRef.current;
     if (!container) return;
     const observer = new IntersectionObserver(([entry]) => {
-      const iframe = mobileIframeRef.current;
-      if (!iframe) return;
-      if (entry.isIntersecting) {
-        if (mobileSrcRemovedRef.current) {
-          iframe.src = getIframeSrc(isMuted);
-          mobileSrcRemovedRef.current = false;
-        }
-      } else {
-        iframe.src = "";
-        mobileSrcRemovedRef.current = true;
-      }
+      const player = mobilePlayerRef.current as any;
+      if (!player) return;
+      entry.isIntersecting ? player.play?.() : player.pause?.();
     }, { threshold: 0.6 });
     observer.observe(container);
     return () => observer.disconnect();
-  }, [isMuted, getIframeSrc]);
+  }, []);
 
   useEffect(() => {
     const container = desktopContainerRef.current;
     if (!container) return;
     const observer = new IntersectionObserver(([entry]) => {
-      const iframe = desktopIframeRef.current;
-      if (!iframe) return;
-      if (entry.isIntersecting) {
-        if (desktopSrcRemovedRef.current) {
-          iframe.src = getIframeSrc(isMuted);
-          desktopSrcRemovedRef.current = false;
-        }
-      } else {
-        iframe.src = "";
-        desktopSrcRemovedRef.current = true;
-      }
+      const player = desktopPlayerRef.current as any;
+      if (!player) return;
+      entry.isIntersecting ? player.play?.() : player.pause?.();
     }, { threshold: 0.6 });
     observer.observe(container);
     return () => observer.disconnect();
-  }, [isMuted, getIframeSrc]);
+  }, []);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -140,7 +119,6 @@ const HomepageContent = () => {
 
   return (
     <>
-      {/* Mobile: floating nav elements over video */}
       <div className="home-mobile-nav">
         <LogoHeader variant="auto" />
         <AutoColorNav className="lang-bar home-lang" style={{ position: "fixed", zIndex: 500 }}>
@@ -153,18 +131,15 @@ const HomepageContent = () => {
       </div>
 
       <div className="home-layout">
-        {/* Mobile: compact video at top */}
         <div className="home-video-mobile" ref={mobileContainerRef}>
           <div className="home-video-inner" style={{ position: "relative" }}>
-            <MuxIframe iframeRef={mobileIframeRef} muted={isMuted} />
+            <MuxVideo playerRef={mobilePlayerRef} />
             <div className="home-video-overlay" />
             <MuteButton isMuted={isMuted} onClick={toggleMute} position="mobile-right" />
           </div>
         </div>
 
-        {/* Left: Form */}
         <div className="home-form-col">
-          {/* Desktop navbar inside form column */}
           <nav className="home-desktop-nav">
             <div className="home-desktop-nav-left">
               <a href="/">
@@ -174,7 +149,6 @@ const HomepageContent = () => {
             </div>
           </nav>
 
-          {/* Desktop language toggle: fixed over video */}
           <AutoColorNav className="home-desktop-lang" style={{ position: "fixed", zIndex: 500 }}>
             <button className={`lang-btn ${lang === "de" ? "active" : ""}`} onClick={() => setLang("de")}>DE</button>
             <button className={`lang-btn ${lang === "en" ? "active" : ""}`} onClick={() => setLang("en")}>EN</button>
@@ -265,10 +239,9 @@ const HomepageContent = () => {
           </div>
         </div>
 
-        {/* Right: Sticky video (desktop only) */}
         <div className="home-video-col" ref={desktopContainerRef}>
           <div className="home-video-sticky" style={{ position: "relative" }}>
-            <MuxIframe iframeRef={desktopIframeRef} muted={isMuted} />
+            <MuxVideo playerRef={desktopPlayerRef} />
             <div className="home-video-overlay" />
             <MuteButton isMuted={isMuted} onClick={toggleMute} position="desktop-left" />
           </div>
