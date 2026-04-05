@@ -65,13 +65,20 @@ const HomepageContent = () => {
   const mobileContainerRef = useRef<HTMLDivElement>(null);
   const desktopContainerRef = useRef<HTMLDivElement>(null);
 
+  // Track which player is currently visible
+  const activePlayerRef = useRef<"mobile" | "desktop" | null>(null);
+
   const toggleMute = () => {
     const next = !isMuted;
     setIsMuted(next);
-    [mobilePlayerRef, desktopPlayerRef].forEach(ref => {
-      const p = ref.current as any;
-      if (p) p.muted = next;
-    });
+    // Only unmute the currently active/visible player
+    const activeRef = activePlayerRef.current === "mobile" ? mobilePlayerRef : desktopPlayerRef;
+    const inactiveRef = activePlayerRef.current === "mobile" ? desktopPlayerRef : mobilePlayerRef;
+    const active = activeRef.current as any;
+    const inactive = inactiveRef.current as any;
+    if (active) active.muted = next;
+    // Always keep inactive muted
+    if (inactive) inactive.muted = true;
   };
 
   useEffect(() => {
@@ -80,7 +87,13 @@ const HomepageContent = () => {
     const observer = new IntersectionObserver(([entry]) => {
       const player = mobilePlayerRef.current as any;
       if (!player) return;
-      entry.isIntersecting ? player.play?.() : player.pause?.();
+      if (entry.isIntersecting) {
+        activePlayerRef.current = "mobile";
+        player.play?.();
+      } else {
+        player.pause?.();
+        player.muted = true;
+      }
     }, { threshold: 0.6 });
     observer.observe(container);
     return () => observer.disconnect();
@@ -92,7 +105,13 @@ const HomepageContent = () => {
     const observer = new IntersectionObserver(([entry]) => {
       const player = desktopPlayerRef.current as any;
       if (!player) return;
-      entry.isIntersecting ? player.play?.() : player.pause?.();
+      if (entry.isIntersecting) {
+        activePlayerRef.current = "desktop";
+        player.play?.();
+      } else {
+        player.pause?.();
+        player.muted = true;
+      }
     }, { threshold: 0.6 });
     observer.observe(container);
     return () => observer.disconnect();
