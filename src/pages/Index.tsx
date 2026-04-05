@@ -72,7 +72,6 @@ const HomepageContent = () => {
     return () => observer.disconnect();
   }, [isMuted]);
 
-  // Intersection Observer for desktop iframe
   useEffect(() => {
     const container = desktopContainerRef.current;
     if (!container) return;
@@ -80,18 +79,14 @@ const HomepageContent = () => {
       const iframe = desktopIframeRef.current;
       if (!iframe) return;
       if (entry.isIntersecting) {
-        try { iframe.contentWindow?.postMessage('{"event":"command","func":"play","method":"play"}', "*"); } catch {}
-        if (desktopSrcRemovedRef.current) { iframe.src = `${BUNNY_BASE}&muted=true`; desktopSrcRemovedRef.current = false; }
+        if (desktopSrcRemovedRef.current) { iframe.src = `${BUNNY_BASE}&muted=${isMuted}`; desktopSrcRemovedRef.current = false; }
       } else {
-        try { iframe.contentWindow?.postMessage('{"event":"command","func":"pause","method":"pause"}', "*"); } catch {}
-        setTimeout(() => {
-          const rect = container.getBoundingClientRect();
-          if (rect.bottom < 0 || rect.top > window.innerHeight) { iframe.src = ""; desktopSrcRemovedRef.current = true; }
-        }, 300);
+        iframe.src = ""; desktopSrcRemovedRef.current = true;
       }
-    }, { threshold: 0.05 });
+    }, { threshold: 0.6 });
     observer.observe(container);
     return () => observer.disconnect();
+  }, [isMuted]);
   }, []);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
