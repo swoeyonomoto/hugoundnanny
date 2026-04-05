@@ -52,8 +52,8 @@ const HomepageContent = () => {
     const next = !isMuted;
     setIsMuted(next);
     const newSrc = `${BUNNY_BASE}&muted=${next}`;
-    if (mobileIframeRef.current) mobileIframeRef.current.src = newSrc;
-    if (desktopIframeRef.current) desktopIframeRef.current.src = newSrc;
+    if (mobileIframeRef.current) { mobileIframeRef.current.src = newSrc; mobileSrcRemovedRef.current = false; }
+    if (desktopIframeRef.current) { desktopIframeRef.current.src = newSrc; desktopSrcRemovedRef.current = false; }
   };
 
   // Intersection Observer for mobile iframe
