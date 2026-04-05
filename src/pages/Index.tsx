@@ -1,10 +1,10 @@
-import { useState, useRef, useEffect, FormEvent } from "react";
+import { useState, useRef, useEffect, useCallback, FormEvent } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { LanguageProvider, useLang } from "@/contexts/LanguageContext";
 import LogoHeader from "@/components/LogoHeader";
 import AutoColorNav from "@/components/AutoColorNav";
 import Footer from "@/components/sections/Footer";
-const VIDEO_SRC = "https://cdcjyvwghreyukugihjx.supabase.co/storage/v1/object/public/Hugo%20Nanny%20Header/Hugo%20%26%20Nanny%20Reel%204%2016-9_1.mp4";
+const BUNNY_SRC = "https://player.mediadelivery.net/embed/631498/b16359ac-5b5d-45af-b1af-179ed85b37be?autoplay=true&loop=false&muted=false&preload=true&responsive=true";
 
 declare global {
   interface Window { fbq?: (...args: unknown[]) => void; }
@@ -16,57 +16,56 @@ const HomepageContent = () => {
   const [submitting, setSubmitting] = useState(false);
   const [lookingFor, setLookingFor] = useState("");
   const [budget, setBudget] = useState("");
-  const [isMuted, setIsMuted] = useState(true);
-  const [isPlaying, setIsPlaying] = useState(true);
-  const mobileVideoRef = useRef<HTMLVideoElement>(null);
-  const desktopVideoRef = useRef<HTMLVideoElement>(null);
+  const mobileIframeRef = useRef<HTMLIFrameElement>(null);
+  const desktopIframeRef = useRef<HTMLIFrameElement>(null);
+  const mobileContainerRef = useRef<HTMLDivElement>(null);
+  const desktopContainerRef = useRef<HTMLDivElement>(null);
+  const mobileSrcRemovedRef = useRef(false);
+  const desktopSrcRemovedRef = useRef(false);
 
+  // Intersection Observer for mobile iframe
   useEffect(() => {
-    [mobileVideoRef, desktopVideoRef].forEach(ref => {
-      const v = ref.current;
-      if (!v) return;
-
-      v.defaultMuted = true;
-      v.muted = true;
-      v.playsInline = true;
-      v.setAttribute("playsinline", "");
-      v.setAttribute("webkit-playsinline", "");
-      v.load();
-
-      const p = v.play();
-      if (p !== undefined) p.then(() => setIsPlaying(true)).catch(() => setIsPlaying(false));
-    });
+    const container = mobileContainerRef.current;
+    if (!container) return;
+    const observer = new IntersectionObserver(([entry]) => {
+      const iframe = mobileIframeRef.current;
+      if (!iframe) return;
+      if (entry.isIntersecting) {
+        try { iframe.contentWindow?.postMessage('{"event":"command","func":"play","method":"play"}', "*"); } catch {}
+        if (mobileSrcRemovedRef.current) { iframe.src = BUNNY_SRC; mobileSrcRemovedRef.current = false; }
+      } else {
+        try { iframe.contentWindow?.postMessage('{"event":"command","func":"pause","method":"pause"}', "*"); } catch {}
+        setTimeout(() => {
+          const rect = container.getBoundingClientRect();
+          if (rect.bottom < 0 || rect.top > window.innerHeight) { iframe.src = ""; mobileSrcRemovedRef.current = true; }
+        }, 300);
+      }
+    }, { threshold: 0.05 });
+    observer.observe(container);
+    return () => observer.disconnect();
   }, []);
 
-  const getActiveVideo = () => {
-    const isMobile = window.innerWidth < 900;
-    return isMobile ? mobileVideoRef.current : desktopVideoRef.current;
-  };
-
-  const toggleMute = () => {
-    const newMuted = !isMuted;
-    [mobileVideoRef, desktopVideoRef].forEach(ref => {
-      if (ref.current) ref.current.muted = true;
-    });
-    const active = getActiveVideo();
-    if (active) active.muted = newMuted;
-    setIsMuted(newMuted);
-  };
-
-  const togglePlay = () => {
-    const active = getActiveVideo();
-    const inactive = active === desktopVideoRef.current ? mobileVideoRef.current : desktopVideoRef.current;
-    // Always pause the hidden video
-    inactive?.pause();
-    if (!active) return;
-    if (isPlaying) {
-      active.pause();
-      setIsPlaying(false);
-    } else {
-      active.muted = isMuted;
-      active.play().then(() => setIsPlaying(true)).catch(() => {});
-    }
-  };
+  // Intersection Observer for desktop iframe
+  useEffect(() => {
+    const container = desktopContainerRef.current;
+    if (!container) return;
+    const observer = new IntersectionObserver(([entry]) => {
+      const iframe = desktopIframeRef.current;
+      if (!iframe) return;
+      if (entry.isIntersecting) {
+        try { iframe.contentWindow?.postMessage('{"event":"command","func":"play","method":"play"}', "*"); } catch {}
+        if (desktopSrcRemovedRef.current) { iframe.src = BUNNY_SRC; desktopSrcRemovedRef.current = false; }
+      } else {
+        try { iframe.contentWindow?.postMessage('{"event":"command","func":"pause","method":"pause"}', "*"); } catch {}
+        setTimeout(() => {
+          const rect = container.getBoundingClientRect();
+          if (rect.bottom < 0 || rect.top > window.innerHeight) { iframe.src = ""; desktopSrcRemovedRef.current = true; }
+        }, 300);
+      }
+    }, { threshold: 0.05 });
+    observer.observe(container);
+    return () => observer.disconnect();
+  }, []);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -103,47 +102,24 @@ const HomepageContent = () => {
 
       <div className="home-layout">
         {/* Mobile: compact video at top */}
-        <div className="home-video-mobile" onClick={togglePlay} style={{ cursor: "pointer" }}>
-          <div className="home-video-inner" style={{ pointerEvents: "none" }}>
-            <video
-              ref={mobileVideoRef}
-              autoPlay
-              muted={isMuted}
-              loop
-              playsInline
-              controls={false}
-              disablePictureInPicture
-              controlsList="nodownload nofullscreen noremoteplayback"
-              preload="auto"
+        <div className="home-video-mobile" ref={mobileContainerRef}>
+          <div className="home-video-inner">
+            <iframe
+              ref={mobileIframeRef}
+              src={BUNNY_SRC}
+              loading="lazy"
               style={{
+                border: 0,
                 position: "absolute",
-                top: "50%",
-                left: "50%",
-                width: "max(100%, 177.78vh)",
-                height: "max(100%, 56.25vw)",
-                transform: "translate(-50%, -50%)",
-                objectFit: "cover",
+                top: 0,
+                left: 0,
+                height: "100%",
+                width: "100%",
               }}
-            >
-              <source src={VIDEO_SRC} type="video/mp4" />
-            </video>
+              allow="accelerometer;gyroscope;autoplay;encrypted-media;picture-in-picture;"
+              allowFullScreen
+            />
             <div className="home-video-overlay" />
-            <div className="hero-video-controls" style={{ pointerEvents: "auto" }}>
-              <button className="hero-mute-btn" onClick={(e) => { e.stopPropagation(); togglePlay(); }} aria-label={isPlaying ? "Pause" : "Play"}>
-                {isPlaying ? (
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="6" y="4" width="4" height="16" /><rect x="14" y="4" width="4" height="16" /></svg>
-                ) : (
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><polygon points="5 3 19 12 5 21 5 3" /></svg>
-                )}
-              </button>
-              <button className="hero-mute-btn" onClick={(e) => { e.stopPropagation(); toggleMute(); }} aria-label={isMuted ? "Unmute" : "Mute"}>
-                {isMuted ? (
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
-                ) : (
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
-                )}
-              </button>
-            </div>
           </div>
         </div>
 
@@ -251,47 +227,24 @@ const HomepageContent = () => {
         </div>
 
         {/* Right: Sticky video (desktop only) */}
-        <div className="home-video-col" onClick={togglePlay} style={{ cursor: "pointer" }}>
-          <div className="home-video-sticky" style={{ pointerEvents: "none" }}>
-            <video
-              ref={desktopVideoRef}
-              autoPlay
-              muted={isMuted}
-              loop
-              playsInline
-              controls={false}
-              disablePictureInPicture
-              controlsList="nodownload nofullscreen noremoteplayback"
-              preload="auto"
+        <div className="home-video-col" ref={desktopContainerRef}>
+          <div className="home-video-sticky">
+            <iframe
+              ref={desktopIframeRef}
+              src={BUNNY_SRC}
+              loading="lazy"
               style={{
+                border: 0,
                 position: "absolute",
-                top: "50%",
-                left: "50%",
-                width: "max(100%, 177.78vh)",
-                height: "max(100%, 56.25vw)",
-                transform: "translate(-50%, -50%)",
-                objectFit: "cover",
+                top: 0,
+                left: 0,
+                height: "100%",
+                width: "100%",
               }}
-            >
-              <source src={VIDEO_SRC} type="video/mp4" />
-            </video>
+              allow="accelerometer;gyroscope;autoplay;encrypted-media;picture-in-picture;"
+              allowFullScreen
+            />
             <div className="home-video-overlay" />
-            <div className="hero-video-controls" style={{ pointerEvents: "auto" }}>
-              <button className="hero-mute-btn" onClick={(e) => { e.stopPropagation(); togglePlay(); }} aria-label={isPlaying ? "Pause" : "Play"}>
-                {isPlaying ? (
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="6" y="4" width="4" height="16" /><rect x="14" y="4" width="4" height="16" /></svg>
-                ) : (
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><polygon points="5 3 19 12 5 21 5 3" /></svg>
-                )}
-              </button>
-              <button className="hero-mute-btn" onClick={(e) => { e.stopPropagation(); toggleMute(); }} aria-label={isMuted ? "Unmute" : "Mute"}>
-                {isMuted ? (
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
-                ) : (
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
-                )}
-              </button>
-            </div>
           </div>
         </div>
       </div>
