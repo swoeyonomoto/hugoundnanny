@@ -790,7 +790,7 @@ footer {
 }
 .home-video-sticky {
   position: sticky; top: 0;
-  height: 100vh; overflow: hidden; background: #111;
+  height: 100vh; height: 100dvh; overflow: hidden; background: #111;
 }
 .home-video-overlay {
   position: absolute; inset: 0; z-index: 1;
