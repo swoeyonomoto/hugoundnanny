@@ -1,14 +1,14 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { useLang } from "@/contexts/LanguageContext";
 
-const VIDEO_SRC = "https://cdcjyvwghreyukugihjx.supabase.co/storage/v1/object/public/Hugo%20Nanny%20Header/Hugo%20%26%20Nanny%20Reel%204%2016-9_1.mp4";
+const BUNNY_SRC = "https://player.mediadelivery.net/embed/631498/b16359ac-5b5d-45af-b1af-179ed85b37be?autoplay=true&loop=false&muted=false&preload=true&responsive=true";
 
 const Hero = () => {
   const { t } = useLang();
-  const [isMuted, setIsMuted] = useState(true);
-  const [isPlaying, setIsPlaying] = useState(true);
   const [showScroll, setShowScroll] = useState(true);
-  const videoRef = useRef<HTMLVideoElement | null>(null);
+  const iframeRef = useRef<HTMLIFrameElement | null>(null);
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const srcRemovedRef = useRef(false);
 
   useEffect(() => {
     const onScroll = () => {
@@ -18,93 +18,68 @@ const Hero = () => {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // Intersection Observer: pause/resume iframe video
   useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
+    const container = containerRef.current;
+    if (!container) return;
 
-    video.defaultMuted = true;
-    video.muted = isMuted;
-    video.playsInline = true;
-    video.setAttribute("playsinline", "");
-    video.setAttribute("webkit-playsinline", "");
-    video.load();
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        const iframe = iframeRef.current;
+        if (!iframe) return;
 
-    const playPromise = video.play();
-    if (playPromise !== undefined) {
-      playPromise.then(() => setIsPlaying(true)).catch(() => setIsPlaying(false));
-    }
+        if (entry.isIntersecting) {
+          // Try postMessage play
+          try {
+            iframe.contentWindow?.postMessage('{"event":"command","func":"play","method":"play"}', "*");
+          } catch {}
+          // Fallback: restore src if it was removed
+          if (srcRemovedRef.current) {
+            iframe.src = BUNNY_SRC;
+            srcRemovedRef.current = false;
+          }
+        } else {
+          // Try postMessage pause
+          try {
+            iframe.contentWindow?.postMessage('{"event":"command","func":"pause","method":"pause"}', "*");
+          } catch {}
+          // Fallback: remove src after a short delay
+          setTimeout(() => {
+            if (iframe && !containerRef.current?.getBoundingClientRect()) return;
+            const rect = containerRef.current?.getBoundingClientRect();
+            if (rect && (rect.bottom < 0 || rect.top > window.innerHeight)) {
+              iframe.src = "";
+              srcRemovedRef.current = true;
+            }
+          }, 300);
+        }
+      },
+      { threshold: 0.05 }
+    );
+
+    observer.observe(container);
+    return () => observer.disconnect();
   }, []);
 
-  const toggleMute = () => {
-    if (!videoRef.current) return;
-    const newMuted = !isMuted;
-    videoRef.current.muted = newMuted;
-    setIsMuted(newMuted);
-  };
-
-  const togglePlay = () => {
-    if (!videoRef.current) return;
-    if (isPlaying) {
-      videoRef.current.pause();
-      setIsPlaying(false);
-    } else {
-      videoRef.current.muted = isMuted;
-      videoRef.current.play().then(() => setIsPlaying(true)).catch(() => {});
-    }
-  };
-
   return (
-    <section id="hero" onClick={togglePlay} style={{ cursor: "pointer" }}>
-      <div className="hero-video" style={{ pointerEvents: "none" }}>
-        <video
-          ref={videoRef}
-          autoPlay
-          muted={isMuted}
-          loop
-          playsInline
-          controls={false}
-          disablePictureInPicture
-          controlsList="nodownload nofullscreen noremoteplayback"
-          preload="auto"
+    <section id="hero">
+      <div className="hero-video" ref={containerRef}>
+        <iframe
+          ref={iframeRef}
+          src={BUNNY_SRC}
+          loading="lazy"
           style={{
+            border: 0,
             position: "absolute",
-            top: "50%",
-            left: "50%",
-            width: "max(100%, 177.78vh)",
-            height: "max(100%, 56.25vw)",
-            transform: "translate(-50%, -50%)",
-            objectFit: "cover",
+            top: 0,
+            left: 0,
+            height: "100%",
+            width: "100%",
           }}
-        >
-          <source src={VIDEO_SRC} type="video/mp4" />
-        </video>
+          allow="accelerometer;gyroscope;autoplay;encrypted-media;picture-in-picture;"
+          allowFullScreen
+        />
         <div className="hero-video-overlay" />
-        <div className="hero-video-controls" style={{ pointerEvents: "auto" }}>
-          <button className="hero-mute-btn" onClick={(e) => { e.stopPropagation(); togglePlay(); }} aria-label={isPlaying ? "Pause" : "Play"}>
-            {isPlaying ? (
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                <rect x="6" y="4" width="4" height="16" /><rect x="14" y="4" width="4" height="16" />
-              </svg>
-            ) : (
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                <polygon points="5 3 19 12 5 21 5 3" />
-              </svg>
-            )}
-          </button>
-          <button className="hero-mute-btn" onClick={(e) => { e.stopPropagation(); toggleMute(); }} aria-label={isMuted ? "Unmute" : "Mute"}>
-            {isMuted ? (
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
-                <line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/>
-              </svg>
-            ) : (
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
-                <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/>
-              </svg>
-            )}
-          </button>
-        </div>
       </div>
       <div className="hero-content" style={{ pointerEvents: "none" }}>
         <h1 className="hero-headline">
