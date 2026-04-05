@@ -1,16 +1,19 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { useLang } from "@/contexts/LanguageContext";
 import { useIsMobile } from "@/hooks/use-mobile";
 
-const MUX_PLAYBACK_ID = "rR8P8mSaKDzz02TsftugTUdI00cQPJX00oy";
+const MUX_BASE = "https://player.mux.com/ir3Oo00t5PY11sOMI1Vy02rA4wZsLpS1M81XGhdgf00rVw?metadata-video-title=Hugo+%26+Nanny+Reel+&video-title=Hugo+%26+Nanny+Reel+&autoplay=true&loop=true";
 
 const Hero = () => {
   const { t } = useLang();
   const [showScroll, setShowScroll] = useState(true);
   const [isMuted, setIsMuted] = useState(true);
   const containerRef = useRef<HTMLDivElement | null>(null);
-  const playerRef = useRef<HTMLElement | null>(null);
+  const iframeRef = useRef<HTMLIFrameElement | null>(null);
+  const srcRemovedRef = useRef(false);
   const isMobile = useIsMobile();
+
+  const getIframeSrc = useCallback((muted: boolean) => `${MUX_BASE}&muted=${muted}`, []);
 
   useEffect(() => {
     const onScroll = () => setShowScroll(window.scrollY < 80);
@@ -24,25 +27,31 @@ const Hero = () => {
     if (!container) return;
     const observer = new IntersectionObserver(
       ([entry]) => {
-        const player = playerRef.current as any;
-        if (!player) return;
+        const iframe = iframeRef.current;
+        if (!iframe) return;
         if (entry.isIntersecting) {
-          player.play?.();
+          if (srcRemovedRef.current) {
+            iframe.src = getIframeSrc(isMuted);
+            srcRemovedRef.current = false;
+          }
         } else {
-          player.pause?.();
+          iframe.src = "";
+          srcRemovedRef.current = true;
         }
       },
       { threshold: 0.6 }
     );
     observer.observe(container);
     return () => observer.disconnect();
-  }, []);
+  }, [isMuted, getIframeSrc]);
 
   const toggleMute = () => {
-    const player = playerRef.current as any;
-    if (player) {
-      player.muted = !player.muted;
-      setIsMuted(player.muted);
+    const next = !isMuted;
+    setIsMuted(next);
+    const iframe = iframeRef.current;
+    if (iframe) {
+      iframe.src = getIframeSrc(next);
+      srcRemovedRef.current = false;
     }
   };
 
@@ -54,24 +63,19 @@ const Hero = () => {
   return (
     <section id="hero">
       <div className="hero-video" ref={containerRef}>
-        <mux-player
-          ref={playerRef as any}
-          playback-id={MUX_PLAYBACK_ID}
-          autoplay
-          loop
-          muted
-          stream-type="on-demand"
-          default-hidden-captions
+        <iframe
+          ref={iframeRef}
+          src={getIframeSrc(true)}
           style={{
             position: "absolute",
             top: 0,
             left: 0,
             width: "100%",
             height: "100%",
-            // @ts-ignore
-            "--media-object-fit": "cover",
-            "--controls": "none",
-          } as React.CSSProperties}
+            border: "none",
+          }}
+          allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
+          allowFullScreen
         />
         <div className="hero-video-overlay" />
         <button
