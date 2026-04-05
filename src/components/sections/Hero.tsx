@@ -1,11 +1,12 @@
-import { useState, useRef, useEffect, useCallback } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useLang } from "@/contexts/LanguageContext";
 
-const BUNNY_SRC = "https://player.mediadelivery.net/embed/631498/b16359ac-5b5d-45af-b1af-179ed85b37be?autoplay=true&loop=true&muted=true&preload=true&responsive=true";
+const BUNNY_BASE = "https://player.mediadelivery.net/embed/631498/b16359ac-5b5d-45af-b1af-179ed85b37be?autoplay=true&loop=true&responsive=true&preload=true";
 
 const Hero = () => {
   const { t } = useLang();
   const [showScroll, setShowScroll] = useState(true);
+  const [isMuted, setIsMuted] = useState(true);
   const iframeRef = useRef<HTMLIFrameElement | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
   const srcRemovedRef = useRef(false);
@@ -18,7 +19,6 @@ const Hero = () => {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Intersection Observer: pause/resume iframe video
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
@@ -29,21 +29,17 @@ const Hero = () => {
         if (!iframe) return;
 
         if (entry.isIntersecting) {
-          // Try postMessage play
           try {
             iframe.contentWindow?.postMessage('{"event":"command","func":"play","method":"play"}', "*");
           } catch {}
-          // Fallback: restore src if it was removed
           if (srcRemovedRef.current) {
-            iframe.src = BUNNY_SRC;
+            iframe.src = `${BUNNY_BASE}&muted=true`;
             srcRemovedRef.current = false;
           }
         } else {
-          // Try postMessage pause
           try {
             iframe.contentWindow?.postMessage('{"event":"command","func":"pause","method":"pause"}', "*");
           } catch {}
-          // Fallback: remove src after a short delay
           setTimeout(() => {
             if (iframe && !containerRef.current?.getBoundingClientRect()) return;
             const rect = containerRef.current?.getBoundingClientRect();
@@ -66,7 +62,7 @@ const Hero = () => {
       <div className="hero-video" ref={containerRef}>
         <iframe
           ref={iframeRef}
-          src={BUNNY_SRC}
+          src={`${BUNNY_BASE}&muted=true`}
           loading="lazy"
           style={{
             border: 0,

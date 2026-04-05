@@ -10,18 +10,44 @@ declare global {
   interface Window { fbq?: (...args: unknown[]) => void; }
 }
 
+const MuteButton = ({ isMuted, onClick, style }: { isMuted: boolean; onClick: () => void; style?: React.CSSProperties }) => (
+  <button
+    className="hero-mute-btn"
+    style={{ position: "absolute", bottom: 56, left: 16, zIndex: 20, ...style }}
+    onClick={onClick}
+    aria-label={isMuted ? "Unmute" : "Mute"}
+  >
+    {isMuted ? (
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+    ) : (
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+    )}
+  </button>
+);
+
 const HomepageContent = () => {
   const { t, lang, setLang } = useLang();
   const navigate = useNavigate();
   const [submitting, setSubmitting] = useState(false);
   const [lookingFor, setLookingFor] = useState("");
   const [budget, setBudget] = useState("");
+  const [isMuted, setIsMuted] = useState(true);
   const mobileIframeRef = useRef<HTMLIFrameElement>(null);
   const desktopIframeRef = useRef<HTMLIFrameElement>(null);
   const mobileContainerRef = useRef<HTMLDivElement>(null);
   const desktopContainerRef = useRef<HTMLDivElement>(null);
   const mobileSrcRemovedRef = useRef(false);
   const desktopSrcRemovedRef = useRef(false);
+
+  const bunnySrc = `${BUNNY_BASE}&muted=${isMuted}`;
+
+  const toggleMute = () => {
+    const next = !isMuted;
+    setIsMuted(next);
+    const newSrc = `${BUNNY_BASE}&muted=${next}`;
+    if (mobileIframeRef.current) mobileIframeRef.current.src = newSrc;
+    if (desktopIframeRef.current) desktopIframeRef.current.src = newSrc;
+  };
 
   // Intersection Observer for mobile iframe
   useEffect(() => {
@@ -32,7 +58,7 @@ const HomepageContent = () => {
       if (!iframe) return;
       if (entry.isIntersecting) {
         try { iframe.contentWindow?.postMessage('{"event":"command","func":"play","method":"play"}', "*"); } catch {}
-        if (mobileSrcRemovedRef.current) { iframe.src = BUNNY_SRC; mobileSrcRemovedRef.current = false; }
+        if (mobileSrcRemovedRef.current) { iframe.src = `${BUNNY_BASE}&muted=true`; mobileSrcRemovedRef.current = false; }
       } else {
         try { iframe.contentWindow?.postMessage('{"event":"command","func":"pause","method":"pause"}', "*"); } catch {}
         setTimeout(() => {
@@ -54,7 +80,7 @@ const HomepageContent = () => {
       if (!iframe) return;
       if (entry.isIntersecting) {
         try { iframe.contentWindow?.postMessage('{"event":"command","func":"play","method":"play"}', "*"); } catch {}
-        if (desktopSrcRemovedRef.current) { iframe.src = BUNNY_SRC; desktopSrcRemovedRef.current = false; }
+        if (desktopSrcRemovedRef.current) { iframe.src = `${BUNNY_BASE}&muted=true`; desktopSrcRemovedRef.current = false; }
       } else {
         try { iframe.contentWindow?.postMessage('{"event":"command","func":"pause","method":"pause"}', "*"); } catch {}
         setTimeout(() => {
@@ -103,10 +129,10 @@ const HomepageContent = () => {
       <div className="home-layout">
         {/* Mobile: compact video at top */}
         <div className="home-video-mobile" ref={mobileContainerRef}>
-          <div className="home-video-inner">
+          <div className="home-video-inner" style={{ position: "relative" }}>
             <iframe
               ref={mobileIframeRef}
-              src={BUNNY_SRC}
+              src={`${BUNNY_BASE}&muted=true`}
               loading="lazy"
               style={{
                 border: 0,
@@ -120,6 +146,7 @@ const HomepageContent = () => {
               allowFullScreen
             />
             <div className="home-video-overlay" />
+            <MuteButton isMuted={isMuted} onClick={toggleMute} />
           </div>
         </div>
 
@@ -228,10 +255,10 @@ const HomepageContent = () => {
 
         {/* Right: Sticky video (desktop only) */}
         <div className="home-video-col" ref={desktopContainerRef}>
-          <div className="home-video-sticky">
+          <div className="home-video-sticky" style={{ position: "relative" }}>
             <iframe
               ref={desktopIframeRef}
-              src={BUNNY_SRC}
+              src={`${BUNNY_BASE}&muted=true`}
               loading="lazy"
               style={{
                 border: 0,
@@ -245,6 +272,7 @@ const HomepageContent = () => {
               allowFullScreen
             />
             <div className="home-video-overlay" />
+            <MuteButton isMuted={isMuted} onClick={toggleMute} />
           </div>
         </div>
       </div>
