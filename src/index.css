@@ -821,7 +821,7 @@ footer {
   .home-video-col { display: none; }
   .home-video-mobile {
     display: block; position: relative;
-    height: 35vh; max-height: 280px; overflow: hidden; background: #111;
+    height: 100vh; height: 100dvh; max-height: none; overflow: hidden; background: #111;
   }
   .home-video-mobile .home-video-inner {
     position: relative; width: 100%; height: 100%; overflow: hidden;
