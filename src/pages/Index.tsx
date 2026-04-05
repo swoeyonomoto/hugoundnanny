@@ -87,7 +87,7 @@ const HomepageContent = () => {
     observer.observe(container);
     return () => observer.disconnect();
   }, [isMuted]);
-  }, []);
+  
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
