@@ -1,10 +1,10 @@
-import { useState, useRef, useEffect, FormEvent } from "react";
+import { useState, useRef, useEffect, useCallback, FormEvent } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { LanguageProvider, useLang } from "@/contexts/LanguageContext";
 import LogoHeader from "@/components/LogoHeader";
 import AutoColorNav from "@/components/AutoColorNav";
 import Footer from "@/components/sections/Footer";
-const VIDEO_SRC = "https://cdcjyvwghreyukugihjx.supabase.co/storage/v1/object/public/Hugo%20Nanny%20Header/Hugo%20%26%20Nanny%20Reel%204%2016-9_1.mp4";
+const BUNNY_SRC = "https://player.mediadelivery.net/embed/631498/b16359ac-5b5d-45af-b1af-179ed85b37be?autoplay=true&loop=false&muted=false&preload=true&responsive=true";
 
 declare global {
   interface Window { fbq?: (...args: unknown[]) => void; }
@@ -16,10 +16,12 @@ const HomepageContent = () => {
   const [submitting, setSubmitting] = useState(false);
   const [lookingFor, setLookingFor] = useState("");
   const [budget, setBudget] = useState("");
-  const [isMuted, setIsMuted] = useState(true);
-  const [isPlaying, setIsPlaying] = useState(true);
-  const mobileVideoRef = useRef<HTMLVideoElement>(null);
-  const desktopVideoRef = useRef<HTMLVideoElement>(null);
+  const mobileIframeRef = useRef<HTMLIFrameElement>(null);
+  const desktopIframeRef = useRef<HTMLIFrameElement>(null);
+  const mobileContainerRef = useRef<HTMLDivElement>(null);
+  const desktopContainerRef = useRef<HTMLDivElement>(null);
+  const mobileSrcRemovedRef = useRef(false);
+  const desktopSrcRemovedRef = useRef(false);
 
   useEffect(() => {
     [mobileVideoRef, desktopVideoRef].forEach(ref => {
