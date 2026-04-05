@@ -48,7 +48,7 @@ const Hero = () => {
       <div className="hero-video" ref={containerRef}>
         <mux-player
           ref={playerRef as any}
-          playback-id="rR8P8mSaKDzz02TsftugTUdI00cQPJX00oy"
+          playback-id="ir3Oo00t5PY11sOMI1Vy02rA4wZsLpS1M81XGhdgf00rVw"
           autoplay
           loop
           muted
