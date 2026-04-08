@@ -12,6 +12,7 @@ import NotFound from "./pages/NotFound.tsx";
 import PreviewVideo from "./pages/PreviewVideo.tsx";
 import PreviewMarie from "./pages/PreviewMarie.tsx";
 import Presentation from "./pages/Presentation.tsx";
+import ViewPresentation from "./pages/ViewPresentation.tsx";
 
 const queryClient = new QueryClient();
 
