@@ -19,6 +19,7 @@ declare namespace JSX {
         loop?: boolean;
         muted?: boolean;
         playsinline?: boolean;
+        preload?: string;
         "stream-type"?: string;
         "default-hidden-captions"?: boolean;
         [key: string]: any;
