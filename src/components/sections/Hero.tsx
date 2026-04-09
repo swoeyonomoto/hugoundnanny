@@ -1,13 +1,14 @@
 import { useState, useRef, useEffect } from "react";
 import { useLang } from "@/contexts/LanguageContext";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { isElementMostlyVisible, pauseMuxPlayer, playMuxPlayer, type MuxPlayerElement } from "@/lib/mux";
 
 const Hero = () => {
   const { t } = useLang();
   const [showScroll, setShowScroll] = useState(true);
   const [isMuted, setIsMuted] = useState(true);
   const containerRef = useRef<HTMLDivElement | null>(null);
-  const playerRef = useRef<HTMLElement | null>(null);
+  const playerRef = useRef<MuxPlayerElement | null>(null);
   const isMobile = useIsMobile();
 
   useEffect(() => {
@@ -19,20 +20,32 @@ const Hero = () => {
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        const player = playerRef.current as any;
-        if (!player) return;
-        entry.isIntersecting ? player.play?.() : player.pause?.();
-      },
-      { threshold: 0.6 }
-    );
+
+    const syncPlayback = async () => {
+      const player = playerRef.current;
+      if (!player) return;
+      if (isElementMostlyVisible(container, 0.6)) {
+        await playMuxPlayer(player);
+      } else {
+        await pauseMuxPlayer(player);
+      }
+    };
+
+    const observer = new IntersectionObserver(() => {
+      void syncPlayback();
+    }, { threshold: [0, 0.6, 1] });
+
     observer.observe(container);
-    return () => observer.disconnect();
+    void syncPlayback();
+    window.addEventListener("pageshow", syncPlayback);
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("pageshow", syncPlayback);
+    };
   }, []);
 
   const toggleMute = () => {
-    const player = playerRef.current as any;
+    const player = playerRef.current;
     if (player) {
       player.muted = !player.muted;
       setIsMuted(player.muted);
@@ -49,10 +62,11 @@ const Hero = () => {
         <mux-player
           ref={playerRef as any}
           playback-id="ir3Oo00t5PY11sOMI1Vy02rA4wZsLpS1M81XGhdgf00rVw"
-          autoplay
+          autoplay="muted"
           loop
           muted
           playsinline
+          preload="auto"
           stream-type="on-demand"
           default-hidden-captions
           style={{
