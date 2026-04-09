@@ -52,6 +52,7 @@ const Hero = () => {
           autoplay
           loop
           muted
+          playsinline
           stream-type="on-demand"
           default-hidden-captions
           style={{
