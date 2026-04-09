@@ -36,9 +36,11 @@ const MuxVideo = forwardRef<MuxPlayerElement, { style?: React.CSSProperties }>((
     ref,
     "playback-id": "ir3Oo00t5PY11sOMI1Vy02rA4wZsLpS1M81XGhdgf00rVw",
     autoplay: "muted",
+    autoPlay: true,
     loop: true,
     muted: true,
     playsinline: true,
+    playsInline: true,
     preload: "auto",
     "stream-type": "on-demand",
     "default-hidden-captions": true,
@@ -72,6 +74,27 @@ const HomepageContent = () => {
   const desktopContainerRef = useRef<HTMLDivElement>(null);
 
   const activePlayerRef = useRef<"mobile" | "desktop" | null>(null);
+
+  useEffect(() => {
+    const player = isMobile ? mobilePlayerRef.current : desktopPlayerRef.current;
+    if (!player) return;
+
+    const attemptPlay = () => {
+      player.muted = true;
+      const playResult = player.play?.();
+      if (playResult && typeof playResult.catch === "function") {
+        playResult.catch(() => {});
+      }
+    };
+
+    attemptPlay();
+    void customElements.whenDefined("mux-player").then(attemptPlay);
+    player.addEventListener("canplay", attemptPlay, { once: true });
+
+    return () => {
+      player.removeEventListener("canplay", attemptPlay);
+    };
+  }, [isMobile]);
 
   const toggleMute = () => {
     const next = !isMuted;
