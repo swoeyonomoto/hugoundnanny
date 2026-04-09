@@ -5,6 +5,7 @@ import LogoHeader from "@/components/LogoHeader";
 import AutoColorNav from "@/components/AutoColorNav";
 import Footer from "@/components/sections/Footer";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { isElementMostlyVisible, pauseMuxPlayer, playMuxPlayer, type MuxPlayerElement } from "@/lib/mux";
 
 declare global {
   interface Window { fbq?: (...args: unknown[]) => void; }
@@ -30,14 +31,15 @@ const MuteButton = ({ isMuted, onClick, position }: { isMuted: boolean; onClick:
   );
 };
 
-const MuxVideo = ({ playerRef, style }: { playerRef: React.RefObject<HTMLElement | null>; style?: React.CSSProperties }) => {
+const MuxVideo = ({ playerRef, style }: { playerRef: React.RefObject<MuxPlayerElement | null>; style?: React.CSSProperties }) => {
   const props: any = {
     ref: playerRef,
     "playback-id": "ir3Oo00t5PY11sOMI1Vy02rA4wZsLpS1M81XGhdgf00rVw",
-    autoplay: true,
+    autoplay: "muted",
     loop: true,
     muted: true,
     playsinline: true,
+    preload: "auto",
     "stream-type": "on-demand",
     "default-hidden-captions": true,
     style: {
@@ -62,61 +64,80 @@ const HomepageContent = () => {
   const [lookingFor, setLookingFor] = useState("");
   const [budget, setBudget] = useState("");
   const [isMuted, setIsMuted] = useState(true);
-  const mobilePlayerRef = useRef<HTMLElement>(null);
-  const desktopPlayerRef = useRef<HTMLElement>(null);
+  const mobilePlayerRef = useRef<MuxPlayerElement>(null);
+  const desktopPlayerRef = useRef<MuxPlayerElement>(null);
   const mobileContainerRef = useRef<HTMLDivElement>(null);
   const desktopContainerRef = useRef<HTMLDivElement>(null);
 
-  // Track which player is currently visible
   const activePlayerRef = useRef<"mobile" | "desktop" | null>(null);
 
   const toggleMute = () => {
     const next = !isMuted;
     setIsMuted(next);
-    // Only unmute the currently active/visible player
     const activeRef = activePlayerRef.current === "mobile" ? mobilePlayerRef : desktopPlayerRef;
     const inactiveRef = activePlayerRef.current === "mobile" ? desktopPlayerRef : mobilePlayerRef;
-    const active = activeRef.current as any;
-    const inactive = inactiveRef.current as any;
+    const active = activeRef.current;
+    const inactive = inactiveRef.current;
     if (active) active.muted = next;
-    // Always keep inactive muted
     if (inactive) inactive.muted = true;
   };
 
   useEffect(() => {
     const container = mobileContainerRef.current;
     if (!container) return;
-    const observer = new IntersectionObserver(([entry]) => {
-      const player = mobilePlayerRef.current as any;
+
+    const syncPlayback = async () => {
+      const player = mobilePlayerRef.current;
       if (!player) return;
-      if (entry.isIntersecting) {
+      if (isElementMostlyVisible(container, 0.6)) {
         activePlayerRef.current = "mobile";
-        player.play?.();
+        await playMuxPlayer(player);
       } else {
-        player.pause?.();
+        await pauseMuxPlayer(player);
         player.muted = true;
       }
-    }, { threshold: 0.6 });
+    };
+
+    const observer = new IntersectionObserver(() => {
+      void syncPlayback();
+    }, { threshold: [0, 0.6, 1] });
+
     observer.observe(container);
-    return () => observer.disconnect();
+    void syncPlayback();
+    window.addEventListener("pageshow", syncPlayback);
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("pageshow", syncPlayback);
+    };
   }, []);
 
   useEffect(() => {
     const container = desktopContainerRef.current;
     if (!container) return;
-    const observer = new IntersectionObserver(([entry]) => {
-      const player = desktopPlayerRef.current as any;
+
+    const syncPlayback = async () => {
+      const player = desktopPlayerRef.current;
       if (!player) return;
-      if (entry.isIntersecting) {
+      if (isElementMostlyVisible(container, 0.6)) {
         activePlayerRef.current = "desktop";
-        player.play?.();
+        await playMuxPlayer(player);
       } else {
-        player.pause?.();
+        await pauseMuxPlayer(player);
         player.muted = true;
       }
-    }, { threshold: 0.6 });
+    };
+
+    const observer = new IntersectionObserver(() => {
+      void syncPlayback();
+    }, { threshold: [0, 0.6, 1] });
+
     observer.observe(container);
-    return () => observer.disconnect();
+    void syncPlayback();
+    window.addEventListener("pageshow", syncPlayback);
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("pageshow", syncPlayback);
+    };
   }, []);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
