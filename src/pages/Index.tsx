@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, FormEvent } from "react";
+import { useState, useRef, useEffect, FormEvent, forwardRef } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { LanguageProvider, useLang } from "@/contexts/LanguageContext";
 import LogoHeader from "@/components/LogoHeader";
@@ -31,9 +31,9 @@ const MuteButton = ({ isMuted, onClick, position }: { isMuted: boolean; onClick:
   );
 };
 
-const MuxVideo = ({ playerRef, style }: { playerRef: React.RefObject<MuxPlayerElement | null>; style?: React.CSSProperties }) => {
+const MuxVideo = forwardRef<MuxPlayerElement, { style?: React.CSSProperties }>(({ style }, ref) => {
   const props: any = {
-    ref: playerRef,
+    ref,
     "playback-id": "ir3Oo00t5PY11sOMI1Vy02rA4wZsLpS1M81XGhdgf00rVw",
     autoplay: "muted",
     loop: true,
@@ -54,7 +54,9 @@ const MuxVideo = ({ playerRef, style }: { playerRef: React.RefObject<MuxPlayerEl
     },
   };
   return <mux-player {...props} />;
-};
+});
+
+MuxVideo.displayName = "MuxVideo";
 
 const HomepageContent = () => {
   const { t, lang, setLang } = useLang();
@@ -184,7 +186,7 @@ const HomepageContent = () => {
         {isMobile && (
           <div className="home-video-mobile" ref={mobileContainerRef}>
             <div className="home-video-inner" style={{ position: "relative" }}>
-              <MuxVideo playerRef={mobilePlayerRef} />
+              <MuxVideo ref={mobilePlayerRef} />
               <div className="home-video-overlay" />
               <MuteButton isMuted={isMuted} onClick={toggleMute} position="mobile-right" />
             </div>
@@ -294,7 +296,7 @@ const HomepageContent = () => {
         {!isMobile && (
           <div className="home-video-col" ref={desktopContainerRef}>
             <div className="home-video-sticky" style={{ position: "relative" }}>
-              <MuxVideo playerRef={desktopPlayerRef} />
+              <MuxVideo ref={desktopPlayerRef} />
               <div className="home-video-overlay" />
               <MuteButton isMuted={isMuted} onClick={toggleMute} position="desktop-left" />
             </div>
