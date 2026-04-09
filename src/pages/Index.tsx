@@ -30,17 +30,17 @@ const MuteButton = ({ isMuted, onClick, position }: { isMuted: boolean; onClick:
   );
 };
 
-const MuxVideo = ({ playerRef, style }: { playerRef: React.RefObject<HTMLElement | null>; style?: React.CSSProperties }) => (
-  <mux-player
-    ref={playerRef as any}
-    playback-id="ir3Oo00t5PY11sOMI1Vy02rA4wZsLpS1M81XGhdgf00rVw"
-    autoplay
-    loop
-    muted
-    playsinline
-    stream-type="on-demand"
-    default-hidden-captions
-    style={{
+const MuxVideo = ({ playerRef, style }: { playerRef: React.RefObject<HTMLElement | null>; style?: React.CSSProperties }) => {
+  const props: any = {
+    ref: playerRef,
+    "playback-id": "ir3Oo00t5PY11sOMI1Vy02rA4wZsLpS1M81XGhdgf00rVw",
+    autoplay: true,
+    loop: true,
+    muted: true,
+    playsinline: true,
+    "stream-type": "on-demand",
+    "default-hidden-captions": true,
+    style: {
       position: "absolute",
       top: 0,
       left: 0,
@@ -49,9 +49,10 @@ const MuxVideo = ({ playerRef, style }: { playerRef: React.RefObject<HTMLElement
       "--media-object-fit": "cover",
       "--controls": "none",
       ...style,
-    } as React.CSSProperties}
-  />
-);
+    },
+  };
+  return <mux-player {...props} />;
+};
 
 const HomepageContent = () => {
   const { t, lang, setLang } = useLang();
