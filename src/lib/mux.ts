@@ -10,15 +10,23 @@ const ensureMuxPlayerDefined = async () => {
   }
 };
 
+const waitForNextFrame = () => new Promise<void>((resolve) => {
+  requestAnimationFrame(() => resolve());
+});
+
 export const playMuxPlayer = async (player: MuxPlayerElement | null) => {
   if (!player) return;
 
   await ensureMuxPlayerDefined();
+  player.muted = true;
 
-  try {
-    await player.play?.();
-  } catch {
-    // Ignore autoplay timing rejections and let the browser retry when ready.
+  for (let attempt = 0; attempt < 4; attempt += 1) {
+    try {
+      await player.play?.();
+      return;
+    } catch {
+      await waitForNextFrame();
+    }
   }
 };
 
