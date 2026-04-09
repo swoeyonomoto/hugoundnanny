@@ -21,6 +21,7 @@ declare namespace JSX {
         playsinline?: boolean;
         "stream-type"?: string;
         "default-hidden-captions"?: boolean;
+        [key: string]: any;
       },
       HTMLElement
     >;
