@@ -512,7 +512,9 @@ body {
 
 .cf input[type="date"] {
   font-family: 'Lora', serif; font-size: 15px; color: #111;
-  -webkit-appearance: none; appearance: none;
+  -webkit-appearance: auto; appearance: auto;
+  display: block; width: 100%; min-height: 1.5em;
+  background: transparent; cursor: pointer;
 }
 
 .inquiry-ready { border-bottom: none !important; padding-bottom: 0 !important; }
