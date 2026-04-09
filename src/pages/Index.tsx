@@ -74,15 +74,21 @@ const HomepageContent = () => {
   const toggleMute = () => {
     const next = !isMuted;
     setIsMuted(next);
-    const activeRef = activePlayerRef.current === "mobile" ? mobilePlayerRef : desktopPlayerRef;
-    const inactiveRef = activePlayerRef.current === "mobile" ? desktopPlayerRef : mobilePlayerRef;
-    const active = activeRef.current;
-    const inactive = inactiveRef.current;
+    const active = activePlayerRef.current === "mobile"
+      ? mobilePlayerRef.current
+      : activePlayerRef.current === "desktop"
+        ? desktopPlayerRef.current
+        : isMobile
+          ? mobilePlayerRef.current
+          : desktopPlayerRef.current;
+    const inactive = isMobile ? desktopPlayerRef.current : mobilePlayerRef.current;
     if (active) active.muted = next;
     if (inactive) inactive.muted = true;
   };
 
   useEffect(() => {
+    if (!isMobile) return;
+
     const container = mobileContainerRef.current;
     if (!container) return;
 
@@ -109,9 +115,11 @@ const HomepageContent = () => {
       observer.disconnect();
       window.removeEventListener("pageshow", syncPlayback);
     };
-  }, []);
+  }, [isMobile]);
 
   useEffect(() => {
+    if (isMobile) return;
+
     const container = desktopContainerRef.current;
     if (!container) return;
 
@@ -138,7 +146,7 @@ const HomepageContent = () => {
       observer.disconnect();
       window.removeEventListener("pageshow", syncPlayback);
     };
-  }, []);
+  }, [isMobile]);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -173,13 +181,15 @@ const HomepageContent = () => {
       </div>
 
       <div className="home-layout">
-        <div className="home-video-mobile" ref={mobileContainerRef}>
-          <div className="home-video-inner" style={{ position: "relative" }}>
-            <MuxVideo playerRef={mobilePlayerRef} />
-            <div className="home-video-overlay" />
-            <MuteButton isMuted={isMuted} onClick={toggleMute} position="mobile-right" />
+        {isMobile && (
+          <div className="home-video-mobile" ref={mobileContainerRef}>
+            <div className="home-video-inner" style={{ position: "relative" }}>
+              <MuxVideo playerRef={mobilePlayerRef} />
+              <div className="home-video-overlay" />
+              <MuteButton isMuted={isMuted} onClick={toggleMute} position="mobile-right" />
+            </div>
           </div>
-        </div>
+        )}
 
         <div className="home-form-col">
           <nav className="home-desktop-nav">
@@ -281,13 +291,15 @@ const HomepageContent = () => {
           </div>
         </div>
 
-        <div className="home-video-col" ref={desktopContainerRef}>
-          <div className="home-video-sticky" style={{ position: "relative" }}>
-            <MuxVideo playerRef={desktopPlayerRef} />
-            <div className="home-video-overlay" />
-            <MuteButton isMuted={isMuted} onClick={toggleMute} position="desktop-left" />
+        {!isMobile && (
+          <div className="home-video-col" ref={desktopContainerRef}>
+            <div className="home-video-sticky" style={{ position: "relative" }}>
+              <MuxVideo playerRef={desktopPlayerRef} />
+              <div className="home-video-overlay" />
+              <MuteButton isMuted={isMuted} onClick={toggleMute} position="desktop-left" />
+            </div>
           </div>
-        </div>
+        )}
       </div>
 
       <Footer />
