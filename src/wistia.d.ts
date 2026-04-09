@@ -18,6 +18,7 @@ declare namespace JSX {
         autoplay?: boolean | string;
         loop?: boolean;
         muted?: boolean;
+        playsinline?: boolean;
         "stream-type"?: string;
         "default-hidden-captions"?: boolean;
       },
