@@ -15,10 +15,6 @@ const Pricing = () => {
         "Eine Person. Vom ersten bis zum letzten Moment. Voll da, voll fokussiert — auf euch, auf den Tag, auf nichts anderes. Eine Vision. Erzählt aus einer starken Perspektive.",
         "One person. From the first moment to the last. Fully there, fully focused — on you, on the day, on nothing else. One vision. Told from one strong perspective."
       ),
-      outcomeText: t(
-        "Perfekt, wenn ihr eine Person wollt, die ganz auf euren Tag fokussiert ist — kein geteilte Aufmerksamkeit, kein Zögern. Eine Vision, vollständig erzählt.",
-        "Perfect if you want one person fully locked in on your day — no splitting attention, no second-guessing. One vision, told completely."
-      ),
       items: [
         { label: t("Abdeckung", "Coverage"), value: t("Hochzeitstag (10h)", "Wedding day (10h)") },
         { label: t("Team", "Crew"), value: t("1 Kameramann (Film oder Foto)", "1 cinematographer (film or photo)") },
@@ -39,10 +35,6 @@ const Pricing = () => {
         "Wir beide an eurem Tag. Das bedeutet: zwei Dinge passieren immer gleichzeitig. Die Drohne und die Tanzfläche. Die Totale und die Nähe. Ihr Gesicht und seines. Ihr müsst nicht wählen, was festgehalten wird. Wir haben es schon abgedeckt.",
         "Two of us on your day. That means two things happening at once — always. The drone and the dance floor. The wide and the close. Her face and his. You don't have to choose what gets captured. We already covered it."
       ),
-      outcomeText: t(
-        "Zu zweit bedeutet: die Trauung und das Getting-Ready passieren gleichzeitig. Der Blick in seinem Gesicht, wenn er euch sieht. Und eurer, wenn ihr ihn seht. Beides, für immer.",
-        "Two of us means the ceremony and the getting-ready happen at the same time. The look on his face when he sees you. And yours when you see him. Both, forever."
-      ),
       items: [
         { label: t("Abdeckung", "Coverage"), value: t("Welcome (3h) + Hochzeitstag (12h)", "Welcome (3h) + Wedding day (12h)") },
         { label: t("Team", "Crew"), value: t("2 Kameraleute (Film oder Foto)", "2 cinematographers (film or photo)") },
@@ -62,10 +54,6 @@ const Pricing = () => {
       emotionalText: t(
         "Alles aus Two eyes — plus ein Fotograf, der parallel läuft. Film und Foto gleichzeitig. Bewegtes Bild und Standbild. Die Momente, die man in Bewegung fühlen muss, und die, die eingefroren werden müssen. Zwei Formate, drei Menschen, ein Tag. Nichts ausgelassen.",
         "Everything from Two eyes — plus a photographer running alongside. Film and photo at the same time. Moving image and still. The moments that need to be felt in motion, and the ones that need to be frozen. Two formats, three people, one day. Nothing left out."
-      ),
-      outcomeText: t(
-        "Film, Foto und Analog — alles gleichzeitig. Das dreiköpfige Team bedeutet: nichts ist mehr eine Entscheidung. Jeder Raum, jeder stille Moment, jede Rede. Das ist für Paare, die wissen, dass sie alles wollen werden.",
-        "Film, photo, and analog — all running at once. The three-person team means nothing is a choice anymore. Every room, every quiet moment, every speech. This is for couples who know they'll want it all."
       ),
       items: [
         { label: t("Abdeckung", "Coverage"), value: t("Welcome (3h) + Hochzeitstag (12h)", "Welcome (3h) + Wedding day (12h)") },
@@ -116,10 +104,7 @@ const Pricing = () => {
                   <span className="card-from">{pkg.from}</span>
                   <div className="card-price">{pkg.price}</div>
                   {pkg.emotionalLine && pkg.emotionalText && (
-                    <p className="card-emotional">{pkg.emotionalText}</p>
-                  )}
-                  {pkg.outcomeText && (
-                    <p className="card-outcome">{pkg.outcomeText}</p>
+                    <p className="card-outcome">{pkg.emotionalText}</p>
                   )}
                   <ul className="card-list">
                     {pkg.items.map((item, j) => (
