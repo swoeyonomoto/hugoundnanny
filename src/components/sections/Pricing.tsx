@@ -12,8 +12,8 @@ const Pricing = () => {
       price: "€ 3.900",
       emotionalLine: true,
       emotionalText: t(
-        "Eine Person, ganz bei euch. Jemand, der euren Tag so sieht, wie er wirklich ist.",
-        "One person, completely present. Someone who sees your day the way it actually happens."
+        "Eine Person. Vom ersten bis zum letzten Moment. Voll da, voll fokussiert — auf euch, auf den Tag, auf nichts anderes. Eine Vision. Erzählt aus einer starken Perspektive.",
+        "One person. From the first moment to the last. Fully there, fully focused — on you, on the day, on nothing else. One vision. Told from one strong perspective."
       ),
       outcomeText: t(
         "Perfekt, wenn ihr eine Person wollt, die ganz auf euren Tag fokussiert ist — kein geteilte Aufmerksamkeit, kein Zögern. Eine Vision, vollständig erzählt.",
@@ -36,8 +36,8 @@ const Pricing = () => {
       price: "€ 5.800",
       emotionalLine: true,
       emotionalText: t(
-        "Wir beide am Set — einer filmt, einer fotografiert. Oder beide filmen. Wir finden das Setup, das zu eurem Tag passt.",
-        "Both of us on set — one on film, one on photo. Or both on film. We'll find the setup that fits your day."
+        "Wir beide an eurem Tag. Das bedeutet: zwei Dinge passieren immer gleichzeitig. Die Drohne und die Tanzfläche. Die Totale und die Nähe. Ihr Gesicht und seines. Ihr müsst nicht wählen, was festgehalten wird. Wir haben es schon abgedeckt.",
+        "Two of us on your day. That means two things happening at once — always. The drone and the dance floor. The wide and the close. Her face and his. You don't have to choose what gets captured. We already covered it."
       ),
       outcomeText: t(
         "Zu zweit bedeutet: die Trauung und das Getting-Ready passieren gleichzeitig. Der Blick in seinem Gesicht, wenn er euch sieht. Und eurer, wenn ihr ihn seht. Beides, für immer.",
@@ -60,8 +60,8 @@ const Pricing = () => {
       price: "€ 8.500",
       emotionalLine: true,
       emotionalText: t(
-        "Drei von uns, die alles abdecken — Film, Foto und die Momente dazwischen. Nichts geht verloren.",
-        "Three of us, covering everything — film, photo, and the moments in between. Nothing slips through."
+        "Alles aus Two eyes — plus ein Fotograf, der parallel läuft. Film und Foto gleichzeitig. Bewegtes Bild und Standbild. Die Momente, die man in Bewegung fühlen muss, und die, die eingefroren werden müssen. Zwei Formate, drei Menschen, ein Tag. Nichts ausgelassen.",
+        "Everything from Two eyes — plus a photographer running alongside. Film and photo at the same time. Moving image and still. The moments that need to be felt in motion, and the ones that need to be frozen. Two formats, three people, one day. Nothing left out."
       ),
       outcomeText: t(
         "Film, Foto und Analog — alles gleichzeitig. Das dreiköpfige Team bedeutet: nichts ist mehr eine Entscheidung. Jeder Raum, jeder stille Moment, jede Rede. Das ist für Paare, die wissen, dass sie alles wollen werden.",
