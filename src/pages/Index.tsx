@@ -41,7 +41,7 @@ const MuxVideo = forwardRef<MuxPlayerElement, { style?: React.CSSProperties }>((
     muted: true,
     playsinline: true,
     playsInline: true,
-    preload: "auto",
+    preload: "metadata",
     "stream-type": "on-demand",
     "default-hidden-captions": true,
     style: {
@@ -271,8 +271,8 @@ const HomepageContent = () => {
                   <input type="date" name="wedding_date" required />
                 </div>
                 <div className="cf">
-                  <label>{t("In", "At")} *</label>
-                  <input type="text" name="venue" placeholder={t("Toskana, Italien", "Tuscany, Italy")} required />
+                  <label>{t("In (Venue oder Location)", "At (Venue or Location)")} *</label>
+                  <input type="text" name="venue" placeholder={t("Palácio Belmonte, Lissabon", "Palácio Belmonte, Lisbon")} required />
                 </div>
               </div>
               <div className="cf-row">
