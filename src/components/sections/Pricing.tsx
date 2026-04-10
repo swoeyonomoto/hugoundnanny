@@ -58,7 +58,7 @@ const Pricing = () => {
       items: [
         { label: t("Abdeckung", "Coverage"), value: t("Welcome (3h) + Hochzeitstag (12h)", "Welcome (3h) + Wedding day (12h)") },
         { label: t("Team", "Crew"), value: t("2 Kameraleute + 1 Fotograf", "2 cinematographers + 1 photographer") },
-        { label: t("Kamera", "Camera"), value: t("Cinema + Super 8 + VHS & Drohne + Highend Fotokamera + Analog (72 Bilder)", "Cinema + Super 8 + VHS + drone + Highend Photocamera + Analogue (72 frames)") },
+        { label: t("Kamera", "Camera"), value: t("Cinema + Super 8 + VHS + Drohne + Highend Fotokamera + Analog", "Cinema + Super 8 + VHS + Drone + Highend Photocamera + Analogue") },
         { label: "Film", value: t("Highlightfilm 7–8 Min. + Redenfilm", "Highlight film 7–8 min + Speeches film") },
         { label: "Social", value: t("2x Social Shorts + Super VHS Nostalgiefilm", "2x Social shorts + Super VHS nostalgic film") },
         { label: t("Fotos", "Photos"), value: t("600 digital + analog (72 Bilder)", "600 digital + analogue (72 frames)") },

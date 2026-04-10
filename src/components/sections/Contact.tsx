@@ -21,6 +21,9 @@ const Contact = () => {
                 "Reaching out early means you'll know if your date is free and we'll send you our couple's guide - everything about the work, how to prepare and what it costs, so you have all you need to decide."
               )}
             </p>
+            <p style={{ fontSize: 12, color: "#999", marginTop: 10, marginBottom: 0, lineHeight: 1.6 }}>
+              {t("Pakete ab € 3.900 — alle Preise im Couple's Guide.", "Packages from €3,900 — full pricing in the couple's guide.")}
+            </p>
             <a
               href="https://wa.me/4916097813272?text=Hi%20Hugo%20%26%20Nanny%2C%20ich%20interessiere%20mich%20f%C3%BCr%20eure%20Hochzeitsfotografie%20und%20%E2%80%93film.%20K%C3%B6nnt%20ihr%20mir%20mehr%20Infos%20schicken%3F"
               rel="noopener noreferrer"

@@ -210,7 +210,6 @@ const HomepageContent = () => {
           </AutoColorNav>
 
           <div className="home-form-inner">
-            <span className="label">{t(<>Eure Geschichte.<br /><em>Authentisch und echt.</em></>, <>Your story.<br /><em>Authentic and raw.</em></>)}</span>
             <h1 className="home-form-h">
               {t(
                 <em>Limited 2026 dates.<br />Find out if yours is free…</em>,
@@ -222,6 +221,9 @@ const HomepageContent = () => {
                 "Früh anzufragen heißt: Ihr wisst sofort, ob euer Datum frei ist — und bekommt unseren Couple's Guide mit allen Infos zu unserer Arbeit, zur Vorbereitung und zu den Kosten, damit ihr in Ruhe entscheiden könnt.",
                 "Reaching out early means you'll know if your date is free and we'll send you our couple's guide — everything about the work, how to prepare and what it costs, so you have all you need to decide."
               )}
+            </p>
+            <p style={{ fontSize: 12, color: "#999", marginTop: 10, marginBottom: 0, lineHeight: 1.6 }}>
+              {t("Pakete ab € 3.900 — alle Preise im Couple's Guide.", "Packages from €3,900 — full pricing in the couple's guide.")}
             </p>
 
             <a
