@@ -107,8 +107,8 @@ const Contact = () => {
                     <input type="date" name="wedding_date" required />
                   </div>
                   <div className="cf">
-                    <label>{t("In", "At")} *</label>
-                    <input type="text" name="venue" placeholder={t("Toskana, Italien", "Tuscany, Italy")} required />
+                    <label>{t("In (Venue oder Location)", "At (Venue or Location)")} *</label>
+                    <input type="text" name="venue" placeholder={t("Palácio Belmonte, Lissabon", "Palácio Belmonte, Lisbon")} required />
                   </div>
                 </div>
                 <div className="cf-row">
