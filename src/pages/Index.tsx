@@ -42,7 +42,8 @@ const MuxVideo = forwardRef<MuxPlayerElement, { style?: React.CSSProperties }>((
     muted: true,
     playsinline: true,
     playsInline: true,
-    preload: "metadata",
+    "webkit-playsinline": true,
+    preload: "auto",
     "stream-type": "on-demand",
     "default-hidden-captions": true,
     style: {
