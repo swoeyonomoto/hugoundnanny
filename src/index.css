@@ -386,6 +386,9 @@ body {
   font-style: italic; line-height: 1.7; color: #666; margin-bottom: 16px;
 }
 .card.hi .card-emotional { color: rgba(255,255,255,.55); }
+.card-outcome {
+  font-size: 13px; line-height: 1.8; color: #555; margin-bottom: 20px;
+}
 .card-price.ask { font-size: 30px; padding-top: 8px; }
 .card-list { list-style: none; flex: 1; margin-bottom: 32px; padding: 0; }
 .card-list li {

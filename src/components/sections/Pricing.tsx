@@ -6,7 +6,7 @@ const Pricing = () => {
 
   const packages = [
     {
-      tag: t("Fotografie", "Photography"),
+      tag: t("EINE PERSPEKTIVE", "ONE PERSPECTIVE"),
       name: t(<>One eye.<br /><em>Your story.</em></>, <>One eye.<br /><em>Your story.</em></>),
       from: t("Ab", "From"),
       price: "€ 3.900",
@@ -14,6 +14,10 @@ const Pricing = () => {
       emotionalText: t(
         "Eine Person, ganz bei euch. Jemand, der euren Tag so sieht, wie er wirklich ist.",
         "One person, completely present. Someone who sees your day the way it actually happens."
+      ),
+      outcomeText: t(
+        "Perfekt, wenn ihr eine Person wollt, die ganz auf euren Tag fokussiert ist — kein geteilte Aufmerksamkeit, kein Zögern. Eine Vision, vollständig erzählt.",
+        "Perfect if you want one person fully locked in on your day — no splitting attention, no second-guessing. One vision, told completely."
       ),
       items: [
         { label: t("Abdeckung", "Coverage"), value: t("Hochzeitstag (10h)", "Wedding day (10h)") },
@@ -26,7 +30,7 @@ const Pricing = () => {
       hi: false,
     },
     {
-      tag: t("Beliebtestes Paket", "Most popular"),
+      tag: t("ZWEI PERSPEKTIVEN", "TWO PERSPECTIVES"),
       name: t(<>Two eyes.<br /><em>Your full story.</em></>, <>Two eyes.<br /><em>Your full story.</em></>),
       from: t("Ab", "From"),
       price: "€ 5.800",
@@ -34,6 +38,10 @@ const Pricing = () => {
       emotionalText: t(
         "Wir beide am Set — einer filmt, einer fotografiert. Oder beide filmen. Wir finden das Setup, das zu eurem Tag passt.",
         "Both of us on set — one on film, one on photo. Or both on film. We'll find the setup that fits your day."
+      ),
+      outcomeText: t(
+        "Zu zweit bedeutet: die Trauung und das Getting-Ready passieren gleichzeitig. Der Blick in seinem Gesicht, wenn er euch sieht. Und eurer, wenn ihr ihn seht. Beides, für immer.",
+        "Two of us means the ceremony and the getting-ready happen at the same time. The look on his face when he sees you. And yours when you see him. Both, forever."
       ),
       items: [
         { label: t("Abdeckung", "Coverage"), value: t("Welcome (3h) + Hochzeitstag (12h)", "Welcome (3h) + Wedding day (12h)") },
@@ -46,7 +54,7 @@ const Pricing = () => {
       hi: true,
     },
     {
-      tag: "Platinum",
+      tag: t("JEDER EINZELNE MOMENT", "EVERY SINGLE MOMENT"),
       name: t(<>Three eyes.<br /><em>Every last moment.</em></>, <>Three eyes.<br /><em>Every last moment.</em></>),
       from: t("Ab", "From"),
       price: "€ 8.500",
@@ -54,6 +62,10 @@ const Pricing = () => {
       emotionalText: t(
         "Drei von uns, die alles abdecken — Film, Foto und die Momente dazwischen. Nichts geht verloren.",
         "Three of us, covering everything — film, photo, and the moments in between. Nothing slips through."
+      ),
+      outcomeText: t(
+        "Film, Foto und Analog — alles gleichzeitig. Das dreiköpfige Team bedeutet: nichts ist mehr eine Entscheidung. Jeder Raum, jeder stille Moment, jede Rede. Das ist für Paare, die wissen, dass sie alles wollen werden.",
+        "Film, photo, and analog — all running at once. The three-person team means nothing is a choice anymore. Every room, every quiet moment, every speech. This is for couples who know they'll want it all."
       ),
       items: [
         { label: t("Abdeckung", "Coverage"), value: t("Welcome (3h) + Hochzeitstag (12h)", "Welcome (3h) + Wedding day (12h)") },
@@ -97,7 +109,7 @@ const Pricing = () => {
           <RevealOnScroll>
             <div className="cards">
               {packages.map((pkg, i) => (
-                <div className={`card ${pkg.hi ? "hi" : ""}`} key={i}>
+                <div className="card" key={i}>
                   <span className="card-tag">{pkg.tag}</span>
                   <h3 className="card-name">{pkg.name}</h3>
                   <hr className="card-hr" />
@@ -105,6 +117,9 @@ const Pricing = () => {
                   <div className="card-price">{pkg.price}</div>
                   {pkg.emotionalLine && pkg.emotionalText && (
                     <p className="card-emotional">{pkg.emotionalText}</p>
+                  )}
+                  {pkg.outcomeText && (
+                    <p className="card-outcome">{pkg.outcomeText}</p>
                   )}
                   <ul className="card-list">
                     {pkg.items.map((item, j) => (
