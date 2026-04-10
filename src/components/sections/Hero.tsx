@@ -66,7 +66,8 @@ const Hero = () => {
           loop
           muted
           playsinline
-          preload="auto"
+          webkit-playsinline=""
+          preload="metadata"
           stream-type="on-demand"
           default-hidden-captions
           style={{

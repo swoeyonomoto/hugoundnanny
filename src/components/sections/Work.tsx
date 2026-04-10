@@ -1,6 +1,26 @@
-import { useState, useRef, useEffect, useCallback } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useLang } from "@/contexts/LanguageContext";
 import RevealOnScroll from "@/components/RevealOnScroll";
+
+function loadWistia(mediaId: string) {
+  if (!document.getElementById("wistia-player-js")) {
+    const s = document.createElement("script");
+    s.id = "wistia-player-js";
+    s.src = "https://fast.wistia.com/player.js";
+    s.async = true;
+    document.head.appendChild(s);
+  }
+  const embedId = `wistia-embed-${mediaId}`;
+  if (!document.getElementById(embedId)) {
+    const s = Object.assign(document.createElement("script"), {
+      id: embedId,
+      src: `https://fast.wistia.com/embed/${mediaId}.js`,
+      async: true,
+      type: "module",
+    });
+    document.head.appendChild(s);
+  }
+}
 
 const films = [
   { name: "Dario & Marie", loc: "Köln, Deutschland", locEn: "Cologne, Germany", mediaId: "ejclzzj2uc", thumb: "/photos/dario-marie-thumb.jpg" },
@@ -121,7 +141,7 @@ const Work = () => {
           <RevealOnScroll>
             <div className="films">
               {films.map((f, i) => (
-                <div className="film" key={i} onClick={() => { setActiveFilm(i); setIsPlaying(true); }}>
+                <div className="film" key={i} onClick={() => { loadWistia(f.mediaId); setActiveFilm(i); setIsPlaying(true); }}>
                   <img
                     className="film-bg"
                     src={f.thumb}
