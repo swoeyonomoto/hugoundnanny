@@ -1,17 +1,34 @@
-import { useState, useRef, useEffect, forwardRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import BookingForm from "@/components/BookingForm";
-import "@mux/mux-player";
 import { LanguageProvider, useLang } from "@/contexts/LanguageContext";
 import LogoHeader from "@/components/LogoHeader";
 import AutoColorNav from "@/components/AutoColorNav";
 import Footer from "@/components/sections/Footer";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { isElementMostlyVisible, pauseMuxPlayer, playMuxPlayer, type MuxPlayerElement } from "@/lib/mux";
+
+const VIDEO_URL = "https://pub-389b609f3429428897e0717a18b3a2f0.r2.dev/Hugo%20%26%20Nanny%20Reel%204%2016-9_1.mp4";
 
 declare global {
   interface Window { fbq?: (...args: unknown[]) => void; }
 }
+
+const VideoEl = ({ videoRef, style }: { videoRef: React.RefObject<HTMLVideoElement>; style?: React.CSSProperties }) => (
+  <video
+    ref={videoRef}
+    src={VIDEO_URL}
+    autoPlay
+    muted
+    loop
+    playsInline
+    preload="auto"
+    style={{
+      position: "absolute", top: 0, left: 0,
+      width: "100%", height: "100%", objectFit: "cover",
+      ...style,
+    }}
+  />
+);
 
 const MuteButton = ({ isMuted, onClick, position }: { isMuted: boolean; onClick: () => void; position: "desktop-left" | "mobile-right" }) => {
   const style: React.CSSProperties = position === "mobile-right"
@@ -67,109 +84,24 @@ const HomepageContent = () => {
   const { t, lang, setLang } = useLang();
   const isMobile = useIsMobile();
   const [isMuted, setIsMuted] = useState(true);
-  const mobilePlayerRef = useRef<MuxPlayerElement>(null);
-  const desktopPlayerRef = useRef<MuxPlayerElement>(null);
+  const mobilePlayerRef = useRef<HTMLVideoElement>(null);
+  const desktopPlayerRef = useRef<HTMLVideoElement>(null);
   const mobileContainerRef = useRef<HTMLDivElement>(null);
   const desktopContainerRef = useRef<HTMLDivElement>(null);
-
-  const activePlayerRef = useRef<"mobile" | "desktop" | null>(null);
-
-  useEffect(() => {
-    const player = isMobile ? mobilePlayerRef.current : desktopPlayerRef.current;
-    if (!player) return;
-
-    const attemptPlay = () => {
-      player.muted = true;
-      const playResult = player.play?.();
-      if (playResult && typeof playResult.catch === "function") {
-        playResult.catch(() => {});
-      }
-    };
-
-    attemptPlay();
-    void customElements.whenDefined("mux-player").then(attemptPlay);
-    player.addEventListener("canplay", attemptPlay, { once: true });
-
-    return () => {
-      player.removeEventListener("canplay", attemptPlay);
-    };
-  }, [isMobile]);
 
   const toggleMute = () => {
     const next = !isMuted;
     setIsMuted(next);
-    const active = activePlayerRef.current === "mobile"
-      ? mobilePlayerRef.current
-      : activePlayerRef.current === "desktop"
-        ? desktopPlayerRef.current
-        : isMobile
-          ? mobilePlayerRef.current
-          : desktopPlayerRef.current;
-    const inactive = isMobile ? desktopPlayerRef.current : mobilePlayerRef.current;
-    if (active) active.muted = next;
-    if (inactive) inactive.muted = true;
+    const player = isMobile ? mobilePlayerRef.current : desktopPlayerRef.current;
+    if (player) player.muted = next;
   };
 
+  // Ensure video plays on mobile after component mounts
   useEffect(() => {
-    if (!isMobile) return;
-
-    const container = mobileContainerRef.current;
-    if (!container) return;
-
-    const syncPlayback = async () => {
-      const player = mobilePlayerRef.current;
-      if (!player) return;
-      if (isElementMostlyVisible(container, 0.6)) {
-        activePlayerRef.current = "mobile";
-        await playMuxPlayer(player);
-      } else {
-        await pauseMuxPlayer(player);
-        player.muted = true;
-      }
-    };
-
-    const observer = new IntersectionObserver(() => {
-      void syncPlayback();
-    }, { threshold: [0, 0.6, 1] });
-
-    observer.observe(container);
-    void syncPlayback();
-    window.addEventListener("pageshow", syncPlayback);
-    return () => {
-      observer.disconnect();
-      window.removeEventListener("pageshow", syncPlayback);
-    };
-  }, [isMobile]);
-
-  useEffect(() => {
-    if (isMobile) return;
-
-    const container = desktopContainerRef.current;
-    if (!container) return;
-
-    const syncPlayback = async () => {
-      const player = desktopPlayerRef.current;
-      if (!player) return;
-      if (isElementMostlyVisible(container, 0.6)) {
-        activePlayerRef.current = "desktop";
-        await playMuxPlayer(player);
-      } else {
-        await pauseMuxPlayer(player);
-        player.muted = true;
-      }
-    };
-
-    const observer = new IntersectionObserver(() => {
-      void syncPlayback();
-    }, { threshold: [0, 0.6, 1] });
-
-    observer.observe(container);
-    void syncPlayback();
-    window.addEventListener("pageshow", syncPlayback);
-    return () => {
-      observer.disconnect();
-      window.removeEventListener("pageshow", syncPlayback);
-    };
+    const player = isMobile ? mobilePlayerRef.current : desktopPlayerRef.current;
+    if (!player) return;
+    player.muted = true;
+    player.play()?.catch(() => {});
   }, [isMobile]);
 
   return (
@@ -189,7 +121,7 @@ const HomepageContent = () => {
         {isMobile && (
           <div className="home-video-mobile" ref={mobileContainerRef}>
             <div className="home-video-inner" style={{ position: "relative" }}>
-              <MuxVideo ref={mobilePlayerRef} />
+              <VideoEl videoRef={mobilePlayerRef} />
               <div className="home-video-overlay" />
               <MuteButton isMuted={isMuted} onClick={toggleMute} position="mobile-right" />
             </div>
@@ -243,7 +175,7 @@ const HomepageContent = () => {
         {!isMobile && (
           <div className="home-video-col" ref={desktopContainerRef}>
             <div className="home-video-sticky" style={{ position: "relative" }}>
-              <MuxVideo ref={desktopPlayerRef} />
+              <VideoEl videoRef={desktopPlayerRef} />
               <div className="home-video-overlay" />
               <MuteButton isMuted={isMuted} onClick={toggleMute} position="desktop-left" />
             </div>
