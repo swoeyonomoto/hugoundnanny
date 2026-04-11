@@ -50,35 +50,6 @@ const MuteButton = ({ isMuted, onClick, position }: { isMuted: boolean; onClick:
   );
 };
 
-const MuxVideo = forwardRef<MuxPlayerElement, { style?: React.CSSProperties }>(({ style }, ref) => {
-  const props: any = {
-    ref,
-    "playback-id": "ir3Oo00t5PY11sOMI1Vy02rA4wZsLpS1M81XGhdgf00rVw",
-    autoplay: "muted",
-    autoPlay: true,
-    loop: true,
-    muted: true,
-    playsinline: true,
-    playsInline: true,
-    "webkit-playsinline": true,
-    preload: "auto",
-    "stream-type": "on-demand",
-    "default-hidden-captions": true,
-    style: {
-      position: "absolute",
-      top: 0,
-      left: 0,
-      width: "100%",
-      height: "100%",
-      "--media-object-fit": "cover",
-      "--controls": "none",
-      ...style,
-    },
-  };
-  return <mux-player {...props} />;
-});
-
-MuxVideo.displayName = "MuxVideo";
 
 const HomepageContent = () => {
   const { t, lang, setLang } = useLang();
