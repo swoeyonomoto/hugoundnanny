@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { useLang } from "@/contexts/LanguageContext";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { isElementMostlyVisible, pauseMuxPlayer, playMuxPlayer, type MuxPlayerElement } from "@/lib/mux";
+import "@mux/mux-player";
 
 const Hero = () => {
   const { t } = useLang();
