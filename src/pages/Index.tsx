@@ -67,12 +67,25 @@ const HomepageContent = () => {
     if (player) player.muted = next;
   };
 
-  // Ensure video plays on mobile after component mounts
+  // Play/pause based on visibility (saves Cloudflare bandwidth)
   useEffect(() => {
     const player = isMobile ? mobilePlayerRef.current : desktopPlayerRef.current;
-    if (!player) return;
+    const container = isMobile ? mobileContainerRef.current : desktopContainerRef.current;
+    if (!player || !container) return;
+
     player.muted = true;
     player.play()?.catch(() => {});
+
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.intersectionRatio >= 0.6) {
+        player.play()?.catch(() => {});
+      } else {
+        player.pause();
+      }
+    }, { threshold: [0, 0.6, 1] });
+
+    observer.observe(container);
+    return () => observer.disconnect();
   }, [isMobile]);
 
   return (

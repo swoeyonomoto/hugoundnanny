@@ -20,9 +20,22 @@ const Hero = () => {
 
   useEffect(() => {
     const player = playerRef.current;
-    if (!player) return;
+    const container = containerRef.current;
+    if (!player || !container) return;
+
     player.muted = true;
     player.play()?.catch(() => {});
+
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.intersectionRatio >= 0.6) {
+        player.play()?.catch(() => {});
+      } else {
+        player.pause();
+      }
+    }, { threshold: [0, 0.6, 1] });
+
+    observer.observe(container);
+    return () => observer.disconnect();
   }, []);
 
   const toggleMute = () => {
