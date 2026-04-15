@@ -1,15 +1,15 @@
 import { useState, useRef, useEffect } from "react";
 import { useLang } from "@/contexts/LanguageContext";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { isElementMostlyVisible, pauseMuxPlayer, playMuxPlayer, type MuxPlayerElement } from "@/lib/mux";
-import "@mux/mux-player";
+
+const VIDEO_URL = "https://pub-389b609f3429428897e0717a18b3a2f0.r2.dev/Hugo%20%26%20Nanny%20Reel%204%2016-9_1.mp4";
 
 const Hero = () => {
   const { t } = useLang();
   const [showScroll, setShowScroll] = useState(true);
   const [isMuted, setIsMuted] = useState(true);
   const containerRef = useRef<HTMLDivElement | null>(null);
-  const playerRef = useRef<MuxPlayerElement | null>(null);
+  const playerRef = useRef<HTMLVideoElement | null>(null);
   const isMobile = useIsMobile();
 
   useEffect(() => {
@@ -19,30 +19,10 @@ const Hero = () => {
   }, []);
 
   useEffect(() => {
-    const container = containerRef.current;
-    if (!container) return;
-
-    const syncPlayback = async () => {
-      const player = playerRef.current;
-      if (!player) return;
-      if (isElementMostlyVisible(container, 0.6)) {
-        await playMuxPlayer(player);
-      } else {
-        await pauseMuxPlayer(player);
-      }
-    };
-
-    const observer = new IntersectionObserver(() => {
-      void syncPlayback();
-    }, { threshold: [0, 0.6, 1] });
-
-    observer.observe(container);
-    void syncPlayback();
-    window.addEventListener("pageshow", syncPlayback);
-    return () => {
-      observer.disconnect();
-      window.removeEventListener("pageshow", syncPlayback);
-    };
+    const player = playerRef.current;
+    if (!player) return;
+    player.muted = true;
+    player.play()?.catch(() => {});
   }, []);
 
   const toggleMute = () => {
@@ -60,26 +40,22 @@ const Hero = () => {
   return (
     <section id="hero">
       <div className="hero-video" ref={containerRef}>
-        <mux-player
-          ref={playerRef as any}
-          playback-id="ir3Oo00t5PY11sOMI1Vy02rA4wZsLpS1M81XGhdgf00rVw"
-          autoplay="muted"
-          loop
+        <video
+          ref={playerRef}
+          src={VIDEO_URL}
+          autoPlay
           muted
-          playsinline
-          webkit-playsinline=""
-          preload="metadata"
-          stream-type="on-demand"
-          default-hidden-captions
+          loop
+          playsInline
+          preload="auto"
           style={{
             position: "absolute",
             top: 0,
             left: 0,
             width: "100%",
             height: "100%",
-            "--media-object-fit": "cover",
-            "--controls": "none",
-          } as React.CSSProperties}
+            objectFit: "cover",
+          }}
         />
         <div className="hero-video-overlay" />
         <button
