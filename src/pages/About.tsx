@@ -11,8 +11,21 @@ import FAQ from "@/components/sections/FAQ";
 import Contact from "@/components/sections/Contact";
 import Footer from "@/components/sections/Footer";
 import RevealOnScroll from "@/components/RevealOnScroll";
+import SEO from "@/components/SEO";
 import { Link } from "react-router-dom";
 import { useLang } from "@/contexts/LanguageContext";
+
+const FAQ_LD = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    { "@type": "Question", name: "Can we have a chat before booking?", acceptedAnswer: { "@type": "Answer", text: "Yes, absolutely — and we'd actually love that. We would never confirm anything without having had a good chance to connect and exchange first." } },
+    { "@type": "Question", name: "How far in advance should we book?", acceptedAnswer: { "@type": "Answer", text: "Most couples book us 12–18 months in advance. For summer season and destination weddings, the earlier the better." } },
+    { "@type": "Question", name: "Do you travel internationally?", acceptedAnswer: { "@type": "Answer", text: "Yes. We've shot in Italy, France, Belgium and many more. Travel costs are discussed transparently upfront." } },
+    { "@type": "Question", name: "We're really camera shy — is that a problem?", acceptedAnswer: { "@type": "Answer", text: "Not at all. Our work works precisely because we don't need poses. We just need you to be yourselves." } },
+    { "@type": "Question", name: "When do we receive the photos and videos?", acceptedAnswer: { "@type": "Answer", text: "Photos in 4–6 weeks, films in 6–10 weeks. You'll always get sneak peeks first." } },
+  ],
+};
 
 const AboutNav = () => {
   const { t } = useLang();
