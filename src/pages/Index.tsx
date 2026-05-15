@@ -6,6 +6,20 @@ import LogoHeader from "@/components/LogoHeader";
 import AutoColorNav from "@/components/AutoColorNav";
 import Footer from "@/components/sections/Footer";
 import { useIsMobile } from "@/hooks/use-mobile";
+import SEO from "@/components/SEO";
+
+const ORG_LD = {
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  name: "Hugo + Nanny",
+  description: "Authentic wedding photography and film by Hugo, Nanny & Tilmann.",
+  url: "https://hugoundnanny.lovable.app",
+  image: "https://hugoundnanny.lovable.app/og-image.jpg",
+  telephone: "+4916097813272",
+  priceRange: "€€€",
+  areaServed: "Europe",
+  sameAs: ["https://www.instagram.com/hugoundnanny"],
+};
 
 const VIDEO_URL = "https://pub-389b609f3429428897e0717a18b3a2f0.r2.dev/Hugo%20%26%20Nanny%20Reel%204%2016-9_1.mp4";
 
@@ -90,6 +104,12 @@ const HomepageContent = () => {
 
   return (
     <>
+      <SEO
+        title="Hugo + Nanny — Wedding Photography & Film | Limited 2026 Dates"
+        description="Authentic wedding photography and film by Hugo, Nanny & Tilmann. Real moments, real stories. Check 2026 availability — packages from €3,900."
+        path="/"
+        jsonLd={ORG_LD}
+      />
       <div className="home-mobile-nav">
         <LogoHeader variant="auto" />
         <AutoColorNav className="lang-bar home-lang" style={{ position: "fixed", zIndex: 500 }}>

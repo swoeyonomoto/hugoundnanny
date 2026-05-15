@@ -3,6 +3,7 @@ import LangBar from "@/components/LangBar";
 import LogoHeader from "@/components/LogoHeader";
 import RevealOnScroll from "@/components/RevealOnScroll";
 import Footer from "@/components/sections/Footer";
+import SEO from "@/components/SEO";
 import { Link } from "react-router-dom";
 
 const WHATSAPP_URL = "https://wa.me/4916097813272?text=Hi%20Hugo%20%26%20Nanny!%20%F0%9F%96%A4%0A%0AWe%20came%20across%20your%20work%20and%20love%20your%20style.%20Here%27s%20a%20little%20about%20us%3A%0A%0ANames%3A%20%5Byour%20names%5D%0AWedding%20date%20%26%20location%3A%20%5Bdate%20%26%20location%5D%0ALooking%20for%3A%20%5Bphoto%20%2F%20video%20%2F%20both%5D%0ABudget%3A%20%5Bapprox.%5D%0A%0ALooking%20forward%20to%20hearing%20from%20you!";
@@ -51,6 +52,11 @@ const AboutUsContent = () => {
 
   return (
     <>
+      <SEO
+        title="The Gang — Meet Hugo + Nanny's Wedding Team"
+        description="Meet Joey, Seli, Tilmann, Chiara and the team behind Hugo + Nanny — the photographers and filmmakers documenting your wedding day."
+        path="/gang"
+      />
       <LogoHeader variant="black" />
       <LangBar />
 
