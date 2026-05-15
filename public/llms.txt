@@ -1,0 +1,15 @@
+# Hugo + Nanny
+
+> Authentic wedding photography and film by Hugo, Nanny & Tilmann. Real moments, real stories — captured quietly and honestly.
+
+Hugo + Nanny is a wedding photography and film studio based in Germany, documenting weddings across Europe. The work focuses on unposed, candid storytelling rather than directed portraits.
+
+## Pages
+
+- [Home](/): Booking inquiry and intro to Hugo + Nanny's wedding photography and film.
+- [About](/about): Our story, work samples, testimonials, pricing, and FAQ.
+- [The Gang](/gang): Meet Hugo, Nanny & Tilmann.
+
+## Optional
+
+- [Contact via WhatsApp](https://wa.me/4916097813272): Fastest way to check date availability.
