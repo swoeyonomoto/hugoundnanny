@@ -104,6 +104,12 @@ const HomepageContent = () => {
 
   return (
     <>
+      <SEO
+        title="Hugo + Nanny — Wedding Photography & Film | Limited 2026 Dates"
+        description="Authentic wedding photography and film by Hugo, Nanny & Tilmann. Real moments, real stories. Check 2026 availability — packages from €3,900."
+        path="/"
+        jsonLd={ORG_LD}
+      />
       <div className="home-mobile-nav">
         <LogoHeader variant="auto" />
         <AutoColorNav className="lang-bar home-lang" style={{ position: "fixed", zIndex: 500 }}>
