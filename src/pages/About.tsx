@@ -69,6 +69,12 @@ const IntroText = () => {
 
 const AboutPage = () => (
   <LanguageProvider>
+    <SEO
+      title="About Hugo + Nanny — Wedding Photography & Film Story"
+      description="Who we are, our work, testimonials, pricing and FAQs. Authentic wedding documentation across Europe — packages from €3,900."
+      path="/about"
+      jsonLd={FAQ_LD}
+    />
     <LogoHeader variant="auto" />
     <AboutLangBar />
     <AboutNav />
