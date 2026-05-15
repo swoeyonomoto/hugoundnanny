@@ -6,6 +6,20 @@ import LogoHeader from "@/components/LogoHeader";
 import AutoColorNav from "@/components/AutoColorNav";
 import Footer from "@/components/sections/Footer";
 import { useIsMobile } from "@/hooks/use-mobile";
+import SEO from "@/components/SEO";
+
+const ORG_LD = {
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  name: "Hugo + Nanny",
+  description: "Authentic wedding photography and film by Hugo, Nanny & Tilmann.",
+  url: "https://hugoundnanny.lovable.app",
+  image: "https://hugoundnanny.lovable.app/og-image.jpg",
+  telephone: "+4916097813272",
+  priceRange: "€€€",
+  areaServed: "Europe",
+  sameAs: ["https://www.instagram.com/hugoundnanny"],
+};
 
 const VIDEO_URL = "https://pub-389b609f3429428897e0717a18b3a2f0.r2.dev/Hugo%20%26%20Nanny%20Reel%204%2016-9_1.mp4";
 
