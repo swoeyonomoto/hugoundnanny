@@ -52,6 +52,11 @@ const AboutUsContent = () => {
 
   return (
     <>
+      <SEO
+        title="The Gang — Meet Hugo + Nanny's Wedding Team"
+        description="Meet Joey, Seli, Tilmann, Chiara and the team behind Hugo + Nanny — the photographers and filmmakers documenting your wedding day."
+        path="/gang"
+      />
       <LogoHeader variant="black" />
       <LangBar />
 
