@@ -69,6 +69,7 @@ const HomepageContent = () => {
   const { t, lang, setLang } = useLang();
   const isMobile = useIsMobile();
   const [isMuted, setIsMuted] = useState(true);
+  const [formOpen, setFormOpen] = useState(false);
   const mobilePlayerRef = useRef<HTMLVideoElement>(null);
   const desktopPlayerRef = useRef<HTMLVideoElement>(null);
   const mobileContainerRef = useRef<HTMLDivElement>(null);
@@ -172,7 +173,18 @@ const HomepageContent = () => {
               {t("💬 Lieber per WhatsApp? Schreibt uns direkt →", "💬 Prefer WhatsApp? Message us directly →")}
             </a>
 
-            <BookingForm />
+            {!formOpen ? (
+              <button
+                type="button"
+                onClick={() => setFormOpen(true)}
+                className="cf-submit"
+                style={{ marginTop: 8 }}
+              >
+                {t("Anfrage starten ♥", "Start your inquiry ♥")}
+              </button>
+            ) : (
+              <BookingForm />
+            )}
           </div>
         </div>
 
