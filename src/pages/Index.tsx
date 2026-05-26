@@ -74,7 +74,6 @@ const HomepageContent = () => {
   const desktopPlayerRef = useRef<HTMLVideoElement>(null);
   const mobileContainerRef = useRef<HTMLDivElement>(null);
   const desktopContainerRef = useRef<HTMLDivElement>(null);
-  const desktopContainerRef = useRef<HTMLDivElement>(null);
 
   const toggleMute = () => {
     const next = !isMuted;
