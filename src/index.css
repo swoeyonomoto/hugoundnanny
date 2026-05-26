@@ -773,19 +773,19 @@ footer {
 .home-video-mobile { display: none; }
 
 .home-form-col {
-  padding: 20px 64px 80px;
+  padding: 16px 64px 80px;
   display: flex; flex-direction: column;
 }
 .home-form-inner { max-width: 520px; }
 .home-form-h {
   font-family: 'Libre Caslon Display', serif;
-  font-size: clamp(28px, 3vw, 42px); font-weight: 400; line-height: 1.12;
-  margin-bottom: 20px;
+  font-size: clamp(26px, 2.6vw, 38px); font-weight: 400; line-height: 1.12;
+  margin-bottom: 14px;
 }
 .home-form-h em { font-style: italic; }
 .home-form-sub {
-  font-family: 'Lora', serif; font-size: 14px; font-weight: 300;
-  line-height: 1.85; color: #888; margin-bottom: 40px; max-width: 440px;
+  font-family: 'Lora', serif; font-size: 13px; font-weight: 300;
+  line-height: 1.7; color: #888; margin-bottom: 20px; max-width: 440px;
 }
 .home-submit {
   width: 100%; text-align: center; margin-top: 36px;
