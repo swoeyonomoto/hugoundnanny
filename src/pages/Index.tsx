@@ -180,7 +180,7 @@ const HomepageContent = () => {
                 className="cf-submit"
                 style={{ marginTop: 8 }}
               >
-                {t("Anfrage starten ♥", "Start your inquiry ♥")}
+                {t("Verfügbarkeit prüfen ♥", "Check your date ♥")}
               </button>
             ) : (
               <BookingForm />
