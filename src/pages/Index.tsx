@@ -173,7 +173,18 @@ const HomepageContent = () => {
               {t("💬 Lieber per WhatsApp? Schreibt uns direkt →", "💬 Prefer WhatsApp? Message us directly →")}
             </a>
 
-            <BookingForm />
+            {!formOpen ? (
+              <button
+                type="button"
+                onClick={() => setFormOpen(true)}
+                className="cf-submit"
+                style={{ marginTop: 8 }}
+              >
+                {t("Anfrage starten ♥", "Start your inquiry ♥")}
+              </button>
+            ) : (
+              <BookingForm />
+            )}
           </div>
         </div>
 
