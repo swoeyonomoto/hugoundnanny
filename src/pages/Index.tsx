@@ -69,9 +69,11 @@ const HomepageContent = () => {
   const { t, lang, setLang } = useLang();
   const isMobile = useIsMobile();
   const [isMuted, setIsMuted] = useState(true);
+  const [formOpen, setFormOpen] = useState(false);
   const mobilePlayerRef = useRef<HTMLVideoElement>(null);
   const desktopPlayerRef = useRef<HTMLVideoElement>(null);
   const mobileContainerRef = useRef<HTMLDivElement>(null);
+  const desktopContainerRef = useRef<HTMLDivElement>(null);
   const desktopContainerRef = useRef<HTMLDivElement>(null);
 
   const toggleMute = () => {
