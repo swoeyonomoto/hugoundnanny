@@ -787,6 +787,9 @@ footer {
   font-family: 'Lora', serif; font-size: 13px; font-weight: 300;
   line-height: 1.7; color: #888; margin-bottom: 20px; max-width: 440px;
 }
+.home-form-inner .cf { padding: 12px 0 6px; }
+.home-form-inner .cf-submit { margin-top: 22px; }
+.home-form-inner .cf textarea { min-height: 56px; }
 .home-submit {
   width: 100%; text-align: center; margin-top: 36px;
   padding: 16px 36px;
