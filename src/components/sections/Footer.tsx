@@ -1,4 +1,5 @@
 import { useLang } from "@/contexts/LanguageContext";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   const { t } = useLang();
@@ -7,7 +8,7 @@ const Footer = () => {
       <div className="f-main">
         <a href="/"><img src="/photos/logo.png" alt="hugo + nanny" className="f-logo-img" /></a>
         <div className="f-links">
-          <a href="#">{t("Impressum", "Imprint")}</a>
+          <Link to="/imprint">{t("Impressum", "Imprint")}</Link>
           <a href="#">{t("Datenschutz", "Privacy")}</a>
           <a href="https://www.instagram.com/hugoundnanny" target="_blank" rel="noopener noreferrer">@hugoundnanny</a>
         </div>

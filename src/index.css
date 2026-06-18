@@ -905,3 +905,27 @@ footer {
 @media (max-width: 960px) {
   .thankyou-grid { grid-template-columns: 1fr 1fr; padding: 0 28px; }
 }
+
+/* ─── IMPRINT ─── */
+.imprint-section { padding: 120px 0 80px; }
+.imprint-back {
+  display: inline-block; font-size: 10px; letter-spacing: .14em; text-transform: uppercase;
+  color: #aaa; text-decoration: none; margin-bottom: 48px; transition: color .2s;
+}
+.imprint-back:hover { color: #111; }
+.imprint-h {
+  font-family: 'Libre Caslon Display', serif;
+  font-size: clamp(30px, 3.2vw, 48px); font-weight: 400; line-height: 1.1; margin-bottom: 56px;
+}
+.imprint-block { margin-bottom: 40px; }
+.imprint-label {
+  font-size: 9px; letter-spacing: .2em; text-transform: uppercase; color: #999; margin-bottom: 10px;
+}
+.imprint-body {
+  font-size: 15px; line-height: 1.85; color: #444; max-width: 560px;
+}
+.imprint-body a { color: #111; text-decoration: none; border-bottom: 1px solid #ddd; transition: border-color .2s; }
+.imprint-body a:hover { border-color: #111; }
+@media (max-width: 960px) {
+  .imprint-section { padding: 100px 0 60px; }
+}

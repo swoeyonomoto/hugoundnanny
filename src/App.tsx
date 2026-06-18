@@ -8,6 +8,7 @@ import Index from "./pages/Index.tsx";
 import AboutPage from "./pages/About.tsx";
 import AboutUs from "./pages/AboutUs.tsx";
 import ThankYou from "./pages/ThankYou.tsx";
+import Imprint from "./pages/Imprint.tsx";
 import NotFound from "./pages/NotFound.tsx";
 import PreviewVideo from "./pages/PreviewVideo.tsx";
 import PreviewMarie from "./pages/PreviewMarie.tsx";
@@ -34,6 +35,7 @@ const App = () => {
           <Route path="/about" element={<AboutPage />} />
           <Route path="/gang" element={<AboutUs />} />
           <Route path="/thank-you" element={<ThankYou />} />
+          <Route path="/imprint" element={<Imprint />} />
           <Route path="/preview-eddiemel" element={<PreviewVideo />} />
           <Route path="/preview-mariestephan" element={<PreviewMarie />} />
           <Route path="/presentation/:slug" element={<Presentation />} />
