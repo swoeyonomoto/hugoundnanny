@@ -673,6 +673,7 @@ footer {
   .hero-sub { text-align: left; }
   .sticky-cta { bottom: 20px; right: 20px; }
   footer { flex-direction: column; gap: 14px; text-align: center; padding: 24px; }
+  .f-main { flex-direction: column; gap: 10px; }
   .lang-bar { top: 16px; right: 16px; }
   .cf-row { grid-template-columns: 1fr; }
   .hero-scroll-indicator { bottom: 10px; }
