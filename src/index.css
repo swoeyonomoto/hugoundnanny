@@ -636,6 +636,9 @@ body {
 /* ─── FOOTER ─── */
 footer {
   padding: 26px 64px; border-top: 1px solid #e8e8e6;
+  display: flex; flex-direction: column; gap: 10px;
+}
+.f-main {
   display: flex; justify-content: space-between; align-items: center;
 }
 .f-logo-img { height: 14px; width: auto; display: block; }
@@ -647,6 +650,9 @@ footer {
 }
 .f-links a:hover { color: #111; }
 .f-copy { font-size: 9px; letter-spacing: .08em; color: #ccc; }
+.f-legal {
+  font-size: 10px; color: #bbb; letter-spacing: .02em; text-align: center; margin: 0;
+}
 
 /* ─── RESPONSIVE ─── */
 @media (max-width: 960px) {
