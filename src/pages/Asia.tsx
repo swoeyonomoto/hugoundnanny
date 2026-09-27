@@ -144,6 +144,7 @@ const AsiaContent = () => {
 
       <AsiaHero />
 
+      <div className="asia-page">
       {/* Intro */}
       <section className="intro-text-section">
         <div className="wrap">
@@ -346,6 +347,8 @@ const AsiaContent = () => {
           </RevealOnScroll>
         </div>
       </section>
+
+      </div>
 
       <Footer />
     </>
