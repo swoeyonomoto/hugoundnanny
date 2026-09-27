@@ -119,7 +119,7 @@ const AsiaHero = () => {
 const AsiaLangBar = () => {
   const { lang, setLang } = useLang();
   return (
-    <AutoColorNav className="lang-bar" darkSelectors="#hero" style={{ position: "fixed", top: 26, right: 32, zIndex: 500 }}>
+    <AutoColorNav className="lang-bar" darkSelectors="#hero, #offer" style={{ position: "fixed", top: 26, right: 32, zIndex: 500 }}>
       <button className={`lang-btn ${lang === "de" ? "active" : ""}`} onClick={() => setLang("de")}>DE</button>
       <button className={`lang-btn ${lang === "en" ? "active" : ""}`} onClick={() => setLang("en")}>EN</button>
     </AutoColorNav>
@@ -148,22 +148,24 @@ const AsiaContent = () => {
       {/* Intro */}
       <section className="intro-text-section">
         <div className="wrap">
-          <RevealOnScroll>
+          <RevealOnScroll className="asia-editorial-grid asia-intro-grid">
             <span className="label">
               {t("N°01 – Warum Asien", "N°01 – Why Asia")}
             </span>
-            <h2 className="about-h intro-headline">
-              {t(
-                <>Die Hochzeit von Eddie & Mel brachte uns nach Hongkong – und wir kommen seither <em>immer wieder zurück.</em></>,
-                <>The wedding of Eddie & Mel brought us to Hong Kong – and we've been <em>coming back ever since.</em></>
-              )}
-            </h2>
-            <p className="about-p asia-lede" style={{ maxWidth: 640 }}>
-              {t(
-                "Wir leben hier noch nicht. Wir kommen immer wieder – in denselben Hafen, auf dieselben Hügel – um herauszufinden, ob Asien ein Zuhause werden könnte. Diesen Winter, von November bis Februar, ist unser Kalender in der ganzen Region offen. Wir suchen die Paare und die Geschichten, die vielleicht die Antwort sind.",
-                "We don't live here yet. We keep returning – to the same harbour, the same hills – to find out whether Asia could become a home. This winter, from November through February, our calendar is open across the region. We're looking for the couples and the stories that might be the answer."
-              )}
-            </p>
+            <div className="asia-editorial-main">
+              <h2 className="about-h intro-headline">
+                {t(
+                  <>Die Hochzeit von Eddie & Mel brachte uns nach Hongkong – und wir kommen seither <em>immer wieder zurück.</em></>,
+                  <>The wedding of Eddie & Mel brought us to Hong Kong – and we've been <em>coming back ever since.</em></>
+                )}
+              </h2>
+              <p className="about-p asia-lede">
+                {t(
+                  "Wir leben hier noch nicht. Wir kommen immer wieder – in denselben Hafen, auf dieselben Hügel – um herauszufinden, ob Asien ein Zuhause werden könnte. Diesen Winter, von November bis Februar, ist unser Kalender in der ganzen Region offen. Wir suchen die Paare und die Geschichten, die vielleicht die Antwort sind.",
+                  "We don't live here yet. We keep returning – to the same harbour, the same hills – to find out whether Asia could become a home. This winter, from November through February, our calendar is open across the region. We're looking for the couples and the stories that might be the answer."
+                )}
+              </p>
+            </div>
             <hr className="intro-rule" />
           </RevealOnScroll>
         </div>
@@ -172,40 +174,27 @@ const AsiaContent = () => {
       {/* Who we're looking for */}
       <section id="story">
         <div className="wrap">
-          <RevealOnScroll>
+          <RevealOnScroll className="asia-editorial-grid">
             <span className="label">{t("N°02 – Wen wir suchen", "N°02 – Who we're looking for")}</span>
-            <h2 className="about-h">
-              {t(
-                <>Abenteuerlustig.<br />Dynamisch. <em>Offen.</em></>,
-                <>Adventurous.<br />Dynamic. <em>Open.</em></>
-              )}
-            </h2>
-            <p className="about-p" style={{ maxWidth: 560 }}>
-              {t(
-                "Wir suchen keinen bestimmten Look und kein bestimmtes Budget. Wir suchen Menschen – Paare mit einem Hochzeitskonzept, das es zu erzählen lohnt, irgendwo im asiatischen Raum.",
-                "We're not looking for a certain look or a certain budget. We're looking for people – couples with a wedding concept worth telling, somewhere in the Asian region."
-              )}
-            </p>
-            <ul className="asia-traits">
-              <li>
+            <div className="asia-editorial-main">
+              <h2 className="about-h">
                 {t(
-                  "Ihr wandert lieber zu eurer Zeremonie, als mit der Limousine vorzufahren.",
-                  "You'd rather hike to your ceremony than arrive by limousine."
+                  <>Abenteuerlustig.<br />Dynamisch. <em>Offen.</em></>,
+                  <>Adventurous.<br />Dynamic. <em>Open.</em></>
                 )}
-              </li>
-              <li>
+              </h2>
+              <p className="about-p">
                 {t(
-                  "Ihr beendet die Nacht dort, wo ihr wirklich sein wollt – nicht dort, wo es der Ablaufplan sagt.",
-                  "You end the night where you actually love to be – not where the schedule says."
+                  "Wir suchen keinen bestimmten Look und kein bestimmtes Budget. Wir suchen Menschen – Paare mit einem Hochzeitskonzept, das es zu erzählen lohnt, irgendwo im asiatischen Raum.",
+                  "We're not looking for a certain look or a certain budget. We're looking for people – couples with a wedding concept worth telling, somewhere in the Asian region."
                 )}
-              </li>
-              <li>
-                {t(
-                  "Ihr vertraut uns, zu filmen, was wirklich passiert – nicht was gestellt ist.",
-                  "You trust us to film what really happens, not what's posed."
-                )}
-              </li>
-            </ul>
+              </p>
+              <ul className="asia-traits">
+                <li>{t("Ihr wandert lieber zu eurer Zeremonie, als mit der Limousine vorzufahren.", "You'd rather hike to your ceremony than arrive by limousine.")}</li>
+                <li>{t("Ihr beendet die Nacht dort, wo ihr wirklich sein wollt – nicht dort, wo es der Ablaufplan sagt.", "You end the night where you actually love to be – not where the schedule says.")}</li>
+                <li>{t("Ihr vertraut uns, zu filmen, was wirklich passiert – nicht was gestellt ist.", "You trust us to film what really happens, not what's posed.")}</li>
+              </ul>
+            </div>
           </RevealOnScroll>
         </div>
       </section>
@@ -215,32 +204,19 @@ const AsiaContent = () => {
       {/* The limit */}
       <section id="limit">
         <div className="wrap">
-          <RevealOnScroll>
+          <RevealOnScroll className="asia-editorial-grid asia-limit-grid">
             <span className="label">{t("Nur acht Hochzeiten", "Only eight weddings")}</span>
-            <h2 className="about-h">
-              {t(
-                <>Zwei pro Monat.<br /><em>Acht im ganzen Winter.</em></>,
-                <>Two per month.<br /><em>Eight all winter.</em></>
-              )}
-            </h2>
-            {t(
-              <>
-                <p className="about-p">
-                  Zwischen November und Februar nehmen wir maximal zwei Hochzeiten pro Monat an. Das ist keine Marketingzahl — es ist die Menge an Geschichten, die wir neben unseren regulären Hochzeiten in Europa wirklich erzählen können.
-                </p>
-                <p className="about-p">
-                  Jede verdient unsere volle Aufmerksamkeit. Deshalb gilt: Wenn euer Datum vergeben ist, ist es vergeben. Eine frühe Anfrage lohnt sich.
-                </p>
-              </>,
-              <>
-                <p className="about-p">
-                  Between November and February we take on a maximum of two weddings per month. That's not a marketing number — it's the amount of stories we can honestly tell alongside our regular weddings in Europe.
-                </p>
-                <p className="about-p">
-                  Each one deserves our full attention. So here's the deal: if your date is taken, it's taken. An early inquiry pays off.
-                </p>
-              </>
-            )}
+            <div className="asia-editorial-main">
+              <h2 className="about-h">
+                {t(<>Zwei pro Monat.<br /><em>Acht im ganzen Winter.</em></>, <>Two per month.<br /><em>Eight all winter.</em></>)}
+              </h2>
+              <div className="asia-copy-columns">
+                {t(
+                  <><p className="about-p">Zwischen November und Februar nehmen wir maximal zwei Hochzeiten pro Monat an. Das ist keine Marketingzahl — es ist die Menge an Geschichten, die wir neben unseren regulären Hochzeiten in Europa wirklich erzählen können.</p><p className="about-p">Jede verdient unsere volle Aufmerksamkeit. Deshalb gilt: Wenn euer Datum vergeben ist, ist es vergeben. Eine frühe Anfrage lohnt sich.</p></>,
+                  <><p className="about-p">Between November and February we take on a maximum of two weddings per month. That's not a marketing number — it's the amount of stories we can honestly tell alongside our regular weddings in Europe.</p><p className="about-p">Each one deserves our full attention. So here's the deal: if your date is taken, it's taken. An early inquiry pays off.</p></>
+                )}
+              </div>
+            </div>
           </RevealOnScroll>
         </div>
       </section>
@@ -248,37 +224,24 @@ const AsiaContent = () => {
       <hr className="rule" />
 
       {/* The offer */}
-      <section id="offer" style={{ background: "#f7f7f5" }}>
+      <section id="offer">
         <div className="wrap">
-          <RevealOnScroll>
+          <RevealOnScroll className="asia-editorial-grid">
             <span className="label">{t("Für ausgewählte Paare", "For selected couples")}</span>
-            <h2 className="about-h">
-              {t(
-                <>Ausgewählte Paare erhalten<br /><em>50 % auf unsere Pakete.</em></>,
-                <>Selected couples receive<br /><em>50% off our packages.</em></>
-              )}
-            </h2>
-            {t(
-              <>
-                <p className="about-p">
-                  Diese Reisen sind ein neues Kapitel für unser Portfolio. Deshalb arbeiten wir für ausgewählte Paare zur Hälfte unseres regulären Honorars — dieselbe Arbeit, dasselbe Team, dieselbe Sorgfalt wie für jede andere Hochzeit auch.
-                </p>
-                <p className="about-p">
-                  Ihr bekommt unsere vollständigen Pakete — Film, Foto, Drohne, Analog — einfach zu besonderen Konditionen, weil eure Geschichte Teil von etwas Neuem wird.
-                </p>
-              </>,
-              <>
-                <p className="about-p">
-                  These journeys are a new chapter for our portfolio. That's why selected couples work with us at half our regular rate — the same work, the same team, the same care as any other wedding.
-                </p>
-                <p className="about-p">
-                  You get our full packages — film, photo, drone, analogue — simply at special terms, because your story becomes part of something new.
-                </p>
-              </>
-            )}
+            <div className="asia-editorial-main">
+              <h2 className="about-h">
+                {t(<>Ausgewählte Paare erhalten<br /><em>50 % auf unsere Pakete.</em></>, <>Selected couples receive<br /><em>50% off our packages.</em></>)}
+              </h2>
+              <div className="asia-copy-columns">
+                {t(
+                  <><p className="about-p">Diese Reisen sind ein neues Kapitel für unser Portfolio. Deshalb arbeiten wir für ausgewählte Paare zur Hälfte unseres regulären Honorars — dieselbe Arbeit, dasselbe Team, dieselbe Sorgfalt wie für jede andere Hochzeit auch.</p><p className="about-p">Ihr bekommt unsere vollständigen Pakete — Film, Foto, Drohne, Analog — einfach zu besonderen Konditionen, weil eure Geschichte Teil von etwas Neuem wird.</p></>,
+                  <><p className="about-p">These journeys are a new chapter for our portfolio. That's why selected couples work with us at half our regular rate — the same work, the same team, the same care as any other wedding.</p><p className="about-p">You get our full packages — film, photo, drone, analogue — simply at special terms, because your story becomes part of something new.</p></>
+                )}
+              </div>
+            </div>
           </RevealOnScroll>
 
-          <RevealOnScroll>
+          <RevealOnScroll className="asia-steps-wrap">
             <ol className="asia-steps">
               <li>
                 <span className="asia-step-n">1</span>
@@ -316,15 +279,15 @@ const AsiaContent = () => {
 
       {/* Apply CTA */}
       <section id="apply" className="aboutus-cta-section">
-        <div className="wrap" style={{ textAlign: "left" }}>
-          <RevealOnScroll>
+        <div className="wrap">
+          <RevealOnScroll className="asia-apply-grid">
             <h2 className="aboutus-cta-h">
               {t(
                 <>Erzählt uns <em>eure Geschichte.</em></>,
                 <>Tell us <em>your story.</em></>
               )}
             </h2>
-            <p className="about-p" style={{ maxWidth: 560, marginBottom: 32 }}>
+            <p className="about-p asia-apply-copy">
               {t(
                 "Schickt uns euer Datum, eure Location und ein paar Zeilen zu euch. Wir antworten persönlich — versprochen.",
                 "Send us your date, your location and a few lines about you. We reply personally — promised."
@@ -335,7 +298,6 @@ const AsiaContent = () => {
               target="_blank"
               rel="noopener noreferrer"
               className="hero-cta"
-              style={{ background: "#111", color: "#fff" }}
               onClick={() => window.fbq?.("track", "Contact", { content_name: "Asia WhatsApp Click" })}
             >
               {t("Per WhatsApp bewerben", "Apply via WhatsApp")}
