@@ -1,16 +1,18 @@
+# Premium Asia page layout
 
+## What will change
+- Keep the full-screen video opening, but refine its typography, alignment, and controls for a quieter editorial first impression.
+- Recompose every following section on an asymmetric 60/40 grid with labels, headlines, body text, traits, and steps paced like a curated magazine.
+- Use the selected clean-gallery palette: soft off-white, ink black, muted olive, and pale grey.
+- Keep Libre Caslon Display as the signature typeface and pair it with the existing sans-serif for labels and body copy.
+- Present the eight-wedding limit and 50% offer as selective access, not a promotion.
+- Preserve all current German and English copy, links, video, and functionality.
 
-## Plan: Use custom thumbnails for film cards
+## Quality checks
+- Check the complete page at mobile and desktop sizes.
+- Confirm video, language controls, links, and application actions still work.
+- Confirm the preview builds without errors.
 
-### What changes
-1. **Download 3 photos** from Dropbox to `public/photos/` as `dario-marie-thumb.jpg`, `eddie-mel-thumb.jpg`, `toni-freddi-thumb.jpg`
-2. **Update `films` array** in `Work.tsx` — add a `thumb` field to each film entry pointing to the local image instead of the Wistia swatch URL
-3. **Update the `<img>` tag** in the film card to use `f.thumb` instead of the Wistia swatch URL
-4. **Hover effect** — already exists (`.film:hover .film-bg { transform: scale(1.04) }`), so the smooth scale on hover is already handled
-
-### Files
-- `public/photos/dario-marie-thumb.jpg` (new — downloaded)
-- `public/photos/eddie-mel-thumb.jpg` (new — downloaded)
-- `public/photos/toni-freddi-thumb.jpg` (new — downloaded)
-- `src/components/sections/Work.tsx` — update `films` data and `<img src>`
-
+## Technical details
+- Scope new layout rules to `/asia` so existing pages remain unchanged.
+- Use responsive CSS grids, semantic design tokens, and restrained reveal motion with reduced-motion support.
