@@ -1028,6 +1028,7 @@ footer {
     font-family: 'Libre Caslon Display', serif; font-size: clamp(38px, 12vw, 52px);
     line-height: 1.01; letter-spacing: 0;
   }
+  .asia-page #offer .about-h { color: hsl(var(--background)); }
   .asia-page .about-p { font-size: 14px; line-height: 1.8; }
   .asia-page .asia-lede { font-size: 21px; line-height: 1.48; }
   .asia-page .intro-rule { display: block; margin-top: 72px; }
