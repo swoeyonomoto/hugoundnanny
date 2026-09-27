@@ -348,6 +348,8 @@ const AsiaContent = () => {
         </div>
       </section>
 
+      </div>
+
       <Footer />
     </>
   );
