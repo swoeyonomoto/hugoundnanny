@@ -133,7 +133,7 @@ const AsiaContent = () => {
     <>
       <SEO
         title="Hugo + Nanny in Asia — Winter 2026/27 · Wedding Photography & Film"
-        description="From November to February we're shooting weddings across Asia. We're looking for adventurous couples — experience our premium service under special conditions. Only two weddings per month."
+        description="From November to February we're shooting weddings across Asia. We're looking for adventurous couples — selected couples experience our premium service under special conditions. Only two weddings per month."
         path="/asia"
       />
       <LogoHeader variant="auto" />
@@ -259,15 +259,15 @@ const AsiaContent = () => {
       <section id="offer">
         <div className="wrap">
           <RevealOnScroll className="asia-editorial-grid">
-            <span className="label">{t("Premium-Service", "Premium service")}</span>
+            <span className="label"></span>
             <div className="asia-editorial-main">
               <h2 className="about-h">
-                {t(<>Erlebt<br /><em>unseren Premium-Service</em> — zu besonderen Konditionen.</>, <>Experience<br /><em>our premium service</em> — under special conditions.</>)}
+                {t(<>Ausgewählte Paare erleben<br /><em>unseren Premium-Service</em> — zu besonderen Konditionen.</>, <>Selected couples experience<br /><em>our premium service</em> — under special conditions.</>)}
               </h2>
               <div className="asia-copy-columns">
                 {t(
-                  <><p className="about-p">Diese Reisen sind ein neues Kapitel für unser Portfolio. Deshalb öffnen wir dieses Kapitel — derselbe Premium-Service, dasselbe Team, dieselbe Sorgfalt wie für jede andere Hochzeit auch.</p><p className="about-p">Ihr bekommt unsere vollständigen Pakete — Film, Foto, Drohne, Analog — einfach zu besonderen Konditionen, weil eure Geschichte Teil von etwas Neuem wird.</p></>,
-                  <><p className="about-p">These journeys are a new chapter for our portfolio. That's why we open this chapter — the same premium service, the same team, the same care as any other wedding.</p><p className="about-p">You get our full packages — film, photo, drone, analogue — simply under special conditions, because your story becomes part of something new.</p></>
+                  <><p className="about-p">Diese Reisen sind ein neues Kapitel für unser Portfolio. Deshalb öffnen wir dieses Kapitel für ausgewählte Paare — derselbe Premium-Service, dasselbe Team, dieselbe Sorgfalt wie für jede andere Hochzeit auch.</p><p className="about-p">Ihr bekommt unsere vollständigen Pakete — Film, Foto, Drohne, Analog — einfach zu besonderen Konditionen, weil eure Geschichte Teil von etwas Neuem wird.</p></>,
+                  <><p className="about-p">These journeys are a new chapter for our portfolio. That's why we open this chapter for selected couples — the same premium service, the same team, the same care as any other wedding.</p><p className="about-p">You get our full packages — film, photo, drone, analogue — simply under special conditions, because your story becomes part of something new.</p></>
                 )}
               </div>
             </div>
