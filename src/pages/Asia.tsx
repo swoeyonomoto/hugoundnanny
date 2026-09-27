@@ -334,10 +334,9 @@ const AsiaContent = () => {
             >
               {t("Per WhatsApp bewerben", "Apply via WhatsApp")}
             </a>
-            <br />
-            <a href="/#contact" className="about-cta-link" style={{ marginTop: 20 }}>
-              {t("Oder über das Formular auf unserer Startseite →", "Or use the form on our homepage →")}
-            </a>
+              <a href="/#contact" className="about-cta-link asia-apply-link">
+                {t("Oder über das Formular auf unserer Startseite →", "Or use the form on our homepage →")}
+              </a>
           </RevealOnScroll>
         </div>
       </section>
