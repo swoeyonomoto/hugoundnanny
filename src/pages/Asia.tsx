@@ -231,6 +231,13 @@ const AsiaContent = () => {
         <div className="wrap">
           <RevealOnScroll className="asia-editorial-grid asia-limit-grid">
             <span className="label">{t("Nur acht Hochzeiten", "Only eight weddings")}</span>
+            <figure className="asia-photo asia-photo-side">
+              <img
+                src="/photos/14.jpg"
+                alt={t("Hochzeitsfoto von Hugo & Nanny", "Wedding photo by Hugo & Nanny")}
+                loading="lazy"
+              />
+            </figure>
             <div className="asia-editorial-main">
               <h2 className="about-h">
                 {t(<>Zwei pro Monat.<br /><em>Acht im ganzen Winter.</em></>, <>Two per month.<br /><em>Eight all winter.</em></>)}
