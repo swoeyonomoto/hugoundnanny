@@ -133,7 +133,7 @@ const AsiaContent = () => {
     <>
       <SEO
         title="Hugo + Nanny in Asia — Winter 2026/27 · Wedding Photography & Film"
-        description="From November to February we're shooting weddings across Asia. We're looking for adventurous couples — selected couples receive 50% off our packages. Only two weddings per month."
+        description="From November to February we're shooting weddings across Asia. We're looking for adventurous couples — selected couples experience our premium service under special conditions. Only two weddings per month."
         path="/asia"
       />
       <LogoHeader variant="auto" />
@@ -262,12 +262,12 @@ const AsiaContent = () => {
             <span className="label">{t("Für ausgewählte Paare", "For selected couples")}</span>
             <div className="asia-editorial-main">
               <h2 className="about-h">
-                {t(<>Ausgewählte Paare erhalten<br /><em>50 % auf unsere Pakete.</em></>, <>Selected couples receive<br /><em>50% off our packages.</em></>)}
+                {t(<>Ausgewählte Paare erleben<br /><em>unseren Premium-Service</em> — zu besonderen Konditionen.</>, <>Selected couples experience<br /><em>our premium service</em> — under special conditions.</>)}
               </h2>
               <div className="asia-copy-columns">
                 {t(
-                  <><p className="about-p">Diese Reisen sind ein neues Kapitel für unser Portfolio. Deshalb arbeiten wir für ausgewählte Paare zur Hälfte unseres regulären Honorars — dieselbe Arbeit, dasselbe Team, dieselbe Sorgfalt wie für jede andere Hochzeit auch.</p><p className="about-p">Ihr bekommt unsere vollständigen Pakete — Film, Foto, Drohne, Analog — einfach zu besonderen Konditionen, weil eure Geschichte Teil von etwas Neuem wird.</p></>,
-                  <><p className="about-p">These journeys are a new chapter for our portfolio. That's why selected couples work with us at half our regular rate — the same work, the same team, the same care as any other wedding.</p><p className="about-p">You get our full packages — film, photo, drone, analogue — simply at special terms, because your story becomes part of something new.</p></>
+                  <><p className="about-p">Diese Reisen sind ein neues Kapitel für unser Portfolio. Deshalb arbeiten wir für ausgewählte Paare zu besonderen Konditionen — derselbe Premium-Service, dasselbe Team, dieselbe Sorgfalt wie für jede andere Hochzeit auch.</p><p className="about-p">Ihr bekommt unsere vollständigen Pakete — Film, Foto, Drohne, Analog — einfach zu besonderen Konditionen, weil eure Geschichte Teil von etwas Neuem wird.</p></>,
+                  <><p className="about-p">These journeys are a new chapter for our portfolio. That's why selected couples work with us under special conditions — the same premium service, the same team, the same care as any other wedding.</p><p className="about-p">You get our full packages — film, photo, drone, analogue — simply under special terms, because your story becomes part of something new.</p></>
                 )}
               </div>
             </div>
