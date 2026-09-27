@@ -166,6 +166,14 @@ const AsiaContent = () => {
                 )}
               </p>
             </div>
+            <figure className="asia-photo asia-photo-wide">
+              <img
+                src="/photos/eddie-mel-thumb.jpg"
+                alt={t("Eddie & Mel in Hongkong", "Eddie & Mel in Hong Kong")}
+                loading="lazy"
+              />
+              <figcaption>{t("Eddie & Mel · Hongkong", "Eddie & Mel · Hong Kong")}</figcaption>
+            </figure>
             <hr className="intro-rule" />
           </RevealOnScroll>
         </div>
