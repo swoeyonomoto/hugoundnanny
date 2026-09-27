@@ -91,8 +91,8 @@ const AsiaHero = () => {
       <div className="hero-content" style={{ pointerEvents: "none" }}>
         <h1 className="hero-headline">
           {t(
-            <em>Asien.<br />Neue Geschichten.</em>,
-            <em>Asia.<br />New stories.</em>
+            <em>Asien,<br />wir kommen zurück.</em>,
+            <em>Asia,<br />we are coming back.</em>
           )}
         </h1>
         <div className="hero-right">
@@ -149,18 +149,18 @@ const AsiaContent = () => {
         <div className="wrap">
           <RevealOnScroll>
             <span className="label">
-              {t("Asien · November bis Februar", "Asia · November to February")}
+              {t("N°01 – Warum Asien", "N°01 – Why Asia")}
             </span>
             <h2 className="about-h intro-headline">
               {t(
-                <>Wir gehen auf Reisen. <em>Ihr könnt dabei sein.</em></>,
-                <>We're going travelling. <em>You can be part of it.</em></>
+                <>Die Hochzeit von Eddie & Mel brachte uns nach Hongkong – und wir kommen seither <em>immer wieder zurück.</em></>,
+                <>The wedding of Eddie & Mel brought us to Hong Kong – and we've been <em>coming back ever since.</em></>
               )}
             </h2>
-            <p className="about-p" style={{ maxWidth: 560 }}>
+            <p className="about-p asia-lede" style={{ maxWidth: 640 }}>
               {t(
-                "Besonders suchen wir Paare für Dezember, Januar und Februar — aber auch der November ist noch offen.",
-                "We're especially looking for couples for December, January and February — but November is still open too."
+                "Wir leben hier noch nicht. Wir kommen immer wieder – in denselben Hafen, auf dieselben Hügel – um herauszufinden, ob Asien ein Zuhause werden könnte. Diesen Winter, von November bis Februar, ist unser Kalender in der ganzen Region offen. Wir suchen die Paare und die Geschichten, die vielleicht die Antwort sind.",
+                "We don't live here yet. We keep returning – to the same harbour, the same hills – to find out whether Asia could become a home. This winter, from November through February, our calendar is open across the region. We're looking for the couples and the stories that might be the answer."
               )}
             </p>
             <hr className="intro-rule" />
@@ -172,37 +172,39 @@ const AsiaContent = () => {
       <section id="story">
         <div className="wrap">
           <RevealOnScroll>
-            <span className="label">{t("Wen wir suchen", "Who we're looking for")}</span>
+            <span className="label">{t("N°02 – Wen wir suchen", "N°02 – Who we're looking for")}</span>
             <h2 className="about-h">
               {t(
-                <>Wir suchen Paare.<br /><em>Keine perfekten Hochzeiten.</em></>,
-                <>We're looking for couples.<br /><em>Not perfect weddings.</em></>
+                <>Abenteuerlustig.<br />Dynamisch. <em>Offen.</em></>,
+                <>Adventurous.<br />Dynamic. <em>Open.</em></>
               )}
             </h2>
-            {t(
-              <>
-                <p className="about-p">
-                  Von November bis Februar drehen wir im asiatischen Raum — in Japan, Thailand, Bali, Vietnam oder wo auch immer eure Geschichte stattfindet. Wir suchen abenteuerliche, dynamische, offene Paare mit Hochzeitskonzepten, die uns bewegen.
-                </p>
-                <p className="about-p">
-                  Vielleicht ist es eine Zeremonie am Strand. Ein Fest in einem alten Haus. Eine Stadthochzeit mitten im Chaos einer Metropole. Egal — wenn eure Geschichte ehrlich ist, wollen wir sie erzählen.
-                </p>
-                <p className="about-p">
-                  Dafür bringen wir alles mit, was unsere Arbeit ausmacht: Kinokameras, Drohne, Analog — und Menschen, die voll dabei sind. Keine gestellten Fotos, keine starren Posen. Nur das, was wirklich passiert.
-                </p>
-              </>,
-              <>
-                <p className="about-p">
-                  From November to February we'll be shooting across Asia — Japan, Thailand, Bali, Vietnam, or wherever your story takes place. We're looking for adventurous, dynamic, open-minded couples with wedding concepts that move us.
-                </p>
-                <p className="about-p">
-                  Maybe it's a ceremony on the beach. A celebration in an old house. A city wedding in the middle of a metropolis. It doesn't matter — if your story is honest, we want to tell it.
-                </p>
-                <p className="about-p">
-                  And we bring everything our work stands for: cinema cameras, drone, analogue — and people who are fully there. No posed shots, no stiff directions. Just what really happens.
-                </p>
-              </>
-            )}
+            <p className="about-p" style={{ maxWidth: 560 }}>
+              {t(
+                "Wir suchen keinen bestimmten Look und kein bestimmtes Budget. Wir suchen Menschen – Paare mit einem Hochzeitskonzept, das es zu erzählen lohnt, irgendwo im asiatischen Raum.",
+                "We're not looking for a certain look or a certain budget. We're looking for people – couples with a wedding concept worth telling, somewhere in the Asian region."
+              )}
+            </p>
+            <ul className="asia-traits">
+              <li>
+                {t(
+                  "Ihr wandert lieber zu eurer Zeremonie, als mit der Limousine vorzufahren.",
+                  "You'd rather hike to your ceremony than arrive by limousine."
+                )}
+              </li>
+              <li>
+                {t(
+                  "Ihr beendet die Nacht dort, wo ihr wirklich sein wollt – nicht dort, wo es der Ablaufplan sagt.",
+                  "You end the night where you actually love to be – not where the schedule says."
+                )}
+              </li>
+              <li>
+                {t(
+                  "Ihr vertraut uns, zu filmen, was wirklich passiert – nicht was gestellt ist.",
+                  "You trust us to film what really happens, not what's posed."
+                )}
+              </li>
+            </ul>
           </RevealOnScroll>
         </div>
       </section>
