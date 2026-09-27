@@ -4,11 +4,11 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
+    --background: 40 33% 97%;
     --foreground: 0 0% 6.7%;
-    --card: 0 0% 100%;
+    --card: 40 33% 97%;
     --card-foreground: 0 0% 6.7%;
-    --popover: 0 0% 100%;
+    --popover: 40 33% 97%;
     --popover-foreground: 0 0% 6.7%;
     --primary: 0 0% 6.7%;
     --primary-foreground: 0 0% 100%;
@@ -324,7 +324,7 @@ body {
 .testi-reviews-link:hover { color: #111; border-color: #111; }
 
 .testis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: #e8e8e6; }
-.testi-card { background: #fff; padding: 40px 36px; }
+.testi-card { background: hsl(var(--background)); padding: 40px 36px; }
 .testi-stars { font-size: 11px; letter-spacing: .08em; margin-bottom: 18px; color: #111; }
 .testi-face {
   width: 44px; height: 44px; border-radius: 50%;
@@ -353,7 +353,7 @@ body {
 .pricing-intro-p { font-size: 15px; line-height: 1.95; color: #444; margin-bottom: 16px; padding-top: 6px; }
 
 .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: #e8e8e6; }
-.card { background: #fff; padding: 44px 36px; display: flex; flex-direction: column; }
+.card { background: hsl(var(--background)); padding: 44px 36px; display: flex; flex-direction: column; }
 .card.hi { background: #111; color: #fff; }
 .card-tag {
   font-size: 9px; letter-spacing: .2em; text-transform: uppercase; color: #999; margin-bottom: 14px;
@@ -455,7 +455,7 @@ body {
 .faq-wa-btn:hover { opacity: .6; }
 
 /* ─── CONTACT ─── */
-#contact { padding: 108px 0; background: #fff; }
+#contact { padding: 108px 0; background: hsl(var(--background)); }
 .contact-grid {
   display: grid; grid-template-columns: 1fr 1fr; gap: 96px; align-items: start;
 }
