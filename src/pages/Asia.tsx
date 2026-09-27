@@ -166,6 +166,14 @@ const AsiaContent = () => {
                 )}
               </p>
             </div>
+            <figure className="asia-photo asia-photo-wide">
+              <img
+                src="/photos/eddie-mel-thumb.jpg"
+                alt={t("Eddie & Mel in Hongkong", "Eddie & Mel in Hong Kong")}
+                loading="lazy"
+              />
+              <figcaption>{t("Eddie & Mel · Hongkong", "Eddie & Mel · Hong Kong")}</figcaption>
+            </figure>
             <hr className="intro-rule" />
           </RevealOnScroll>
         </div>
@@ -196,6 +204,23 @@ const AsiaContent = () => {
               </ul>
             </div>
           </RevealOnScroll>
+
+          <RevealOnScroll className="asia-photo-pair">
+            <figure className="asia-photo">
+              <img
+                src="/photos/02.jpg"
+                alt={t("Hochzeitsfoto von Hugo & Nanny", "Wedding photo by Hugo & Nanny")}
+                loading="lazy"
+              />
+            </figure>
+            <figure className="asia-photo asia-photo-offset">
+              <img
+                src="/photos/11.jpg"
+                alt={t("Hochzeitsfoto von Hugo & Nanny", "Wedding photo by Hugo & Nanny")}
+                loading="lazy"
+              />
+            </figure>
+          </RevealOnScroll>
         </div>
       </section>
 
@@ -206,6 +231,13 @@ const AsiaContent = () => {
         <div className="wrap">
           <RevealOnScroll className="asia-editorial-grid asia-limit-grid">
             <span className="label">{t("Nur acht Hochzeiten", "Only eight weddings")}</span>
+            <figure className="asia-photo asia-photo-side">
+              <img
+                src="/photos/14.jpg"
+                alt={t("Hochzeitsfoto von Hugo & Nanny", "Wedding photo by Hugo & Nanny")}
+                loading="lazy"
+              />
+            </figure>
             <div className="asia-editorial-main">
               <h2 className="about-h">
                 {t(<>Zwei pro Monat.<br /><em>Acht im ganzen Winter.</em></>, <>Two per month.<br /><em>Eight all winter.</em></>)}

@@ -1018,6 +1018,28 @@ footer {
 .asia-page #apply .hero-cta { background: hsl(var(--foreground)); color: hsl(var(--primary-foreground)); }
 .asia-page #apply .about-cta-link { display: inline-block; }
 
+/* photos */
+.asia-photo { margin: 0; }
+.asia-photo img {
+  display: block; width: 100%; height: auto; object-fit: cover;
+  background: hsl(var(--asia-line));
+}
+.asia-photo figcaption {
+  margin-top: 12px; color: hsl(var(--asia-accent));
+  font-family: 'Ginora Sans Bold', sans-serif; font-size: 9px;
+  letter-spacing: .18em; line-height: 1.5; text-transform: uppercase;
+}
+.asia-photo-wide { grid-column: 1 / -1; margin-top: 96px; }
+.asia-photo-wide img { aspect-ratio: 21 / 9; object-position: center 32%; }
+.asia-photo-pair {
+  display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr);
+  column-gap: clamp(24px, 4vw, 64px); align-items: start;
+}
+.asia-photo-pair img { aspect-ratio: 3 / 4; }
+.asia-photo-offset { margin-top: clamp(64px, 12vw, 176px); }
+.asia-photo-offset img { aspect-ratio: 4 / 3; object-position: center 40%; }
+.asia-photo-side img { aspect-ratio: 4 / 5; }
+
 .asia-hero .hero-headline { max-width: 760px; line-height: .96; letter-spacing: 0; }
 .asia-hero .hero-sub { max-width: 350px; font-size: 14px; line-height: 1.72; }
 
@@ -1035,6 +1057,10 @@ footer {
   .asia-limit-grid .asia-editorial-main { margin-left: 0; }
   .asia-copy-columns { gap: 40px; }
   .asia-steps-wrap { margin-left: 144px; }
+  .asia-photo-wide { margin-top: 72px; }
+  .asia-photo-wide img { aspect-ratio: 16 / 9; }
+  .asia-photo-pair { column-gap: 20px; }
+  .asia-photo-offset { margin-top: 72px; }
   .asia-page .aboutus-cta-section { padding-block: 120px; }
   .asia-page .aboutus-cta-h { font-size: 58px; }
   .asia-apply-grid { grid-template-columns: minmax(0, 1.1fr) minmax(250px, .8fr); column-gap: 48px; }
@@ -1066,6 +1092,13 @@ footer {
   .asia-page .aboutus-cta-h { margin-bottom: 32px; font-size: clamp(43px, 12vw, 52px); line-height: 1.02; }
   .asia-hero .hero-headline { font-size: clamp(44px, 13vw, 58px); line-height: .98; }
   .asia-hero .hero-sub { max-width: 310px; font-size: 13px; line-height: 1.68; }
+  .asia-photo-wide { margin-top: 56px; }
+  .asia-photo-wide img { aspect-ratio: 4 / 3; }
+  .asia-photo-pair { grid-template-columns: 1fr; row-gap: 20px; }
+  .asia-photo-pair img { aspect-ratio: 4 / 5; }
+  .asia-photo-offset { margin-top: 0; }
+  .asia-photo-offset img { aspect-ratio: 4 / 3; }
+  .asia-photo-side { max-width: 240px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
