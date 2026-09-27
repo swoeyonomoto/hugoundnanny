@@ -319,24 +319,28 @@ const AsiaContent = () => {
                 <>Tell us <em>your story.</em></>
               )}
             </h2>
-            <p className="about-p asia-apply-copy">
-              {t(
-                "Schickt uns euer Datum, eure Location und ein paar Zeilen zu euch. Wir antworten persönlich — versprochen.",
-                "Send us your date, your location and a few lines about you. We reply personally — promised."
-              )}
-            </p>
-            <a
-              href={WHATSAPP_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hero-cta"
-              onClick={() => window.fbq?.("track", "Contact", { content_name: "Asia WhatsApp Click" })}
-            >
-              {t("Per WhatsApp bewerben", "Apply via WhatsApp")}
-            </a>
+            <div className="asia-apply-details">
+              <p className="about-p asia-apply-copy">
+                {t(
+                  "Schickt uns euer Datum, eure Location und ein paar Zeilen zu euch. Wir antworten persönlich — versprochen.",
+                  "Send us your date, your location and a few lines about you. We reply personally — promised."
+                )}
+              </p>
+              <div className="asia-apply-actions">
+                <a
+                  href={WHATSAPP_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hero-cta"
+                  onClick={() => window.fbq?.("track", "Contact", { content_name: "Asia WhatsApp Click" })}
+                >
+                  {t("Per WhatsApp bewerben", "Apply via WhatsApp")}
+                </a>
               <a href="/#contact" className="about-cta-link asia-apply-link">
                 {t("Oder über das Formular auf unserer Startseite →", "Or use the form on our homepage →")}
               </a>
+              </div>
+            </div>
           </RevealOnScroll>
         </div>
       </section>
