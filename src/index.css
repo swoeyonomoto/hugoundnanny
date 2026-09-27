@@ -937,13 +937,17 @@ footer {
   --asia-accent: 96 8% 46%;
   --asia-line: 60 4% 82%;
   --asia-paper: 60 23% 97%;
+  --asia-sand: 45 18% 91%;
   background: hsl(var(--asia-paper));
 }
 .asia-page section { scroll-margin-top: 80px; }
 .asia-page .wrap { max-width: 1360px; }
 .asia-page .intro-text-section { padding: 128px 0 0; }
 .asia-page #story, .asia-page #limit, .asia-page #offer { padding: 136px 0; }
-.asia-page #offer { background: hsl(var(--foreground)); color: hsl(var(--background)); }
+.asia-page #offer {
+  background: hsl(var(--asia-sand));
+  border-block: 1px solid hsl(var(--asia-line));
+}
 .asia-page .rule { border-color: hsl(var(--asia-line)); }
 .asia-page .label {
   margin: 7px 0 0; color: hsl(var(--asia-accent));
@@ -993,15 +997,15 @@ footer {
 }
 .asia-copy-columns .about-p { margin: 0; }
 .asia-page #offer .label, .asia-page #offer .about-h em { color: hsl(var(--asia-accent)); }
-.asia-page #offer .about-p { color: hsl(var(--background) / .72); }
+.asia-page #offer .about-p { color: hsl(var(--foreground) / .74); }
 .asia-steps-wrap { margin-left: calc(42% + clamp(48px, 8vw, 136px)); }
 .asia-steps { list-style: none; padding: 0; margin: 96px 0 0; }
 .asia-steps li {
   display: grid; grid-template-columns: 54px 1fr; gap: 20px; align-items: start;
-  padding: 28px 0; border-top: 1px solid hsl(var(--background) / .22);
-  color: hsl(var(--background) / .78); font-size: 14px; line-height: 1.75;
+  padding: 28px 0; border-top: 1px solid hsl(var(--asia-line));
+  color: hsl(var(--foreground) / .75); font-size: 14px; line-height: 1.75;
 }
-.asia-steps li:last-child { border-bottom: 1px solid hsl(var(--background) / .22); }
+.asia-steps li:last-child { border-bottom: 1px solid hsl(var(--asia-line)); }
 .asia-step-n {
   color: hsl(var(--asia-accent)); font-family: 'Libre Caslon Display', serif;
   font-size: 30px; font-style: italic; line-height: 1;
@@ -1076,7 +1080,6 @@ footer {
     font-family: 'Libre Caslon Display', serif; font-size: clamp(38px, 10.7vw, 44px);
     line-height: 1.04; letter-spacing: 0;
   }
-  .asia-page #offer .about-h { color: hsl(var(--background)); }
   .asia-page .about-p { max-width: 34em; font-size: 15px; line-height: 1.75; }
   .asia-page .asia-lede { font-size: 20px; line-height: 1.52; }
   .asia-page .intro-rule { display: block; margin-top: 72px; }

@@ -119,7 +119,7 @@ const AsiaHero = () => {
 const AsiaLangBar = () => {
   const { lang, setLang } = useLang();
   return (
-    <AutoColorNav className="lang-bar" darkSelectors="#hero, #offer" style={{ position: "fixed", top: 26, right: 32, zIndex: 500 }}>
+    <AutoColorNav className="lang-bar" darkSelectors="#hero" style={{ position: "fixed", top: 26, right: 32, zIndex: 500 }}>
       <button className={`lang-btn ${lang === "de" ? "active" : ""}`} onClick={() => setLang("de")}>DE</button>
       <button className={`lang-btn ${lang === "en" ? "active" : ""}`} onClick={() => setLang("en")}>EN</button>
     </AutoColorNav>
