@@ -1057,6 +1057,10 @@ footer {
   .asia-limit-grid .asia-editorial-main { margin-left: 0; }
   .asia-copy-columns { gap: 40px; }
   .asia-steps-wrap { margin-left: 144px; }
+  .asia-photo-wide { margin-top: 72px; }
+  .asia-photo-wide img { aspect-ratio: 16 / 9; }
+  .asia-photo-pair { column-gap: 20px; }
+  .asia-photo-offset { margin-top: 72px; }
   .asia-page .aboutus-cta-section { padding-block: 120px; }
   .asia-page .aboutus-cta-h { font-size: 58px; }
   .asia-apply-grid { grid-template-columns: minmax(0, 1.1fr) minmax(250px, .8fr); column-gap: 48px; }
@@ -1088,6 +1092,13 @@ footer {
   .asia-page .aboutus-cta-h { margin-bottom: 32px; font-size: clamp(43px, 12vw, 52px); line-height: 1.02; }
   .asia-hero .hero-headline { font-size: clamp(44px, 13vw, 58px); line-height: .98; }
   .asia-hero .hero-sub { max-width: 310px; font-size: 13px; line-height: 1.68; }
+  .asia-photo-wide { margin-top: 56px; }
+  .asia-photo-wide img { aspect-ratio: 4 / 3; }
+  .asia-photo-pair { grid-template-columns: 1fr; row-gap: 20px; }
+  .asia-photo-pair img { aspect-ratio: 4 / 5; }
+  .asia-photo-offset { margin-top: 0; }
+  .asia-photo-offset img { aspect-ratio: 4 / 3; }
+  .asia-photo-side { max-width: 240px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
