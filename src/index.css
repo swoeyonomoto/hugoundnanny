@@ -950,3 +950,26 @@ footer {
 @media (max-width: 767px) {
   .asia-steps li { font-size: 14px; padding: 16px 0; }
 }
+.asia-lede { margin-top: 8px; }
+.asia-lede::first-letter {
+  font-family: 'Libre Caslon Display', serif;
+  float: left;
+  font-size: 64px;
+  line-height: 0.82;
+  padding: 8px 12px 0 0;
+  color: #666;
+}
+.asia-traits {
+  list-style: none; padding: 0; margin: 48px 0 0;
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px;
+}
+.asia-traits li {
+  border-top: 1px solid #e8e8e6;
+  padding-top: 20px;
+  font-size: 15px; line-height: 1.8; color: #444;
+}
+@media (max-width: 767px) {
+  .asia-traits { grid-template-columns: 1fr; gap: 20px; margin-top: 36px; }
+  .asia-traits li { font-size: 14px; padding-top: 16px; }
+  .asia-lede::first-letter { font-size: 52px; }
+}
