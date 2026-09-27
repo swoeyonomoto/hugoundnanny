@@ -155,8 +155,8 @@ const AsiaContent = () => {
             <div className="asia-editorial-main">
               <h2 className="about-h intro-headline">
                 {t(
-                  <>Ein einziger Besuch – die Hochzeit von Eddie & Mel in Hongkong – hat <em>unser Leben verändert.</em></>,
-                  <>A single visit – Eddie & Mel's wedding in Hong Kong – <em>changed our life.</em></>
+                  <>Die Hochzeit von Eddie & Mel in Hongkong hat <em>unser Leben verändert.</em></>,
+                  <>Eddie & Mel's wedding in Hong Kong <em>changed our life.</em></>
                 )}
               </h2>
               <p className="about-p asia-lede">
