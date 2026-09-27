@@ -266,8 +266,8 @@ const AsiaContent = () => {
               </h2>
               <div className="asia-copy-columns">
                 {t(
-                  <><p className="about-p">Diese Reisen sind ein neues Kapitel für unser Portfolio. Deshalb arbeiten wir für ausgewählte Paare zu besonderen Konditionen — derselbe Premium-Service, dasselbe Team, dieselbe Sorgfalt wie für jede andere Hochzeit auch.</p><p className="about-p">Ihr bekommt unsere vollständigen Pakete — Film, Foto, Drohne, Analog — einfach zu besonderen Konditionen, weil eure Geschichte Teil von etwas Neuem wird.</p></>,
-                  <><p className="about-p">These journeys are a new chapter for our portfolio. That's why selected couples work with us under special conditions — the same premium service, the same team, the same care as any other wedding.</p><p className="about-p">You get our full packages — film, photo, drone, analogue — simply under special terms, because your story becomes part of something new.</p></>
+                  <><p className="about-p">Diese Reisen sind ein neues Kapitel für unser Portfolio. Deshalb öffnen wir dieses Kapitel für ausgewählte Paare — derselbe Premium-Service, dasselbe Team, dieselbe Sorgfalt wie für jede andere Hochzeit auch.</p><p className="about-p">Ihr bekommt unsere vollständigen Pakete — Film, Foto, Drohne, Analog — einfach zu besonderen Konditionen, weil eure Geschichte Teil von etwas Neuem wird.</p></>,
+                  <><p className="about-p">These journeys are a new chapter for our portfolio. That's why we open this chapter for selected couples — the same premium service, the same team, the same care as any other wedding.</p><p className="about-p">You get our full packages — film, photo, drone, analogue — simply under special conditions, because your story becomes part of something new.</p></>
                 )}
               </div>
             </div>
@@ -297,8 +297,8 @@ const AsiaContent = () => {
                 <span className="asia-step-n">3</span>
                 <span>
                   {t(
-                    "Wenn wir zusammenpassen, sichert ihr euren Platz zum halben Honorar.",
-                    "If we're a fit, you secure your date at half our rate."
+                    "Wenn wir zusammenpassen, sichert ihr euren Platz zu besonderen Konditionen.",
+                    "If we're a fit, you secure your date under special conditions."
                   )}
                 </span>
               </li>
