@@ -204,6 +204,23 @@ const AsiaContent = () => {
               </ul>
             </div>
           </RevealOnScroll>
+
+          <RevealOnScroll className="asia-photo-pair">
+            <figure className="asia-photo">
+              <img
+                src="/photos/02.jpg"
+                alt={t("Hochzeitsfoto von Hugo & Nanny", "Wedding photo by Hugo & Nanny")}
+                loading="lazy"
+              />
+            </figure>
+            <figure className="asia-photo asia-photo-offset">
+              <img
+                src="/photos/11.jpg"
+                alt={t("Hochzeitsfoto von Hugo & Nanny", "Wedding photo by Hugo & Nanny")}
+                loading="lazy"
+              />
+            </figure>
+          </RevealOnScroll>
         </div>
       </section>
 
