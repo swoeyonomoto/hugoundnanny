@@ -55,7 +55,7 @@ const AsiaHero = () => {
   };
 
   return (
-    <section id="hero">
+    <section id="hero" className="asia-hero">
       <div className="hero-video" ref={containerRef}>
         <video
           ref={playerRef}

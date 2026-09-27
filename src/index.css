@@ -957,17 +957,17 @@ footer {
 .asia-editorial-main { min-width: 0; }
 .asia-page .about-h {
   max-width: 920px; margin: 0 0 56px;
-  font-family: 'Libre Caslon Display', serif; font-size: clamp(50px, 6vw, 88px);
+  font-family: 'Libre Caslon Display', serif; font-size: clamp(52px, 5.8vw, 84px);
   font-weight: 400; line-height: .98; letter-spacing: 0;
 }
 .asia-page .about-h em { color: hsl(var(--asia-accent)); }
 .asia-page .about-p {
-  max-width: 610px; margin-bottom: 22px; color: hsl(var(--foreground) / .72);
-  font-size: 15px; line-height: 1.9;
+  max-width: 620px; margin-bottom: 24px; color: hsl(var(--foreground) / .74);
+  font-size: 16px; line-height: 1.82;
 }
 .asia-page .asia-lede {
   max-width: 700px; margin: 0; color: hsl(var(--foreground));
-  font-family: 'Libre Caslon Display', serif; font-size: clamp(22px, 2.2vw, 30px); line-height: 1.42;
+  font-family: 'Libre Caslon Display', serif; font-size: clamp(23px, 2.1vw, 30px); line-height: 1.46;
 }
 .asia-page .intro-rule { grid-column: 1 / -1; margin-top: 112px; border-color: hsl(var(--asia-line)); }
 .asia-traits {
@@ -1012,11 +1012,33 @@ footer {
   column-gap: clamp(56px, 9vw, 140px); align-items: end;
 }
 .asia-page .aboutus-cta-h {
-  max-width: 780px; margin: 0; font-size: clamp(54px, 7.2vw, 104px); line-height: .96;
+  max-width: 820px; margin: 0; font-size: clamp(56px, 6.8vw, 98px); line-height: .98;
 }
 .asia-apply-copy { margin: 0 0 32px; }
 .asia-page #apply .hero-cta { background: hsl(var(--foreground)); color: hsl(var(--primary-foreground)); }
 .asia-page #apply .about-cta-link { display: inline-block; }
+
+.asia-hero .hero-headline { max-width: 760px; line-height: .96; letter-spacing: 0; }
+.asia-hero .hero-sub { max-width: 350px; font-size: 14px; line-height: 1.72; }
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  .asia-page .wrap { padding-inline: 44px; }
+  .asia-page .intro-text-section { padding-top: 104px; }
+  .asia-page #story, .asia-page #limit, .asia-page #offer { padding-block: 112px; }
+  .asia-editorial-grid { grid-template-columns: 110px minmax(0, 1fr); column-gap: 34px; }
+  .asia-page .about-h { max-width: 650px; margin-bottom: 42px; font-size: clamp(46px, 6.8vw, 62px); line-height: 1.01; }
+  .asia-page .about-p { font-size: 15px; line-height: 1.82; }
+  .asia-page .asia-lede { max-width: 600px; font-size: 22px; line-height: 1.5; }
+  .asia-page .intro-rule { margin-top: 88px; }
+  .asia-traits { gap: 24px; margin-top: 62px; }
+  .asia-traits li { padding-left: 26px; font-size: 20px; line-height: 1.38; }
+  .asia-limit-grid .asia-editorial-main { margin-left: 0; }
+  .asia-copy-columns { gap: 40px; }
+  .asia-steps-wrap { margin-left: 144px; }
+  .asia-page .aboutus-cta-section { padding-block: 120px; }
+  .asia-page .aboutus-cta-h { font-size: 58px; }
+  .asia-apply-grid { grid-template-columns: minmax(0, 1.1fr) minmax(250px, .8fr); column-gap: 48px; }
+}
 
 @media (max-width: 767px) {
   .asia-page .intro-text-section { padding: 72px 0 0; }
@@ -1025,15 +1047,15 @@ footer {
   .asia-page .label { margin: 0 0 12px; }
   .asia-page .about-h, .asia-page .intro-headline {
     margin-bottom: 34px; color: hsl(var(--foreground));
-    font-family: 'Libre Caslon Display', serif; font-size: clamp(38px, 12vw, 52px);
-    line-height: 1.01; letter-spacing: 0;
+    font-family: 'Libre Caslon Display', serif; font-size: clamp(38px, 10.7vw, 44px);
+    line-height: 1.04; letter-spacing: 0;
   }
   .asia-page #offer .about-h { color: hsl(var(--background)); }
-  .asia-page .about-p { font-size: 14px; line-height: 1.8; }
-  .asia-page .asia-lede { font-size: 21px; line-height: 1.48; }
+  .asia-page .about-p { max-width: 34em; font-size: 15px; line-height: 1.75; }
+  .asia-page .asia-lede { font-size: 20px; line-height: 1.52; }
   .asia-page .intro-rule { display: block; margin-top: 72px; }
   .asia-traits { grid-template-columns: 1fr; gap: 0; margin-top: 52px; }
-  .asia-traits li { min-height: 0; padding: 22px 0 34px 32px; font-size: 22px; }
+  .asia-traits li { min-height: 0; padding: 22px 0 34px 32px; font-size: 21px; line-height: 1.42; }
   .asia-traits li::before { top: 27px; }
   .asia-limit-grid .asia-editorial-main, .asia-steps-wrap { margin-left: 0; }
   .asia-copy-columns { grid-template-columns: 1fr; gap: 0; }
@@ -1041,7 +1063,9 @@ footer {
   .asia-steps { margin-top: 72px; }
   .asia-steps li { grid-template-columns: 42px 1fr; padding: 24px 0; }
   .asia-page .aboutus-cta-section { padding: 96px 0; }
-  .asia-page .aboutus-cta-h { margin-bottom: 32px; font-size: clamp(46px, 14vw, 66px); }
+  .asia-page .aboutus-cta-h { margin-bottom: 32px; font-size: clamp(43px, 12vw, 52px); line-height: 1.02; }
+  .asia-hero .hero-headline { font-size: clamp(44px, 13vw, 58px); line-height: .98; }
+  .asia-hero .hero-sub { max-width: 310px; font-size: 13px; line-height: 1.68; }
 }
 
 @media (prefers-reduced-motion: reduce) {
