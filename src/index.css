@@ -643,7 +643,7 @@ footer {
 }
 .f-logo-img { height: 14px; width: auto; display: block; }
 .f-logo { font-family: 'Ginora Sans Bold', sans-serif; font-size: 14px; font-weight: 400; letter-spacing: .02em; }
-.f-links { display: flex; gap: 24px; }
+.f-links { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; }
 .f-links a {
   font-size: 9px; letter-spacing: .14em; text-transform: uppercase;
   color: #aaa; text-decoration: none; transition: color .2s;
@@ -672,8 +672,9 @@ footer {
   .hero-right { align-items: flex-start; }
   .hero-sub { text-align: left; }
   .sticky-cta { bottom: 20px; right: 20px; }
-  footer { flex-direction: column; gap: 14px; text-align: center; padding: 24px; }
-  .f-main { flex-direction: column; gap: 10px; }
+  footer { flex-direction: column; gap: 14px; text-align: left; padding: 24px; align-items: flex-start; }
+  .f-main { flex-direction: column; gap: 12px; align-items: flex-start; }
+  .f-links { align-items: flex-start; }
   .lang-bar { top: 16px; right: 16px; }
   .cf-row { grid-template-columns: 1fr; }
   .hero-scroll-indicator { bottom: 10px; }
@@ -928,4 +929,23 @@ footer {
 .imprint-body a:hover { border-color: #111; }
 @media (max-width: 960px) {
   .imprint-section { padding: 100px 0 60px; }
+}
+
+/* ─── ASIA PAGE ─── */
+.asia-steps {
+  list-style: none; padding: 0; margin: 40px 0 0; max-width: 560px;
+}
+.asia-steps li {
+  display: flex; gap: 18px; align-items: flex-start;
+  padding: 20px 0; border-top: 1px solid #e8e8e6;
+  font-size: 15px; line-height: 1.8; color: #444;
+}
+.asia-steps li:last-child { border-bottom: 1px solid #e8e8e6; }
+.asia-step-n {
+  font-family: 'Libre Caslon Display', serif;
+  font-size: 21px; font-style: italic; color: #999;
+  flex-shrink: 0; width: 26px; line-height: 1.4;
+}
+@media (max-width: 767px) {
+  .asia-steps li { font-size: 14px; padding: 16px 0; }
 }

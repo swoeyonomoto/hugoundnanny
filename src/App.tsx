@@ -13,6 +13,7 @@ import NotFound from "./pages/NotFound.tsx";
 import PreviewVideo from "./pages/PreviewVideo.tsx";
 import PreviewMarie from "./pages/PreviewMarie.tsx";
 import Presentation from "./pages/Presentation.tsx";
+import Asia from "./pages/Asia.tsx";
 import ViewPresentation from "./pages/ViewPresentation.tsx";
 
 const queryClient = new QueryClient();
@@ -40,6 +41,7 @@ const App = () => {
           <Route path="/preview-mariestephan" element={<PreviewMarie />} />
           <Route path="/presentation/:slug" element={<Presentation />} />
           <Route path="/view/:slug" element={<ViewPresentation />} />
+          <Route path="/asia" element={<Asia />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
