@@ -155,14 +155,14 @@ const AsiaContent = () => {
             <div className="asia-editorial-main">
               <h2 className="about-h intro-headline">
                 {t(
-                  <>Die Hochzeit von Eddie & Mel brachte uns nach Hongkong – und wir kommen seither <em>immer wieder zurück.</em></>,
-                  <>The wedding of Eddie & Mel brought us to Hong Kong – and we've been <em>coming back ever since.</em></>
+                  <>Ein einziger Besuch – die Hochzeit von Eddie & Mel in Hongkong – hat <em>unser Leben verändert.</em></>,
+                  <>A single visit – Eddie & Mel's wedding in Hong Kong – <em>changed our life.</em></>
                 )}
               </h2>
               <p className="about-p asia-lede">
                 {t(
-                  "Wir leben hier noch nicht. Wir kommen immer wieder – in denselben Hafen, auf dieselben Hügel – um herauszufinden, ob Asien ein Zuhause werden könnte. Diesen Winter, von November bis Februar, ist unser Kalender in der ganzen Region offen. Wir suchen die Paare und die Geschichten, die vielleicht die Antwort sind.",
-                  "We don't live here yet. We keep returning – to the same harbour, the same hills – to find out whether Asia could become a home. This winter, from November through February, our calendar is open across the region. We're looking for the couples and the stories that might be the answer."
+                  "Aus diesem einen Besuch wurde mehr: Wir haben in Asien unsere Familie gestartet und suchen seither ein neues Zuhause. Deshalb kommen wir zurück. Diesen Winter, von November bis Februar, ist unser Kalender in der ganzen Region offen. Wir suchen die Paare und die Geschichten, die vielleicht die Antwort sind.",
+                  "That one visit became something bigger: we started our family in Asia and have been searching for a new home ever since. That's why we're coming back. This winter, from November through February, our calendar is open across the region. We're looking for the couples and the stories that might be the answer."
                 )}
               </p>
             </div>
