@@ -1227,12 +1227,10 @@ footer {
 .gal-actions button:last-child { background: hsl(var(--gal-ink)); color: hsl(var(--gal-paper)); }
 .gal-product-prompt { display: flex; align-items: center; justify-content: space-between; gap: 18px; margin: 0 0 24px; padding: 14px 18px; background: hsl(var(--gal-panel)); font-size: 12px; }
 .gal-product-prompt button { width: 28px; height: 28px; display: grid; place-items: center; }
-.gal-masonry { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
-.gal-masonry figure { position: relative; min-width: 0; aspect-ratio: 4 / 5; overflow: hidden; background: hsl(var(--gal-panel)); }
-.gal-masonry figure:nth-child(6n + 2), .gal-masonry figure:nth-child(6n + 6) { aspect-ratio: 4 / 3; }
-.gal-masonry figure:nth-child(6n + 3) { aspect-ratio: 1 / 1; }
+.gal-masonry { columns: 3; column-gap: 10px; }
+.gal-masonry figure { position: relative; width: 100%; break-inside: avoid; margin: 0 0 10px; overflow: hidden; background: hsl(var(--gal-panel)); }
 .gal-masonry img { width: 100%; display: block; cursor: zoom-in; transition: transform .65s ease, opacity .25s; }
-.gal-masonry figure > img { height: 100%; object-fit: cover; }
+.gal-masonry figure > img { height: auto; }
 .gal-masonry figure:hover img { transform: scale(1.018); }
 .gal-masonry figure.is-sel img { opacity: .7; }
 .gal-check { position: absolute; top: 12px; right: 12px; width: 32px; height: 32px; display: grid; place-items: center; border-radius: 50%; border: 1px solid hsl(var(--gal-paper)); background: hsl(var(--gal-ink) / .34); color: hsl(var(--gal-paper)); opacity: 0; transform: translateY(-5px); transition: .25s ease; }
@@ -1326,7 +1324,8 @@ footer {
   .gal-bar { grid-template-columns: 1fr; }
   .gal-actions { width: 100%; }
   .gal-actions button { flex: 1; }
-  .gal-masonry { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; }
+  .gal-masonry { columns: 2; column-gap: 6px; }
+  .gal-masonry figure { margin-bottom: 6px; }
   .gal-check { opacity: 1; transform: none; width: 29px; height: 29px; top: 7px; right: 7px; }
   .gal-shop { padding: 72px 18px 100px; }
   .gal-shop-heading { grid-template-columns: 1fr; gap: 22px; margin-bottom: 40px; }
