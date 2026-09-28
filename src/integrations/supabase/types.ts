@@ -319,6 +319,51 @@ export type Database = {
         }
         Relationships: []
       }
+      gallery_products: {
+        Row: {
+          active: boolean
+          coming_soon: boolean
+          created_at: string
+          description_de: string
+          description_en: string
+          id: string
+          image_url: string
+          sizes: Json
+          slug: string
+          sort_index: number
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          active?: boolean
+          coming_soon?: boolean
+          created_at?: string
+          description_de?: string
+          description_en?: string
+          id?: string
+          image_url?: string
+          sizes?: Json
+          slug: string
+          sort_index?: number
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          active?: boolean
+          coming_soon?: boolean
+          created_at?: string
+          description_de?: string
+          description_en?: string
+          id?: string
+          image_url?: string
+          sizes?: Json
+          slug?: string
+          sort_index?: number
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       portfolio_shares: {
         Row: {
           artwork_ids: string[]
