@@ -34,8 +34,8 @@ const ImprintContent = () => {
               <h2 className="imprint-label">{t("Betreiber", "Operator")}</h2>
               <p className="imprint-body">
                 {t(
-                  "Hugo & Nanny ist eine Marke der FEELSLIKE HOLIDAY LIMITED, Hong Kong Company No. 78830813.",
-                  "Hugo & Nanny is a wedding photography and film brand operated by FEELSLIKE HOLIDAY LIMITED, Hong Kong Company No. 78830813."
+                  "Hugo + Nanny ist eine Marke der FEELSLIKE HOLIDAY LIMITED, Hong Kong Company No. 78830813.",
+                  "Hugo + Nanny is a wedding photography and film brand operated by FEELSLIKE HOLIDAY LIMITED, Hong Kong Company No. 78830813."
                 )}
               </p>
             </div>

@@ -23,9 +23,9 @@ function loadWistia(mediaId: string) {
 }
 
 const films = [
-  { name: "Dario & Marie", loc: "Köln, Deutschland", locEn: "Cologne, Germany", mediaId: "ejclzzj2uc", thumb: "/photos/dario-marie-thumb.jpg" },
-  { name: "Eddie & Mel", loc: "Hongkong", locEn: "Hong Kong", mediaId: "1tt9dtcb3n", thumb: "/photos/eddie-mel-thumb.jpg" },
-  { name: "Toni & Freddi", loc: "Nizza, Frankreich", locEn: "Nice, France", mediaId: "shthso9t3v", thumb: "/photos/toni-freddi-thumb.jpg" },
+  { name: "Dario + Marie", loc: "Köln, Deutschland", locEn: "Cologne, Germany", mediaId: "ejclzzj2uc", thumb: "/photos/dario-marie-thumb.jpg" },
+  { name: "Eddie + Mel", loc: "Hongkong", locEn: "Hong Kong", mediaId: "1tt9dtcb3n", thumb: "/photos/eddie-mel-thumb.jpg" },
+  { name: "Toni + Freddi", loc: "Nizza, Frankreich", locEn: "Nice, France", mediaId: "shthso9t3v", thumb: "/photos/toni-freddi-thumb.jpg" },
 ];
 
 const photos = [
