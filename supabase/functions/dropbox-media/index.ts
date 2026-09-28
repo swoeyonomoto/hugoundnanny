@@ -4,7 +4,7 @@ const DBX_API = 'https://api.dropboxapi.com/2'
 const DBX_CONTENT = 'https://content.dropboxapi.com/2'
 const TOKEN = Deno.env.get('DROPBOX_ACCESS_TOKEN_2')
 
-type Mode = 'thumb' | 'preview' | 'original'
+type Mode = 'thumb' | 'preview' | 'original' | 'zip'
 
 async function dbxJson(path: string, body: unknown) {
   const res = await fetch(`${DBX_API}${path}`, {
@@ -50,11 +50,24 @@ Deno.serve(async (req) => {
       return new Response(JSON.stringify({ error: 'forbidden path' }), { status: 403, headers: { ...corsHeaders, 'Content-Type': 'application/json' } })
     }
     const filePath = typeof body.path === 'string' ? body.path : null
-    const mode: Mode = ['thumb', 'preview', 'original'].includes(body.mode) ? body.mode : 'thumb'
+    const mode: Mode = ['thumb', 'preview', 'original', 'zip'].includes(body.mode) ? body.mode : 'thumb'
     if (!filePath) {
       return new Response(JSON.stringify({ error: 'path is required' }), {
         status: 400,
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      })
+    }
+
+    if (mode === 'zip') {
+      const list = await dbxContent('/files/download_zip', { path: filePath })
+      return new Response(list.body, {
+        status: 200,
+        headers: {
+          ...corsHeaders,
+          'Content-Type': 'application/zip',
+          'Content-Disposition': `attachment; filename="${filePath.split('/').pop() || 'gallery'}.zip"`,
+          'Cache-Control': 'private, no-store',
+        },
       })
     }
 

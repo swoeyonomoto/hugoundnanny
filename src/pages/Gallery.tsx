@@ -11,13 +11,12 @@ import dibondImage from "@/assets/gallery-dibond.jpg";
 import bookImage from "@/assets/gallery-book.jpg";
 import acrylicImage from "@/assets/gallery-acrylic.jpg";
 
-// Temporary gallery config until the admin area exists
-const GALLERIES: Record<string, { path: string; couple: string; date: string; location: string }> = {
+const GALLERIES: Record<string, { path: string; couple: string; date: string; location: string; cover?: string | null; highlights?: string[]; labelDe?: string; labelEn?: string; headingDe?: string; headingEn?: string }> = {
   "karo-amir": { path: "/2026/karo_amir", couple: "Karo & Amir", date: "2026", location: "" },
 };
 
 const FN = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/dropbox-media`;
-const img = (path: string, size = "w1024h768") =>
+const img = (path: string, size = "w960h640") =>
   `${FN}?mode=thumb&size=${size}&path=${encodeURIComponent(path)}`;
 const original = (path: string) => `${FN}?mode=original&path=${encodeURIComponent(path)}`;
 
@@ -58,7 +57,8 @@ async function download(e: Entry) {
 const GalleryContent = () => {
   const { t } = useLang();
   const { slug = "" } = useParams();
-  const g = GALLERIES[slug];
+  const [gallery, setGallery] = useState(GALLERIES[slug]);
+  const g = gallery;
   const [folders, setFolders] = useState<Entry[]>([]);
   const [covers, setCovers] = useState<Record<string, Entry[]>>({});
   const [open, setOpen] = useState<Entry | null>(null);
@@ -78,6 +78,13 @@ const GalleryContent = () => {
   const [sendingOrder, setSendingOrder] = useState(false);
   const heroMediaRef = useRef<HTMLDivElement>(null);
   const heroCopyRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    supabase.from("gallery_configs").select("slug, dropbox_path, couple_name, wedding_date, location, cover_path, highlight_paths, story_label_de, story_label_en, story_heading_de, story_heading_en").eq("slug", slug).eq("active", true).maybeSingle().then(({ data }) => {
+      if (!data) return;
+      setGallery({ path: data.dropbox_path, couple: data.couple_name, date: data.wedding_date, location: data.location, cover: data.cover_path, highlights: data.highlight_paths, labelDe: data.story_label_de, labelEn: data.story_label_en, headingDe: data.story_heading_de, headingEn: data.story_heading_en });
+    });
+  }, [slug]);
 
   useEffect(() => {
     if (!g) return;
@@ -116,7 +123,9 @@ const GalleryContent = () => {
 
   const photos = useMemo(() => (open ? covers[open.path] ?? [] : []), [open, covers]);
   const selectedPhotos = useMemo(() => photos.filter((photo) => selected.has(photo.path)), [photos, selected]);
-  const hero = Object.values(covers)[0]?.[0];
+  const allPhotos = useMemo(() => Object.values(covers).flat(), [covers]);
+  const hero = allPhotos.find((photo) => photo.path === g?.cover) ?? allPhotos[0];
+  const highlights = (g?.highlights ?? []).map((path) => allPhotos.find((photo) => photo.path === path)).filter((photo): photo is Entry => Boolean(photo));
   const total = cart.reduce((sum, item) => sum + item.unitPrice * item.quantity, 0);
 
   const toggle = (p: string) =>
@@ -162,7 +171,6 @@ const GalleryContent = () => {
     } finally {
       setBusy(false);
     }
-  };
   };
 
   const saveSelection = (event: FormEvent<HTMLFormElement>) => {
@@ -264,9 +272,10 @@ const GalleryContent = () => {
 
       <main id="gal-main" className="wrap gal-main">
         <RevealOnScroll className="gal-gallery-head">
-          <p className="gal-label">{t("Eure Geschichte", "Your story")}</p>
-          <h2 className="gal-h">{t("Ein Tag, ", "One day, ")}<em>{t("in Bildern erzählt.", "told in pictures.")}</em></h2>
+           <p className="gal-label">{t(g.labelDe || "Eure Geschichte", g.labelEn || "Your story")}</p>
+           <h2 className="gal-h">{t(g.headingDe || "Ein Tag, in Bildern erzählt.", g.headingEn || "One day, told in pictures.")}</h2>
         </RevealOnScroll>
+         {highlights.length > 0 && <div className="gal-highlights">{highlights.map((photo) => <img key={photo.path} src={img(photo.path)} alt={photo.name} loading="lazy" />)}</div>}
         <div className="gal-segments" aria-label={t("Momente des Hochzeitstags", "Wedding day moments")}>
           {folders.map((folder) => <button key={folder.path} className={open?.path === folder.path ? "is-active" : ""} onClick={() => { setOpen(folder); setSelected(new Set()); }}><span>{folder.name}</span><small>{(covers[folder.path] ?? []).length}</small></button>)}
           {folders.length === 0 && <span className="gal-loading">{t("Lädt …", "Loading …")}</span>}
@@ -289,7 +298,7 @@ const GalleryContent = () => {
                 const index = photos.findIndex((photo) => photo.path === p.path);
                 return (
                 <figure key={p.path} className={selected.has(p.path) ? "is-sel" : ""}>
-                  <img src={img(p.path)} alt={p.name} loading="lazy" onClick={() => setLightbox(index)} />
+                   <img src={img(p.path, "w960h640")} alt={p.name} loading="lazy" onClick={() => setLightbox(index)} />
                   <button className="gal-check" aria-label={t("Auswählen", "Select")} onClick={() => toggle(p.path)}>
                     {selected.has(p.path) ? <Check size={15} /> : <Heart size={14} />}
                   </button>
