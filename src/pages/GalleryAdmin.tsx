@@ -32,7 +32,7 @@ export default function GalleryAdmin() {
   const [sessionReady, setSessionReady] = useState(false);
   const [signedIn, setSignedIn] = useState(false);
   const [allowed, setAllowed] = useState(false);
-  const [email, setEmail] = useState("admin@feelslikeholiday.cms");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
   const [galleries, setGalleries] = useState<GalleryConfig[]>([]);
