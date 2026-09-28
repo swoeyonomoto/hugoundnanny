@@ -1170,3 +1170,62 @@ footer {
 @media (prefers-reduced-motion: reduce) {
   .asia-page .rv { opacity: 1; transform: none; transition: none; }
 }
+
+/* ===== Gallery (/gallery/:slug) — scoped to .gallery-page ===== */
+.gallery-page { --gal-accent: 96 8% 46%; --gal-line: 60 4% 82%; background: hsl(60 23% 97%); color: hsl(0 0% 7%); }
+.gallery-page em { font-family: "Libre Caslon Display", serif; font-style: italic; font-weight: 400; }
+.gal-hero { position: relative; height: 100svh; min-height: 560px; overflow: hidden; background: hsl(0 0% 7%); }
+.gal-hero img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: .82; }
+.gal-hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, hsl(0 0% 0% / .55), transparent 55%); }
+.gal-hero-inner { position: absolute; z-index: 1; left: 0; right: 0; bottom: 9vh; text-align: center; color: hsl(var(--background)); padding: 0 24px; }
+.gal-kicker { font-size: 11px; letter-spacing: .32em; text-transform: uppercase; margin-bottom: 18px; }
+.gal-hero h1 { font-size: clamp(48px, 9vw, 120px); line-height: 1; letter-spacing: -.015em; }
+.gal-meta { font-size: 12px; letter-spacing: .24em; text-transform: uppercase; margin-top: 16px; opacity: .85; }
+.gal-enter { display: inline-block; margin-top: 32px; font-size: 11px; letter-spacing: .28em; text-transform: uppercase; padding: 12px 22px; border: 1px solid hsl(var(--background) / .7); color: inherit; transition: background .3s, color .3s; }
+.gal-enter:hover { background: hsl(var(--background)); color: hsl(0 0% 7%); }
+.gal-main { padding-top: 112px; padding-bottom: 120px; scroll-margin-top: 0; }
+.gal-label { font-size: 11px; letter-spacing: .24em; text-transform: uppercase; color: hsl(var(--gal-accent)); margin-bottom: 18px; }
+.gal-h { font-family: "Libre Caslon Display", serif; font-weight: 400; font-size: clamp(38px, 5.4vw, 76px); line-height: 1.04; letter-spacing: -.015em; max-width: 14ch; }
+.gal-h em { color: hsl(var(--gal-accent)); }
+.gal-h-sm { font-size: clamp(34px, 4vw, 56px); max-width: none; }
+.gal-folders { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 56px 40px; margin-top: 72px; }
+.gal-folder { text-align: left; display: grid; grid-template-columns: auto 1fr; gap: 6px 14px; align-items: baseline; }
+.gal-folder-stack { grid-column: 1 / -1; position: relative; aspect-ratio: 4/5; margin-bottom: 18px; }
+.gal-folder-stack img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .6s cubic-bezier(.2,.7,.2,1); box-shadow: 0 20px 40px -24px hsl(0 0% 0% / .35); }
+.gal-folder-stack img:nth-child(1) { transform: rotate(-3deg) translate(-8px, 6px); opacity: .6; }
+.gal-folder-stack img:nth-child(2) { transform: rotate(2deg) translate(6px, 2px); opacity: .8; }
+.gal-folder:hover .gal-folder-stack img:nth-child(1) { transform: rotate(-6deg) translate(-22px, 10px); }
+.gal-folder:hover .gal-folder-stack img:nth-child(2) { transform: rotate(5deg) translate(20px, 4px); }
+.gal-folder:hover .gal-folder-stack img:last-child { transform: scale(1.02); }
+.gal-folder-n { font-size: 12px; color: hsl(var(--gal-accent)); letter-spacing: .1em; }
+.gal-folder-name { font-family: "Libre Caslon Display", serif; font-size: 30px; line-height: 1; }
+.gal-folder-count { grid-column: 2; font-size: 11px; letter-spacing: .2em; text-transform: uppercase; opacity: .6; }
+.gal-loading { opacity: .5; font-size: 13px; letter-spacing: .2em; text-transform: uppercase; }
+.gal-bar { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 20px 32px; padding-bottom: 28px; margin-bottom: 36px; border-bottom: 1px solid hsl(var(--gal-line)); }
+.gal-back { width: 100%; text-align: left; font-size: 11px; letter-spacing: .22em; text-transform: uppercase; opacity: .7; }
+.gal-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+.gal-actions button { font-size: 11px; letter-spacing: .18em; text-transform: uppercase; padding: 10px 16px; border: 1px solid hsl(0 0% 7%); transition: background .25s, color .25s; }
+.gal-actions button:last-child { background: hsl(0 0% 7%); color: hsl(var(--background)); }
+.gal-actions button:hover { background: hsl(var(--gal-accent)); border-color: hsl(var(--gal-accent)); color: hsl(var(--background)); }
+.gal-masonry { columns: 3 320px; column-gap: 14px; }
+.gal-masonry figure { position: relative; break-inside: avoid; margin-bottom: 14px; overflow: hidden; }
+.gal-masonry img { width: 100%; display: block; cursor: zoom-in; transition: transform .8s cubic-bezier(.2,.7,.2,1), opacity .3s; }
+.gal-masonry figure:hover img { transform: scale(1.025); }
+.gal-masonry figure.is-sel img { opacity: .75; }
+.gal-check { position: absolute; top: 12px; right: 12px; width: 26px; height: 26px; border-radius: 50%; border: 1px solid hsl(var(--background)); background: hsl(0 0% 0% / .2); color: hsl(var(--background)); font-size: 13px; opacity: 0; transition: opacity .25s; }
+.gal-masonry figure:hover .gal-check, .gal-masonry figure.is-sel .gal-check { opacity: 1; }
+.gal-masonry figure.is-sel .gal-check { background: hsl(var(--gal-accent)); border-color: hsl(var(--gal-accent)); }
+.gal-lightbox { position: fixed; inset: 0; z-index: 100; background: hsl(60 23% 97% / .97); display: flex; align-items: center; justify-content: center; padding: 48px; }
+.gal-lightbox img { max-width: 100%; max-height: 100%; object-fit: contain; }
+.gal-lightbox button { position: absolute; font-size: 11px; letter-spacing: .22em; text-transform: uppercase; padding: 12px; }
+.gal-lb-prev { left: 12px; top: 50%; font-size: 20px !important; } .gal-lb-next { right: 12px; top: 50%; font-size: 20px !important; }
+.gal-lb-dl { bottom: 16px; left: 50%; transform: translateX(-50%); border: 1px solid hsl(0 0% 7%) !important; }
+.gal-empty { min-height: 70vh; display: grid; place-content: center; gap: 16px; text-align: center; }
+@media (max-width: 767px) {
+  .gal-main { padding-top: 72px; }
+  .gal-folders { gap: 48px; margin-top: 48px; }
+  .gal-masonry { columns: 2; column-gap: 8px; }
+  .gal-masonry figure { margin-bottom: 8px; }
+  .gal-check { opacity: 1; width: 24px; height: 24px; top: 8px; right: 8px; }
+  .gal-lightbox { padding: 16px; }
+}
