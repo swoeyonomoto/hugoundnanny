@@ -508,6 +508,8 @@ export type Database = {
           project_name: string | null
           published: boolean
           real_page_path: string | null
+          seo_description: string | null
+          seo_title: string | null
           services: string[]
           show_in_grid: boolean
           show_in_index: boolean
@@ -550,6 +552,8 @@ export type Database = {
           project_name?: string | null
           published?: boolean
           real_page_path?: string | null
+          seo_description?: string | null
+          seo_title?: string | null
           services?: string[]
           show_in_grid?: boolean
           show_in_index?: boolean
@@ -592,6 +596,8 @@ export type Database = {
           project_name?: string | null
           published?: boolean
           real_page_path?: string | null
+          seo_description?: string | null
+          seo_title?: string | null
           services?: string[]
           show_in_grid?: boolean
           show_in_index?: boolean
