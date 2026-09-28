@@ -575,7 +575,7 @@ body {
 .aboutus-title em { font-style: italic; }
 .aboutus-intro { font-size: 16px; line-height: 1.9; color: #444; max-width: 600px; }
 
-/* ─── MAGAZINE LAYOUT — editorial, breathing ─── */
+/* ─── MAGAZINE LAYOUT - editorial, breathing ─── */
 .aboutus-magazine { padding: 40px 0 80px; }
 .aboutus-magazine .wrap {
   display: flex; flex-direction: column; gap: 120px;
@@ -932,7 +932,7 @@ footer {
   .imprint-section { padding: 100px 0 60px; }
 }
 
-/* ─── ASIA — CLEAN GALLERY EDITORIAL ─── */
+/* ─── ASIA - CLEAN GALLERY EDITORIAL ─── */
 .asia-page {
   --asia-accent: 96 8% 46%;
   --asia-line: 60 4% 82%;
@@ -1171,7 +1171,7 @@ footer {
   .asia-page .rv { opacity: 1; transform: none; transition: none; }
 }
 
-/* ===== Gallery (/gallery/:slug) — scoped to .gallery-page ===== */
+/* ===== Gallery (/gallery/:slug) - scoped to .gallery-page ===== */
 .gallery-page {
   --gal-ink: 0 0% 8%;
   --gal-paper: 0 0% 100%;
@@ -1357,7 +1357,7 @@ footer {
   .gallery-page *, .gallery-page *::before, .gallery-page *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; }
 }
 
-/* ===== Gallery manager — scoped to .gallery-admin ===== */
+/* ===== Gallery manager - scoped to .gallery-admin ===== */
 .gallery-admin { --ga-ink: 0 0% 8%; --ga-paper: 40 20% 98%; --ga-panel: 0 0% 100%; --ga-line: 40 5% 84%; min-height: 100vh; background: hsl(var(--ga-paper)); color: hsl(var(--ga-ink)); }
 .ga-login { width: min(420px, calc(100% - 36px)); min-height: 100vh; margin: auto; display: flex; flex-direction: column; justify-content: center; gap: 18px; }
 .ga-login > img { width: 150px; height: auto; margin-bottom: 24px; }

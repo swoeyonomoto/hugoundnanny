@@ -31,8 +31,8 @@ const ThankYouContent = () => {
             </h1>
             <p className="thankyou-body">
               {t(
-                "In der Zwischenzeit haben wir unseren Paarguide für euch — alles darüber, wie wir arbeiten, wie ihr euch auf euren Tag vorbereiten könnt und eine vollständige Übersicht über die Pakete. Keine Überraschungen, nur Klarheit.",
-                "While you wait, we put together our couple's guide — everything about how we work, how to prepare for your day, and a full breakdown of what's included in each package. No surprises, just clarity."
+                "In der Zwischenzeit haben wir unseren Paarguide für euch - alles darüber, wie wir arbeiten, wie ihr euch auf euren Tag vorbereiten könnt und eine vollständige Übersicht über die Pakete. Keine Überraschungen, nur Klarheit.",
+                "While you wait, we put together our couple's guide - everything about how we work, how to prepare for your day, and a full breakdown of what's included in each package. No surprises, just clarity."
               )}
             </p>
             <a
@@ -44,14 +44,14 @@ const ThankYouContent = () => {
             </a>
             <p className="thankyou-signoff">
               {t(
-                "Wir freuen uns darauf, eure Geschichte zu hören. — Hugo, Nanny & das Team",
-                "Looking forward to hearing your story. — Hugo, Nanny & the team"
+                "Wir freuen uns darauf, eure Geschichte zu hören. - Hugo, Nanny & das Team",
+                "Looking forward to hearing your story. - Hugo, Nanny & the team"
               )}
             </p>
             <p className="thankyou-ps">
               {t(
-                "P.S. Falls ihr innerhalb von 24 Stunden nichts von uns hört, schaut in euren Spam-Ordner — oder schreibt uns direkt auf Instagram.",
-                "P.S. If you don't hear from us within 24 hours, check your spam folder — or drop us a message directly on Instagram."
+                "P.S. Falls ihr innerhalb von 24 Stunden nichts von uns hört, schaut in euren Spam-Ordner - oder schreibt uns direkt auf Instagram.",
+                "P.S. If you don't hear from us within 24 hours, check your spam folder - or drop us a message directly on Instagram."
               )}
             </p>
             <a

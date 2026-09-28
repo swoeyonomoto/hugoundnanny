@@ -13,8 +13,8 @@ const team = [
     name: "Joey",
     role: { de: "Gründer · Videograf · Fotograf", en: "Founder · Videographer · Photographer" },
     bio: {
-      de: "Joey, Gründer von Hugo + Nanny, liebt Hochzeiten seit 7 Jahren wie am ersten Tag. Tagsüber Videograf, nachts Maler — und unser Ass im Ärmel, wenn es um Fotografie geht. Ein moderner Ninja mit Charme. Falls ihr ihn nicht findet: schaut bei den Süßigkeiten.",
-      en: "Joey, founder of Hugo + Nanny, has loved weddings for 7 years like it was day one. Videographer by day, painter by night—and our ace up the sleeve when it comes to photography. A modern-world ninja with charm. If you can't find him: check by the sweets.",
+      de: "Joey, Gründer von Hugo + Nanny, liebt Hochzeiten seit 7 Jahren wie am ersten Tag. Tagsüber Videograf, nachts Maler - und unser Ass im Ärmel, wenn es um Fotografie geht. Ein moderner Ninja mit Charme. Falls ihr ihn nicht findet: schaut bei den Süßigkeiten.",
+      en: "Joey, founder of Hugo + Nanny, has loved weddings for 7 years like it was day one. Videographer by day, painter by night-and our ace up the sleeve when it comes to photography. A modern-world ninja with charm. If you can't find him: check by the sweets.",
     },
     photo: "/photos/joey.jpg",
   },
@@ -22,8 +22,8 @@ const team = [
     name: "Seli",
     role: { de: "Künstlerin · Fotografin", en: "Artist · Photographer" },
     bio: {
-      de: "Seli, Künstlerin und selbsternannte Ästhetin — zu Recht. Ihr Gespür dafür, Momente in Kunst zu verwandeln, ist unübertroffen. Heimlich unser Web-Nerd: Schaut man eine Sekunde weg, ist die Website schon neu gestaltet.",
-      en: "Seli, artist and self-proclaimed aesthete—rightfully so. Her instinct for transforming moments into art is unmatched. Secretly our web nerd: look away for a second, and the website is already redesigned.",
+      de: "Seli, Künstlerin und selbsternannte Ästhetin - zu Recht. Ihr Gespür dafür, Momente in Kunst zu verwandeln, ist unübertroffen. Heimlich unser Web-Nerd: Schaut man eine Sekunde weg, ist die Website schon neu gestaltet.",
+      en: "Seli, artist and self-proclaimed aesthete-rightfully so. Her instinct for transforming moments into art is unmatched. Secretly our web nerd: look away for a second, and the website is already redesigned.",
     },
     photo: "/photos/seli.jpg",
   },
@@ -31,8 +31,8 @@ const team = [
     name: "Tilmann",
     role: { de: "Hochzeitsfilmer", en: "Wedding Filmmaker" },
     bio: {
-      de: "Tilmann, unser Hochzeitsfilm-Maestro mit einer Schwäche für Keyframes, Schnitte und die Kelly Family — mit der er regelmäßig auf Tour geht. Stellt ihn in die richtige Ecke und er verzaubert die Gäste mit seinen stoischen Gedanken.",
-      en: "Tilmann, our wedding film maestro with a soft spot for keyframes, cuts and the Kelly Family—with whom he regularly goes on tour. Put him in the right corner, and he'll enchant the guests with his stoic thoughts.",
+      de: "Tilmann, unser Hochzeitsfilm-Maestro mit einer Schwäche für Keyframes, Schnitte und die Kelly Family - mit der er regelmäßig auf Tour geht. Stellt ihn in die richtige Ecke und er verzaubert die Gäste mit seinen stoischen Gedanken.",
+      en: "Tilmann, our wedding film maestro with a soft spot for keyframes, cuts and the Kelly Family-with whom he regularly goes on tour. Put him in the right corner, and he'll enchant the guests with his stoic thoughts.",
     },
     photo: "/photos/about.jpg",
   },
@@ -53,8 +53,8 @@ const AboutUsContent = () => {
   return (
     <>
       <SEO
-        title="The Gang — Meet Hugo + Nanny's Wedding Team"
-        description="Meet Joey, Seli, Tilmann, Chiara and the team behind Hugo + Nanny — the photographers and filmmakers documenting your wedding day."
+        title="The Gang - Meet Hugo + Nanny's Wedding Team"
+        description="Meet Joey, Seli, Tilmann, Chiara and the team behind Hugo + Nanny - the photographers and filmmakers documenting your wedding day."
         path="/gang"
       />
       <LogoHeader variant="black" />
