@@ -1,7 +1,7 @@
 import { corsHeaders } from 'npm:@supabase/supabase-js@2/cors'
 
 const DBX_API = 'https://api.dropboxapi.com/2'
-const TOKEN = Deno.env.get('DROPBOX_ACCESS_TOKEN')
+const TOKEN = Deno.env.get('DROPBOX_ACCESS_TOKEN_2')
 
 async function dbx(path: string, body: unknown) {
   const res = await fetch(`${DBX_API}${path}`, {

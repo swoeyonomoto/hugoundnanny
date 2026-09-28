@@ -2,7 +2,7 @@ import { corsHeaders } from 'npm:@supabase/supabase-js@2/cors'
 
 const DBX_API = 'https://api.dropboxapi.com/2'
 const DBX_CONTENT = 'https://content.dropboxapi.com/2'
-const TOKEN = Deno.env.get('DROPBOX_ACCESS_TOKEN')
+const TOKEN = Deno.env.get('DROPBOX_ACCESS_TOKEN_2')
 
 type Mode = 'thumb' | 'preview' | 'original'
 
