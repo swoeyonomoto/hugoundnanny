@@ -41,7 +41,14 @@ Deno.serve(async (req) => {
   }
 
   try {
-    const body = await req.json().catch(() => ({}))
+    const qs = new URL(req.url).searchParams
+    const body = req.method === 'GET'
+      ? { path: qs.get('path'), mode: qs.get('mode'), size: qs.get('size') }
+      : await req.json().catch(() => ({}))
+    // Only gallery folders are readable
+    if (typeof body.path === 'string' && !/^\/20\d\d\//.test(body.path.toLowerCase())) {
+      return new Response(JSON.stringify({ error: 'forbidden path' }), { status: 403, headers: { ...corsHeaders, 'Content-Type': 'application/json' } })
+    }
     const filePath = typeof body.path === 'string' ? body.path : null
     const mode: Mode = ['thumb', 'preview', 'original'].includes(body.mode) ? body.mode : 'thumb'
     if (!filePath) {
@@ -54,6 +61,9 @@ Deno.serve(async (req) => {
     if (mode === 'original') {
       // Temporary link for full-resolution download (expires ~4h, not a public shared link)
       const data = await dbxJson('/files/get_temporary_link', { path: filePath })
+      if (req.method === 'GET') {
+        return new Response(null, { status: 302, headers: { ...corsHeaders, Location: data.link } })
+      }
       return new Response(JSON.stringify({ url: data.link, name: data.metadata?.name }), {
         status: 200,
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
@@ -65,8 +75,8 @@ Deno.serve(async (req) => {
         ? {
             path: filePath,
             format: 'jpeg',
-            size: body.size === 'w960h640' ? 'w960h640' : 'w480h320',
-            mode: 'strict',
+            size: ['w960h640','w1024h768','w2048h1536'].includes(body.size) ? body.size : 'w480h320',
+            mode: 'fitone_bestfit',
           }
         : { path: filePath, format: 'jpeg' }
 
