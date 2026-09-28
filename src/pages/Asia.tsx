@@ -133,7 +133,7 @@ const AsiaContent = () => {
     <>
       <SEO
         title="Hugo + Nanny in Asia — Winter 2026/27 · Wedding Photography & Film"
-        description="From November to February we're shooting weddings across Asia. We're looking for adventurous couples — selected couples experience our premium service under special conditions. Only two weddings per month."
+        description="From November to February we're shooting weddings across Asia. We're looking for adventurous couples — selected couples experience our premium service under special conditions. Just two weddings a month."
         path="/asia"
       />
       <LogoHeader variant="auto" />
@@ -230,7 +230,7 @@ const AsiaContent = () => {
       <section id="limit">
         <div className="wrap">
           <RevealOnScroll className="asia-editorial-grid asia-limit-grid">
-            <span className="label">{t("Nur acht Hochzeiten", "Only eight weddings")}</span>
+            <span className="label">{t("Die 2", "The 2")}</span>
             <figure className="asia-photo asia-photo-side">
               <img
                 src="/photos/14.jpg"
@@ -240,12 +240,12 @@ const AsiaContent = () => {
             </figure>
             <div className="asia-editorial-main">
               <h2 className="about-h">
-                {t(<>Zwei pro Monat.<br /><em>Acht im ganzen Winter.</em></>, <>Two per month.<br /><em>Eight all winter.</em></>)}
+                {t(<>Nur noch 2 Hochzeiten<br /><em>pro Monat.</em></>, <>Only 2 weddings<br /><em>left per month.</em></>)}
               </h2>
               <div className="asia-copy-columns">
                 {t(
-                  <><p className="about-p">Zwischen November und Februar nehmen wir maximal zwei Hochzeiten pro Monat an. Das ist keine Marketingzahl — es ist die Menge an Geschichten, die wir neben unseren regulären Hochzeiten in Europa wirklich erzählen können.</p><p className="about-p">Jede verdient unsere volle Aufmerksamkeit. Deshalb gilt: Wenn euer Datum vergeben ist, ist es vergeben. Eine frühe Anfrage lohnt sich.</p></>,
-                  <><p className="about-p">Between November and February we take on a maximum of two weddings per month. That's not a marketing number — it's the amount of stories we can honestly tell alongside our regular weddings in Europe.</p><p className="about-p">Each one deserves our full attention. So here's the deal: if your date is taken, it's taken. An early inquiry pays off.</p></>
+                  <><p className="about-p">Von November bis Februar halten wir pro Monat zwei Hochzeiten für Asien frei — neben unseren regulären Hochzeiten in Europa. Genug Raum, um jede Geschichte richtig zu erzählen.</p><p className="about-p">Für euer Datum heißt das ganz einfach: solange es noch frei ist, ist es frei. Schreibt uns einfach, wenn ihr dabei sein wollt.</p></>,
+                  <><p className="about-p">From November to February we keep two weddings a month for Asia — alongside our regular weddings in Europe. Enough room to tell each story properly.</p><p className="about-p">For your date that simply means: as long as it's open, it's open. Just write to us if you'd like to be one of them.</p></>
                 )}
               </div>
             </div>
@@ -288,8 +288,8 @@ const AsiaContent = () => {
                 <span className="asia-step-n">2</span>
                 <span>
                   {t(
-                    "Wir melden uns persönlich und sagen euch, ob euer Datum noch offen ist.",
-                    "We reply personally and tell you whether your date is still open."
+                    "Wir melden uns persönlich und sagen euch, ob euer Datum noch frei ist.",
+                    "We reply personally and let you know if your date is still free."
                   )}
                 </span>
               </li>
@@ -297,8 +297,8 @@ const AsiaContent = () => {
                 <span className="asia-step-n">3</span>
                 <span>
                   {t(
-                    "Wenn wir zusammenpassen, sichert ihr euren Platz zu besonderen Konditionen.",
-                    "If we're a fit, you secure your date under special conditions."
+                    "Wenn es passt, halten wir euer Datum für euch frei — zu besonderen Konditionen.",
+                    "If it's a fit, we'll keep your date free for you — under special conditions."
                   )}
                 </span>
               </li>
