@@ -16,3 +16,4 @@
 - [ ] Simplify the folder filter styling.
 - [ ] Use faster Dropbox thumbnails while preserving original downloads.
 - [ ] Package multi-image downloads as one ZIP.
+- [ ] Add gallery-specific share title, URL, and cover image metadata for WhatsApp.
