@@ -1184,11 +1184,9 @@ footer {
 }
 .gallery-page button, .gallery-page input, .gallery-page select, .gallery-page textarea { color: inherit; }
 .gallery-page em { font-family: "Libre Caslon Display", serif; font-style: italic; font-weight: 400; }
-.gal-nav { position: sticky; top: 0; z-index: 70; min-height: 58px; display: grid; grid-template-columns: auto minmax(190px, 280px) 1fr auto auto; align-items: center; gap: 20px; padding: 9px 34px; border-bottom: 1px solid hsl(var(--gal-line)); background: hsl(var(--gal-paper) / .97); backdrop-filter: blur(16px); }
+.gal-nav { position: sticky; top: 0; z-index: 70; min-height: 58px; display: grid; grid-template-columns: auto 1fr auto auto; align-items: center; gap: 20px; padding: 9px 34px; border-bottom: 1px solid hsl(var(--gal-line)); background: hsl(var(--gal-paper) / .97); backdrop-filter: blur(16px); }
 .gal-brand { width: 128px; height: 26px; display: flex; align-items: center; overflow: hidden; }
 .gal-brand img { width: 128px; height: auto; display: block; }
-.gal-search { min-width: 0; height: 34px; display: flex; align-items: center; gap: 8px; padding: 0 11px; border-radius: 7px; background: hsl(var(--gal-panel)); }
-.gal-search input { width: 100%; min-width: 0; border: 0; outline: 0; background: transparent; font-size: 12px; }
 .gal-nav-links { min-width: 0; display: flex; align-items: center; gap: clamp(15px, 2vw, 28px); overflow-x: auto; scrollbar-width: none; }
 .gal-nav-links::-webkit-scrollbar { display: none; }
 .gal-nav-links a, .gal-nav-links button { flex: 0 0 auto; padding: 9px 0 7px; font-size: 11px; border-bottom: 1px solid transparent; opacity: .72; }
@@ -1297,7 +1295,6 @@ footer {
 .gal-empty { min-height: 70vh; display: grid; place-content: center; gap: 16px; text-align: center; }
 @media (max-width: 900px) {
   .gal-nav { grid-template-columns: auto 1fr auto auto; padding-inline: 18px; }
-  .gal-search { grid-column: 2; }
   .gal-nav-links { display: none; }
   .gal-hero { height: auto; min-height: 0; grid-template-columns: 1fr; }
   .gal-hero-media-wrap { height: 72svh; min-height: 520px; }
@@ -1312,7 +1309,6 @@ footer {
 }
 @media (max-width: 600px) {
   .gal-nav { grid-template-columns: auto 1fr auto; gap: 10px; }
-  .gal-search { display: none; }
   .gal-menu-icon { display: none; }
   .gal-hero-media-wrap { height: 62svh; min-height: 440px; }
   .gal-hero-inner { min-height: 290px; padding: 28px 22px 44px; }
