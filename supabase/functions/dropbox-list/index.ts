@@ -42,6 +42,7 @@ function mapEntry(e: Record<string, unknown>) {
 
 Deno.serve(async (req) => {
   if (req.method === 'OPTIONS') return new Response('ok', { headers: corsHeaders })
+  if (new URL(req.url).searchParams.get('debug') === '1') return debugEnv()
   if (!TOKEN) {
     return new Response(JSON.stringify({ error: 'Dropbox token not configured' }), {
       status: 500,
