@@ -140,3 +140,45 @@ export default function GalleryAdmin() {
     </div>
   </main>;
 }
+
+function AccountSettings({ onMessage }: { onMessage: (m: string) => void }) {
+  const [current, setCurrent] = useState("");
+  const [newEmail, setNewEmail] = useState("");
+  const [currentPw, setCurrentPw] = useState("");
+  const [newPw, setNewPw] = useState("");
+  const [newPw2, setNewPw2] = useState("");
+  useEffect(() => { supabase.auth.getUser().then(({ data }) => setCurrent(data.user?.email ?? "")); }, []);
+
+  const saveEmail = async (e: FormEvent) => {
+    e.preventDefault();
+    const { error } = await supabase.auth.updateUser({ email: newEmail }, { emailRedirectTo: `${window.location.origin}/gallery-admin` });
+    onMessage(error ? `E-Mail konnte nicht geändert werden: ${error.message}` : "Bestätigungslink an die neue E-Mail gesendet. Erst nach Klick ist sie aktiv.");
+    if (!error) setNewEmail("");
+  };
+
+  const savePassword = async (e: FormEvent) => {
+    e.preventDefault();
+    if (newPw.length < 8) return onMessage("Passwort muss mindestens 8 Zeichen haben.");
+    if (newPw !== newPw2) return onMessage("Passwörter stimmen nicht überein.");
+    const { error: loginError } = await supabase.auth.signInWithPassword({ email: current, password: currentPw });
+    if (loginError) return onMessage("Aktuelles Passwort ist falsch.");
+    const { error } = await supabase.auth.updateUser({ password: newPw });
+    onMessage(error ? `Passwort konnte nicht geändert werden: ${error.message}` : "Passwort geändert.");
+    if (!error) { setCurrentPw(""); setNewPw(""); setNewPw2(""); }
+  };
+
+  return <section className="ga-section">
+    <div className="ga-section-head"><div><p>Konto</p><h1>Login-Daten</h1></div></div>
+    <p>Aktuelle E-Mail: <strong>{current}</strong></p>
+    <form className="ga-form-grid" onSubmit={saveEmail}>
+      <label className="ga-wide">Neue E-Mail<input type="email" required value={newEmail} onChange={(e) => setNewEmail(e.target.value)} /></label>
+      <Button type="submit"><Save /> E-Mail ändern</Button>
+    </form>
+    <form className="ga-form-grid" onSubmit={savePassword} style={{ marginTop: 24 }}>
+      <label>Aktuelles Passwort<input type="password" required value={currentPw} onChange={(e) => setCurrentPw(e.target.value)} /></label>
+      <label>Neues Passwort<input type="password" required value={newPw} onChange={(e) => setNewPw(e.target.value)} /></label>
+      <label>Neues Passwort wiederholen<input type="password" required value={newPw2} onChange={(e) => setNewPw2(e.target.value)} /></label>
+      <Button type="submit"><Save /> Passwort ändern</Button>
+    </form>
+  </section>;
+}
