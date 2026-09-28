@@ -1,6 +1,6 @@
 import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { Check, ChevronLeft, ChevronRight, Download, Heart, Menu, Minus, Plus, Search, ShoppingBag, X } from "lucide-react";
+import { Check, ChevronLeft, ChevronRight, Download, Heart, Menu, Minus, Plus, ShoppingBag, X } from "lucide-react";
 import { LanguageProvider, useLang } from "@/contexts/LanguageContext";
 import RevealOnScroll from "@/components/RevealOnScroll";
 import Footer from "@/components/sections/Footer";
@@ -64,7 +64,6 @@ const GalleryContent = () => {
   const [selected, setSelected] = useState<Set<string>>(new Set());
   const [lightbox, setLightbox] = useState<number | null>(null);
   const [busy, setBusy] = useState(false);
-  const [search, setSearch] = useState("");
   const [saveOpen, setSaveOpen] = useState(false);
   const [selectionName, setSelectionName] = useState("");
   const [selectionNote, setSelectionNote] = useState("");
@@ -115,7 +114,6 @@ const GalleryContent = () => {
   }, []);
 
   const photos = useMemo(() => (open ? covers[open.path] ?? [] : []), [open, covers]);
-  const visiblePhotos = useMemo(() => photos.filter((photo) => photo.name.toLowerCase().includes(search.toLowerCase())), [photos, search]);
   const selectedPhotos = useMemo(() => photos.filter((photo) => selected.has(photo.path)), [photos, selected]);
   const hero = Object.values(covers)[0]?.[0];
   const total = cart.reduce((sum, item) => sum + item.unitPrice * item.quantity, 0);
@@ -211,7 +209,6 @@ const GalleryContent = () => {
       <SEO title={`${g.couple} · Hugo & Nanny`} description={t("Private Galerie", "Private gallery")} path={`/gallery/${slug}`} />
       <nav className="gal-nav" aria-label={t("Galerie-Navigation", "Gallery navigation")}>
         <a className="gal-brand" href="#gal-hero" aria-label="Hugo & Nanny"><img src="/photos/logo-left.png" alt="Hugo & Nanny" width="1200" height="348" /></a>
-        <label className="gal-search"><Search size={15} /><input value={search} onChange={(event) => setSearch(event.target.value)} placeholder={t("Galerie durchsuchen", "Search gallery")} /></label>
         <div className="gal-nav-links">
           <a href="#gal-main">{t("Highlights", "Highlights")}</a>
           {folders.map((folder) => <button key={folder.path} onClick={() => { setOpen(folder); setSelected(new Set()); window.setTimeout(() => document.querySelector("#gal-main")?.scrollIntoView({ behavior: "smooth" }), 50); }}>{folder.name}</button>)}
@@ -237,7 +234,7 @@ const GalleryContent = () => {
           <h2 className="gal-h">{t("Ein Tag, ", "One day, ")}<em>{t("in Bildern erzählt.", "told in pictures.")}</em></h2>
         </RevealOnScroll>
         <div className="gal-segments" aria-label={t("Momente des Hochzeitstags", "Wedding day moments")}>
-          {folders.map((folder) => <button key={folder.path} className={open?.path === folder.path ? "is-active" : ""} onClick={() => { setOpen(folder); setSelected(new Set()); setSearch(""); }}><span>{folder.name}</span><small>{(covers[folder.path] ?? []).length}</small></button>)}
+          {folders.map((folder) => <button key={folder.path} className={open?.path === folder.path ? "is-active" : ""} onClick={() => { setOpen(folder); setSelected(new Set()); }}><span>{folder.name}</span><small>{(covers[folder.path] ?? []).length}</small></button>)}
           {folders.length === 0 && <span className="gal-loading">{t("Lädt …", "Loading …")}</span>}
         </div>
         {open && <>
@@ -254,7 +251,7 @@ const GalleryContent = () => {
             </div>
             {pendingProduct && <div className="gal-product-prompt"><span>{t("Wählt jetzt die Fotos für", "Now select photos for")} <strong>{PRODUCTS.find((item) => item.id === pendingProduct)?.title}</strong></span><button onClick={() => setPendingProduct(null)}><X size={16} /></button></div>}
             <div className="gal-masonry">
-              {visiblePhotos.map((p) => {
+              {photos.map((p) => {
                 const index = photos.findIndex((photo) => photo.path === p.path);
                 return (
                 <figure key={p.path} className={selected.has(p.path) ? "is-sel" : ""}>
