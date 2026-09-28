@@ -1,4 +1,4 @@
-import { FormEvent, useEffect, useMemo, useState } from "react";
+import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { Check, ChevronLeft, ChevronRight, Download, Heart, Menu, Minus, Plus, Search, ShoppingBag, X } from "lucide-react";
 import { LanguageProvider, useLang } from "@/contexts/LanguageContext";
@@ -76,17 +76,43 @@ const GalleryContent = () => {
   const [checkoutOpen, setCheckoutOpen] = useState(false);
   const [orderSent, setOrderSent] = useState(false);
   const [sendingOrder, setSendingOrder] = useState(false);
+  const heroMediaRef = useRef<HTMLDivElement>(null);
+  const heroCopyRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!g) return;
     list(g.path).then(async (items) => {
       const f = items.filter((i) => i.tag === "folder");
       setFolders(f);
+      setOpen((current) => current ?? f[0] ?? null);
       const map: Record<string, Entry[]> = {};
       await Promise.all(f.map(async (x) => (map[x.path] = (await list(x.path)).filter((i) => i.tag === "file" && isImg(i.name)))));
       setCovers(map);
     });
   }, [g]);
+
+  useEffect(() => {
+    const media = heroMediaRef.current;
+    const copy = heroCopyRef.current;
+    if (!media || !copy || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      const progress = Math.min(window.scrollY, window.innerHeight) / window.innerHeight;
+      media.style.transform = `translate3d(0, ${progress * 56}px, 0) scale(${1 + progress * 0.025})`;
+      copy.style.transform = `translate3d(0, ${progress * -28}px, 0)`;
+      copy.style.opacity = String(1 - progress * 0.65);
+    };
+    const onScroll = () => {
+      if (!frame) frame = window.requestAnimationFrame(update);
+    };
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (frame) window.cancelAnimationFrame(frame);
+    };
+  }, []);
 
   const photos = useMemo(() => (open ? covers[open.path] ?? [] : []), [open, covers]);
   const visiblePhotos = useMemo(() => photos.filter((photo) => photo.name.toLowerCase().includes(search.toLowerCase())), [photos, search]);
@@ -184,7 +210,7 @@ const GalleryContent = () => {
     <div className="gallery-page">
       <SEO title={`${g.couple} · Hugo & Nanny`} description={t("Private Galerie", "Private gallery")} path={`/gallery/${slug}`} />
       <nav className="gal-nav" aria-label={t("Galerie-Navigation", "Gallery navigation")}>
-        <a className="gal-brand" href="#gal-hero">Hugo &amp; Nanny</a>
+        <a className="gal-brand" href="#gal-hero" aria-label="Hugo & Nanny"><img src="/photos/logo-left.png" alt="Hugo & Nanny" width="1200" height="348" /></a>
         <label className="gal-search"><Search size={15} /><input value={search} onChange={(event) => setSearch(event.target.value)} placeholder={t("Galerie durchsuchen", "Search gallery")} /></label>
         <div className="gal-nav-links">
           <a href="#gal-main">{t("Highlights", "Highlights")}</a>
@@ -196,44 +222,27 @@ const GalleryContent = () => {
       </nav>
 
       <section id="gal-hero" className="gal-hero">
-        <div className="gal-hero-inner">
-          <p className="gal-kicker">Hugo & Nanny</p>
+        <div className="gal-hero-media-wrap"><div ref={heroMediaRef} className="gal-hero-media">{hero && <img src={img(hero.path, "w2048h1536")} alt={g.couple} width={2048} height={1536} fetchPriority="high" />}</div></div>
+        <div ref={heroCopyRef} className="gal-hero-inner">
+          <img className="gal-hero-logo" src="/photos/logo-left.png" alt="Hugo & Nanny" width="1200" height="348" />
           <h1>{g.couple}</h1>
           <p className="gal-meta">{[g.date, g.location].filter(Boolean).join(" · ")}</p>
           <a href="#gal-main" className="gal-enter">{t("Galerie öffnen", "Enter gallery")}</a>
         </div>
-        <div className="gal-hero-media">{hero && <img src={img(hero.path, "w2048h1536")} alt={g.couple} width={2048} height={1536} fetchPriority="high" />}</div>
       </section>
 
       <main id="gal-main" className="wrap gal-main">
-        {!open ? (
-          <>
-            <RevealOnScroll className="gal-intro">
-              <p className="gal-label">N°01 — {t("Eure Geschichte", "Your story")}</p>
-              <h2 className="gal-h">{t("Ein Tag, ", "One day, ")}<em>{t("in Bildern erzählt.", "told in pictures.")}</em></h2>
-            </RevealOnScroll>
-            <div className="gal-folders">
-              {folders.map((f, i) => {
-                const c = covers[f.path] ?? [];
-                return (
-                <button key={f.path} className="gal-folder" onClick={() => { setOpen(f); setSelected(new Set()); }}>
-                    <div className="gal-folder-stack">
-                      {c.slice(0, 3).reverse().map((p) => <img key={p.path} src={img(p.path, "w960h640")} alt="" loading="lazy" />)}
-                    </div>
-                    <span className="gal-folder-n">{String(i + 1).padStart(2, "0")}</span>
-                    <span className="gal-folder-name">{f.name}</span>
-                    <span className="gal-folder-count">{c.length} {t("Fotos", "photos")}</span>
-                  </button>
-                );
-              })}
-              {folders.length === 0 && <p className="gal-loading">{t("Lädt …", "Loading …")}</p>}
-            </div>
-          </>
-        ) : (
-          <>
+        <RevealOnScroll className="gal-gallery-head">
+          <p className="gal-label">{t("Eure Geschichte", "Your story")}</p>
+          <h2 className="gal-h">{t("Ein Tag, ", "One day, ")}<em>{t("in Bildern erzählt.", "told in pictures.")}</em></h2>
+        </RevealOnScroll>
+        <div className="gal-segments" aria-label={t("Momente des Hochzeitstags", "Wedding day moments")}>
+          {folders.map((folder) => <button key={folder.path} className={open?.path === folder.path ? "is-active" : ""} onClick={() => { setOpen(folder); setSelected(new Set()); setSearch(""); }}><span>{folder.name}</span><small>{(covers[folder.path] ?? []).length}</small></button>)}
+          {folders.length === 0 && <span className="gal-loading">{t("Lädt …", "Loading …")}</span>}
+        </div>
+        {open && <>
             <div className="gal-bar">
-              <button className="gal-back" onClick={() => setOpen(null)}>← {t("Alle Ordner", "All folders")}</button>
-              <h2 className="gal-h gal-h-sm"><em>{open.name}</em></h2>
+              <div><p className="gal-label">{t("Moment", "Moment")}</p><h2 className="gal-h gal-h-sm">{open.name}</h2></div>
               <div className="gal-actions">
                 <button onClick={() => setSelected(selected.size === photos.length ? new Set() : new Set(photos.map((p) => p.path)))}>
                   {selected.size === photos.length ? t("Auswahl aufheben", "Clear selection") : t("Alle auswählen", "Select all")}
@@ -256,8 +265,7 @@ const GalleryContent = () => {
                 </figure>
               )})}
             </div>
-          </>
-        )}
+          </>}
       </main>
 
       <section id="shop" className="gal-shop">
