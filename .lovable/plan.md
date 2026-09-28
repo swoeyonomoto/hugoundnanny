@@ -4,15 +4,18 @@
 - Restyle `/gallery/:slug` with Nigel John’s slim sticky search/filter/navigation header and controls, Kinfolk’s image-led gallery composition, and Hugo & Nanny branding.
 - Add a shop section modeled on the publicly visible reference catalogue: Dibond Prints, Hardcover Books, and Acrylic Prints, including its restrained three-card presentation.
 - Use original Hugo & Nanny product mockups rather than copying another photographer’s copyrighted image files.
-- Let couples add products, adjust options and quantities, and attach selected gallery photos.
-- Show a persistent bag with item totals and a clear grand total.
+- Add a hover tool on each Kinfolk-style grid image; selected images animate into a persistent bottom tray.
+- From the tray, couples can download the selection, temporarily save it under a custom name with an optional note, or begin shopping for the selected photos.
+- Support the reverse flow too: after choosing a product, couples select the photos for it and add the configured product-photo combination to the basket.
+- Let couples adjust options and quantities, and show a persistent bag with item totals and a clear grand total.
 - Replace payment with a checkout-style request form sent to the existing inquiry inbox.
 - After submission, confirm that Hugo & Nanny will reply within hours with the final details and a PayPal payment link.
 - Present the book designer as “Coming soon” for now.
 
 ## Order details
 - Include the couple/gallery name, products, quantities, options, selected Dropbox photo filenames, total, customer name, and email.
-- Keep all images in Dropbox; the request stores or sends references only.
+- Keep all images in Dropbox; temporary selections and order requests store or send file references only.
+- Temporary named selections clearly state that browser storage can be cleared and is not a permanent backup.
 - No Shopify, paid shop platform, account system, or online payment integration.
 
 ## Technical details
