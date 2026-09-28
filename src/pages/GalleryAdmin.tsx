@@ -111,6 +111,7 @@ export default function GalleryAdmin() {
       <nav className="ga-nav"><h2>Galerien</h2>{galleries.map((item) => <Button key={item.id} variant={item.id === activeId ? "secondary" : "ghost"} onClick={() => setActiveId(item.id)}>{item.couple_name}</Button>)}</nav>
       <div className="ga-content">
         {message && <button className="ga-message" onClick={() => setMessage("")}>{message}</button>}
+        <AccountSettings onMessage={setMessage} />
         {gallery && <section className="ga-section"><div className="ga-section-head"><div><p>Galerie</p><h1>{gallery.couple_name}</h1></div><Button onClick={saveGallery}><Save /> Speichern</Button></div>
           <div className="ga-form-grid">
             <label>Name<input value={gallery.couple_name} onChange={(e) => updateGallery("couple_name", e.target.value)} /></label>
