@@ -11,3 +11,8 @@
 - [x] Confirm that payment follows later by emailed PayPal link.
 - [x] Show the book designer as coming soon.
 - [x] Refine the gallery with a white editorial split header, brand logo, subtle parallax, Dropbox folder filters, and a three-column image grid.
+## Gallery improvements
+- [ ] Make highlights and gallery display copy configurable.
+- [ ] Simplify the folder filter styling.
+- [ ] Use faster Dropbox thumbnails while preserving original downloads.
+- [ ] Package multi-image downloads as one ZIP.
