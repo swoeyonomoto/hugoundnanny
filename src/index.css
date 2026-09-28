@@ -1248,7 +1248,7 @@ footer {
 .gal-product p { min-height: 48px; margin-top: 8px; font-size: 12px; line-height: 1.55; opacity: .7; }
 .gal-product select { width: 100%; margin-top: 22px; padding: 11px 0; border: 0; border-bottom: 1px solid hsl(var(--gal-line)); background: transparent; font-size: 12px; }
 .gal-product-buy { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin-top: 20px; font-size: 11px; }
-.gal-product-buy button, .gal-dialog-submit, .gal-checkout-button { padding: 12px 16px; background: hsl(var(--gal-ink)); color: hsl(var(--gal-paper)); font-size: 10px; text-transform: uppercase; }
+.gallery-page .gal-product-buy button, .gallery-page .gal-dialog-submit, .gallery-page .gal-checkout-button { padding: 12px 16px; background: hsl(var(--gal-ink)); color: hsl(var(--gal-paper)); font-size: 10px; text-transform: uppercase; }
 .gal-coming { display: inline-block; margin-top: 24px; padding: 8px 10px; border: 1px solid hsl(var(--gal-line)); font-size: 10px; text-transform: uppercase; }
 .gal-price-note { margin-top: 18px; font-size: 10px; opacity: .55; }
 .gal-product-dialog { position: relative; width: min(1040px, 100%); max-height: calc(100svh - 40px); overflow: auto; display: grid; grid-template-columns: 1.15fr .85fr; background: hsl(var(--gal-paper)); }
