@@ -1340,6 +1340,7 @@ footer {
   .gal-shop-heading { grid-template-columns: 1fr; gap: 22px; margin-bottom: 40px; }
   .gal-shop-heading .gal-label { grid-column: auto; }
   .gal-product { grid-template-columns: 1fr; }
+  .gal-product > img { height: auto; aspect-ratio: 4/3; }
   .gal-product-copy { padding: 22px; }
   .gal-product p { min-height: 0; }
   .gal-tray { bottom: 8px; width: calc(100vw - 16px); grid-template-columns: 1fr; gap: 8px; }
