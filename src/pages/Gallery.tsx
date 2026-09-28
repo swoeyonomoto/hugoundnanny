@@ -2,7 +2,6 @@ import { useEffect, useMemo, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { LanguageProvider, useLang } from "@/contexts/LanguageContext";
 import LogoHeader from "@/components/LogoHeader";
-import AutoColorNav from "@/components/AutoColorNav";
 import RevealOnScroll from "@/components/RevealOnScroll";
 import Footer from "@/components/sections/Footer";
 import SEO from "@/components/SEO";
@@ -93,7 +92,6 @@ const GalleryContent = () => {
   return (
     <div className="gallery-page">
       <SEO title={`${g.couple} · Hugo & Nanny`} description={t("Private Galerie", "Private gallery")} path={`/gallery/${slug}`} />
-      <AutoColorNav darkSelectors="#gal-hero" />
       <LogoHeader />
 
       <section id="gal-hero" className="gal-hero">
