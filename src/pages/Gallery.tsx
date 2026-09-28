@@ -37,7 +37,7 @@ const PRODUCT_IMAGES: Record<string, string> = { prints: printsImage, "print-pac
 const FALLBACK_PRODUCTS: Product[] = [
   { id: "prints", title: "Prints", description: "Classic fine-art prints on premium photographic paper.", image: printsImage, sizes: [{ label: "10 × 15 cm", price: 8 }] },
   { id: "dibond-prints", title: "Dibond Prints", description: "A refined, lightweight wall piece with a clean frameless finish.", image: dibondImage, sizes: [{ label: "20 × 30 cm", price: 89 }] },
-  { id: "hardcover-book", title: "Hardcover Book", description: "A timeless coffee-table book made for your story.", image: bookImage, sizes: [{ label: "Configurator coming soon", price: 0 }], comingSoon: true },
+  { id: "hardcover-book", title: "Hardcover Book", description: "A timeless coffee-table book made for your story.", image: hardcoverImage, sizes: [{ label: "Configurator coming soon", price: 0 }], comingSoon: true },
 ];
 
 async function list(path: string): Promise<Entry[]> {
