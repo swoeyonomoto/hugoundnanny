@@ -1633,9 +1633,12 @@ footer { padding: 34px 72px; border-color: hsl(var(--editorial-line)); }
 }
 
 @media (max-width: 600px) {
-  .home-video-mobile { height: 52svh; min-height: 420px; }
-  .home-form-h { font-size: 32px; }
-  .home-form-sub { font-size: 15px; }
+  .home-video-mobile { height: 46svh; min-height: 360px; }
+  .home-form-col { padding-block: 30px 52px; }
+  .home-form-h { margin-bottom: 14px; font-size: 31px; }
+  .home-form-sub { margin-bottom: 12px; font-size: 14px; line-height: 1.68; }
+  .home-form-inner > p[style] { margin-top: 7px !important; }
+  .home-form-inner > a[style] { margin-top: 17px !important; margin-bottom: 20px !important; }
   .aboutus-title { font-size: 42px; }
   .mag-card-name { font-size: 38px; }
   .thankyou-h { font-size: 39px; }
