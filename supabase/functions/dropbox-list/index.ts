@@ -4,6 +4,15 @@ import { getDropboxToken } from '../_shared/dropbox-token.ts'
 const DBX_API = 'https://api.dropboxapi.com/2'
 const TOKEN = true
 
+async function debugEnv() {
+  return new Response(JSON.stringify({
+    hasKey: !!Deno.env.get('DROPBOX_APP_KEY'),
+    hasSecret: !!Deno.env.get('DROPBOX_APP_SECRET'),
+    hasRefresh: !!Deno.env.get('DROPBOX_REFRESH_TOKEN'),
+    hasFallback: !!Deno.env.get('DROPBOX_ACCESS_TOKEN_2'),
+  }), { headers: { 'Content-Type': 'application/json' } })
+}
+
 async function dbx(path: string, body: unknown) {
   const res = await fetch(`${DBX_API}${path}`, {
     method: 'POST',
