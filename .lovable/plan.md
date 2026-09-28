@@ -1,8 +1,8 @@
 # Gallery shop request flow
 
 ## What I’ll build
-- Restyle `/gallery/:slug` toward the reference’s editorial split opening and image-led folder overview, while keeping Hugo & Nanny branding.
-- Add a shop section modeled on the reference’s visible catalogue: Dibond Prints, Hardcover Books, and Acrylic Prints.
+- Restyle `/gallery/:slug` with Nigel John’s slim sticky search/filter/navigation header and controls, Kinfolk’s image-led gallery composition, and Hugo & Nanny branding.
+- Add a shop section modeled on the publicly visible reference catalogue: Dibond Prints, Hardcover Books, and Acrylic Prints, including its restrained three-card presentation.
 - Use original Hugo & Nanny product mockups rather than copying another photographer’s copyrighted image files.
 - Let couples add products, adjust options and quantities, and attach selected gallery photos.
 - Show a persistent bag with item totals and a clear grand total.
@@ -19,5 +19,5 @@
 - Keep the experience inside the existing gallery page and scope all new styling beneath `.gallery-page`.
 - Reuse the current Formspree destination for order requests.
 - Preserve gallery browsing, masonry view, selection, lightbox, and downloads.
-- Use publicly visible reference pricing where verifiable; where the reference hides pricing, clearly mark prices as provisional rather than inventing them.
+- The reference does not expose prices publicly, so use clearly marked provisional prices until Joel supplies the exact amounts; never invent hidden reference pricing.
 - Verify the complete flow on mobile and desktop, including totals, form validation, and submission state.
