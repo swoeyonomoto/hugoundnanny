@@ -1,5 +1,7 @@
 # Editorial typography and layout consistency
 
+The current version remains available as the rollback point in project History before any visual edits begin.
+
 ## Changes
 - Use the new gallery as the visual benchmark: clearer type hierarchy, calmer spacing, fine rules, stronger image-led composition, and fewer boxed treatments.
 - Improve desktop and mobile font sizes, line lengths, line heights, and section spacing across the homepage, About, Gang, Thank You, and legal pages.
