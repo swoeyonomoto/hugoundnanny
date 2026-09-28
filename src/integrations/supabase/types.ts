@@ -265,6 +265,60 @@ export type Database = {
         }
         Relationships: []
       }
+      gallery_configs: {
+        Row: {
+          active: boolean
+          couple_name: string
+          cover_path: string | null
+          created_at: string
+          dropbox_path: string
+          highlight_paths: string[]
+          id: string
+          location: string
+          slug: string
+          story_heading_de: string
+          story_heading_en: string
+          story_label_de: string
+          story_label_en: string
+          updated_at: string
+          wedding_date: string
+        }
+        Insert: {
+          active?: boolean
+          couple_name: string
+          cover_path?: string | null
+          created_at?: string
+          dropbox_path: string
+          highlight_paths?: string[]
+          id?: string
+          location?: string
+          slug: string
+          story_heading_de?: string
+          story_heading_en?: string
+          story_label_de?: string
+          story_label_en?: string
+          updated_at?: string
+          wedding_date?: string
+        }
+        Update: {
+          active?: boolean
+          couple_name?: string
+          cover_path?: string | null
+          created_at?: string
+          dropbox_path?: string
+          highlight_paths?: string[]
+          id?: string
+          location?: string
+          slug?: string
+          story_heading_de?: string
+          story_heading_en?: string
+          story_label_de?: string
+          story_label_en?: string
+          updated_at?: string
+          wedding_date?: string
+        }
+        Relationships: []
+      }
       portfolio_shares: {
         Row: {
           artwork_ids: string[]
