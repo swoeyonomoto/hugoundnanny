@@ -291,57 +291,69 @@ export type Database = {
           alt: string | null
           aspect_h: number | null
           aspect_w: number | null
+          block_type: string
           caption_text: string | null
           created_at: string
           embed_id: string | null
           embed_provider: string | null
           height: number | null
           id: string
-          kind: string
+          kind: string | null
           layout: string
           poster_url: string | null
           project_id: string
           sort_order: number
+          text_content: string | null
+          text_heading: string | null
+          text_style: string
           thumbnail_url: string | null
-          url: string
+          url: string | null
           width: number | null
         }
         Insert: {
           alt?: string | null
           aspect_h?: number | null
           aspect_w?: number | null
+          block_type?: string
           caption_text?: string | null
           created_at?: string
           embed_id?: string | null
           embed_provider?: string | null
           height?: number | null
           id?: string
-          kind?: string
+          kind?: string | null
           layout?: string
           poster_url?: string | null
           project_id: string
           sort_order?: number
+          text_content?: string | null
+          text_heading?: string | null
+          text_style?: string
           thumbnail_url?: string | null
-          url: string
+          url?: string | null
           width?: number | null
         }
         Update: {
           alt?: string | null
           aspect_h?: number | null
           aspect_w?: number | null
+          block_type?: string
           caption_text?: string | null
           created_at?: string
           embed_id?: string | null
           embed_provider?: string | null
           height?: number | null
           id?: string
-          kind?: string
+          kind?: string | null
           layout?: string
           poster_url?: string | null
           project_id?: string
           sort_order?: number
+          text_content?: string | null
+          text_heading?: string | null
+          text_style?: string
           thumbnail_url?: string | null
-          url?: string
+          url?: string | null
           width?: number | null
         }
         Relationships: [
