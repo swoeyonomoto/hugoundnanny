@@ -1433,3 +1433,210 @@ footer {
   .gf-reel:nth-child(3n+2) { margin-top: 0; }
   .gf-reel:nth-child(2n) { margin-top: 48px; }
 }
+
+/* ===== Public pages - editorial typography refinement ===== */
+:root {
+  --editorial-copy: 0 0% 27%;
+  --editorial-soft: 0 0% 52%;
+  --editorial-line: 40 7% 87%;
+  --editorial-band: 40 10% 95%;
+  --editorial-section-space: 120px;
+}
+
+body {
+  font-size: 16px;
+  line-height: 1.75;
+}
+
+.wrap {
+  max-width: 1320px;
+  padding-inline: 72px;
+}
+
+.rule { margin-inline: 72px; border-color: hsl(var(--editorial-line)); }
+
+.label {
+  margin-bottom: 18px;
+  color: hsl(var(--editorial-soft));
+  font-family: 'Ginora Sans Bold', sans-serif;
+  font-size: 10px;
+  line-height: 1.5;
+  letter-spacing: .16em;
+}
+
+#about,
+#work,
+#testi,
+#pricing,
+#faq,
+#contact { padding-block: var(--editorial-section-space); }
+
+.about-h,
+.work-h,
+.testi-h,
+.pricing-h,
+.faq-h,
+.contact-h,
+.imprint-h {
+  font-size: clamp(44px, 4vw, 58px);
+  line-height: 1.06;
+  letter-spacing: 0;
+}
+
+.about-p,
+.pricing-intro-p,
+.contact-p,
+.aboutus-intro,
+.mag-card-bio,
+.thankyou-body,
+.imprint-body {
+  color: hsl(var(--editorial-copy));
+  font-size: 16px;
+  line-height: 1.82;
+}
+
+.about-p,
+.pricing-intro-p,
+.contact-p { max-width: 42em; }
+
+.work-top,
+.testi-top { margin-bottom: 64px; }
+.pricing-top { margin-bottom: 76px; }
+.work-intro { max-width: 36em; color: hsl(var(--editorial-copy)); font-size: 15px; line-height: 1.75; }
+
+.testis,
+.cards { gap: 0; background: transparent; border-block: 1px solid hsl(var(--editorial-line)); }
+.testi-card,
+.card { background: transparent; }
+.testi-card + .testi-card,
+.card + .card { border-left: 1px solid hsl(var(--editorial-line)); }
+.testi-card { padding: 44px 40px; }
+.testi-quote { font-size: 18px; line-height: 1.7; }
+.testi-name { font-size: 19px; }
+.card { padding: 48px 40px; }
+.card-name { font-size: 28px; }
+.card-list li { font-size: 13px; line-height: 1.65; }
+
+.faq-inner { max-width: 900px; }
+.faq-h { margin-bottom: 64px; }
+.faq-q { padding-block: 27px; }
+.faq-qt { font-size: 21px; line-height: 1.35; }
+.faq-body p { max-width: 46em; color: hsl(var(--editorial-copy)); font-size: 15px; line-height: 1.8; }
+
+.contact-grid { grid-template-columns: minmax(0, .82fr) minmax(420px, 1fr); gap: clamp(72px, 9vw, 140px); }
+.cf { padding-block: 20px 10px; border-color: hsl(var(--editorial-line)); }
+.cf label { font-size: 10px; letter-spacing: .16em; }
+.cf input,
+.cf textarea,
+.cf select,
+.cf input[type="date"] { font-size: 16px; }
+
+.home-form-col {
+  min-height: 100svh;
+  padding: 18px clamp(48px, 5vw, 82px) 64px;
+}
+.home-desktop-nav { padding-bottom: 26px; }
+.home-form-inner {
+  width: min(100%, 560px);
+  max-width: none;
+  margin-block: auto;
+  padding-bottom: 5vh;
+}
+.home-form-h {
+  max-width: 13ch;
+  margin-bottom: 20px;
+  font-size: clamp(38px, 3.2vw, 50px);
+  line-height: 1.04;
+  letter-spacing: 0;
+}
+.home-form-sub {
+  max-width: 38em;
+  margin-bottom: 16px;
+  color: hsl(var(--editorial-copy));
+  font-size: 15px;
+  line-height: 1.75;
+}
+.home-form-inner .cf-submit { min-width: 220px; padding: 15px 25px; }
+
+.aboutus-hero { padding-block: 170px 110px; }
+.aboutus-title { max-width: 11ch; margin-bottom: 34px; font-size: clamp(52px, 5vw, 72px); line-height: 1.02; }
+.aboutus-intro { max-width: 42em; }
+.aboutus-magazine { padding-block: 72px 120px; }
+.aboutus-magazine .wrap { gap: 144px; }
+.mag-card { grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: clamp(64px, 8vw, 120px); align-items: center; }
+.mag-card:nth-child(even) .mag-card-photo-wrap { order: 2; }
+.mag-card-name { margin-bottom: 24px; font-size: clamp(42px, 4vw, 58px); line-height: 1.04; }
+.aboutus-cta-section { padding-block: 120px; }
+.aboutus-cta-h { font-size: clamp(42px, 4vw, 58px); line-height: 1.05; }
+
+.thankyou-section { padding-block: 170px 100px; }
+.thankyou-h { max-width: 14ch; font-size: clamp(48px, 5vw, 68px); line-height: 1.04; }
+.thankyou-grid { max-width: 1320px; padding-inline: 72px; gap: 8px; }
+.imprint-section { padding-block: 150px 110px; }
+.imprint-h { margin-bottom: 68px; }
+
+footer { padding: 34px 72px; border-color: hsl(var(--editorial-line)); }
+.f-links a { font-size: 10px; }
+
+@media (max-width: 960px) {
+  :root { --editorial-section-space: 80px; }
+  .wrap { padding-inline: 24px; }
+  .rule { margin-inline: 24px; }
+  .about-h,
+  .work-h,
+  .testi-h,
+  .pricing-h,
+  .faq-h,
+  .contact-h,
+  .imprint-h { font-size: 38px; line-height: 1.08; }
+  .about-p,
+  .pricing-intro-p,
+  .contact-p,
+  .aboutus-intro,
+  .mag-card-bio,
+  .thankyou-body,
+  .imprint-body { font-size: 15px; line-height: 1.78; }
+  .work-top,
+  .testi-top,
+  .pricing-top { gap: 28px; margin-bottom: 44px; }
+  .testis,
+  .cards { border-block: 0; }
+  .testi-card,
+  .card { padding: 34px 0; border-block: 1px solid hsl(var(--editorial-line)); }
+  .testi-card + .testi-card,
+  .card + .card { border-left: 0; border-top: 0; }
+  .faq-h { margin-bottom: 42px; }
+  .faq-q { padding-block: 22px; }
+  .faq-qt { font-size: 19px; }
+  .contact-grid { grid-template-columns: 1fr; gap: 58px; }
+  .home-form-col { min-height: 0; padding: 38px 24px 64px; }
+  .home-form-inner { margin: 0; padding-bottom: 0; }
+  .home-form-h { max-width: 14ch; margin-bottom: 18px; font-size: 34px; line-height: 1.06; }
+  .home-form-sub { font-size: 15px; line-height: 1.72; }
+  .home-form-inner .cf-submit { min-width: 214px; }
+  .aboutus-hero { padding-block: 130px 76px; }
+  .aboutus-title { font-size: 46px; }
+  .aboutus-magazine { padding-block: 52px 84px; }
+  .aboutus-magazine .wrap { gap: 92px; }
+  .mag-card { grid-template-columns: 1fr; gap: 30px; }
+  .mag-card:nth-child(even) .mag-card-photo-wrap { order: initial; }
+  .mag-card-name { font-size: 40px; }
+  .aboutus-cta-section { padding-block: 84px; }
+  .aboutus-cta-h { font-size: 40px; }
+  .thankyou-section { padding-block: 130px 76px; }
+  .thankyou-h { font-size: 42px; }
+  .thankyou-grid { padding-inline: 24px; gap: 6px; }
+  .imprint-section { padding-block: 120px 76px; }
+  footer { width: 100%; padding: 30px 24px; }
+  .f-main { width: 100%; grid-template-columns: 1fr auto; align-items: end; }
+  .f-logo-wrap { justify-self: end; }
+}
+
+@media (max-width: 600px) {
+  .home-video-mobile { height: 52svh; min-height: 420px; }
+  .home-form-h { font-size: 32px; }
+  .home-form-sub { font-size: 15px; }
+  .aboutus-title { font-size: 42px; }
+  .mag-card-name { font-size: 38px; }
+  .thankyou-h { font-size: 39px; }
+}
