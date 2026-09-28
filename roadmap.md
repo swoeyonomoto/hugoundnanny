@@ -10,3 +10,4 @@
 - [x] Show an order summary and total, then submit it to the existing inquiry inbox.
 - [x] Confirm that payment follows later by emailed PayPal link.
 - [x] Show the book designer as coming soon.
+- [x] Refine the gallery with a white editorial split header, brand logo, subtle parallax, Dropbox folder filters, and a three-column image grid.
