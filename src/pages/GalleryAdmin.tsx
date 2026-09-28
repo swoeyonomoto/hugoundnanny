@@ -2,12 +2,14 @@ import { FormEvent, useEffect, useMemo, useState } from "react";
 import { Check, LogOut, Save } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
+import { Film, parseFilms } from "@/components/gallery/FilmView";
 
 type Entry = { tag: string; name: string; path: string };
 type GalleryConfig = {
   id: string; slug: string; dropbox_path: string; couple_name: string; wedding_date: string; location: string;
   cover_path: string | null; highlight_paths: string[]; story_label_de: string; story_label_en: string;
   story_heading_de: string; story_heading_en: string; active: boolean;
+  has_photos?: boolean; films?: unknown; film_image_paths?: string[];
 };
 type Size = { label: string; price: number };
 type Product = { id: string; slug: string; title: string; description_de: string; description_en: string; image_url: string; sizes: unknown; coming_soon: boolean; active: boolean; sort_index: number };
@@ -71,7 +73,7 @@ export default function GalleryAdmin() {
       .catch(() => setPhotos([]));
   }, [gallery?.id, gallery?.dropbox_path]);
 
-  const updateGallery = (field: keyof GalleryConfig, value: string | boolean | string[] | null) => {
+  const updateGallery = (field: keyof GalleryConfig, value: string | boolean | string[] | Film[] | null) => {
     if (!gallery) return;
     setGalleries((items) => items.map((item) => item.id === gallery.id ? { ...item, [field]: value } : item));
   };
@@ -86,7 +88,7 @@ export default function GalleryAdmin() {
   const saveGallery = async () => {
     if (!gallery) return;
     const { id, ...changes } = gallery;
-    const { error } = await supabase.from("gallery_configs").update(changes).eq("id", id);
+    const { error } = await supabase.from("gallery_configs").update(changes as never).eq("id", id);
     setMessage(error ? "Galerie konnte nicht gespeichert werden." : "Galerie gespeichert.");
   };
 
@@ -122,8 +124,15 @@ export default function GalleryAdmin() {
             <label className="ga-wide">Überschrift Deutsch<input value={gallery.story_heading_de} onChange={(e) => updateGallery("story_heading_de", e.target.value)} /></label>
             <label className="ga-wide">Überschrift Englisch<input value={gallery.story_heading_en} onChange={(e) => updateGallery("story_heading_en", e.target.value)} /></label>
           </div>
-          <div className="ga-photo-title"><h2>Titelbild & Highlights</h2><span>{selectedCount} Highlights</span></div>
-          <div className="ga-photo-grid">{photos.map((photo) => { const isCover = gallery.cover_path === photo.path; const isHighlight = gallery.highlight_paths.includes(photo.path); return <article key={photo.path} className={isCover || isHighlight ? "is-chosen" : ""}><img src={thumb(photo.path)} alt={photo.name} loading="lazy" /><div><Button size="sm" variant={isCover ? "default" : "outline"} onClick={() => updateGallery("cover_path", photo.path)}>{isCover && <Check />} Titelbild</Button><Button size="sm" variant={isHighlight ? "default" : "outline"} onClick={() => updateGallery("highlight_paths", isHighlight ? gallery.highlight_paths.filter((path) => path !== photo.path) : [...gallery.highlight_paths, photo.path])}>{isHighlight && <Check />} Highlight</Button></div></article>; })}</div>
+          <label className="ga-check-label"><input type="checkbox" checked={gallery.has_photos !== false} onChange={(e) => updateGallery("has_photos", e.target.checked)} /> Foto-Galerie anzeigen (aus = nur Film)</label>
+          <div className="ga-photo-title"><h2>Filme (Wistia)</h2><Button size="sm" variant="outline" onClick={() => updateGallery("films", [...parseFilms(gallery.films), { id: `f${Date.now()}`, kind: "highlight", title: "", url: "" }])}>+ Film</Button></div>
+          <div className="ga-product-list">{parseFilms(gallery.films).map((film, index) => { const set = (patch: Partial<Film>) => updateGallery("films", parseFilms(gallery.films).map((f, i) => i === index ? { ...f, ...patch } : f)); return <article key={film.id}><div className="ga-product-fields">
+            <label>Typ<select value={film.kind} onChange={(e) => set({ kind: e.target.value as Film["kind"] })}><option value="highlight">Highlight-Film</option><option value="film">Weiterer Film</option><option value="reel">Reel (hochkant)</option></select></label>
+            <label>Titel<input value={film.title} onChange={(e) => set({ title: e.target.value })} /></label>
+            <label className="ga-wide">Wistia-Link oder ID<input value={film.url} placeholder="https://….wistia.com/medias/abc123" onChange={(e) => set({ url: e.target.value })} /></label>
+          </div><div className="ga-product-actions"><span /><Button size="sm" variant="outline" onClick={() => updateGallery("films", parseFilms(gallery.films).filter((_, i) => i !== index))}>Entfernen</Button></div></article>; })}</div>
+          <div className="ga-photo-title"><h2>Titelbild, Highlights & Film-Bilder</h2><span>{selectedCount} Highlights · {gallery.film_image_paths?.length ?? 0} Film-Bilder</span></div>
+          <div className="ga-photo-grid">{photos.map((photo) => { const isCover = gallery.cover_path === photo.path; const isHighlight = gallery.highlight_paths.includes(photo.path); const filmImgs = gallery.film_image_paths ?? []; const isFilmImg = filmImgs.includes(photo.path); return <article key={photo.path} className={isCover || isHighlight || isFilmImg ? "is-chosen" : ""}><img src={thumb(photo.path)} alt={photo.name} loading="lazy" /><div><Button size="sm" variant={isCover ? "default" : "outline"} onClick={() => updateGallery("cover_path", photo.path)}>{isCover && <Check />} Titelbild</Button><Button size="sm" variant={isHighlight ? "default" : "outline"} onClick={() => updateGallery("highlight_paths", isHighlight ? gallery.highlight_paths.filter((path) => path !== photo.path) : [...gallery.highlight_paths, photo.path])}>{isHighlight && <Check />} Highlight</Button><Button size="sm" variant={isFilmImg ? "default" : "outline"} onClick={() => updateGallery("film_image_paths", isFilmImg ? filmImgs.filter((p) => p !== photo.path) : [...filmImgs, photo.path])}>{isFilmImg && <Check />} Film-Bild</Button></div></article>; })}</div>
         </section>}
         <section className="ga-section"><div className="ga-section-head"><div><p>Shop</p><h1>Produkte</h1></div></div><div className="ga-product-list">{products.map((product) => <article key={product.id}><div className="ga-product-fields"><label>Name<input value={product.title} onChange={(e) => setProducts((items) => items.map((item) => item.id === product.id ? { ...item, title: e.target.value } : item))} /></label><label>Bild-URL<input value={product.image_url} onChange={(e) => setProducts((items) => items.map((item) => item.id === product.id ? { ...item, image_url: e.target.value } : item))} /></label><label className="ga-wide">Beschreibung Deutsch<textarea rows={2} value={product.description_de} onChange={(e) => setProducts((items) => items.map((item) => item.id === product.id ? { ...item, description_de: e.target.value } : item))} /></label><label className="ga-wide">Beschreibung Englisch<textarea rows={2} value={product.description_en} onChange={(e) => setProducts((items) => items.map((item) => item.id === product.id ? { ...item, description_en: e.target.value } : item))} /></label></div><div className="ga-sizes">{parsedSizes(product.sizes).map((size, index) => <div key={`${size.label}-${index}`}><input aria-label="Größe" value={size.label} onChange={(e) => setProducts((items) => items.map((item) => item.id === product.id ? { ...item, sizes: parsedSizes(item.sizes).map((old, i) => i === index ? { ...old, label: e.target.value } : old) } : item))} /><input aria-label="Preis" type="number" value={size.price} onChange={(e) => setProducts((items) => items.map((item) => item.id === product.id ? { ...item, sizes: parsedSizes(item.sizes).map((old, i) => i === index ? { ...old, price: Number(e.target.value) } : old) } : item))} /></div>)}</div><div className="ga-product-actions"><label><input type="checkbox" checked={product.coming_soon} onChange={(e) => setProducts((items) => items.map((item) => item.id === product.id ? { ...item, coming_soon: e.target.checked } : item))} /> Coming soon</label><Button onClick={() => saveProduct(product)}><Save /> Speichern</Button></div></article>)}</div></section>
       </div>

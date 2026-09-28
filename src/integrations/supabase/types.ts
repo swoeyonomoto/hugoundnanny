@@ -272,6 +272,9 @@ export type Database = {
           cover_path: string | null
           created_at: string
           dropbox_path: string
+          film_image_paths: string[]
+          films: Json
+          has_photos: boolean
           highlight_paths: string[]
           id: string
           location: string
@@ -289,6 +292,9 @@ export type Database = {
           cover_path?: string | null
           created_at?: string
           dropbox_path: string
+          film_image_paths?: string[]
+          films?: Json
+          has_photos?: boolean
           highlight_paths?: string[]
           id?: string
           location?: string
@@ -306,6 +312,9 @@ export type Database = {
           cover_path?: string | null
           created_at?: string
           dropbox_path?: string
+          film_image_paths?: string[]
+          films?: Json
+          has_photos?: boolean
           highlight_paths?: string[]
           id?: string
           location?: string

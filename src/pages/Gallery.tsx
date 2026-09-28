@@ -7,6 +7,7 @@ import RevealOnScroll from "@/components/RevealOnScroll";
 import Footer from "@/components/sections/Footer";
 import SEO from "@/components/SEO";
 import { supabase } from "@/integrations/supabase/client";
+import FilmView, { Film, parseFilms } from "@/components/gallery/FilmView";
 import dibondImage from "@/assets/gallery-dibond.jpg";
 import printsImage from "@/assets/gallery-prints.jpg";
 import printPackImage from "@/assets/gallery-print-pack.jpg";
@@ -91,12 +92,28 @@ const GalleryContent = () => {
   const heroMediaRef = useRef<HTMLDivElement>(null);
   const heroCopyRef = useRef<HTMLDivElement>(null);
 
+  const [films, setFilms] = useState<Film[]>([]);
+  const [filmImages, setFilmImages] = useState<string[]>([]);
+  const [hasPhotos, setHasPhotos] = useState(true);
+  const [mode, setMode] = useState<"photos" | "film">("photos");
+
   useEffect(() => {
-    supabase.from("gallery_configs").select("slug, dropbox_path, couple_name, wedding_date, location, cover_path, highlight_paths, story_label_de, story_label_en, story_heading_de, story_heading_en").eq("slug", slug).eq("active", true).maybeSingle().then(({ data }) => {
+    supabase.from("gallery_configs").select("*").eq("slug", slug).eq("active", true).maybeSingle().then(({ data }) => {
       if (!data) return;
-      setGallery({ path: data.dropbox_path, couple: data.couple_name, date: data.wedding_date, location: data.location, cover: data.cover_path, highlights: data.highlight_paths, labelDe: data.story_label_de, labelEn: data.story_label_en, headingDe: data.story_heading_de, headingEn: data.story_heading_en });
+      const d = data as typeof data & { films?: unknown; film_image_paths?: string[]; has_photos?: boolean };
+      setGallery({ path: d.dropbox_path, couple: d.couple_name, date: d.wedding_date, location: d.location, cover: d.cover_path, highlights: d.highlight_paths, labelDe: d.story_label_de, labelEn: d.story_label_en, headingDe: d.story_heading_de, headingEn: d.story_heading_en });
+      const f = parseFilms(d.films);
+      setFilms(f);
+      setFilmImages(d.film_image_paths ?? []);
+      const photosOn = d.has_photos !== false;
+      setHasPhotos(photosOn);
+      if (!photosOn && f.length) setMode("film");
     });
   }, [slug]);
+
+  const hasFilm = films.length > 0;
+  const both = hasFilm && hasPhotos;
+  const goMode = (m: "photos" | "film") => { setMode(m); window.setTimeout(() => document.querySelector("#gal-main")?.scrollIntoView({ behavior: "smooth" }), 50); };
 
   useEffect(() => {
     supabase.from("gallery_products").select("slug, title, description_de, description_en, image_url, sizes, coming_soon").order("sort_index").then(({ data }) => {
@@ -279,8 +296,15 @@ const GalleryContent = () => {
       <nav className="gal-nav" aria-label={t("Galerie-Navigation", "Gallery navigation")}>
         <a className="gal-brand" href="#gal-hero" aria-label="Hugo & Nanny"><img src="/photos/logo-left.png" alt="Hugo & Nanny" width="1200" height="348" /></a>
         <div className="gal-nav-links">
-          <a href="#gal-main">{t("Highlights", "Highlights")}</a>
-          {folders.map((folder) => <button key={folder.path} onClick={() => { setOpen(folder); setSelected(new Set()); window.setTimeout(() => document.querySelector("#gal-main")?.scrollIntoView({ behavior: "smooth" }), 50); }}>{folder.name}</button>)}
+          {both && <div className="gal-mode-switch"><button className={mode === "photos" ? "is-active" : ""} onClick={() => goMode("photos")}>{t("Fotos", "Photos")}</button><button className={mode === "film" ? "is-active" : ""} onClick={() => goMode("film")}>Film</button></div>}
+          {mode === "photos" ? <>
+            <a href="#gal-main">{t("Highlights", "Highlights")}</a>
+            {folders.map((folder) => <button key={folder.path} onClick={() => { setOpen(folder); setSelected(new Set()); window.setTimeout(() => document.querySelector("#gal-main")?.scrollIntoView({ behavior: "smooth" }), 50); }}>{folder.name}</button>)}
+          </> : <>
+            {films.some((f) => f.kind === "highlight") && <a href="#gf-film">{t("Der Film", "The Film")}</a>}
+            {films.some((f) => f.kind === "film") && <a href="#gf-films">{t("Filme", "Films")}</a>}
+            {films.some((f) => f.kind === "reel") && <a href="#gf-shorts">Shorts</a>}
+          </>}
           <a href="#shop">Shop</a>
         </div>
         <button className="gal-nav-action" onClick={() => setCartOpen(true)} aria-label={t("Warenkorb öffnen", "Open bag")}><ShoppingBag size={17} /><span>{cart.length}</span></button>
@@ -293,10 +317,14 @@ const GalleryContent = () => {
           <img className="gal-hero-logo" src="/photos/logo-left.png" alt="Hugo & Nanny" width="1200" height="348" />
           <h1>{g.couple}</h1>
           <p className="gal-meta">{[g.date, g.location].filter(Boolean).join(" · ")}</p>
-          <a href="#gal-main" className="gal-enter">{t("Galerie öffnen", "Enter gallery")}</a>
+          {both ? <div className="gal-hero-choice">
+            <button className="gal-enter" onClick={() => goMode("film")}>{t("Film ansehen", "Watch the film")}</button>
+            <button className="gal-enter" onClick={() => goMode("photos")}>{t("Fotos ansehen", "See the photos")}</button>
+          </div> : <a href="#gal-main" className="gal-enter">{hasFilm && !hasPhotos ? t("Film ansehen", "Watch the film") : t("Galerie öffnen", "Enter gallery")}</a>}
         </div>
       </section>
 
+      {mode === "film" ? <main id="gal-main"><FilmView films={films} images={filmImages.map((p) => img(p, "w2048h1536"))} t={t} /></main> :
       <main id="gal-main" className="wrap gal-main">
         <RevealOnScroll className="gal-gallery-head">
            <p className="gal-label">{t(g.labelDe || "Eure Geschichte", g.labelEn || "Your story")}</p>
@@ -333,7 +361,7 @@ const GalleryContent = () => {
               )})}
             </div>
           </>}
-      </main>
+      </main>}
 
       <section id="shop" className="gal-shop">
         <RevealOnScroll className="gal-shop-heading">
