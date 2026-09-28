@@ -101,7 +101,7 @@ const GalleryContent = () => {
         id: item.slug,
         title: item.title,
         description: t(item.description_de, item.description_en),
-        image: PRODUCT_IMAGES[item.slug] || item.image_url || printsImage,
+        image: item.image_url && !item.image_url.startsWith("/src/") ? item.image_url : PRODUCT_IMAGES[item.slug] || printsImage,
         sizes: Array.isArray(item.sizes) ? item.sizes.filter((size): size is ProductSize => Boolean(size) && typeof size === "object" && "label" in size && "price" in size).map((size) => ({ label: String(size.label), price: Number(size.price) })) : [],
         comingSoon: item.coming_soon,
       }));
