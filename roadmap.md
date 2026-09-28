@@ -12,12 +12,12 @@
 - [x] Show the book designer as coming soon.
 - [x] Refine the gallery with a white editorial split header, brand logo, subtle parallax, Dropbox folder filters, and a three-column image grid.
 ## Gallery improvements
-- [ ] Make highlights and gallery display copy configurable.
-- [ ] Simplify the folder filter styling.
-- [ ] Use faster Dropbox thumbnails while preserving original downloads.
-- [ ] Package multi-image downloads as one ZIP.
+- [x] Make highlights and gallery display copy configurable.
+- [x] Simplify the folder filter styling.
+- [x] Use faster Dropbox thumbnails while preserving original downloads.
+- [x] Package multi-image downloads as one ZIP.
 - [ ] Add gallery-specific share title, URL, and cover image metadata for WhatsApp.
-- [ ] Expand the shop with Prints, Print Pack, Frames, Canvas, Deckled Prints, Metal Prints, Dibond Prints, Everyday Albums, Hardcover Books, and Lay Flat Albums.
-- [ ] Add product detail views with editable descriptions and preview images.
-- [ ] Add product flow: choose size, select photos, calculate quantity-based totals.
-- [ ] Keep album configurators marked coming soon.
+- [x] Expand the shop with Prints, Print Pack, Frames, Canvas, Deckled Prints, Metal Prints, Dibond Prints, Everyday Albums, Hardcover Books, and Lay Flat Albums.
+- [x] Add product detail views with editable descriptions and preview images.
+- [x] Add product flow: choose size, select photos, calculate quantity-based totals.
+- [x] Keep album configurators marked coming soon.
