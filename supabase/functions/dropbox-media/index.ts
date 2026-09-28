@@ -1,8 +1,9 @@
 import { corsHeaders } from 'npm:@supabase/supabase-js@2/cors'
+import { getDropboxToken } from '../_shared/dropbox-token.ts'
 
 const DBX_API = 'https://api.dropboxapi.com/2'
 const DBX_CONTENT = 'https://content.dropboxapi.com/2'
-const TOKEN = Deno.env.get('DROPBOX_ACCESS_TOKEN_2')
+const TOKEN = true
 
 type Mode = 'thumb' | 'preview' | 'original' | 'zip'
 
@@ -10,7 +11,7 @@ async function dbxJson(path: string, body: unknown) {
   const res = await fetch(`${DBX_API}${path}`, {
     method: 'POST',
     headers: {
-      Authorization: `Bearer ${TOKEN}`,
+      Authorization: `Bearer ${await getDropboxToken()}`,
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(body),
@@ -23,7 +24,7 @@ async function dbxContent(path: string, arg: unknown) {
   const res = await fetch(`${DBX_CONTENT}${path}`, {
     method: 'POST',
     headers: {
-      Authorization: `Bearer ${TOKEN}`,
+      Authorization: `Bearer ${await getDropboxToken()}`,
       'Dropbox-API-Arg': JSON.stringify(arg),
     },
   })
