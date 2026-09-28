@@ -1,3 +1,4 @@
+import JSZip from "jszip";
 import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { Check, ChevronLeft, ChevronRight, Download, Heart, Menu, Minus, Plus, ShoppingBag, X } from "lucide-react";
@@ -126,9 +127,42 @@ const GalleryContent = () => {
     });
 
   const downloadMany = async (items: Entry[]) => {
+    if (items.length === 0) return;
     setBusy(true);
-    for (const e of items) await download(e);
-    setBusy(false);
+    try {
+      if (open && items.length === photos.length && items.length > 1) {
+        const zipUrl = `${FN}?mode=zip&path=${encodeURIComponent(open.path)}`;
+        const a = document.createElement("a");
+        a.href = zipUrl;
+        a.download = `${open.name}.zip`;
+        a.click();
+      } else if (items.length > 1) {
+        const zip = new JSZip();
+        for (let i = 0; i < items.length; i += 3) {
+          const chunk = items.slice(i, i + 3);
+          await Promise.all(chunk.map(async (item) => {
+            const res = await fetch(original(item.path));
+            if (!res.ok) throw new Error(`Failed to fetch ${item.name}`);
+            const blob = await res.blob();
+            zip.file(item.name, blob);
+          }));
+        }
+        const content = await zip.generateAsync({ type: "blob" });
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(content);
+        a.download = `auswahl-${open?.name || "galerie"}.zip`;
+        a.click();
+        setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+      } else {
+        await download(items[0]);
+      }
+    } catch (err) {
+      console.error("Download failed", err);
+      for (const e of items) await download(e);
+    } finally {
+      setBusy(false);
+    }
+  };
   };
 
   const saveSelection = (event: FormEvent<HTMLFormElement>) => {
