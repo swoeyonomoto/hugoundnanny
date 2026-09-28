@@ -1120,7 +1120,13 @@ footer {
   .asia-page .intro-rule { margin-top: 88px; }
   .asia-traits { gap: 24px; margin-top: 62px; }
   .asia-traits li { padding-left: 26px; font-size: 20px; line-height: 1.38; }
-  .asia-limit-grid .asia-editorial-main { margin-left: 0; }
+  .asia-limit-grid { grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); column-gap: 56px; }
+  .asia-limit-grid > .label { grid-column: 1 / -1; grid-row: auto; }
+  .asia-limit-grid > .asia-photo-side { grid-column: 1; grid-row: auto; margin-top: 24px; }
+  .asia-limit-grid > .asia-editorial-main { grid-column: 2; grid-row: 2; margin: 0; }
+  .asia-limit-grid .about-h { max-width: 590px; font-size: clamp(40px, 5.4vw, 54px); }
+  .asia-limit-grid .asia-copy-columns { grid-template-columns: 1fr; gap: 0; }
+  .asia-limit-grid .asia-copy-columns .about-p + .about-p { margin-top: 20px; }
   .asia-copy-columns { gap: 40px; }
   .asia-steps-wrap { margin-left: 144px; }
   .asia-photo-wide { margin-top: 72px; }
