@@ -8,11 +8,15 @@ import Footer from "@/components/sections/Footer";
 import SEO from "@/components/SEO";
 import { supabase } from "@/integrations/supabase/client";
 import dibondImage from "@/assets/gallery-dibond.jpg";
-import bookImage from "@/assets/gallery-book.jpg";
-import acrylicImage from "@/assets/gallery-acrylic.jpg";
 import printsImage from "@/assets/gallery-prints.jpg";
+import printPackImage from "@/assets/gallery-print-pack.jpg";
 import framesImage from "@/assets/gallery-frames.jpg";
+import canvasImage from "@/assets/gallery-canvas.jpg";
 import deckledImage from "@/assets/gallery-deckled.jpg";
+import metalImage from "@/assets/gallery-metal.jpg";
+import everydayImage from "@/assets/gallery-everyday.jpg";
+import hardcoverImage from "@/assets/gallery-hardcover.jpg";
+import layflatImage from "@/assets/gallery-layflat.jpg";
 
 const GALLERIES: Record<string, { path: string; couple: string; date: string; location: string; cover?: string | null; highlights?: string[]; labelDe?: string; labelEn?: string; headingDe?: string; headingEn?: string }> = {
   "karo-amir": { path: "/2026/karo_amir", couple: "Karo & Amir", date: "2026", location: "" },
@@ -29,7 +33,7 @@ type ProductSize = { label: string; price: number };
 type Product = { id: ProductId; title: string; description: string; image: string; sizes: ProductSize[]; comingSoon?: boolean };
 type CartItem = { id: string; productId: ProductId; title: string; option: string; quantity: number; unitPrice: number; photos: Entry[] };
 
-const PRODUCT_IMAGES: Record<string, string> = { prints: printsImage, "print-pack": printsImage, frames: framesImage, canvas: framesImage, "deckled-prints": deckledImage, "metal-prints": acrylicImage, "dibond-prints": dibondImage, "everyday-albums": bookImage, "hardcover-book": bookImage, "lay-flat-albums": bookImage };
+const PRODUCT_IMAGES: Record<string, string> = { prints: printsImage, "print-pack": printPackImage, frames: framesImage, canvas: canvasImage, "deckled-prints": deckledImage, "metal-prints": metalImage, "dibond-prints": dibondImage, "everyday-albums": everydayImage, "hardcover-book": hardcoverImage, "lay-flat-albums": layflatImage };
 const FALLBACK_PRODUCTS: Product[] = [
   { id: "prints", title: "Prints", description: "Classic fine-art prints on premium photographic paper.", image: printsImage, sizes: [{ label: "10 × 15 cm", price: 8 }] },
   { id: "dibond-prints", title: "Dibond Prints", description: "A refined, lightweight wall piece with a clean frameless finish.", image: dibondImage, sizes: [{ label: "20 × 30 cm", price: 89 }] },
