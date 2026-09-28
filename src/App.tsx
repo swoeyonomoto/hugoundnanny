@@ -15,6 +15,7 @@ import PreviewMarie from "./pages/PreviewMarie.tsx";
 import Presentation from "./pages/Presentation.tsx";
 import Asia from "./pages/Asia.tsx";
 import Gallery from "./pages/Gallery";
+import GalleryAdmin from "./pages/GalleryAdmin";
 import ViewPresentation from "./pages/ViewPresentation.tsx";
 
 const queryClient = new QueryClient();
@@ -44,6 +45,7 @@ const App = () => {
           <Route path="/view/:slug" element={<ViewPresentation />} />
           <Route path="/asia" element={<Asia />} />
           <Route path="/gallery/:slug" element={<Gallery />} />
+          <Route path="/gallery-admin" element={<GalleryAdmin />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
