@@ -73,7 +73,7 @@ Deno.serve(async (req) => {
     const arg =
       mode === 'thumb'
         ? {
-            path: filePath,
+            resource: { '.tag': 'path', path: filePath },
             format: 'jpeg',
             size: ['w960h640','w1024h768','w2048h1536'].includes(body.size) ? body.size : 'w480h320',
             mode: 'fitone_bestfit',
