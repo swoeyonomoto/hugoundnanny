@@ -702,13 +702,6 @@ export type Database = {
     }
     Functions: {
       get_portfolio_artwork_ids: { Args: { p_slug: string }; Returns: string[] }
-      has_role: {
-        Args: {
-          _role: Database["public"]["Enums"]["app_role"]
-          _user_id: string
-        }
-        Returns: boolean
-      }
     }
     Enums: {
       app_role: "admin" | "moderator" | "user"
