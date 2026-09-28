@@ -244,8 +244,8 @@ const AsiaContent = () => {
               </h2>
               <div className="asia-copy-columns">
                 {t(
-                  <><p className="about-p">Von November bis Februar halten wir pro Monat zwei Hochzeiten für Asien frei - neben unseren regulären Hochzeiten in Europa. Genug Raum, um jede Geschichte richtig zu erzählen.</p><p className="about-p">Für euer Datum heißt das ganz einfach: solange es noch frei ist, ist es frei. Schreibt uns einfach, wenn ihr dabei sein wollt.</p></>,
-                  <><p className="about-p">From November to February we keep two weddings a month for Asia - alongside our regular weddings in Europe. Enough room to tell each story properly.</p><p className="about-p">For your date that simply means: as long as it's open, it's open. Just write to us if you'd like to be one of them.</p></>
+                  <><p className="about-p">Von November bis Februar halten wir pro Monat zwei Hochzeiten für Asien frei - Termine, die ganz allein dieser Reise gehören. Genug Raum, um jede Geschichte richtig zu erzählen.</p><p className="about-p">Für euer Datum heißt das ganz einfach: solange es noch frei ist, ist es frei. Schreibt uns einfach, wenn ihr dabei sein wollt.</p></>,
+                  <><p className="about-p">From November to February we keep two weddings a month just for Asia - dates that belong entirely to this journey. Enough room to tell each story properly.</p><p className="about-p">For your date that simply means: as long as it's open, it's open. Just write to us if you'd like to be one of them.</p></>
                 )}
               </div>
             </div>
