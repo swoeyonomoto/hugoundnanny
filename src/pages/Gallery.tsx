@@ -10,6 +10,9 @@ import { supabase } from "@/integrations/supabase/client";
 import dibondImage from "@/assets/gallery-dibond.jpg";
 import bookImage from "@/assets/gallery-book.jpg";
 import acrylicImage from "@/assets/gallery-acrylic.jpg";
+import printsImage from "@/assets/gallery-prints.jpg";
+import framesImage from "@/assets/gallery-frames.jpg";
+import deckledImage from "@/assets/gallery-deckled.jpg";
 
 const GALLERIES: Record<string, { path: string; couple: string; date: string; location: string; cover?: string | null; highlights?: string[]; labelDe?: string; labelEn?: string; headingDe?: string; headingEn?: string }> = {
   "karo-amir": { path: "/2026/karo_amir", couple: "Karo & Amir", date: "2026", location: "" },
@@ -21,13 +24,16 @@ const img = (path: string, size = "w960h640") =>
 const original = (path: string) => `${FN}?mode=original&path=${encodeURIComponent(path)}`;
 
 type Entry = { tag: string; name: string; path: string };
-type ProductId = "dibond" | "book" | "acrylic";
+type ProductId = string;
+type ProductSize = { label: string; price: number };
+type Product = { id: ProductId; title: string; description: string; image: string; sizes: ProductSize[]; comingSoon?: boolean };
 type CartItem = { id: string; productId: ProductId; title: string; option: string; quantity: number; unitPrice: number; photos: Entry[] };
 
-const PRODUCTS: Array<{ id: ProductId; title: string; description: string; image: string; price: number; options: string[]; comingSoon?: boolean }> = [
-  { id: "dibond", title: "Dibond Prints", description: "A sturdy and lightweight wall display that elevates any photo.", image: dibondImage, price: 89, options: ["20 × 30 cm", "30 × 45 cm", "40 × 60 cm"] },
-  { id: "book", title: "Hardcover Books", description: "A coffee-table-style book with pages you'll enjoy flipping through often.", image: bookImage, price: 390, options: ["25 × 25 cm · 20 spreads"], comingSoon: true },
-  { id: "acrylic", title: "Acrylic Prints", description: "A refined and durable wall display with striking clarity and minimalist style.", image: acrylicImage, price: 129, options: ["20 × 30 cm", "30 × 45 cm", "40 × 60 cm"] },
+const PRODUCT_IMAGES: Record<string, string> = { prints: printsImage, "print-pack": printsImage, frames: framesImage, canvas: framesImage, "deckled-prints": deckledImage, "metal-prints": acrylicImage, "dibond-prints": dibondImage, "everyday-albums": bookImage, "hardcover-book": bookImage, "lay-flat-albums": bookImage };
+const FALLBACK_PRODUCTS: Product[] = [
+  { id: "prints", title: "Prints", description: "Classic fine-art prints on premium photographic paper.", image: printsImage, sizes: [{ label: "10 × 15 cm", price: 8 }] },
+  { id: "dibond-prints", title: "Dibond Prints", description: "A refined, lightweight wall piece with a clean frameless finish.", image: dibondImage, sizes: [{ label: "20 × 30 cm", price: 89 }] },
+  { id: "hardcover-book", title: "Hardcover Book", description: "A timeless coffee-table book made for your story.", image: bookImage, sizes: [{ label: "Configurator coming soon", price: 0 }], comingSoon: true },
 ];
 
 async function list(path: string): Promise<Entry[]> {
@@ -70,7 +76,9 @@ const GalleryContent = () => {
   const [selectionNote, setSelectionNote] = useState("");
   const [savedMessage, setSavedMessage] = useState("");
   const [pendingProduct, setPendingProduct] = useState<ProductId | null>(null);
-  const [productOptions, setProductOptions] = useState<Record<ProductId, string>>({ dibond: PRODUCTS[0].options[0], book: PRODUCTS[1].options[0], acrylic: PRODUCTS[2].options[0] });
+  const [products, setProducts] = useState<Product[]>(FALLBACK_PRODUCTS);
+  const [productOptions, setProductOptions] = useState<Record<ProductId, string>>({});
+  const [productOpen, setProductOpen] = useState<ProductId | null>(null);
   const [cart, setCart] = useState<CartItem[]>([]);
   const [cartOpen, setCartOpen] = useState(false);
   const [checkoutOpen, setCheckoutOpen] = useState(false);
@@ -85,6 +93,22 @@ const GalleryContent = () => {
       setGallery({ path: data.dropbox_path, couple: data.couple_name, date: data.wedding_date, location: data.location, cover: data.cover_path, highlights: data.highlight_paths, labelDe: data.story_label_de, labelEn: data.story_label_en, headingDe: data.story_heading_de, headingEn: data.story_heading_en });
     });
   }, [slug]);
+
+  useEffect(() => {
+    supabase.from("gallery_products").select("slug, title, description_de, description_en, image_url, sizes, coming_soon").order("sort_index").then(({ data }) => {
+      if (!data?.length) return;
+      const mapped = data.map((item) => ({
+        id: item.slug,
+        title: item.title,
+        description: t(item.description_de, item.description_en),
+        image: PRODUCT_IMAGES[item.slug] || item.image_url || printsImage,
+        sizes: Array.isArray(item.sizes) ? item.sizes.filter((size): size is ProductSize => Boolean(size) && typeof size === "object" && "label" in size && "price" in size).map((size) => ({ label: String(size.label), price: Number(size.price) })) : [],
+        comingSoon: item.coming_soon,
+      }));
+      setProducts(mapped);
+      setProductOptions(Object.fromEntries(mapped.map((item) => [item.id, item.sizes[0]?.label || ""])));
+    });
+  }, [t]);
 
   useEffect(() => {
     if (!g) return;
@@ -185,12 +209,9 @@ const GalleryContent = () => {
   };
 
   const chooseProduct = (productId: ProductId) => {
-    const product = PRODUCTS.find((item) => item.id === productId);
+    const product = products.find((item) => item.id === productId);
     if (!product || product.comingSoon) return;
-    if (selectedPhotos.length > 0) {
-      addToCart(productId);
-      return;
-    }
+    setProductOpen(null);
     setPendingProduct(productId);
     const firstFolder = folders[0];
     if (!open && firstFolder) setOpen(firstFolder);
@@ -198,15 +219,17 @@ const GalleryContent = () => {
   };
 
   const addToCart = (productId: ProductId) => {
-    const product = PRODUCTS.find((item) => item.id === productId);
+    const product = products.find((item) => item.id === productId);
     if (!product || product.comingSoon || selectedPhotos.length === 0) return;
+    const selectedSize = product.sizes.find((size) => size.label === productOptions[productId]) ?? product.sizes[0];
+    if (!selectedSize) return;
     setCart((items) => [...items, {
       id: `${productId}-${Date.now()}`,
       productId,
       title: product.title,
-      option: productOptions[productId],
-      quantity: 1,
-      unitPrice: product.price,
+      option: selectedSize.label,
+      quantity: selectedPhotos.length,
+      unitPrice: selectedSize.price,
       photos: selectedPhotos,
     }]);
     setPendingProduct(null);
@@ -292,7 +315,7 @@ const GalleryContent = () => {
                 </button>
               </div>
             </div>
-            {pendingProduct && <div className="gal-product-prompt"><span>{t("Wählt jetzt die Fotos für", "Now select photos for")} <strong>{PRODUCTS.find((item) => item.id === pendingProduct)?.title}</strong></span><button onClick={() => setPendingProduct(null)}><X size={16} /></button></div>}
+             {pendingProduct && <div className="gal-product-prompt"><span>{t("Wählt jetzt die Fotos für", "Now select photos for")} <strong>{products.find((item) => item.id === pendingProduct)?.title}</strong>. {t("Jedes ausgewählte Foto entspricht einem Produkt.", "Each selected photo equals one product.")}</span><button onClick={() => setPendingProduct(null)}><X size={16} /></button></div>}
             <div className="gal-masonry">
               {photos.map((p) => {
                 const index = photos.findIndex((photo) => photo.path === p.path);
@@ -315,24 +338,21 @@ const GalleryContent = () => {
           <p>{t("Wählt eure Lieblingsbilder und gestaltet daraus etwas Bleibendes.", "Select your favourite photographs and turn them into something lasting.")}</p>
         </RevealOnScroll>
         <div className="gal-products">
-          {PRODUCTS.map((product) => (
-            <article className="gal-product" key={product.id}>
+          {products.map((product) => (
+            <article className="gal-product" key={product.id} onClick={() => setProductOpen(product.id)}>
               <img src={product.image} alt={product.title} width={1200} height={900} loading="lazy" />
               <div className="gal-product-copy">
                 <h3>{product.title}</h3>
                 <p>{product.description}</p>
-                {product.comingSoon ? <span className="gal-coming">{t("Buchdesigner · Bald verfügbar", "Book designer · Coming soon")}</span> : <>
-                  <select aria-label={t("Größe", "Size")} value={productOptions[product.id]} onChange={(event) => setProductOptions((options) => ({ ...options, [product.id]: event.target.value }))}>
-                    {product.options.map((option) => <option key={option}>{option}</option>)}
-                  </select>
-                  <div className="gal-product-buy"><span>{t("Vorschaupreis ab", "Preview price from")} €{product.price}</span><button onClick={() => chooseProduct(product.id)}>{selectedPhotos.length ? t("Mit Auswahl hinzufügen", "Add with selection") : t("Fotos wählen", "Choose photos")}</button></div>
-                </>}
+                {product.comingSoon ? <span className="gal-coming">{t("Konfigurator · Bald verfügbar", "Configurator · Coming soon")}</span> : <div className="gal-product-buy"><span>{t("Ab", "From")} €{Math.min(...product.sizes.map((size) => size.price))}</span><button onClick={(event) => { event.stopPropagation(); setProductOpen(product.id); }}>{t("Produkt ansehen", "View product")}</button></div>}
               </div>
             </article>
           ))}
         </div>
         <p className="gal-price-note">{t("Die Preise sind vorläufig und werden vor der Zahlung persönlich bestätigt.", "Prices are provisional and will be personally confirmed before payment.")}</p>
       </section>
+
+      {productOpen && products.find((item) => item.id === productOpen) && (() => { const product = products.find((item) => item.id === productOpen); if (!product) return null; const chosen = product.sizes.find((size) => size.label === productOptions[product.id]) ?? product.sizes[0]; return <div className="gal-modal" role="dialog" aria-modal="true" aria-label={product.title}><div className="gal-product-dialog"><button className="gal-dialog-close" onClick={() => setProductOpen(null)} aria-label={t("Schließen", "Close")}><X /></button><img src={product.image} alt={product.title} width={1200} height={900} /><div className="gal-product-detail"><p className="gal-label">Print Shop</p><h2>{product.title}</h2><p>{product.description}</p>{product.comingSoon ? <span className="gal-coming">{t("Konfigurator · Bald verfügbar", "Configurator · Coming soon")}</span> : <><p className="gal-step">01 — {t("Größe wählen", "Choose a size")}</p><div className="gal-size-options">{product.sizes.map((size) => <button key={size.label} className={chosen?.label === size.label ? "is-active" : ""} onClick={() => setProductOptions((options) => ({ ...options, [product.id]: size.label }))}><span>{size.label}</span><strong>€{size.price}</strong></button>)}</div><p className="gal-step">02 — {t("Bilder auswählen", "Select photographs")}</p><p className="gal-product-note">{t("Im nächsten Schritt wählt ihr die Bilder. Drei Bilder ergeben drei Produkte zum jeweiligen Einzelpreis.", "Next, select the photographs. Three photographs create three products at the listed unit price.")}</p><button className="gal-dialog-submit" onClick={() => chooseProduct(product.id)}>{t("Bilder auswählen", "Select photographs")} · €{chosen?.price ?? 0} {t("pro Bild", "each")}</button></>}</div></div></div>; })()}
 
       {selectedPhotos.length > 0 && <aside className="gal-tray" aria-label={t("Fotoauswahl", "Photo selection")}>
         <div className="gal-tray-thumbs">{selectedPhotos.slice(0, 7).map((photo) => <img key={photo.path} src={img(photo.path, "w480h320")} alt="" />)}{selectedPhotos.length > 7 && <span>+{selectedPhotos.length - 7}</span>}</div>
