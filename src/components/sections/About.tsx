@@ -23,9 +23,9 @@ const About = () => {
             </h2>
             {t(
               <>
-                <p className="about-p">Wir sind kein Studio. Wir sind zwei Menschen, die sich unsterblich in Hochzeiten verliebt haben — nicht wegen des Glamours, sondern wegen der Ehrlichkeit. Weil an keinem anderen Tag so viel auf einmal passiert.</p>
-                <p className="about-p">Unsere Aufgabe ist einfach: Wir sind dabei. Leise, aufmerksam — damit kein Moment verloren geht. Keine gestellten Fotos, keine starren Posen. Nur das, was wirklich passiert.</p>
-                <p className="about-p">Was ihr von uns bekommt, ist kein Album. Es ist ein Portal zurück — zu genau dem Gefühl, das ihr an diesem Tag hattet.</p>
+                <p className="about-p">Wir sind kein Studio. Wir sind zwei Menschen, die sich unsterblich in Hochzeiten verliebt haben - nicht wegen des Glamours, sondern wegen der Ehrlichkeit. Weil an keinem anderen Tag so viel auf einmal passiert.</p>
+                <p className="about-p">Unsere Aufgabe ist einfach: Wir sind dabei. Leise, aufmerksam - damit kein Moment verloren geht. Keine gestellten Fotos, keine starren Posen. Nur das, was wirklich passiert.</p>
+                <p className="about-p">Was ihr von uns bekommt, ist kein Album. Es ist ein Portal zurück - zu genau dem Gefühl, das ihr an diesem Tag hattet.</p>
               </>,
               <>
                 <p className="about-p">We're not a studio. We're two people who fell deeply in love with weddings - not for the glamour, but for the honesty. Because no other day holds this much at once.</p>

@@ -89,7 +89,7 @@ const LogoHeader = ({ variant = "auto" }: LogoHeaderProps) => {
         black: `inset(0 0 ${100 - darkStart}% 0)`,
       });
     } else {
-      // Dark band in the middle — rare case, just show black
+      // Dark band in the middle - rare case, just show black
       setClipData({ white: "inset(0 0 100% 0)", black: "inset(0 0 0 0)" });
     }
   }, [variant]);

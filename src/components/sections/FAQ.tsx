@@ -8,33 +8,33 @@ const faqs = [
   {
     qDe: "Können wir vorher mal reden?",
     qEn: "Can we have a chat before booking?",
-    aDe: "Ja, absolut — und das wünschen wir uns sogar. Wir würden niemals etwas bestätigen, ohne dass wir uns vorher gut kennenlernen und austauschen konnten. Schreib uns einfach.",
-    aEn: "Yes, absolutely — and we'd actually love that. We would never confirm anything without having had a good chance to connect and exchange first. Just write us.",
+    aDe: "Ja, absolut - und das wünschen wir uns sogar. Wir würden niemals etwas bestätigen, ohne dass wir uns vorher gut kennenlernen und austauschen konnten. Schreib uns einfach.",
+    aEn: "Yes, absolutely - and we'd actually love that. We would never confirm anything without having had a good chance to connect and exchange first. Just write us.",
     hasWhatsApp: true,
   },
   {
     qDe: "Wie weit im Voraus sollten wir buchen?",
     qEn: "How far in advance should we book?",
-    aDe: "Die meisten Paare buchen uns 12–18 Monate im Voraus. Für Sommersaison und Destination Weddings empfehlen wir so früh wie möglich — wir nehmen nur eine begrenzte Anzahl Hochzeiten pro Jahr an.",
-    aEn: "Most couples book us 12–18 months in advance. For summer season and destination weddings, the earlier the better — we only take a limited number of weddings per year.",
+    aDe: "Die meisten Paare buchen uns 12-18 Monate im Voraus. Für Sommersaison und Destination Weddings empfehlen wir so früh wie möglich - wir nehmen nur eine begrenzte Anzahl Hochzeiten pro Jahr an.",
+    aEn: "Most couples book us 12-18 months in advance. For summer season and destination weddings, the earlier the better - we only take a limited number of weddings per year.",
   },
   {
     qDe: "Reist ihr auch ins Ausland?",
     qEn: "Do you travel internationally?",
-    aDe: "Ja, sehr gerne. Wir waren schon in Italien, Frankreich, Belgien und vielen anderen Ländern. Reisekosten besprechen wir transparent — keine Überraschungen.",
-    aEn: "Yes, absolutely. We've shot in Italy, France, Belgium and many more. Travel costs are discussed transparently upfront — no surprises.",
+    aDe: "Ja, sehr gerne. Wir waren schon in Italien, Frankreich, Belgien und vielen anderen Ländern. Reisekosten besprechen wir transparent - keine Überraschungen.",
+    aEn: "Yes, absolutely. We've shot in Italy, France, Belgium and many more. Travel costs are discussed transparently upfront - no surprises.",
   },
   {
-    qDe: "Wir sind total kamerascheu — ist das ein Problem?",
-    qEn: "We're really camera shy — is that a problem?",
+    qDe: "Wir sind total kamerascheu - ist das ein Problem?",
+    qEn: "We're really camera shy - is that a problem?",
     aDe: "Überhaupt nicht. Das sagen uns fast alle. Unsere Arbeit funktioniert gerade deshalb, weil wir keine Posen brauchen. Wir brauchen euch einfach nur so, wie ihr seid.",
     aEn: "Not at all. Almost everyone says this. Our work works precisely because we don't need poses. We just need you to be yourselves.",
   },
   {
     qDe: "Wann bekommen wir die Fotos und Videos?",
     qEn: "When do we receive the photos and videos?",
-    aDe: "Fotos in 4–6 Wochen, Filme in 6–10 Wochen. Vorab gibt es immer Sneak Peeks — damit ihr nicht ewig warten müsst.",
-    aEn: "Photos in 4–6 weeks, films in 6–10 weeks. You'll always get sneak peeks first — so the wait doesn't feel so long.",
+    aDe: "Fotos in 4-6 Wochen, Filme in 6-10 Wochen. Vorab gibt es immer Sneak Peeks - damit ihr nicht ewig warten müsst.",
+    aEn: "Photos in 4-6 weeks, films in 6-10 weeks. You'll always get sneak peeks first - so the wait doesn't feel so long.",
   },
 ];
 

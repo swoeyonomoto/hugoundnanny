@@ -106,8 +106,8 @@ const HomepageContent = () => {
   return (
     <>
       <SEO
-        title="Hugo + Nanny — Wedding Photography & Film | Limited 2026 Dates"
-        description="Authentic wedding photography and film by Hugo, Nanny & Tilmann. Real moments, real stories. Check 2026 availability — packages from €3,900."
+        title="Hugo + Nanny - Wedding Photography & Film | Limited 2026 Dates"
+        description="Authentic wedding photography and film by Hugo, Nanny & Tilmann. Real moments, real stories. Check 2026 availability - packages from €3,900."
         path="/"
         jsonLd={ORG_LD}
       />
@@ -157,12 +157,12 @@ const HomepageContent = () => {
             </h1>
             <p className="home-form-sub">
               {t(
-                "Früh anzufragen heißt: Ihr wisst sofort, ob euer Datum frei ist — und bekommt unseren Couple's Guide mit allen Infos zu unserer Arbeit, zur Vorbereitung und zu den Kosten, damit ihr in Ruhe entscheiden könnt.",
-                "Reaching out early means you'll know if your date is free and we'll send you our couple's guide — everything about the work, how to prepare and what it costs, so you have all you need to decide."
+                "Früh anzufragen heißt: Ihr wisst sofort, ob euer Datum frei ist - und bekommt unseren Couple's Guide mit allen Infos zu unserer Arbeit, zur Vorbereitung und zu den Kosten, damit ihr in Ruhe entscheiden könnt.",
+                "Reaching out early means you'll know if your date is free and we'll send you our couple's guide - everything about the work, how to prepare and what it costs, so you have all you need to decide."
               )}
             </p>
             <p style={{ fontSize: 12, color: "#999", marginTop: 10, marginBottom: 0, lineHeight: 1.6 }}>
-              {t("Pakete ab € 3.900 — alle Preise im Couple's Guide.", "Packages from €3,900 — full pricing in the couple's guide.")}
+              {t("Pakete ab € 3.900 - alle Preise im Couple's Guide.", "Packages from €3,900 - full pricing in the couple's guide.")}
             </p>
 
             <a

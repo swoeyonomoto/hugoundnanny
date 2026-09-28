@@ -12,15 +12,15 @@ const Pricing = () => {
       price: "€ 3.900",
       emotionalLine: true,
       emotionalText: t(
-        "Eine Person. Vom ersten bis zum letzten Moment. Voll da, voll fokussiert — auf euch, auf den Tag, auf nichts anderes. Eine Vision. Erzählt aus einer starken Perspektive.",
-        "One person. From the first moment to the last. Fully there, fully focused — on you, on the day, on nothing else. One vision. Told from one strong perspective."
+        "Eine Person. Vom ersten bis zum letzten Moment. Voll da, voll fokussiert - auf euch, auf den Tag, auf nichts anderes. Eine Vision. Erzählt aus einer starken Perspektive.",
+        "One person. From the first moment to the last. Fully there, fully focused - on you, on the day, on nothing else. One vision. Told from one strong perspective."
       ),
       items: [
         { label: t("Abdeckung", "Coverage"), value: t("Hochzeitstag (10h)", "Wedding day (10h)") },
         { label: t("Team", "Crew"), value: t("1 Kameramann (Film oder Foto)", "1 cinematographer (film or photo)") },
         { label: t("Kamera", "Camera"), value: t(<>Kinokamera<br />+ Drohne</>, <>Cinema camera<br />+ drone</>) },
-        { label: "Film", value: t("Highlightfilm 4–5 Min.", "Highlight film 4–5 min") },
-        { label: "Social", value: "—" },
+        { label: "Film", value: t("Highlightfilm 4-5 Min.", "Highlight film 4-5 min") },
+        { label: "Social", value: "-" },
         { label: t("Fotos", "Photos"), value: t("400 digital", "400 digital") },
       ],
       hi: false,
@@ -33,13 +33,13 @@ const Pricing = () => {
       emotionalLine: true,
       emotionalText: t(
         "Wir beide an eurem Tag. Das bedeutet: zwei Dinge passieren immer gleichzeitig. Die Drohne und die Tanzfläche. Die Totale und die Nähe. Ihr Gesicht und seines. Ihr müsst nicht wählen, was festgehalten wird. Wir haben es schon abgedeckt.",
-        "Two of us on your day. That means two things happening at once — always. The drone and the dance floor. The wide and the close. Her face and his. You don't have to choose what gets captured. We already covered it."
+        "Two of us on your day. That means two things happening at once - always. The drone and the dance floor. The wide and the close. Her face and his. You don't have to choose what gets captured. We already covered it."
       ),
       items: [
         { label: t("Abdeckung", "Coverage"), value: t("Welcome (3h) + Hochzeitstag (12h)", "Welcome (3h) + Wedding day (12h)") },
         { label: t("Team", "Crew"), value: t("2 Kameraleute (Film oder Foto)", "2 cinematographers (film or photo)") },
         { label: t("Kamera", "Camera"), value: t("Cinema + Highend Fotokamera + Drohne + Analog (36 Bilder)", "Cinema + Highend Photocamera + drone + Analogue (36 frames)") },
-        { label: "Film", value: t("Highlightfilm 4–5 Min.", "Highlight film 4–5 min") },
+        { label: "Film", value: t("Highlightfilm 4-5 Min.", "Highlight film 4-5 min") },
         { label: "Social", value: t("Social Shorts", "Social shorts") },
         { label: t("Fotos", "Photos"), value: t("500 digital + analog (36 Bilder)", "500 digital + analogue (36 frames)") },
       ],
@@ -52,14 +52,14 @@ const Pricing = () => {
       price: "€ 8.500",
       emotionalLine: true,
       emotionalText: t(
-        "Alles aus Two eyes — plus ein Fotograf, der parallel läuft. Film und Foto gleichzeitig. Bewegtes Bild und Standbild. Die Momente, die man in Bewegung fühlen muss, und die, die eingefroren werden müssen. Zwei Formate, drei Menschen, ein Tag. Nichts ausgelassen.",
-        "Everything from Two eyes — plus a photographer running alongside. Film and photo at the same time. Moving image and still. The moments that need to be felt in motion, and the ones that need to be frozen. Two formats, three people, one day. Nothing left out."
+        "Alles aus Two eyes - plus ein Fotograf, der parallel läuft. Film und Foto gleichzeitig. Bewegtes Bild und Standbild. Die Momente, die man in Bewegung fühlen muss, und die, die eingefroren werden müssen. Zwei Formate, drei Menschen, ein Tag. Nichts ausgelassen.",
+        "Everything from Two eyes - plus a photographer running alongside. Film and photo at the same time. Moving image and still. The moments that need to be felt in motion, and the ones that need to be frozen. Two formats, three people, one day. Nothing left out."
       ),
       items: [
         { label: t("Abdeckung", "Coverage"), value: t("Welcome (3h) + Hochzeitstag (12h)", "Welcome (3h) + Wedding day (12h)") },
         { label: t("Team", "Crew"), value: t("2 Kameraleute + 1 Fotograf", "2 cinematographers + 1 photographer") },
         { label: t("Kamera", "Camera"), value: t("Cinema + Super 8 + VHS + Drohne + Highend Fotokamera + Analog", "Cinema + Super 8 + VHS + Drone + Highend Photocamera + Analogue") },
-        { label: "Film", value: t("Highlightfilm 7–8 Min. + Redenfilm", "Highlight film 7–8 min + Speeches film") },
+        { label: "Film", value: t("Highlightfilm 7-8 Min. + Redenfilm", "Highlight film 7-8 min + Speeches film") },
         { label: "Social", value: t("2x Social Shorts + Super VHS Nostalgiefilm", "2x Social shorts + Super VHS nostalgic film") },
         { label: t("Fotos", "Photos"), value: t("600 digital + analog (72 Bilder)", "600 digital + analogue (72 frames)") },
       ],
@@ -86,7 +86,7 @@ const Pricing = () => {
               <div>
                 <p className="pricing-intro-p">
                   {t(
-                    "Wir glauben an Transparenz. Deshalb nennen wir unsere Preise von Anfang an — keine Überraschungen, keine unangenehmen Gespräche im Nachhinein. Unsere Pakete sind ein Ausgangspunkt. Was ihr wirklich braucht, besprechen wir gemeinsam.",
+                    "Wir glauben an Transparenz. Deshalb nennen wir unsere Preise von Anfang an - keine Überraschungen, keine unangenehmen Gespräche im Nachhinein. Unsere Pakete sind ein Ausgangspunkt. Was ihr wirklich braucht, besprechen wir gemeinsam.",
                     "We believe in transparency. That's why we share our prices upfront - no surprises, no awkward conversations later. Our packages are a starting point. What you actually need, we'll figure out together."
                   )}
                 </p>
@@ -120,9 +120,9 @@ const Pricing = () => {
                     onClick={(e) => {
                       e.preventDefault();
                       const budgetMap = [
-                        "€3.900 — One day · 1 cinematographer (film or photo)",
-                        "€5.800 — Two days · 2 cinematographers (film or photo)",
-                        "€8.500 — Two days · 2 cinematographers + photographer",
+                        "€3.900 - One day · 1 cinematographer (film or photo)",
+                        "€5.800 - Two days · 2 cinematographers (film or photo)",
+                        "€8.500 - Two days · 2 cinematographers + photographer",
                       ];
                       const prefill: Record<string, string> = { lookingFor: "Photo & Video", budget: budgetMap[i] };
                       window.dispatchEvent(new CustomEvent("prefill-contact", { detail: prefill }));

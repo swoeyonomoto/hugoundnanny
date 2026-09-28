@@ -12,7 +12,7 @@ const ImprintContent = () => {
   return (
     <>
       <SEO
-        title="Imprint — Hugo + Nanny"
+        title="Imprint - Hugo + Nanny"
         description="Legal notice and imprint for Hugo + Nanny wedding photography and film."
         path="/imprint"
       />

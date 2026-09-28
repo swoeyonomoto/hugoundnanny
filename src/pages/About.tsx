@@ -19,11 +19,11 @@ const FAQ_LD = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
   mainEntity: [
-    { "@type": "Question", name: "Can we have a chat before booking?", acceptedAnswer: { "@type": "Answer", text: "Yes, absolutely — and we'd actually love that. We would never confirm anything without having had a good chance to connect and exchange first." } },
-    { "@type": "Question", name: "How far in advance should we book?", acceptedAnswer: { "@type": "Answer", text: "Most couples book us 12–18 months in advance. For summer season and destination weddings, the earlier the better." } },
+    { "@type": "Question", name: "Can we have a chat before booking?", acceptedAnswer: { "@type": "Answer", text: "Yes, absolutely - and we'd actually love that. We would never confirm anything without having had a good chance to connect and exchange first." } },
+    { "@type": "Question", name: "How far in advance should we book?", acceptedAnswer: { "@type": "Answer", text: "Most couples book us 12-18 months in advance. For summer season and destination weddings, the earlier the better." } },
     { "@type": "Question", name: "Do you travel internationally?", acceptedAnswer: { "@type": "Answer", text: "Yes. We've shot in Italy, France, Belgium and many more. Travel costs are discussed transparently upfront." } },
-    { "@type": "Question", name: "We're really camera shy — is that a problem?", acceptedAnswer: { "@type": "Answer", text: "Not at all. Our work works precisely because we don't need poses. We just need you to be yourselves." } },
-    { "@type": "Question", name: "When do we receive the photos and videos?", acceptedAnswer: { "@type": "Answer", text: "Photos in 4–6 weeks, films in 6–10 weeks. You'll always get sneak peeks first." } },
+    { "@type": "Question", name: "We're really camera shy - is that a problem?", acceptedAnswer: { "@type": "Answer", text: "Not at all. Our work works precisely because we don't need poses. We just need you to be yourselves." } },
+    { "@type": "Question", name: "When do we receive the photos and videos?", acceptedAnswer: { "@type": "Answer", text: "Photos in 4-6 weeks, films in 6-10 weeks. You'll always get sneak peeks first." } },
   ],
 };
 
@@ -52,7 +52,7 @@ const IntroText = () => {
       <div className="wrap">
         <RevealOnScroll>
           <span className="label">
-            {t("Scrollt runter, um uns kennenzulernen — oder", "Scroll to meet us — or")}
+            {t("Scrollt runter, um uns kennenzulernen - oder", "Scroll to meet us - or")}
           </span>
           <p className="about-p" style={{ maxWidth: 560 }}>
             {t(
@@ -70,8 +70,8 @@ const IntroText = () => {
 const AboutPage = () => (
   <LanguageProvider>
     <SEO
-      title="About Hugo + Nanny — Wedding Photography & Film Story"
-      description="Who we are, our work, testimonials, pricing and FAQs. Authentic wedding documentation across Europe — packages from €3,900."
+      title="About Hugo + Nanny - Wedding Photography & Film Story"
+      description="Who we are, our work, testimonials, pricing and FAQs. Authentic wedding documentation across Europe - packages from €3,900."
       path="/about"
       jsonLd={FAQ_LD}
     />
