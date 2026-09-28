@@ -102,11 +102,11 @@ export default function GalleryAdmin() {
   const selectedCount = useMemo(() => gallery?.highlight_paths.length ?? 0, [gallery]);
 
   if (!sessionReady) return <main className="gallery-admin"><p>Lädt …</p></main>;
-  if (!signedIn) return <main className="gallery-admin"><form className="ga-login" onSubmit={signIn}><img src="/photos/logo-left.png" alt="Hugo & Nanny" /><h1>Gallery Manager</h1><label>E-Mail<input type="email" value={email} onChange={(event) => setEmail(event.target.value)} required /></label><label>Passwort<input type="password" value={password} onChange={(event) => setPassword(event.target.value)} required /></label>{message && <p>{message}</p>}<Button type="submit">Anmelden</Button></form></main>;
+  if (!signedIn) return <main className="gallery-admin"><form className="ga-login" onSubmit={signIn}><img src="/photos/logo-left.png" alt="Hugo + Nanny" /><h1>Gallery Manager</h1><label>E-Mail<input type="email" value={email} onChange={(event) => setEmail(event.target.value)} required /></label><label>Passwort<input type="password" value={password} onChange={(event) => setPassword(event.target.value)} required /></label>{message && <p>{message}</p>}<Button type="submit">Anmelden</Button></form></main>;
   if (!allowed) return <main className="gallery-admin"><p>Dieses Konto hat keinen Admin-Zugriff.</p><Button onClick={() => supabase.auth.signOut().then(() => window.location.reload())}>Abmelden</Button></main>;
 
   return <main className="gallery-admin">
-    <header className="ga-head"><div><img src="/photos/logo-left.png" alt="Hugo & Nanny" /><span>Gallery Manager</span></div><Button variant="ghost" size="icon" title="Abmelden" onClick={() => supabase.auth.signOut().then(() => window.location.reload())}><LogOut /></Button></header>
+    <header className="ga-head"><div><img src="/photos/logo-left.png" alt="Hugo + Nanny" /><span>Gallery Manager</span></div><Button variant="ghost" size="icon" title="Abmelden" onClick={() => supabase.auth.signOut().then(() => window.location.reload())}><LogOut /></Button></header>
     <div className="ga-shell">
       <nav className="ga-nav"><h2>Galerien</h2>{galleries.map((item) => <Button key={item.id} variant={item.id === activeId ? "secondary" : "ghost"} onClick={() => setActiveId(item.id)}>{item.couple_name}</Button>)}</nav>
       <div className="ga-content">

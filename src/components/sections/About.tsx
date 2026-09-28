@@ -10,7 +10,7 @@ const About = () => {
         <div className="wrap about-grid">
           <RevealOnScroll className="rv2">
             <div className="about-img">
-              <img src="/photos/about.jpg" alt="Hugo & Nanny" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              <img src="/photos/about.jpg" alt="Hugo + Nanny" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
             </div>
           </RevealOnScroll>
           <RevealOnScroll>
@@ -33,7 +33,7 @@ const About = () => {
                 <p className="about-p">What you get from us isn't an album. It's a portal back - to exactly how it felt that day.</p>
               </>
             )}
-            <p className="about-sig">Hugo & Nanny</p>
+            <p className="about-sig">Hugo + Nanny</p>
             <a href="/gang" className="about-cta-link">
               {t("Lern uns kennen →", "Get to know us →")}
             </a>

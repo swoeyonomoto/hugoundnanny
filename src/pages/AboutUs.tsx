@@ -6,15 +6,15 @@ import Footer from "@/components/sections/Footer";
 import SEO from "@/components/SEO";
 import { Link } from "react-router-dom";
 
-const WHATSAPP_URL = "https://wa.me/4916097813272?text=Hi%20Hugo%20%26%20Nanny!%20%F0%9F%96%A4%0A%0AWe%20came%20across%20your%20work%20and%20love%20your%20style.%20Here%27s%20a%20little%20about%20us%3A%0A%0ANames%3A%20%5Byour%20names%5D%0AWedding%20date%20%26%20location%3A%20%5Bdate%20%26%20location%5D%0ALooking%20for%3A%20%5Bphoto%20%2F%20video%20%2F%20both%5D%0ABudget%3A%20%5Bapprox.%5D%0A%0ALooking%20forward%20to%20hearing%20from%20you!";
+const WHATSAPP_URL = "https://wa.me/4916097813272?text=Hi%20Hugo%20%2B%20Nanny!%20%F0%9F%96%A4%0A%0AWe%20came%20across%20your%20work%20and%20love%20your%20style.%20Here%27s%20a%20little%20about%20us%3A%0A%0ANames%3A%20%5Byour%20names%5D%0AWedding%20date%20%26%20location%3A%20%5Bdate%20%26%20location%5D%0ALooking%20for%3A%20%5Bphoto%20%2F%20video%20%2F%20both%5D%0ABudget%3A%20%5Bapprox.%5D%0A%0ALooking%20forward%20to%20hearing%20from%20you!";
 
 const team = [
   {
     name: "Joey",
     role: { de: "Gründer · Videograf · Fotograf", en: "Founder · Videographer · Photographer" },
     bio: {
-      de: "Joey, Gründer von Hugo & Nanny, liebt Hochzeiten seit 7 Jahren wie am ersten Tag. Tagsüber Videograf, nachts Maler — und unser Ass im Ärmel, wenn es um Fotografie geht. Ein moderner Ninja mit Charme. Falls ihr ihn nicht findet: schaut bei den Süßigkeiten.",
-      en: "Joey, founder of Hugo & Nanny, has loved weddings for 7 years like it was day one. Videographer by day, painter by night—and our ace up the sleeve when it comes to photography. A modern-world ninja with charm. If you can't find him: check by the sweets.",
+      de: "Joey, Gründer von Hugo + Nanny, liebt Hochzeiten seit 7 Jahren wie am ersten Tag. Tagsüber Videograf, nachts Maler — und unser Ass im Ärmel, wenn es um Fotografie geht. Ein moderner Ninja mit Charme. Falls ihr ihn nicht findet: schaut bei den Süßigkeiten.",
+      en: "Joey, founder of Hugo + Nanny, has loved weddings for 7 years like it was day one. Videographer by day, painter by night—and our ace up the sleeve when it comes to photography. A modern-world ninja with charm. If you can't find him: check by the sweets.",
     },
     photo: "/photos/joey.jpg",
   },

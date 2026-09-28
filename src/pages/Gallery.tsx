@@ -20,7 +20,7 @@ import hardcoverImage from "@/assets/gallery-hardcover.jpg";
 import layflatImage from "@/assets/gallery-layflat.jpg";
 
 const GALLERIES: Record<string, { path: string; couple: string; date: string; location: string; cover?: string | null; highlights?: string[]; labelDe?: string; labelEn?: string; headingDe?: string; headingEn?: string }> = {
-  "karo-amir": { path: "/2026/karo_amir", couple: "Karo & Amir", date: "2026", location: "" },
+  "karo-amir": { path: "/2026/karo_amir", couple: "Karo + Amir", date: "2026", location: "" },
 };
 
 const FN = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/dropbox-media`;
@@ -286,15 +286,15 @@ const GalleryContent = () => {
     return (
       <div className="gal-empty">
         <p>{t("Diese Galerie existiert nicht.", "This gallery does not exist.")}</p>
-        <Link to="/">← Hugo & Nanny</Link>
+        <Link to="/">← Hugo + Nanny</Link>
       </div>
     );
 
   return (
     <div className="gallery-page">
-      <SEO title={`${g.couple} · Hugo & Nanny`} description={t("Private Galerie", "Private gallery")} path={`/gallery/${slug}`} />
+      <SEO title={`${g.couple} · Hugo + Nanny`} description={t("Private Galerie", "Private gallery")} path={`/gallery/${slug}`} />
       <nav className="gal-nav" aria-label={t("Galerie-Navigation", "Gallery navigation")}>
-        <a className="gal-brand" href="#gal-hero" aria-label="Hugo & Nanny"><img src="/photos/logo-left.png" alt="Hugo & Nanny" width="1200" height="348" /></a>
+        <a className="gal-brand" href="#gal-hero" aria-label="Hugo + Nanny"><img src="/photos/logo-left.png" alt="Hugo + Nanny" width="1200" height="348" /></a>
         <div className="gal-nav-links">
           {both && <div className="gal-mode-switch"><button className={mode === "photos" ? "is-active" : ""} onClick={() => goMode("photos")}>{t("Fotos", "Photos")}</button><button className={mode === "film" ? "is-active" : ""} onClick={() => goMode("film")}>Film</button></div>}
           {mode === "photos" ? <>
@@ -314,7 +314,7 @@ const GalleryContent = () => {
       <section id="gal-hero" className="gal-hero">
         <div className="gal-hero-media-wrap"><div ref={heroMediaRef} className="gal-hero-media">{hero && <img src={img(hero.path, "w2048h1536")} alt={g.couple} width={2048} height={1536} fetchPriority="high" />}</div></div>
         <div ref={heroCopyRef} className="gal-hero-inner">
-          <img className="gal-hero-logo" src="/photos/logo-left.png" alt="Hugo & Nanny" width="1200" height="348" />
+          <img className="gal-hero-logo" src="/photos/logo-left.png" alt="Hugo + Nanny" width="1200" height="348" />
           <h1>{g.couple}</h1>
           <p className="gal-meta">{[g.date, g.location].filter(Boolean).join(" · ")}</p>
           {both ? <div className="gal-hero-choice">

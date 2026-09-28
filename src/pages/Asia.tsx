@@ -155,8 +155,8 @@ const AsiaContent = () => {
             <div className="asia-editorial-main">
               <h2 className="about-h intro-headline">
                 {t(
-                  <>Die Hochzeit von Eddie & Mel in Hongkong hat <em>unser Leben verändert.</em></>,
-                  <>Eddie & Mel's wedding in Hong Kong <em>changed our life.</em></>
+                  <>Die Hochzeit von Eddie + Mel in Hongkong hat <em>unser Leben verändert.</em></>,
+                  <>Eddie + Mel's wedding in Hong Kong <em>changed our life.</em></>
                 )}
               </h2>
               <p className="about-p asia-lede">
@@ -169,10 +169,10 @@ const AsiaContent = () => {
             <figure className="asia-photo asia-photo-wide">
               <img
                 src="/photos/eddie-mel-thumb.jpg"
-                alt={t("Eddie & Mel in Hongkong", "Eddie & Mel in Hong Kong")}
+                alt={t("Eddie + Mel in Hongkong", "Eddie + Mel in Hong Kong")}
                 loading="lazy"
               />
-              <figcaption>{t("Eddie & Mel · Hongkong", "Eddie & Mel · Hong Kong")}</figcaption>
+              <figcaption>{t("Eddie + Mel · Hongkong", "Eddie + Mel · Hong Kong")}</figcaption>
             </figure>
             <hr className="intro-rule" />
           </RevealOnScroll>
@@ -209,14 +209,14 @@ const AsiaContent = () => {
             <figure className="asia-photo">
               <img
                 src="/photos/02.jpg"
-                alt={t("Hochzeitsfoto von Hugo & Nanny", "Wedding photo by Hugo & Nanny")}
+                alt={t("Hochzeitsfoto von Hugo + Nanny", "Wedding photo by Hugo + Nanny")}
                 loading="lazy"
               />
             </figure>
             <figure className="asia-photo asia-photo-offset">
               <img
                 src="/photos/11.jpg"
-                alt={t("Hochzeitsfoto von Hugo & Nanny", "Wedding photo by Hugo & Nanny")}
+                alt={t("Hochzeitsfoto von Hugo + Nanny", "Wedding photo by Hugo + Nanny")}
                 loading="lazy"
               />
             </figure>
@@ -234,7 +234,7 @@ const AsiaContent = () => {
             <figure className="asia-photo asia-photo-side">
               <img
                 src="/photos/14.jpg"
-                alt={t("Hochzeitsfoto von Hugo & Nanny", "Wedding photo by Hugo & Nanny")}
+                alt={t("Hochzeitsfoto von Hugo + Nanny", "Wedding photo by Hugo + Nanny")}
                 loading="lazy"
               />
             </figure>
