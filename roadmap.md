@@ -1,5 +1,6 @@
 # Roadmap
 
+- [x] Preserve the current version as the rollback point in project History before the site-wide typography refinement.
 - [x] Redesign the client gallery using Nigel John’s header, filters, and navigation with Kinfolk’s image layout and folder overview.
 - [x] Add hover image controls and animate selected photos into a persistent bottom tray.
 - [x] Let couples download the tray selection.
