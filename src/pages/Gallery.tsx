@@ -1,3 +1,4 @@
+import JSZip from "jszip";
 import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { Check, ChevronLeft, ChevronRight, Download, Heart, Menu, Minus, Plus, ShoppingBag, X } from "lucide-react";
