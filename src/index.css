@@ -1210,14 +1210,15 @@ footer {
 .gal-h em { color: hsl(var(--gal-accent)); }
 .gal-h-sm { max-width: none; font-size: clamp(36px, 4vw, 58px); }
 .gal-loading { opacity: .55; font-size: 12px; text-transform: uppercase; }
-.gal-segments { max-width: 1180px; margin: 70px auto 0; display: flex; align-items: stretch; overflow-x: auto; border-top: 1px solid hsl(var(--gal-line)); border-bottom: 1px solid hsl(var(--gal-line)); scrollbar-width: none; }
+.gal-segments { max-width: 1180px; margin: 70px auto 0; display: flex; align-items: center; gap: 30px; overflow-x: auto; border-bottom: 1px solid hsl(var(--gal-line)); scrollbar-width: none; }
 .gal-segments::-webkit-scrollbar { display: none; }
-.gal-segments button { position: relative; flex: 1 0 180px; min-height: 72px; display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 0 22px; border-right: 1px solid hsl(var(--gal-line)); font-size: 11px; text-transform: uppercase; opacity: .48; }
-.gal-segments button:first-child { border-left: 1px solid hsl(var(--gal-line)); }
-.gal-segments button::after { content: ""; position: absolute; left: 22px; right: 22px; bottom: -1px; height: 2px; background: hsl(var(--gal-ink)); transform: scaleX(0); transition: transform .25s ease; }
+.gal-segments button { position: relative; flex: 0 0 auto; min-height: 56px; display: flex; align-items: center; gap: 8px; padding: 0; font-size: 11px; text-transform: uppercase; opacity: .48; }
+.gal-segments button::after { content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 1px; background: hsl(var(--gal-ink)); transform: scaleX(0); transition: transform .25s ease; }
 .gal-segments button.is-active { opacity: 1; }
 .gal-segments button.is-active::after { transform: scaleX(1); }
 .gal-segments small { font-size: 9px; opacity: .55; }
+.gal-highlights { max-width: 1180px; margin: 54px auto 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.gal-highlights img { width: 100%; aspect-ratio: 4/5; object-fit: cover; }
 .gal-bar { max-width: 1180px; margin: 48px auto 30px; display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 24px; }
 .gal-bar .gal-label { margin-bottom: 8px; }
 .gal-actions { display: flex; gap: 9px; flex-wrap: wrap; }
@@ -1316,7 +1317,8 @@ footer {
   .gal-hero h1 { font-size: clamp(48px, 15vw, 66px); }
   .gal-main { padding-top: 74px; padding-bottom: 98px; }
   .gal-segments { margin-top: 44px; }
-  .gal-segments button { flex-basis: 150px; min-height: 62px; padding-inline: 16px; }
+  .gal-segments button { min-height: 52px; }
+  .gal-highlights { grid-template-columns: repeat(2, 1fr); gap: 6px; }
   .gal-bar { grid-template-columns: 1fr; }
   .gal-actions { width: 100%; }
   .gal-actions button { flex: 1; }

@@ -17,3 +17,7 @@
 - [ ] Use faster Dropbox thumbnails while preserving original downloads.
 - [ ] Package multi-image downloads as one ZIP.
 - [ ] Add gallery-specific share title, URL, and cover image metadata for WhatsApp.
+- [ ] Expand the shop with Prints, Print Pack, Frames, Canvas, Deckled Prints, Metal Prints, Dibond Prints, Everyday Albums, Hardcover Books, and Lay Flat Albums.
+- [ ] Add product detail views with editable descriptions and preview images.
+- [ ] Add product flow: choose size, select photos, calculate quantity-based totals.
+- [ ] Keep album configurators marked coming soon.
