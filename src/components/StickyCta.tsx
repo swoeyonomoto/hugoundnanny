@@ -21,7 +21,7 @@ const StickyCta = () => {
 
   return (
     <a href="#contact" className={`sticky-cta ${show ? "show" : ""}`}>
-      {t("Let's get rolling ♥", "Let's get rolling ♥")}
+      {t("Let's get rolling", "Let's get rolling")}
     </a>
   );
 };

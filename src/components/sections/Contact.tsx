@@ -13,7 +13,7 @@ const Contact = () => {
           <RevealOnScroll>
             <span className="label">{t("Kontakt", "Contact")}</span>
             <h2 className="contact-h">
-              <em>Limited 2026 dates.<br />Find out if yours is free…</em>
+              <em>Open Dates 2027.<br />Is yours still free?</em>
             </h2>
             <p className="contact-p" style={{ maxWidth: 560 }}>
               {t(
@@ -29,7 +29,7 @@ const Contact = () => {
               rel="noopener noreferrer"
               style={{ display: "block", marginTop: 24, marginBottom: 28, fontSize: 11, letterSpacing: "0.08em", textTransform: "uppercase" as const, color: "#888", textDecoration: "none" }}
             >
-              {t("💬 Lieber per WhatsApp? Schreibt uns direkt →", "💬 Prefer WhatsApp? Message us directly →")}
+              {t("Lieber per WhatsApp? Schreibt uns direkt →", "Prefer WhatsApp? Message us directly →")}
             </a>
           </RevealOnScroll>
 

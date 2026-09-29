@@ -106,8 +106,8 @@ const HomepageContent = () => {
   return (
     <>
       <SEO
-        title="Hugo + Nanny - Wedding Photography & Film | Limited 2026 Dates"
-        description="Authentic wedding photography and film by Hugo, Nanny & Tilmann. Real moments, real stories. Check 2026 availability - packages from €3,900."
+        title="Hugo + Nanny - Wedding Photography & Film | Open Dates 2027"
+        description="Authentic wedding photography and film by Hugo, Nanny & Tilmann. Real moments, real stories. Check 2027 availability - packages from €3,900."
         path="/"
         jsonLd={ORG_LD}
       />
@@ -151,8 +151,8 @@ const HomepageContent = () => {
           <div className="home-form-inner">
             <h1 className="home-form-h">
               {t(
-                <em>Limited 2026 dates.<br />Find out if yours is free…</em>,
-                <em>Limited 2026 dates.<br />Find out if yours is free…</em>
+                <em>Open Dates 2027.<br />Ist deiner noch frei?</em>,
+                <em>Open Dates 2027.<br />Is yours still free?</em>
               )}
             </h1>
             <p className="home-form-sub">
@@ -170,7 +170,7 @@ const HomepageContent = () => {
               rel="noopener noreferrer"
               style={{ display: "block", marginTop: 24, marginBottom: 28, fontSize: 11, letterSpacing: "0.08em", textTransform: "uppercase" as const, color: "#888", textDecoration: "none" }}
             >
-              {t("💬 Lieber per WhatsApp? Schreibt uns direkt →", "💬 Prefer WhatsApp? Message us directly →")}
+              {t("Lieber per WhatsApp? Schreibt uns direkt →", "Prefer WhatsApp? Message us directly →")}
             </a>
 
             {!formOpen ? (
@@ -180,7 +180,7 @@ const HomepageContent = () => {
                 className="cf-submit"
                 style={{ marginTop: 8 }}
               >
-                {t("Verfügbarkeit prüfen ♥", "Check your date ♥")}
+                {t("Verfügbarkeit prüfen", "Check your date")}
               </button>
             ) : (
               <BookingForm />
