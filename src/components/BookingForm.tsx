@@ -85,13 +85,15 @@ const BookingForm = () => {
           </select>
         </div>
       </div>
-      <div className="cf">
-        <label>{t("Unser Instagram", "Our Instagram")}</label>
-        <input type="text" name="instagram" placeholder="@yourhandle" />
-      </div>
-      <div className="cf">
-        <label>{t("Oder ruf uns an / WhatsApp", "Or call / WhatsApp us")}</label>
-        <input type="tel" name="phone" placeholder="+49 123 456 7890" />
+      <div className="cf-row">
+        <div className="cf">
+          <label>{t("Unser Instagram", "Our Instagram")}</label>
+          <input type="text" name="instagram" placeholder="@yourhandle" />
+        </div>
+        <div className="cf">
+          <label>{t("Oder ruf uns an / WhatsApp", "Or call / WhatsApp us")}</label>
+          <input type="tel" name="phone" placeholder="+49 123 456 7890" />
+        </div>
       </div>
       <div className="cf">
         <label>{t("Und das ist unsere Geschichte", "And this is our story")}</label>
