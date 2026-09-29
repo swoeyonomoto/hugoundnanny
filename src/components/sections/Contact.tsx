@@ -35,14 +35,14 @@ const Contact = () => {
                   </a>
                 </div>
               </div>
+
+              <div className="contact-grid" style={{ marginTop: 80 }}>
+                <RevealOnScroll className="rv2">
+                  <BookingForm />
+                </RevealOnScroll>
+              </div>
             </div>
           </RevealOnScroll>
-
-          <div className="contact-grid" style={{ marginTop: 88 }}>
-            <RevealOnScroll className="rv2">
-              <BookingForm />
-            </RevealOnScroll>
-          </div>
         </div>
       </section>
     </>
