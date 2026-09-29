@@ -58,7 +58,7 @@
 /* ─── BASE ─── */
 html { scroll-behavior: smooth; }
 body {
-  font-family: 'Lora', serif;
+  font-family: 'Inter', sans-serif;
   font-weight: 400;
   -webkit-font-smoothing: antialiased;
 }
@@ -490,7 +490,7 @@ body {
 }
 .cf input, .cf textarea {
   background: none; border: none; outline: none;
-  font-family: 'Lora', serif; font-size: 15px; font-weight: 400;
+  font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 400;
   color: #111; -webkit-appearance: none;
 }
 .cf input::placeholder, .cf textarea::placeholder { color: #ccc; }
@@ -511,7 +511,7 @@ body {
 
 .cf select {
   background: none; border: none; outline: none;
-  font-family: 'Lora', serif; font-size: 15px; font-weight: 400;
+  font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 400;
   color: #111; -webkit-appearance: none; appearance: none;
   cursor: pointer; padding: 2px 0; width: 100%;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='7' viewBox='0 0 12 7'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23999' stroke-width='1.2' fill='none'/%3E%3C/svg%3E");
@@ -519,12 +519,12 @@ body {
   background-position: right 0 center;
   padding-right: 20px;
 }
-.cf select option { font-family: 'Lora', serif; color: #111; }
+.cf select option { font-family: 'Inter', sans-serif; color: #111; }
 .cf select:invalid { color: #ccc; }
 .cf select option[value=""] { color: #999; }
 
 .cf input[type="date"] {
-  font-family: 'Lora', serif; font-size: 15px; color: #111;
+  font-family: 'Inter', sans-serif; font-size: 15px; color: #111;
   -webkit-appearance: auto; appearance: auto;
   display: block; width: 100%; min-height: 1.5em;
   background: transparent; cursor: pointer;
@@ -802,7 +802,7 @@ footer {
 }
 .home-form-h em { font-style: italic; }
 .home-form-sub {
-  font-family: 'Lora', serif; font-size: 13px; font-weight: 300;
+  font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 300;
   line-height: 1.7; color: #888; margin-bottom: 20px; max-width: 440px;
 }
 .home-form-inner .cf { padding: 12px 0 6px; }
@@ -1374,7 +1374,7 @@ footer {
 }
 
 /* ===== Gallery manager - scoped to .gallery-admin ===== */
-.gallery-admin { --ga-ink: 0 0% 8%; --ga-paper: 40 20% 98%; --ga-panel: 0 0% 100%; --ga-line: 40 5% 84%; min-height: 100vh; background: hsl(var(--ga-paper)); color: hsl(var(--ga-ink)); }
+.gallery-admin { --ga-ink: 0 0% 8%; --ga-paper: 40 20% 98%; --ga-panel: 0 0% 100%; --ga-line: 40 5% 84%; min-height: 100vh; background: hsl(var(--ga-paper)); color: hsl(var(--ga-ink)); font-family: 'Lora', serif; }
 .ga-login { width: min(420px, calc(100% - 36px)); min-height: 100vh; margin: auto; display: flex; flex-direction: column; justify-content: center; gap: 18px; }
 .ga-login > img { width: 150px; height: auto; margin-bottom: 24px; }
 .ga-login h1, .ga-section h1 { font-family: "Libre Caslon Display", serif; font-size: clamp(38px, 5vw, 62px); font-weight: 400; }
