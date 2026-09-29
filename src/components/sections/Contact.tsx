@@ -13,7 +13,7 @@ const Contact = () => {
           <RevealOnScroll>
             <span className="label">{t("Kontakt", "Contact")}</span>
             <h2 className="contact-h">
-              <em>Limited 2026 dates.<br />Find out if yours is free…</em>
+              <em>Open Dates 2027.<br />Is yours still free?</em>
             </h2>
             <p className="contact-p" style={{ maxWidth: 560 }}>
               {t(
