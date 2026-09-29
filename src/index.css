@@ -64,9 +64,9 @@ body {
 }
 
 /* Public-page display typography */
-body h1,
-body h2,
-body h3 {
+#root h1,
+#root h2,
+#root h3 {
   font-family: 'Cormorant Garamond', serif;
   font-weight: 300;
   letter-spacing: 0;
@@ -1398,7 +1398,7 @@ footer {
 .ga-check-label input, .ga-product-actions input { width: auto; }
 .ga-photo-title { display: flex; align-items: baseline; justify-content: space-between; margin: 58px 0 20px; }
 .ga-photo-title h2 { font-family: "Libre Caslon Display", serif; font-size: 32px; font-weight: 400; }
-.gallery-admin h1, .gallery-admin h2, .gallery-admin h3 { font-family: "Libre Caslon Display", serif; font-weight: 400; }
+#root .gallery-admin h1, #root .gallery-admin h2, #root .gallery-admin h3 { font-family: "Libre Caslon Display", serif; font-weight: 400; }
 .ga-photo-title span { font-size: 11px; opacity: .55; }
 .ga-photo-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; }
 .ga-photo-grid article { position: relative; border: 2px solid transparent; background: hsl(var(--ga-panel)); }
