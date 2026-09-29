@@ -1022,7 +1022,7 @@ footer {
 .asia-page .aboutus-cta-section { padding: 152px 0; }
 .asia-apply-grid {
   display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(300px, .65fr);
-  column-gap: clamp(56px, 9vw, 140px); align-items: end;
+  column-gap: clamp(56px, 9vw, 140px); align-items: start;
 }
 .asia-page .aboutus-cta-h {
   max-width: 820px; margin: 0; font-size: clamp(56px, 6.8vw, 98px); line-height: .98;
