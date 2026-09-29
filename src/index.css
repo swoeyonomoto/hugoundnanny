@@ -1670,3 +1670,10 @@ footer { padding: 34px 72px; border-color: hsl(var(--editorial-line)); }
   .mag-card-name { font-size: 38px; }
   .thankyou-h { font-size: 39px; }
 }
+
+/* Contact section: form runs over full width on desktop (mobile stays single column) */
+@media (min-width: 961px) {
+  .contact-grid { display: block; }
+  #contact .cform .cf-row { grid-template-columns: repeat(3, 1fr); column-gap: clamp(36px, 4.5vw, 72px); }
+  #contact .cf-submit { margin-top: 44px; }
+}
