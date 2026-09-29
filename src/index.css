@@ -1560,10 +1560,10 @@ body {
   padding-bottom: 5vh;
 }
 .home-form-h {
-  max-width: 13ch;
+  max-width: 14ch;
   margin-bottom: 20px;
-  font-size: clamp(38px, 3.2vw, 50px);
-  line-height: 1.04;
+  font-size: clamp(46px, 4vw, 62px);
+  line-height: 1.02;
   letter-spacing: 0;
 }
 .home-form-sub {
@@ -1628,7 +1628,7 @@ footer { padding: 34px 72px; border-color: hsl(var(--editorial-line)); }
   .contact-grid { grid-template-columns: 1fr; gap: 58px; }
   .home-form-col { min-height: 0; padding: 38px 24px 64px; }
   .home-form-inner { margin: 0; padding-bottom: 0; }
-  .home-form-h { max-width: 14ch; margin-bottom: 18px; font-size: 34px; line-height: 1.06; }
+  .home-form-h { max-width: 14ch; margin-bottom: 18px; font-size: 44px; line-height: 1.04; }
   .home-form-sub { font-size: 15px; line-height: 1.72; }
   .home-form-inner .cf-submit { min-width: 214px; }
   .aboutus-hero { padding-block: 130px 76px; }
@@ -1652,7 +1652,7 @@ footer { padding: 34px 72px; border-color: hsl(var(--editorial-line)); }
 @media (max-width: 600px) {
   .home-video-mobile { height: 46svh; min-height: 360px; }
   .home-form-col { padding-block: 30px 52px; }
-  .home-form-h { margin-bottom: 14px; font-size: 31px; }
+  .home-form-h { margin-bottom: 14px; font-size: 40px; }
   .home-form-sub { margin-bottom: 12px; font-size: 14px; line-height: 1.68; }
   .home-form-inner > p[style] { margin-top: 7px !important; }
   .home-form-inner > a[style] { margin-top: 17px !important; margin-bottom: 20px !important; }
