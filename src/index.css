@@ -1674,6 +1674,9 @@ footer { padding: 34px 72px; border-color: hsl(var(--editorial-line)); }
 /* Contact section: form runs over full width on desktop (mobile stays single column) */
 @media (min-width: 961px) {
   .contact-grid { display: block; }
-  #contact .cform .cf-row { grid-template-columns: repeat(3, 1fr); column-gap: clamp(36px, 4.5vw, 72px); }
-  #contact .cf-submit { margin-top: 44px; }
+  #contact .cform { display: grid; grid-template-columns: repeat(6, 1fr); column-gap: clamp(36px, 4.5vw, 72px); }
+  #contact .cform .cf-row { display: contents; }
+  #contact .cform .cf { grid-column: span 2; }
+  #contact .cform .cf-story { grid-column: 1 / -1; }
+  #contact .cf-submit { grid-column: 1 / -1; margin-top: 44px; }
 }
