@@ -1534,6 +1534,16 @@ body {
 .card-name { font-size: 28px; }
 .card-list li { font-size: 13px; line-height: 1.65; }
 
+/* Perfect comparison-table alignment: every row (Coverage, Crew, ...) lines up across all three columns */
+@media (min-width: 961px) {
+  @supports (grid-template-rows: subgrid) {
+    .cards { align-items: stretch; }
+    .card { display: grid; grid-template-rows: subgrid; grid-row: span 13; }
+    .card-list { display: grid; grid-template-rows: subgrid; grid-row: span 6; margin-bottom: 0; padding-bottom: 32px; }
+    .card-list li { align-content: start; }
+  }
+}
+
 .faq-inner { max-width: 900px; }
 .faq-h { margin-bottom: 64px; }
 .faq-q { padding-block: 27px; }
