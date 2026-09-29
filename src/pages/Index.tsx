@@ -151,8 +151,8 @@ const HomepageContent = () => {
           <div className="home-form-inner">
             <h1 className="home-form-h">
               {t(
-                <em>Open Dates 2027.<br />Ist deiner noch frei?</em>,
-                <em>Open Dates 2027.<br />Is yours still free?</em>
+                <em>Open Dates.<br />2027.</em>,
+                <em>Open Dates.<br />2027.</em>
               )}
             </h1>
             <p className="home-form-sub">
