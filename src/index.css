@@ -1678,5 +1678,5 @@ footer { padding: 34px 72px; border-color: hsl(var(--editorial-line)); }
   #contact .cform .cf-row { display: contents; }
   #contact .cform .cf { grid-column: span 2; }
   #contact .cform .cf-story { grid-column: 1 / -1; }
-  #contact .cf-submit { grid-column: 1 / -1; margin-top: 44px; }
+  #contact .cf-submit { grid-column: 1 / -1; justify-self: start; align-self: start; margin-top: 44px; }
 }
