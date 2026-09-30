@@ -158,12 +158,29 @@ const AsiaHero = () => {
         </div>
       </div>
       <div className="hero-content" style={{ pointerEvents: "none" }}>
-        <h1 className="hero-headline">
+        <div className="asia-hero-main">
+          {isMuted && (
+            <button
+              type="button"
+              className="asia-sound-hint"
+              style={{ pointerEvents: "auto" }}
+              onClick={toggleMute}
+            >
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+                <path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
+                <path d="M19.07 4.93a10 10 0 0 1 0 14.14" />
+              </svg>
+              <span>{t("Mit Ton anhören - so klingt unsere Geschichte", "Play with sound to hear our story")}</span>
+            </button>
+          )}
+          <h1 className="hero-headline">
           {t(
             <em>Asien,<br />wir kommen zurück.</em>,
             <em>Asia,<br />we are coming back.</em>
           )}
-        </h1>
+          </h1>
+        </div>
         <div className="hero-right">
           <p className="hero-sub">
             {t(
@@ -224,7 +241,7 @@ const AsiaContent = () => {
       {/* Intro */}
       <section className="intro-text-section">
         <div className="wrap">
-          <RevealOnScroll className="asia-editorial-grid asia-intro-grid">
+          <div className="asia-editorial-grid asia-intro-grid">
             <span className="label">
               {t("N°01 - Warum Asien", "N°01 - Why Asia")}
             </span>
@@ -251,7 +268,7 @@ const AsiaContent = () => {
               <figcaption>{t("Eddie + Mel · Hongkong", "Eddie + Mel · Hong Kong")}</figcaption>
             </figure>
             <hr className="intro-rule" />
-          </RevealOnScroll>
+          </div>
         </div>
       </section>
 

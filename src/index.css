@@ -216,6 +216,21 @@ body {
 .asia-cc-btn.active {
   background: rgba(255,255,255,.9); color: #111;
 }
+.asia-hero-main { min-width: 0; }
+.asia-sound-hint {
+  display: inline-flex; align-items: center; gap: 10px;
+  margin: 0 0 26px; padding: 11px 18px;
+  background: rgba(17,17,17,.26); border: 1px solid rgba(255,255,255,.38);
+  border-radius: 999px; color: rgba(255,255,255,.88);
+  font-family: 'Ginora Sans Bold', sans-serif; font-size: 9px;
+  letter-spacing: .2em; text-transform: uppercase; line-height: 1.7;
+  text-align: left; max-width: 300px;
+  cursor: pointer; backdrop-filter: blur(4px);
+  transition: background .2s ease;
+  animation: fadeUp .9s .55s both;
+}
+.asia-sound-hint:hover { background: rgba(17,17,17,.46); }
+.asia-sound-hint svg { flex-shrink: 0; }
 
 @keyframes heroScrollBounce {
   0%, 100% { opacity: 0.6; transform: translate(-50%, 0); }
@@ -1178,15 +1193,15 @@ footer {
 
 @media (min-width: 1025px) {
   #hero.asia-hero {
-    height: min(86dvh, calc(100vw / 1.25));
+    height: min(72dvh, calc(100vw / 1.25));
     min-height: 640px;
   }
   .asia-hero .hero-video wistia-player[media-id="qj5sf0a59j"] {
-    width: min(100vw, calc(86dvh * 1.25));
-    height: min(86dvh, calc(100vw / 1.25));
+    width: min(100vw, calc(72dvh * 1.25));
+    height: min(72dvh, calc(100vw / 1.25));
   }
   .asia-page .wrap { max-width: 1240px; padding-inline: 64px; }
-  .asia-page .intro-text-section { padding-top: 112px; }
+  .asia-page .intro-text-section { padding-top: 56px; }
   .asia-page #story, .asia-page #limit, .asia-page #offer { padding-block: 112px; }
   .asia-editorial-grid {
     grid-template-columns: repeat(12, minmax(0, 1fr));
