@@ -16,16 +16,19 @@ export type WistiaPlayerElement = HTMLElement & {
   deprecatedApiDoNotUse?: {
     mute?: () => void;
     unmute?: () => void;
+    time?: (seconds: number) => void;
     volume?: (level: number) => void;
   };
   _wistiaApi?: {
     mute?: () => void;
     play?: () => Promise<void> | void;
     state?: () => string;
+    time?: (seconds: number) => void;
     unmute?: () => void;
     updateEmbedOptions?: (options: Record<string, unknown>) => void;
     volume: (level: number) => void;
   };
+  time?: (seconds: number) => void;
 };
 
 interface WistiaAutoplayPlayerProps {
