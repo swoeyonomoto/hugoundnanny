@@ -21,6 +21,7 @@ const AsiaHero = () => {
   const [captionsEnabled, setCaptionsEnabled] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [showPlayFallback, setShowPlayFallback] = useState(false);
+  const [playerKey, setPlayerKey] = useState(0);
   const videoContainerRef = useRef<HTMLDivElement | null>(null);
   const playerRef = useRef<WistiaPlayerElement | null>(null);
 
