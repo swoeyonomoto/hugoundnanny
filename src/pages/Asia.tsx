@@ -64,22 +64,13 @@ const AsiaHero = () => {
     setIsMuted(nextMuted);
   };
 
-  // Sound hint: unmute AND restart the film from the beginning
+  // Sound hint: restart the film from the beginning, with sound on.
+  // Remounting the player guarantees a restart at 0; the click gesture
+  // allows playback with sound.
   const enableSoundFromStart = () => {
-    const player = playerRef.current;
-    if (player) {
-      player._wistiaApi?.time?.(0);
-      player.deprecatedApiDoNotUse?.time?.(0);
-    }
-    toggleMute();
-    // seek again after unmuting in case the API needs an unmuted player first
-    window.setTimeout(() => {
-      const p = playerRef.current;
-      p?._wistiaApi?.time?.(0);
-      p?.deprecatedApiDoNotUse?.time?.(0);
-      p?._wistiaApi?.play?.();
-      p?.play?.();
-    }, 120);
+    setIsMuted(false);
+    setShowPlayFallback(false);
+    setPlayerKey((k) => k + 1);
   };
 
   const toggleCaptions = () => {
