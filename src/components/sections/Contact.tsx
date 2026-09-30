@@ -1,9 +1,9 @@
 import { useLang } from "@/contexts/LanguageContext";
 import RevealOnScroll from "@/components/RevealOnScroll";
 import BookingForm from "@/components/BookingForm";
+import { GENERAL_WHATSAPP_MESSAGE, getWhatsAppUrl } from "@/lib/whatsapp";
 
-const WHATSAPP_URL =
-  "https://wa.me/4916097813272?text=Hi%20Hugo%20%2B%20Nanny%2C%20ich%20interessiere%20mich%20f%C3%BCr%20eure%20Hochzeitsfotografie%20und%20-film.%20K%C3%B6nnt%20ihr%20mir%20mehr%20Infos%20schicken%3F";
+const WHATSAPP_URL = getWhatsAppUrl(GENERAL_WHATSAPP_MESSAGE);
 
 const Contact = () => {
   const { t } = useLang();
