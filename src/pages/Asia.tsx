@@ -17,12 +17,20 @@ const AsiaHero = () => {
   const { t } = useLang();
   const [showScroll, setShowScroll] = useState(true);
   const [isMuted, setIsMuted] = useState(true);
+  const [captionsEnabled, setCaptionsEnabled] = useState(false);
+  const [isFullscreen, setIsFullscreen] = useState(false);
   const playerRef = useRef<WistiaPlayerElement | null>(null);
 
   useEffect(() => {
     const onScroll = () => setShowScroll(window.scrollY < 80);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    const onFullscreenChange = () => setIsFullscreen(Boolean(document.fullscreenElement));
+    document.addEventListener("fullscreenchange", onFullscreenChange);
+    return () => document.removeEventListener("fullscreenchange", onFullscreenChange);
   }, []);
 
   const toggleMute = () => {
@@ -36,6 +44,29 @@ const AsiaHero = () => {
     setIsMuted(nextMuted);
   };
 
+  const toggleCaptions = () => {
+    const nextEnabled = !captionsEnabled;
+    const player = playerRef.current;
+    if (player) player.captionsEnabled = nextEnabled;
+    setCaptionsEnabled(nextEnabled);
+  };
+
+  const toggleFullscreen = async () => {
+    const player = playerRef.current;
+    if (!player) return;
+
+    if (isFullscreen || player.inFullscreen) {
+      if (player.cancelFullscreen) await player.cancelFullscreen();
+      else if (document.fullscreenElement) await document.exitFullscreen();
+      setIsFullscreen(false);
+      return;
+    }
+
+    if (player.requestFullscreen) await player.requestFullscreen();
+    else await player.requestFullscreen?.();
+    setIsFullscreen(true);
+  };
+
   return (
     <section id="hero" className="asia-hero">
       <div className="hero-video">
@@ -46,18 +77,38 @@ const AsiaHero = () => {
           className="asia-wistia-player"
         />
         <div className="hero-video-overlay" />
-        <button
-          className="hero-mute-btn"
-          style={{ position: "absolute", bottom: 56, right: 16, zIndex: 20 }}
-          onClick={toggleMute}
-          aria-label={isMuted ? "Unmute" : "Mute"}
-        >
-          {isMuted ? (
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
-          ) : (
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
-          )}
-        </button>
+        <div className="asia-video-controls">
+          <button
+            className="hero-mute-btn"
+            onClick={toggleMute}
+            aria-label={isMuted ? t("Ton einschalten", "Unmute") : t("Ton ausschalten", "Mute")}
+          >
+            {isMuted ? (
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+            ) : (
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+            )}
+          </button>
+          <button
+            className={`hero-mute-btn asia-cc-btn ${captionsEnabled ? "active" : ""}`}
+            onClick={toggleCaptions}
+            aria-label={captionsEnabled ? t("Untertitel ausschalten", "Turn captions off") : t("Untertitel einschalten", "Turn captions on")}
+            aria-pressed={captionsEnabled}
+          >
+            CC
+          </button>
+          <button
+            className="hero-mute-btn"
+            onClick={toggleFullscreen}
+            aria-label={isFullscreen ? t("Vollbild verlassen", "Exit fullscreen") : t("Vollbild", "Fullscreen")}
+          >
+            {isFullscreen ? (
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7"><polyline points="9 3 9 9 3 9"/><polyline points="15 21 15 15 21 15"/><polyline points="21 9 15 9 15 3"/><polyline points="3 15 9 15 9 21"/></svg>
+            ) : (
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7"><polyline points="8 3 3 3 3 8"/><polyline points="16 3 21 3 21 8"/><polyline points="21 16 21 21 16 21"/><polyline points="3 16 3 21 8 21"/></svg>
+            )}
+          </button>
+        </div>
       </div>
       <div className="hero-content" style={{ pointerEvents: "none" }}>
         <h1 className="hero-headline">
