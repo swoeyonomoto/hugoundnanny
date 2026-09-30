@@ -9,6 +9,12 @@ declare namespace JSX {
         loop?: boolean;
         playsinline?: boolean;
         "silent-autoplay"?: string;
+        playbar?: string;
+        "controls-visible-on-load"?: string;
+        "small-play-button"?: string;
+        "fullscreen-button"?: string;
+        "volume-control"?: string;
+        "settings-control"?: string;
       },
       HTMLElement
     >;
