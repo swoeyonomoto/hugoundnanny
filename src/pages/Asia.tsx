@@ -46,12 +46,15 @@ const AsiaHero = () => {
       } else {
         player.removeAttribute("muted");
         player.removeAttribute("silent-autoplay");
+        player.silentAutoplay = false;
+        player.updateEmbedOptions?.({ muted: false, silentAutoplay: false, volume: 1 });
         player.unmute?.();
       }
       player.muted = nextMuted;
       player.volume = nextMuted ? 0 : 1;
       if (nextMuted) player._wistiaApi?.mute?.();
       else player._wistiaApi?.unmute?.();
+      player._wistiaApi?.updateEmbedOptions?.({ muted: nextMuted, silentAutoplay: nextMuted, volume: nextMuted ? 0 : 1 });
       player._wistiaApi?.volume(nextMuted ? 0 : 1);
     }
     setIsMuted(nextMuted);

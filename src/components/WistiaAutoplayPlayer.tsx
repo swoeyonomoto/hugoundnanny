@@ -5,10 +5,12 @@ export type WistiaPlayerElement = HTMLElement & {
   inFullscreen?: boolean;
   muted?: boolean;
   paused?: boolean;
+  silentAutoplay?: boolean | string;
   volume?: number;
   mute?: () => void;
   play?: () => Promise<void> | void;
   unmute?: () => void;
+  updateEmbedOptions?: (options: Record<string, unknown>) => void;
   requestFullscreen?: () => Promise<void> | void;
   cancelFullscreen?: () => Promise<void> | void;
   _wistiaApi?: {
@@ -16,6 +18,7 @@ export type WistiaPlayerElement = HTMLElement & {
     play?: () => Promise<void> | void;
     state?: () => string;
     unmute?: () => void;
+    updateEmbedOptions?: (options: Record<string, unknown>) => void;
     volume: (level: number) => void;
   };
 };
