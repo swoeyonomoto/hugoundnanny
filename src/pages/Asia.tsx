@@ -31,6 +31,40 @@ const AsiaHero = () => {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // Pause the film once ~2/3 of the hero is scrolled past, resume on return.
+  const pausedByScrollRef = useRef(false);
+  useEffect(() => {
+    const onScrollPause = () => {
+      const container = videoContainerRef.current;
+      const player = playerRef.current;
+      if (!container || !player) return;
+      const rect = container.getBoundingClientRect();
+      const mostlyGone = rect.bottom < window.innerHeight / 3;
+      if (mostlyGone && !pausedByScrollRef.current) {
+        pausedByScrollRef.current = true;
+        player.pause?.() ?? player._wistiaApi?.pause?.();
+      } else if (!mostlyGone && pausedByScrollRef.current) {
+        pausedByScrollRef.current = false;
+        void (player.play?.() ?? player._wistiaApi?.play?.());
+      }
+    };
+    window.addEventListener("scroll", onScrollPause, { passive: true });
+    return () => window.removeEventListener("scroll", onScrollPause);
+  }, [playerKey]);
+
+  // Click on the film toggles play/pause.
+  const togglePlayback = () => {
+    const player = playerRef.current;
+    if (!player) return;
+    const isPlaying = player.paused === false || player._wistiaApi?.state?.() === "playing";
+    if (isPlaying) {
+      pausedByScrollRef.current = false;
+      player.pause?.() ?? player._wistiaApi?.pause?.();
+    } else {
+      void (player.play?.() ?? player._wistiaApi?.play?.());
+    }
+  };
+
   useEffect(() => {
     const onFullscreenChange = () => setIsFullscreen(Boolean(document.fullscreenElement));
     document.addEventListener("fullscreenchange", onFullscreenChange);
@@ -115,7 +149,14 @@ const AsiaHero = () => {
 
   return (
     <section id="hero" className={`asia-hero ${captionsEnabled ? "captions-active" : ""}`}>
-      <div className="hero-video" ref={videoContainerRef}>
+      <div
+        className="hero-video"
+        ref={videoContainerRef}
+        onClick={(e) => {
+          if ((e.target as HTMLElement).closest("button")) return;
+          togglePlayback();
+        }}
+      >
         <WistiaAutoplayPlayer
           key={playerKey}
           ref={playerRef}

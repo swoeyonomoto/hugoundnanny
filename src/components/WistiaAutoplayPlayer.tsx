@@ -8,6 +8,7 @@ export type WistiaPlayerElement = HTMLElement & {
   silentAutoplay?: boolean | string;
   volume?: number;
   mute?: () => void;
+  pause?: () => void;
   play?: () => Promise<void> | void;
   unmute?: () => void;
   updateEmbedOptions?: (options: Record<string, unknown>) => void;
@@ -21,6 +22,7 @@ export type WistiaPlayerElement = HTMLElement & {
   };
   _wistiaApi?: {
     mute?: () => void;
+    pause?: () => void;
     play?: () => Promise<void> | void;
     state?: () => string;
     time?: (seconds: number) => void;
