@@ -59,6 +59,12 @@ const WistiaAutoplayPlayer = forwardRef<WistiaPlayerElement, WistiaAutoplayPlaye
         loop
         playsinline
         silent-autoplay="allow"
+        playbar="false"
+        controls-visible-on-load="false"
+        small-play-button="false"
+        fullscreen-button="false"
+        volume-control="false"
+        settings-control="false"
         className={className}
         style={style}
       />
