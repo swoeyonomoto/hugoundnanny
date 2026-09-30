@@ -16,35 +16,41 @@ export type WistiaPlayerElement = HTMLElement & {
   deprecatedApiDoNotUse?: {
     mute?: () => void;
     unmute?: () => void;
+    time?: (seconds: number) => void;
     volume?: (level: number) => void;
   };
   _wistiaApi?: {
     mute?: () => void;
     play?: () => Promise<void> | void;
     state?: () => string;
+    time?: (seconds: number) => void;
     unmute?: () => void;
     updateEmbedOptions?: (options: Record<string, unknown>) => void;
     volume: (level: number) => void;
   };
+  time?: (seconds: number) => void;
 };
 
 interface WistiaAutoplayPlayerProps {
   aspect?: string;
   className?: string;
   mediaId: string;
+  startMuted?: boolean;
   onAutoplayBlocked?: () => void;
   onPlaybackStarted?: () => void;
   style?: CSSProperties;
 }
 
 const WistiaAutoplayPlayer = forwardRef<WistiaPlayerElement, WistiaAutoplayPlayerProps>(
-  ({ mediaId, aspect, className, onAutoplayBlocked, onPlaybackStarted, style }, ref) => {
+  ({ mediaId, aspect, className, startMuted = true, onAutoplayBlocked, onPlaybackStarted, style }, ref) => {
     const innerRef = useRef<WistiaPlayerElement | null>(null);
     const onAutoplayBlockedRef = useRef(onAutoplayBlocked);
     const onPlaybackStartedRef = useRef(onPlaybackStarted);
+    const startMutedRef = useRef(startMuted);
 
     onAutoplayBlockedRef.current = onAutoplayBlocked;
     onPlaybackStartedRef.current = onPlaybackStarted;
+    startMutedRef.current = startMuted;
 
     useImperativeHandle(ref, () => innerRef.current as WistiaPlayerElement);
 
@@ -92,12 +98,14 @@ const WistiaAutoplayPlayer = forwardRef<WistiaPlayerElement, WistiaAutoplayPlaye
       };
 
       const attemptAutoplay = async () => {
-        player.muted = true;
-        player.volume = 0;
-        player.mute?.();
-        player.deprecatedApiDoNotUse?.mute?.();
-        player._wistiaApi?.mute?.();
-        player._wistiaApi?.volume(0);
+        if (startMutedRef.current) {
+          player.muted = true;
+          player.volume = 0;
+          player.mute?.();
+          player.deprecatedApiDoNotUse?.mute?.();
+          player._wistiaApi?.mute?.();
+          player._wistiaApi?.volume(0);
+        }
         try {
           const result = player.play?.() ?? player._wistiaApi?.play?.();
           await result;

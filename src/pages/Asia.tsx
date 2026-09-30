@@ -21,6 +21,7 @@ const AsiaHero = () => {
   const [captionsEnabled, setCaptionsEnabled] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [showPlayFallback, setShowPlayFallback] = useState(false);
+  const [playerKey, setPlayerKey] = useState(0);
   const videoContainerRef = useRef<HTMLDivElement | null>(null);
   const playerRef = useRef<WistiaPlayerElement | null>(null);
 
@@ -63,6 +64,15 @@ const AsiaHero = () => {
     setIsMuted(nextMuted);
   };
 
+  // Sound hint: restart the film from the beginning, with sound on.
+  // Remounting the player guarantees a restart at 0; the click gesture
+  // allows playback with sound.
+  const enableSoundFromStart = () => {
+    setIsMuted(false);
+    setShowPlayFallback(false);
+    setPlayerKey((k) => k + 1);
+  };
+
   const toggleCaptions = () => {
     const nextEnabled = !captionsEnabled;
     const player = playerRef.current;
@@ -90,9 +100,11 @@ const AsiaHero = () => {
   const startVideo = async () => {
     const player = playerRef.current;
     if (!player) return;
-    player.muted = true;
-    player.volume = 0;
-    player._wistiaApi?.volume(0);
+    if (isMuted) {
+      player.muted = true;
+      player.volume = 0;
+      player._wistiaApi?.volume(0);
+    }
     try {
       await (player.play?.() ?? player._wistiaApi?.play?.());
       setShowPlayFallback(false);
@@ -105,10 +117,12 @@ const AsiaHero = () => {
     <section id="hero" className={`asia-hero ${captionsEnabled ? "captions-active" : ""}`}>
       <div className="hero-video" ref={videoContainerRef}>
         <WistiaAutoplayPlayer
+          key={playerKey}
           ref={playerRef}
           mediaId={ASIA_VIDEO_ID}
           aspect="1.25"
           className="asia-wistia-player"
+          startMuted={isMuted}
           onAutoplayBlocked={() => setShowPlayFallback(true)}
           onPlaybackStarted={() => setShowPlayFallback(false)}
         />
@@ -164,7 +178,7 @@ const AsiaHero = () => {
               type="button"
               className="asia-sound-hint"
               style={{ pointerEvents: "auto" }}
-              onClick={toggleMute}
+              onClick={enableSoundFromStart}
             >
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
                 <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
