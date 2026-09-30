@@ -177,6 +177,21 @@ body {
   position: absolute; right: 16px; bottom: 56px; z-index: 20;
   display: flex; align-items: center; gap: 8px;
 }
+.asia-video-play-fallback {
+  position: absolute; top: 50%; left: 50%; z-index: 19;
+  width: 54px; height: 54px; padding: 0;
+  transform: translate(-50%, -50%);
+  display: flex; align-items: center; justify-content: center;
+  border: 1px solid rgba(255,255,255,.65); border-radius: 50%;
+  background: rgba(17,17,17,.24); color: #fff;
+  cursor: pointer; backdrop-filter: blur(3px);
+  transition: background .2s ease, transform .2s ease;
+}
+.asia-video-play-fallback:hover {
+  background: rgba(17,17,17,.42);
+  transform: translate(-50%, -50%) scale(1.04);
+}
+.asia-video-play-fallback svg { margin-left: 2px; }
 .asia-hero .hero-content,
 .asia-hero .hero-scroll-indicator {
   transition: opacity .25s ease, visibility .25s ease;

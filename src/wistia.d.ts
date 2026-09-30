@@ -12,6 +12,7 @@ declare namespace JSX {
         playbar?: string;
         "controls-visible-on-load"?: string;
         "small-play-button"?: string;
+        "big-play-button"?: string;
         "fullscreen-button"?: string;
         "volume-control"?: string;
         "settings-control"?: string;
