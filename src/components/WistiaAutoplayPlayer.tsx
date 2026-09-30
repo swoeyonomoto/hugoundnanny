@@ -96,6 +96,9 @@ const WistiaAutoplayPlayer = forwardRef<WistiaPlayerElement, WistiaAutoplayPlaye
       player.setAttribute("quality-control", "false");
       player.setAttribute("copy-link-and-thumbnail", "false");
       player.setAttribute("logo", "false");
+      player.setAttribute("controls-visible-on-hover", "false");
+      const hideUi = () => player.updateEmbedOptions?.({ playbar: false, captionsButton: false, logo: false, controlsVisibleOnLoad: false, smallPlayButton: false, bigPlayButton: false, fullscreenButton: false, volumeControl: false, settingsControl: false, playbackRateControl: false, qualityControl: false });
+      void customElements.whenDefined("wistia-player").then(hideUi);
 
       const markPlaying = () => {
         if (fallbackTimer) window.clearTimeout(fallbackTimer);

@@ -1813,3 +1813,6 @@ footer { padding: 34px 72px; border-color: hsl(var(--editorial-line)); }
   #contact .cform .cf-story { grid-column: 1 / -1; }
   #contact .cf-submit { grid-column: 1 / -1; justify-self: start; align-self: start; margin-top: 44px; }
 }
+
+/* Block Wistia's native hover UI (CC button, logo) - our own controls handle everything */
+.asia-hero .hero-video wistia-player[media-id="qj5sf0a59j"] { pointer-events: none; }
