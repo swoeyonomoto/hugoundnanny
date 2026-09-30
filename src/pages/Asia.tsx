@@ -100,9 +100,11 @@ const AsiaHero = () => {
   const startVideo = async () => {
     const player = playerRef.current;
     if (!player) return;
-    player.muted = true;
-    player.volume = 0;
-    player._wistiaApi?.volume(0);
+    if (isMuted) {
+      player.muted = true;
+      player.volume = 0;
+      player._wistiaApi?.volume(0);
+    }
     try {
       await (player.play?.() ?? player._wistiaApi?.play?.());
       setShowPlayFallback(false);
