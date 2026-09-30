@@ -50,6 +50,7 @@ const WistiaAutoplayPlayer = forwardRef<WistiaPlayerElement, WistiaAutoplayPlaye
 
     onAutoplayBlockedRef.current = onAutoplayBlocked;
     onPlaybackStartedRef.current = onPlaybackStarted;
+    startMutedRef.current = startMuted;
 
     useImperativeHandle(ref, () => innerRef.current as WistiaPlayerElement);
 
