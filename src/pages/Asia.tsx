@@ -117,10 +117,12 @@ const AsiaHero = () => {
     <section id="hero" className={`asia-hero ${captionsEnabled ? "captions-active" : ""}`}>
       <div className="hero-video" ref={videoContainerRef}>
         <WistiaAutoplayPlayer
+          key={playerKey}
           ref={playerRef}
           mediaId={ASIA_VIDEO_ID}
           aspect="1.25"
           className="asia-wistia-player"
+          startMuted={isMuted}
           onAutoplayBlocked={() => setShowPlayFallback(true)}
           onPlaybackStarted={() => setShowPlayFallback(false)}
         />
