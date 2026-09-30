@@ -6,9 +6,9 @@ import AutoColorNav from "@/components/AutoColorNav";
 import RevealOnScroll from "@/components/RevealOnScroll";
 import Footer from "@/components/sections/Footer";
 import SEO from "@/components/SEO";
+import WistiaAutoplayPlayer, { type WistiaPlayerElement } from "@/components/WistiaAutoplayPlayer";
 
-// Placeholder - same reel as the current pages, swap later when the Asia reel exists
-const VIDEO_URL = "https://pub-389b609f3429428897e0717a18b3a2f0.r2.dev/Hugo%20%26%20Nanny%20Reel%204%2016-9_1.mp4";
+const ASIA_VIDEO_ID = "qj5sf0a59j";
 
 const WHATSAPP_URL =
   "https://wa.me/4916097813272?text=Hi%20Hugo%20%26%20Nanny!%20%F0%9F%96%A4%0A%0AWir%20heiraten%20in%20Asien%20(November%E2%80%93Februar)%20und%20interessieren%20uns%20f%C3%BCr%20euer%20Asia-Kapitel.%0A%0ANamen%3A%20%5Beure%20Namen%5D%0ADatum%20%26%20Location%3A%20%5BDatum%20%26%20Ort%5D%0AUnsere%20Idee%3A%20%5Bkurz%20eure%20Vision%5D%0A%0ALooking%20forward%20to%20hearing%20from%20you!";
@@ -17,8 +17,7 @@ const AsiaHero = () => {
   const { t } = useLang();
   const [showScroll, setShowScroll] = useState(true);
   const [isMuted, setIsMuted] = useState(true);
-  const containerRef = useRef<HTMLDivElement | null>(null);
-  const playerRef = useRef<HTMLVideoElement | null>(null);
+  const playerRef = useRef<WistiaPlayerElement | null>(null);
 
   useEffect(() => {
     const onScroll = () => setShowScroll(window.scrollY < 80);
@@ -26,53 +25,20 @@ const AsiaHero = () => {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  useEffect(() => {
-    const player = playerRef.current;
-    const container = containerRef.current;
-    if (!player || !container) return;
-
-    player.muted = true;
-    player.play()?.catch(() => {});
-
-    const observer = new IntersectionObserver(([entry]) => {
-      if (entry.intersectionRatio >= 0.6) {
-        player.play()?.catch(() => {});
-      } else {
-        player.pause();
-      }
-    }, { threshold: [0, 0.6, 1] });
-
-    observer.observe(container);
-    return () => observer.disconnect();
-  }, []);
-
   const toggleMute = () => {
-    const player = playerRef.current;
-    if (player) {
-      player.muted = !player.muted;
-      setIsMuted(player.muted);
-    }
+    const nextMuted = !isMuted;
+    playerRef.current?._wistiaApi?.volume(nextMuted ? 0 : 1);
+    setIsMuted(nextMuted);
   };
 
   return (
     <section id="hero" className="asia-hero">
-      <div className="hero-video" ref={containerRef}>
-        <video
+      <div className="hero-video">
+        <WistiaAutoplayPlayer
           ref={playerRef}
-          src={VIDEO_URL}
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="auto"
-          style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            width: "100%",
-            height: "100%",
-            objectFit: "cover",
-          }}
+          mediaId={ASIA_VIDEO_ID}
+          aspect="1.25"
+          className="asia-wistia-player"
         />
         <div className="hero-video-overlay" />
         <button

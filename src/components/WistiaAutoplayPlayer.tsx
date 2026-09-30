@@ -40,6 +40,7 @@ const WistiaAutoplayPlayer = forwardRef<WistiaPlayerElement, WistiaAutoplayPlaye
         aspect={aspect ?? "1.7777777777777777"}
         autoplay
         muted
+        loop
         playsinline
         silent-autoplay="allow"
         className={className}
