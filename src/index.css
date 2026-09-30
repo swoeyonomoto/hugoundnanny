@@ -1072,8 +1072,15 @@ footer {
 .asia-page #apply .about-cta-link { display: block; }
 .asia-apply-link {
   width: 100%; margin-top: 12px; letter-spacing: .18em;
-  line-height: 1.55;
+  line-height: 1.55; padding: 0; border: 0; background: transparent;
+  color: inherit; text-align: left; cursor: pointer;
 }
+.asia-inline-form {
+  scroll-margin-top: 72px; margin-top: 88px; padding-top: 52px;
+  border-top: 1px solid hsl(var(--asia-line));
+}
+.asia-inline-form .cform { width: 100%; max-width: none; }
+.asia-inline-form .cf-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 
 /* ─── ABOUT PAGE - unified backgrounds, asia editorial contact ─── */
 .about-page #work,
@@ -1253,6 +1260,8 @@ footer {
   .asia-page .aboutus-cta-section { padding: 96px 0; }
   .asia-page .aboutus-cta-h { margin-bottom: 32px; font-size: clamp(43px, 12vw, 52px); line-height: 1.02; }
   .asia-apply-details { align-self: start; }
+  .asia-inline-form { margin-top: 56px; padding-top: 36px; }
+  .asia-inline-form .cf-row { grid-template-columns: 1fr; }
   .asia-hero .hero-headline { font-size: clamp(44px, 13vw, 58px); line-height: .98; }
   .asia-hero .hero-sub { max-width: 310px; font-size: 13px; line-height: 1.68; }
   .asia-photo-wide { margin-top: 56px; }
