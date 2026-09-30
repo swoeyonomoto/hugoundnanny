@@ -177,6 +177,14 @@ body {
   position: absolute; right: 16px; bottom: 56px; z-index: 20;
   display: flex; align-items: center; gap: 8px;
 }
+.asia-hero .hero-content,
+.asia-hero .hero-scroll-indicator {
+  transition: opacity .25s ease, visibility .25s ease;
+}
+.asia-hero.captions-active .hero-content,
+.asia-hero.captions-active .hero-scroll-indicator {
+  opacity: 0; visibility: hidden; pointer-events: none;
+}
 .asia-hero .hero-video:fullscreen {
   width: 100vw; height: 100vh; background: #111;
 }
