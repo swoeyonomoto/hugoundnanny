@@ -21,6 +21,16 @@ const WistiaAutoplayPlayer = forwardRef<WistiaPlayerElement, WistiaAutoplayPlaye
 
     // Load the media-specific embed script dynamically
     useEffect(() => {
+      const playerScriptId = "wistia-player-js";
+      if (!document.getElementById(playerScriptId)) {
+        const playerScript = Object.assign(document.createElement("script"), {
+          id: playerScriptId,
+          src: "https://fast.wistia.com/player.js",
+          async: true,
+        });
+        document.head.appendChild(playerScript);
+      }
+
       const scriptId = `wistia-embed-${mediaId}`;
       if (!document.getElementById(scriptId)) {
         const s = Object.assign(document.createElement("script"), {
