@@ -49,6 +49,17 @@ const WistiaAutoplayPlayer = forwardRef<WistiaPlayerElement, WistiaAutoplayPlaye
       }
     }, [mediaId]);
 
+    useEffect(() => {
+      const player = innerRef.current;
+      if (!player) return;
+      player.setAttribute("playbar", "false");
+      player.setAttribute("controls-visible-on-load", "false");
+      player.setAttribute("small-play-button", "false");
+      player.setAttribute("fullscreen-button", "false");
+      player.setAttribute("volume-control", "false");
+      player.setAttribute("settings-control", "false");
+    }, []);
+
     return (
       <wistia-player
         ref={innerRef}
@@ -59,12 +70,6 @@ const WistiaAutoplayPlayer = forwardRef<WistiaPlayerElement, WistiaAutoplayPlaye
         loop
         playsinline
         silent-autoplay="allow"
-        playbar="false"
-        controls-visible-on-load="false"
-        small-play-button="false"
-        fullscreen-button="false"
-        volume-control="false"
-        settings-control="false"
         className={className}
         style={style}
       />
