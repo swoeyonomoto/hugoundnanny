@@ -149,7 +149,14 @@ const AsiaHero = () => {
 
   return (
     <section id="hero" className={`asia-hero ${captionsEnabled ? "captions-active" : ""}`}>
-      <div className="hero-video" ref={videoContainerRef}>
+      <div
+        className="hero-video"
+        ref={videoContainerRef}
+        onClick={(e) => {
+          if ((e.target as HTMLElement).closest("button")) return;
+          togglePlayback();
+        }}
+      >
         <WistiaAutoplayPlayer
           key={playerKey}
           ref={playerRef}
