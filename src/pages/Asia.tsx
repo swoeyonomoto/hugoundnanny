@@ -268,7 +268,7 @@ const AsiaContent = () => {
               <figcaption>{t("Eddie + Mel · Hongkong", "Eddie + Mel · Hong Kong")}</figcaption>
             </figure>
             <hr className="intro-rule" />
-          </RevealOnScroll>
+          </div>
         </div>
       </section>
 
