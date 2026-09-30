@@ -1,6 +1,8 @@
 import { CSSProperties, forwardRef, useEffect, useImperativeHandle, useRef } from "react";
 
 export type WistiaPlayerElement = HTMLElement & {
+  muted?: boolean;
+  volume?: number;
   _wistiaApi?: {
     volume: (level: number) => void;
   };
@@ -21,6 +23,16 @@ const WistiaAutoplayPlayer = forwardRef<WistiaPlayerElement, WistiaAutoplayPlaye
 
     // Load the media-specific embed script dynamically
     useEffect(() => {
+      const playerScriptId = "wistia-player-js";
+      if (!document.getElementById(playerScriptId)) {
+        const playerScript = Object.assign(document.createElement("script"), {
+          id: playerScriptId,
+          src: "https://fast.wistia.com/player.js",
+          async: true,
+        });
+        document.head.appendChild(playerScript);
+      }
+
       const scriptId = `wistia-embed-${mediaId}`;
       if (!document.getElementById(scriptId)) {
         const s = Object.assign(document.createElement("script"), {
@@ -40,6 +52,7 @@ const WistiaAutoplayPlayer = forwardRef<WistiaPlayerElement, WistiaAutoplayPlaye
         aspect={aspect ?? "1.7777777777777777"}
         autoplay
         muted
+        loop
         playsinline
         silent-autoplay="allow"
         className={className}

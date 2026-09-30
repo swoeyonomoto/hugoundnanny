@@ -108,6 +108,14 @@ body {
 .hero-video {
   position: absolute; inset: 0; background: #111;
 }
+.asia-hero .hero-video wistia-player[media-id="qj5sf0a59j"] {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: max(100%, calc(100vh * 1.25));
+  height: max(100%, calc(100vw / 1.25));
+  transform: translate(-50%, -50%);
+}
 .hero-video-overlay {
   position: absolute; inset: 0; z-index: 1;
   background: linear-gradient(to top, rgba(0,0,0,.72) 0%, rgba(0,0,0,.18) 55%, rgba(0,0,0,.08) 100%);
