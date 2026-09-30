@@ -173,6 +173,22 @@ body {
   backdrop-filter: blur(4px);
 }
 .hero-mute-btn:hover { background: rgba(0,0,0,.55); color: #fff; }
+.asia-video-controls {
+  position: absolute; right: 16px; bottom: 56px; z-index: 20;
+  display: flex; align-items: center; gap: 8px;
+}
+.asia-hero .hero-video:fullscreen {
+  width: 100vw; height: 100vh; background: #111;
+}
+.asia-hero .hero-video:fullscreen .hero-video-overlay { display: none; }
+.asia-hero .hero-video:fullscreen .asia-video-controls { bottom: max(24px, env(safe-area-inset-bottom)); }
+.asia-cc-btn {
+  font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 600;
+  letter-spacing: 0;
+}
+.asia-cc-btn.active {
+  background: rgba(255,255,255,.9); color: #111;
+}
 
 @keyframes heroScrollBounce {
   0%, 100% { opacity: 0.6; transform: translate(-50%, 0); }

@@ -1,8 +1,12 @@
 import { CSSProperties, forwardRef, useEffect, useImperativeHandle, useRef } from "react";
 
 export type WistiaPlayerElement = HTMLElement & {
+  captionsEnabled?: boolean;
+  inFullscreen?: boolean;
   muted?: boolean;
   volume?: number;
+  requestFullscreen?: () => Promise<void> | void;
+  cancelFullscreen?: () => Promise<void> | void;
   _wistiaApi?: {
     volume: (level: number) => void;
   };
