@@ -20,6 +20,7 @@ const AsiaHero = () => {
   const [isMuted, setIsMuted] = useState(true);
   const [captionsEnabled, setCaptionsEnabled] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
+  const [showPlayFallback, setShowPlayFallback] = useState(false);
   const videoContainerRef = useRef<HTMLDivElement | null>(null);
   const playerRef = useRef<WistiaPlayerElement | null>(null);
 
@@ -70,6 +71,20 @@ const AsiaHero = () => {
     setIsFullscreen(true);
   };
 
+  const startVideo = async () => {
+    const player = playerRef.current;
+    if (!player) return;
+    player.muted = true;
+    player.volume = 0;
+    player._wistiaApi?.volume(0);
+    try {
+      await (player.play?.() ?? player._wistiaApi?.play?.());
+      setShowPlayFallback(false);
+    } catch {
+      setShowPlayFallback(true);
+    }
+  };
+
   return (
     <section id="hero" className={`asia-hero ${captionsEnabled ? "captions-active" : ""}`}>
       <div className="hero-video" ref={videoContainerRef}>
@@ -78,7 +93,21 @@ const AsiaHero = () => {
           mediaId={ASIA_VIDEO_ID}
           aspect="1.25"
           className="asia-wistia-player"
+          onAutoplayBlocked={() => setShowPlayFallback(true)}
+          onPlaybackStarted={() => setShowPlayFallback(false)}
         />
+        {showPlayFallback && (
+          <button
+            type="button"
+            className="asia-video-play-fallback"
+            onClick={startVideo}
+            aria-label={t("Video abspielen", "Play video")}
+          >
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M8 5.5v13l10-6.5-10-6.5Z" />
+            </svg>
+          </button>
+        )}
         <div className="asia-video-controls">
           <button
             className="hero-mute-btn"
