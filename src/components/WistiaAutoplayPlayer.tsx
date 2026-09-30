@@ -35,16 +35,18 @@ interface WistiaAutoplayPlayerProps {
   aspect?: string;
   className?: string;
   mediaId: string;
+  startMuted?: boolean;
   onAutoplayBlocked?: () => void;
   onPlaybackStarted?: () => void;
   style?: CSSProperties;
 }
 
 const WistiaAutoplayPlayer = forwardRef<WistiaPlayerElement, WistiaAutoplayPlayerProps>(
-  ({ mediaId, aspect, className, onAutoplayBlocked, onPlaybackStarted, style }, ref) => {
+  ({ mediaId, aspect, className, startMuted = true, onAutoplayBlocked, onPlaybackStarted, style }, ref) => {
     const innerRef = useRef<WistiaPlayerElement | null>(null);
     const onAutoplayBlockedRef = useRef(onAutoplayBlocked);
     const onPlaybackStartedRef = useRef(onPlaybackStarted);
+    const startMutedRef = useRef(startMuted);
 
     onAutoplayBlockedRef.current = onAutoplayBlocked;
     onPlaybackStartedRef.current = onPlaybackStarted;
