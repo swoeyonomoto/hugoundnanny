@@ -44,6 +44,8 @@ const AsiaHero = () => {
       else player.removeAttribute("muted");
       player.muted = nextMuted;
       player.volume = nextMuted ? 0 : 1;
+      if (nextMuted) player._wistiaApi?.mute?.();
+      else player._wistiaApi?.unmute?.();
       player._wistiaApi?.volume(nextMuted ? 0 : 1);
     }
     setIsMuted(nextMuted);

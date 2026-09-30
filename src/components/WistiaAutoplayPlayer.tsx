@@ -10,8 +10,10 @@ export type WistiaPlayerElement = HTMLElement & {
   requestFullscreen?: () => Promise<void> | void;
   cancelFullscreen?: () => Promise<void> | void;
   _wistiaApi?: {
+    mute?: () => void;
     play?: () => Promise<void> | void;
     state?: () => string;
+    unmute?: () => void;
     volume: (level: number) => void;
   };
 };
@@ -82,6 +84,7 @@ const WistiaAutoplayPlayer = forwardRef<WistiaPlayerElement, WistiaAutoplayPlaye
       const attemptAutoplay = async () => {
         player.muted = true;
         player.volume = 0;
+        player._wistiaApi?.mute?.();
         player._wistiaApi?.volume(0);
         try {
           const result = player.play?.() ?? player._wistiaApi?.play?.();
