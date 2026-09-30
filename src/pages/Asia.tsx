@@ -43,12 +43,14 @@ const AsiaHero = () => {
       if (nextMuted) {
         player.setAttribute("muted", "");
         player.mute?.();
+        player.deprecatedApiDoNotUse?.mute?.();
       } else {
         player.removeAttribute("muted");
         player.removeAttribute("silent-autoplay");
         player.silentAutoplay = false;
         player.updateEmbedOptions?.({ muted: false, silentAutoplay: false, volume: 1 });
         player.unmute?.();
+        player.deprecatedApiDoNotUse?.unmute?.();
       }
       player.muted = nextMuted;
       player.volume = nextMuted ? 0 : 1;
@@ -56,6 +58,7 @@ const AsiaHero = () => {
       else player._wistiaApi?.unmute?.();
       player._wistiaApi?.updateEmbedOptions?.({ muted: nextMuted, silentAutoplay: nextMuted, volume: nextMuted ? 0 : 1 });
       player._wistiaApi?.volume(nextMuted ? 0 : 1);
+      player.deprecatedApiDoNotUse?.volume?.(nextMuted ? 0 : 1);
     }
     setIsMuted(nextMuted);
   };

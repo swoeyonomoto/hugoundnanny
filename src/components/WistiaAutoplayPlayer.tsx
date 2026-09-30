@@ -13,6 +13,11 @@ export type WistiaPlayerElement = HTMLElement & {
   updateEmbedOptions?: (options: Record<string, unknown>) => void;
   requestFullscreen?: () => Promise<void> | void;
   cancelFullscreen?: () => Promise<void> | void;
+  deprecatedApiDoNotUse?: {
+    mute?: () => void;
+    unmute?: () => void;
+    volume?: (level: number) => void;
+  };
   _wistiaApi?: {
     mute?: () => void;
     play?: () => Promise<void> | void;
@@ -90,6 +95,7 @@ const WistiaAutoplayPlayer = forwardRef<WistiaPlayerElement, WistiaAutoplayPlaye
         player.muted = true;
         player.volume = 0;
         player.mute?.();
+        player.deprecatedApiDoNotUse?.mute?.();
         player._wistiaApi?.mute?.();
         player._wistiaApi?.volume(0);
         try {
