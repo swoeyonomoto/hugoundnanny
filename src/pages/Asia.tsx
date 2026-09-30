@@ -70,7 +70,7 @@ const AsiaHero = () => {
   };
 
   return (
-    <section id="hero" className="asia-hero">
+    <section id="hero" className={`asia-hero ${captionsEnabled ? "captions-active" : ""}`}>
       <div className="hero-video" ref={videoContainerRef}>
         <WistiaAutoplayPlayer
           ref={playerRef}
@@ -78,7 +78,6 @@ const AsiaHero = () => {
           aspect="1.25"
           className="asia-wistia-player"
         />
-        <div className="hero-video-overlay" />
         <div className="asia-video-controls">
           <button
             className="hero-mute-btn"
