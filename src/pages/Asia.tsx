@@ -179,7 +179,8 @@ const AsiaHero = () => {
             <em>Asien,<br />wir kommen zurück.</em>,
             <em>Asia,<br />we are coming back.</em>
           )}
-        </h1>
+          </h1>
+        </div>
         <div className="hero-right">
           <p className="hero-sub">
             {t(
@@ -240,7 +241,7 @@ const AsiaContent = () => {
       {/* Intro */}
       <section className="intro-text-section">
         <div className="wrap">
-          <RevealOnScroll className="asia-editorial-grid asia-intro-grid">
+          <div className="asia-editorial-grid asia-intro-grid">
             <span className="label">
               {t("N°01 - Warum Asien", "N°01 - Why Asia")}
             </span>
