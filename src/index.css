@@ -177,6 +177,11 @@ body {
   position: absolute; right: 16px; bottom: 56px; z-index: 20;
   display: flex; align-items: center; gap: 8px;
 }
+.asia-hero .hero-video:fullscreen {
+  width: 100vw; height: 100vh; background: #111;
+}
+.asia-hero .hero-video:fullscreen .hero-video-overlay { display: none; }
+.asia-hero .hero-video:fullscreen .asia-video-controls { bottom: max(24px, env(safe-area-inset-bottom)); }
 .asia-cc-btn {
   font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 600;
   letter-spacing: 0;

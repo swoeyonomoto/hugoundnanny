@@ -19,6 +19,7 @@ const AsiaHero = () => {
   const [isMuted, setIsMuted] = useState(true);
   const [captionsEnabled, setCaptionsEnabled] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
+  const videoContainerRef = useRef<HTMLDivElement | null>(null);
   const playerRef = useRef<WistiaPlayerElement | null>(null);
 
   useEffect(() => {
@@ -53,23 +54,24 @@ const AsiaHero = () => {
 
   const toggleFullscreen = async () => {
     const player = playerRef.current;
-    if (!player) return;
+    const videoContainer = videoContainerRef.current;
+    if (!player || !videoContainer) return;
 
-    if (isFullscreen || player.inFullscreen) {
-      if (player.cancelFullscreen) await player.cancelFullscreen();
-      else if (document.fullscreenElement) await document.exitFullscreen();
+    if (document.fullscreenElement || player.inFullscreen) {
+      if (document.fullscreenElement) await document.exitFullscreen();
+      else if (player.cancelFullscreen) await player.cancelFullscreen();
       setIsFullscreen(false);
       return;
     }
 
-    if (player.requestFullscreen) await player.requestFullscreen();
-    else await player.requestFullscreen?.();
+    if (videoContainer.requestFullscreen) await videoContainer.requestFullscreen();
+    else if (player.requestFullscreen) await player.requestFullscreen();
     setIsFullscreen(true);
   };
 
   return (
     <section id="hero" className="asia-hero">
-      <div className="hero-video">
+      <div className="hero-video" ref={videoContainerRef}>
         <WistiaAutoplayPlayer
           ref={playerRef}
           mediaId={ASIA_VIDEO_ID}
