@@ -91,6 +91,11 @@ const WistiaAutoplayPlayer = forwardRef<WistiaPlayerElement, WistiaAutoplayPlaye
       player.setAttribute("fullscreen-button", "false");
       player.setAttribute("volume-control", "false");
       player.setAttribute("settings-control", "false");
+      player.setAttribute("captions-button", "false");
+      player.setAttribute("playback-rate-control", "false");
+      player.setAttribute("quality-control", "false");
+      player.setAttribute("copy-link-and-thumbnail", "false");
+      player.setAttribute("logo", "false");
 
       const markPlaying = () => {
         if (fallbackTimer) window.clearTimeout(fallbackTimer);
