@@ -28,6 +28,11 @@ interface WistiaAutoplayPlayerProps {
 const WistiaAutoplayPlayer = forwardRef<WistiaPlayerElement, WistiaAutoplayPlayerProps>(
   ({ mediaId, aspect, className, onAutoplayBlocked, onPlaybackStarted, style }, ref) => {
     const innerRef = useRef<WistiaPlayerElement | null>(null);
+    const onAutoplayBlockedRef = useRef(onAutoplayBlocked);
+    const onPlaybackStartedRef = useRef(onPlaybackStarted);
+
+    onAutoplayBlockedRef.current = onAutoplayBlocked;
+    onPlaybackStartedRef.current = onPlaybackStarted;
 
     useImperativeHandle(ref, () => innerRef.current as WistiaPlayerElement);
 
@@ -71,7 +76,7 @@ const WistiaAutoplayPlayer = forwardRef<WistiaPlayerElement, WistiaAutoplayPlaye
 
       const markPlaying = () => {
         if (fallbackTimer) window.clearTimeout(fallbackTimer);
-        onPlaybackStarted?.();
+        onPlaybackStartedRef.current?.();
       };
 
       const attemptAutoplay = async () => {
@@ -82,14 +87,14 @@ const WistiaAutoplayPlayer = forwardRef<WistiaPlayerElement, WistiaAutoplayPlaye
           const result = player.play?.() ?? player._wistiaApi?.play?.();
           await result;
         } catch {
-          if (!cancelled) onAutoplayBlocked?.();
+          if (!cancelled) onAutoplayBlockedRef.current?.();
         }
       };
 
       const checkPlayback = () => {
         const isPlaying = player.paused === false || player._wistiaApi?.state?.() === "playing";
         if (isPlaying) markPlaying();
-        else onAutoplayBlocked?.();
+        else onAutoplayBlockedRef.current?.();
       };
 
       player.addEventListener("play", markPlaying);
@@ -108,7 +113,7 @@ const WistiaAutoplayPlayer = forwardRef<WistiaPlayerElement, WistiaAutoplayPlaye
         player.removeEventListener("playing", markPlaying);
         player.removeEventListener("canplay", attemptAutoplay);
       };
-    }, [onAutoplayBlocked, onPlaybackStarted]);
+    }, [mediaId]);
 
     return (
       <wistia-player

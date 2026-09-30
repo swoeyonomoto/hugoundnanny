@@ -1177,6 +1177,14 @@ footer {
 .asia-hero .hero-sub { max-width: 350px; font-size: 14px; line-height: 1.72; }
 
 @media (min-width: 1025px) {
+  #hero.asia-hero {
+    height: min(86dvh, calc(100vw / 1.25));
+    min-height: 640px;
+  }
+  .asia-hero .hero-video wistia-player[media-id="qj5sf0a59j"] {
+    width: min(100%, calc(100% * 1.25));
+    height: min(100%, calc(100vw / 1.25));
+  }
   .asia-page .wrap { max-width: 1240px; padding-inline: 64px; }
   .asia-page .intro-text-section { padding-top: 112px; }
   .asia-page #story, .asia-page #limit, .asia-page #offer { padding-block: 112px; }
