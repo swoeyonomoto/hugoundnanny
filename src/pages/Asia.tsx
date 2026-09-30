@@ -7,6 +7,7 @@ import RevealOnScroll from "@/components/RevealOnScroll";
 import Footer from "@/components/sections/Footer";
 import SEO from "@/components/SEO";
 import WistiaAutoplayPlayer, { type WistiaPlayerElement } from "@/components/WistiaAutoplayPlayer";
+import BookingForm from "@/components/BookingForm";
 import { ASIA_WHATSAPP_MESSAGE, getWhatsAppUrl } from "@/lib/whatsapp";
 
 const ASIA_VIDEO_ID = "qj5sf0a59j";
@@ -151,6 +152,13 @@ const AsiaLangBar = () => {
 
 const AsiaContent = () => {
   const { t } = useLang();
+  const [showForm, setShowForm] = useState(false);
+  const formRef = useRef<HTMLDivElement | null>(null);
+
+  const openForm = () => {
+    setShowForm(true);
+    window.setTimeout(() => formRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }), 50);
+  };
 
   return (
     <>
@@ -359,12 +367,17 @@ const AsiaContent = () => {
                 >
                   {t("Per WhatsApp bewerben", "Apply via WhatsApp")}
                 </a>
-              <a href="/#contact" className="about-cta-link asia-apply-link">
-                {t("Oder über das Formular auf unserer Startseite →", "Or use the form on our homepage →")}
-              </a>
+                <button type="button" className="about-cta-link asia-apply-link" onClick={openForm} aria-expanded={showForm}>
+                  {t("Oder direkt über das Formular →", "Or use the form here →")}
+                </button>
               </div>
             </div>
           </RevealOnScroll>
+          {showForm && (
+            <div ref={formRef} className="asia-inline-form">
+              <BookingForm />
+            </div>
+          )}
         </div>
       </section>
 
