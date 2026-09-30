@@ -7,11 +7,11 @@ import RevealOnScroll from "@/components/RevealOnScroll";
 import Footer from "@/components/sections/Footer";
 import SEO from "@/components/SEO";
 import WistiaAutoplayPlayer, { type WistiaPlayerElement } from "@/components/WistiaAutoplayPlayer";
+import { ASIA_WHATSAPP_MESSAGE, getWhatsAppUrl } from "@/lib/whatsapp";
 
 const ASIA_VIDEO_ID = "qj5sf0a59j";
 
-const WHATSAPP_URL =
-  "https://wa.me/4916097813272?text=Hi%20Hugo%20%26%20Nanny!%20%F0%9F%96%A4%0A%0AWir%20heiraten%20in%20Asien%20(November%E2%80%93Februar)%20und%20interessieren%20uns%20f%C3%BCr%20euer%20Asia-Kapitel.%0A%0ANamen%3A%20%5Beure%20Namen%5D%0ADatum%20%26%20Location%3A%20%5BDatum%20%26%20Ort%5D%0AUnsere%20Idee%3A%20%5Bkurz%20eure%20Vision%5D%0A%0ALooking%20forward%20to%20hearing%20from%20you!";
+const WHATSAPP_URL = getWhatsAppUrl(ASIA_WHATSAPP_MESSAGE);
 
 const AsiaHero = () => {
   const { t } = useLang();
