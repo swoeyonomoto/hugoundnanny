@@ -1,6 +1,8 @@
 import { CSSProperties, forwardRef, useEffect, useImperativeHandle, useRef } from "react";
 
 export type WistiaPlayerElement = HTMLElement & {
+  muted?: boolean;
+  volume?: number;
   _wistiaApi?: {
     volume: (level: number) => void;
   };

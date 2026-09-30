@@ -27,7 +27,12 @@ const AsiaHero = () => {
 
   const toggleMute = () => {
     const nextMuted = !isMuted;
-    playerRef.current?._wistiaApi?.volume(nextMuted ? 0 : 1);
+    const player = playerRef.current;
+    if (player) {
+      player.muted = nextMuted;
+      player.volume = nextMuted ? 0 : 1;
+      player._wistiaApi?.volume(nextMuted ? 0 : 1);
+    }
     setIsMuted(nextMuted);
   };
 
