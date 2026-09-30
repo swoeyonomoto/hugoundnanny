@@ -40,9 +40,25 @@ const AsiaHero = () => {
     const nextMuted = !isMuted;
     const player = playerRef.current;
     if (player) {
-      player.muted = nextMuted;
-      player.volume = nextMuted ? 0 : 1;
+      if (nextMuted) {
+        player.setAttribute("muted", "");
+        player.muted = true;
+        player.volume = 0;
+        player.mute?.();
+        player.deprecatedApiDoNotUse?.mute?.();
+      } else {
+        player.removeAttribute("muted");
+        player.removeAttribute("silent-autoplay");
+        player.silentAutoplay = false;
+        player.volume = 1;
+        player.muted = false;
+        player.unmute?.();
+        player.deprecatedApiDoNotUse?.unmute?.();
+      }
+      if (nextMuted) player._wistiaApi?.mute?.();
+      else player._wistiaApi?.unmute?.();
       player._wistiaApi?.volume(nextMuted ? 0 : 1);
+      player.deprecatedApiDoNotUse?.volume?.(nextMuted ? 0 : 1);
     }
     setIsMuted(nextMuted);
   };

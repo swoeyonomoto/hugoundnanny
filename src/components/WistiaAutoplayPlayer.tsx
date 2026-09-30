@@ -5,13 +5,25 @@ export type WistiaPlayerElement = HTMLElement & {
   inFullscreen?: boolean;
   muted?: boolean;
   paused?: boolean;
+  silentAutoplay?: boolean | string;
   volume?: number;
+  mute?: () => void;
   play?: () => Promise<void> | void;
+  unmute?: () => void;
+  updateEmbedOptions?: (options: Record<string, unknown>) => void;
   requestFullscreen?: () => Promise<void> | void;
   cancelFullscreen?: () => Promise<void> | void;
+  deprecatedApiDoNotUse?: {
+    mute?: () => void;
+    unmute?: () => void;
+    volume?: (level: number) => void;
+  };
   _wistiaApi?: {
+    mute?: () => void;
     play?: () => Promise<void> | void;
     state?: () => string;
+    unmute?: () => void;
+    updateEmbedOptions?: (options: Record<string, unknown>) => void;
     volume: (level: number) => void;
   };
 };
@@ -28,6 +40,11 @@ interface WistiaAutoplayPlayerProps {
 const WistiaAutoplayPlayer = forwardRef<WistiaPlayerElement, WistiaAutoplayPlayerProps>(
   ({ mediaId, aspect, className, onAutoplayBlocked, onPlaybackStarted, style }, ref) => {
     const innerRef = useRef<WistiaPlayerElement | null>(null);
+    const onAutoplayBlockedRef = useRef(onAutoplayBlocked);
+    const onPlaybackStartedRef = useRef(onPlaybackStarted);
+
+    onAutoplayBlockedRef.current = onAutoplayBlocked;
+    onPlaybackStartedRef.current = onPlaybackStarted;
 
     useImperativeHandle(ref, () => innerRef.current as WistiaPlayerElement);
 
@@ -71,25 +88,28 @@ const WistiaAutoplayPlayer = forwardRef<WistiaPlayerElement, WistiaAutoplayPlaye
 
       const markPlaying = () => {
         if (fallbackTimer) window.clearTimeout(fallbackTimer);
-        onPlaybackStarted?.();
+        onPlaybackStartedRef.current?.();
       };
 
       const attemptAutoplay = async () => {
         player.muted = true;
         player.volume = 0;
+        player.mute?.();
+        player.deprecatedApiDoNotUse?.mute?.();
+        player._wistiaApi?.mute?.();
         player._wistiaApi?.volume(0);
         try {
           const result = player.play?.() ?? player._wistiaApi?.play?.();
           await result;
         } catch {
-          if (!cancelled) onAutoplayBlocked?.();
+          if (!cancelled) onAutoplayBlockedRef.current?.();
         }
       };
 
       const checkPlayback = () => {
         const isPlaying = player.paused === false || player._wistiaApi?.state?.() === "playing";
         if (isPlaying) markPlaying();
-        else onAutoplayBlocked?.();
+        else onAutoplayBlockedRef.current?.();
       };
 
       player.addEventListener("play", markPlaying);
@@ -108,7 +128,7 @@ const WistiaAutoplayPlayer = forwardRef<WistiaPlayerElement, WistiaAutoplayPlaye
         player.removeEventListener("playing", markPlaying);
         player.removeEventListener("canplay", attemptAutoplay);
       };
-    }, [onAutoplayBlocked, onPlaybackStarted]);
+    }, [mediaId]);
 
     return (
       <wistia-player
@@ -116,7 +136,6 @@ const WistiaAutoplayPlayer = forwardRef<WistiaPlayerElement, WistiaAutoplayPlaye
         media-id={mediaId}
         aspect={aspect ?? "1.7777777777777777"}
         autoplay
-        muted
         loop
         playsinline
         silent-autoplay="allow"
