@@ -108,7 +108,7 @@ body {
 .hero-video {
   position: absolute; inset: 0; background: #111;
 }
-.asia-wistia-player {
+.asia-hero .hero-video wistia-player[media-id="qj5sf0a59j"] {
   position: absolute;
   top: 50%;
   left: 50%;
