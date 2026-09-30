@@ -40,6 +40,8 @@ const AsiaHero = () => {
     const nextMuted = !isMuted;
     const player = playerRef.current;
     if (player) {
+      if (nextMuted) player.setAttribute("muted", "");
+      else player.removeAttribute("muted");
       player.muted = nextMuted;
       player.volume = nextMuted ? 0 : 1;
       player._wistiaApi?.volume(nextMuted ? 0 : 1);
