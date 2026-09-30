@@ -98,12 +98,14 @@ const WistiaAutoplayPlayer = forwardRef<WistiaPlayerElement, WistiaAutoplayPlaye
       };
 
       const attemptAutoplay = async () => {
-        player.muted = true;
-        player.volume = 0;
-        player.mute?.();
-        player.deprecatedApiDoNotUse?.mute?.();
-        player._wistiaApi?.mute?.();
-        player._wistiaApi?.volume(0);
+        if (startMutedRef.current) {
+          player.muted = true;
+          player.volume = 0;
+          player.mute?.();
+          player.deprecatedApiDoNotUse?.mute?.();
+          player._wistiaApi?.mute?.();
+          player._wistiaApi?.volume(0);
+        }
         try {
           const result = player.play?.() ?? player._wistiaApi?.play?.();
           await result;
