@@ -154,6 +154,7 @@ const WistiaAutoplayPlayer = forwardRef<WistiaPlayerElement, WistiaAutoplayPlaye
 
       return () => {
         cancelled = true;
+        window.clearInterval(shadowTimer);
         if (fallbackTimer) window.clearTimeout(fallbackTimer);
         player.removeEventListener("play", markPlaying);
         player.removeEventListener("playing", markPlaying);
