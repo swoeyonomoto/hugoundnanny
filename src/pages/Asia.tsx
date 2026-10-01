@@ -101,7 +101,9 @@ const AsiaHero = () => {
   // Sound hint: restart the film from the beginning, with sound on.
   // Remounting the player guarantees a restart at 0; the click gesture
   // allows playback with sound.
+  const [soundChosen, setSoundChosen] = useState(false);
   const enableSoundFromStart = () => {
+    setSoundChosen(true);
     setIsMuted(false);
     setShowPlayFallback(false);
     setPlayerKey((k) => k + 1);
@@ -179,7 +181,7 @@ const AsiaHero = () => {
             </svg>
           </button>
         )}
-        <div className="asia-video-controls">
+        {soundChosen && <div className="asia-video-controls">
           <button
             className="hero-mute-btn"
             onClick={toggleMute}
@@ -210,7 +212,7 @@ const AsiaHero = () => {
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7"><polyline points="8 3 3 3 3 8"/><polyline points="16 3 21 3 21 8"/><polyline points="21 16 21 21 16 21"/><polyline points="3 16 3 21 8 21"/></svg>
             )}
           </button>
-        </div>
+        </div>}
       </div>
       <div className="hero-content" style={{ pointerEvents: "none" }}>
         <div className="asia-hero-main">
