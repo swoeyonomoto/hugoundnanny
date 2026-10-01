@@ -99,8 +99,14 @@ const WistiaAutoplayPlayer = forwardRef<WistiaPlayerElement, WistiaAutoplayPlaye
       player.setAttribute("copy-link-and-thumbnail", "false");
       player.setAttribute("logo", "false");
       player.setAttribute("controls-visible-on-hover", "false");
-      const hideUi = () => player.updateEmbedOptions?.({ playbar: false, captionsButton: false, logo: false, controlsVisibleOnLoad: false, smallPlayButton: false, bigPlayButton: false, fullscreenButton: false, volumeControl: false, settingsControl: false, playbackRateControl: false, qualityControl: false });
+      player.setAttribute("captions-on-by-default", "false");
+      const hideUi = () => {
+        player.updateEmbedOptions?.({ playbar: false, captionsButton: false, captionsOnByDefault: false, logo: false, controlsVisibleOnLoad: false, smallPlayButton: false, bigPlayButton: false, fullscreenButton: false, volumeControl: false, settingsControl: false, playbackRateControl: false, qualityControl: false } as never);
+        try { player.captionsEnabled = false; } catch { /* noop */ }
+      };
       void customElements.whenDefined("wistia-player").then(hideUi);
+      player.addEventListener("canplay", hideUi, { once: true });
+      player.addEventListener("play", hideUi, { once: true });
 
       // Wistia renders parts of its native UI (big play button, CC button,
       // logo) inside its shadow root, where attributes don't fully reach on
