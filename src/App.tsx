@@ -9,6 +9,7 @@ import AboutPage from "./pages/About.tsx";
 import AboutUs from "./pages/AboutUs.tsx";
 import ThankYou from "./pages/ThankYou.tsx";
 import Imprint from "./pages/Imprint.tsx";
+import Privacy from "./pages/Privacy.tsx";
 import NotFound from "./pages/NotFound.tsx";
 import PreviewVideo from "./pages/PreviewVideo.tsx";
 import PreviewMarie from "./pages/PreviewMarie.tsx";
