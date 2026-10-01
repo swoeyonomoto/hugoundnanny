@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Toaster as Sonner } from "@/components/ui/sonner";
@@ -17,17 +16,12 @@ import Presentation from "./pages/Presentation.tsx";
 import Asia from "./pages/Asia.tsx";
 import Gallery from "./pages/Gallery";
 import GalleryAdmin from "./pages/GalleryAdmin";
+import CookieBanner from "./components/CookieBanner";
 import ViewPresentation from "./pages/ViewPresentation.tsx";
 
 const queryClient = new QueryClient();
 
 const App = () => {
-  useEffect(() => {
-    if (typeof window.fbq === "function") {
-      window.fbq("track", "PageView");
-    }
-  }, []);
-
   return (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
@@ -51,6 +45,7 @@ const App = () => {
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
+        <CookieBanner />
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
