@@ -102,6 +102,19 @@ const WistiaAutoplayPlayer = forwardRef<WistiaPlayerElement, WistiaAutoplayPlaye
       const hideUi = () => player.updateEmbedOptions?.({ playbar: false, captionsButton: false, logo: false, controlsVisibleOnLoad: false, smallPlayButton: false, bigPlayButton: false, fullscreenButton: false, volumeControl: false, settingsControl: false, playbackRateControl: false, qualityControl: false });
       void customElements.whenDefined("wistia-player").then(hideUi);
 
+      // Wistia renders parts of its native UI (big play button, CC button,
+      // logo) inside its shadow root, where attributes don't fully reach on
+      // mobile. Hide any native buttons directly so only our own HUD shows.
+      const hideShadowUi = () => {
+        const root = player.shadowRoot;
+        if (!root) return;
+        root.querySelectorAll("button, a").forEach((el) => {
+          (el as HTMLElement).style.display = "none";
+        });
+      };
+      const shadowTimer = window.setInterval(hideShadowUi, 500);
+      hideShadowUi();
+
       const markPlaying = () => {
         if (fallbackTimer) window.clearTimeout(fallbackTimer);
         onPlaybackStartedRef.current?.();
