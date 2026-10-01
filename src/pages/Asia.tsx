@@ -349,7 +349,7 @@ const AsiaContent = () => {
                 )}
               </p>
               <ul className="asia-traits">
-                <li>{t("Ihr seid offen, voller Energie und lasst euch von der Kamera nicht einschüchtern.", "You're outgoing, full of energy - and not one bit shy in front of the camera.")}</li>
+                <li>{t("Ihr seid offen, voller Energie und lasst euch von der Kamera nicht einschüchtern.", "You're outgoing, full of energy - and only a bit shy in front of the camera.")}</li>
                 <li>{t("Ihr beendet die Nacht dort, wo ihr wirklich sein wollt - nicht dort, wo es der Ablaufplan sagt.", "You end the night where you actually love to be - not where the schedule says.")}</li>
                 <li>{t("Ihr vertraut uns, eure Geschichte zu erzählen - und gebt dem Film die Zeit, die er dafür braucht. (Wir arbeiten dabei effizient.)", "You trust us to tell your story - and give the film the extra time it needs. (We work efficiently.)")}</li>
               </ul>
