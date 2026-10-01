@@ -285,6 +285,7 @@ const AsiaContent = () => {
         title="Hugo + Nanny in Asia - Winter 2026/27 · Wedding Photography & Film"
         description="From November to February we're shooting weddings across Asia. We're looking for adventurous couples - selected couples experience our premium service under special conditions. Just two weddings a month."
         path="/asia"
+        ogImage="/og-asia.jpg"
       />
       <LogoHeader variant="auto" />
       <AsiaLangBar />
