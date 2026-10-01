@@ -349,9 +349,9 @@ const AsiaContent = () => {
                 )}
               </p>
               <ul className="asia-traits">
-                <li>{t("Ihr seid offen, voller Energie und lasst euch von der Kamera nicht einschüchtern.", "You're outgoing, full of energy - and only a bit shy in front of the camera.")}</li>
-                <li>{t("Ihr beendet die Nacht dort, wo ihr wirklich sein wollt - nicht dort, wo es der Ablaufplan sagt.", "You end the night where you actually love to be - not where the schedule says.")}</li>
-                <li>{t("Ihr vertraut uns, eure Geschichte zu erzählen - und gebt dem Film die Zeit, die er dafür braucht. (Wir arbeiten dabei effizient.)", "You trust us to tell your story - and give the film the extra time it needs. (We work efficiently.)")}</li>
+                <li>{t("Ihr seid das Paar, das den Toast zum Tanz auf der Tanzfläche werden lässt - mit euren Freunden als Support.", "You're the couple who turns a toast into a dance floor, with your friends as the supporting cast.")}</li>
+                <li>{t("Ihr wisst genau, wo ihr euch zu Hause fühlt - und der Ort, den ihr wählt, sagt genauso viel über euch wie eure Gelübde.", "You know exactly where you feel at home - and the place you choose says as much about you as your vows.")}</li>
+                <li>{t("Ihr vertraut uns, eure Geschichte zu erzählen - und gebt dem Film die Zeit, die er dafür braucht. (Wir nutzen sie gut.)", "You trust us to tell your story - and give the film the extra time it needs. (We use it well.)")}</li>
               </ul>
             </div>
           </RevealOnScroll>
