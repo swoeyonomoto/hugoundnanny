@@ -1816,3 +1816,12 @@ footer { padding: 34px 72px; border-color: hsl(var(--editorial-line)); }
 
 /* Block Wistia's native hover UI (CC button, logo) - our own controls handle everything */
 .asia-hero .hero-video wistia-player[media-id="qj5sf0a59j"] { pointer-events: none; }
+
+.cookie-banner{position:fixed;left:16px;right:16px;bottom:16px;z-index:9999;max-width:560px;margin-left:auto;background:hsl(var(--background,0 0% 100%));color:hsl(var(--foreground,0 0% 8%));border:1px solid rgba(20,20,20,.12);padding:20px 22px;font-family:Inter,sans-serif;font-size:13px;line-height:1.6;box-shadow:0 12px 40px rgba(20,20,20,.12)}
+.cookie-text{margin:0 0 14px}.cookie-text a{text-decoration:underline}
+.cookie-options{display:grid;gap:8px;margin:0 0 14px}.cookie-options label{display:flex;gap:8px;align-items:center}
+.cookie-actions{display:flex;gap:8px;flex-wrap:wrap}
+.cookie-btn{font:inherit;font-size:11px;letter-spacing:.14em;text-transform:uppercase;padding:10px 16px;border:1px solid currentColor;background:transparent;color:inherit;cursor:pointer}
+.cookie-btn-primary{background:#141414;color:#fff;border-color:#141414}
+.f-cookie-link{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer;text-transform:inherit;letter-spacing:inherit}
+.cf-privacy-note{font-size:12px;line-height:1.6;opacity:.7;margin:4px 0 12px;grid-column:1/-1}.cf-privacy-note a{text-decoration:underline}
