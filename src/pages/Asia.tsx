@@ -150,7 +150,7 @@ const AsiaHero = () => {
   };
 
   return (
-    <section id="hero" className={`asia-hero ${captionsEnabled ? "captions-active" : ""}`}>
+    <section id="hero" className={`asia-hero ${captionsEnabled || soundChosen ? "captions-active" : ""}`}>
       <div
         className="hero-video"
         ref={videoContainerRef}
