@@ -1735,8 +1735,11 @@ body {
 .imprint-section { padding-block: 150px 110px; }
 .imprint-h { margin-bottom: 68px; }
 
-footer { padding: 34px 72px; border-color: hsl(var(--editorial-line)); }
-.f-links a { font-size: 10px; }
+footer { padding: 18px 72px 20px; border-color: hsl(var(--editorial-line)); background: transparent; }
+.f-main { display: block; }
+.f-links { flex-direction: row; flex-wrap: wrap; align-items: center; gap: 14px; }
+.f-links a { font-size: 9px; opacity: .75; }
+.f-links a:hover { opacity: 1; }
 
 @media (max-width: 960px) {
   :root { --editorial-section-space: 80px; }
@@ -1787,9 +1790,9 @@ footer { padding: 34px 72px; border-color: hsl(var(--editorial-line)); }
   .thankyou-h { font-size: 42px; }
   .thankyou-grid { padding-inline: 24px; gap: 6px; }
   .imprint-section { padding-block: 120px 76px; }
-  footer { width: 100%; padding: 30px 24px; }
-  .f-main { width: 100%; grid-template-columns: 1fr auto; align-items: end; }
-  .f-logo-wrap { justify-self: end; }
+  footer { width: 100%; padding: 16px 24px 18px; }
+  .f-main { width: 100%; }
+  .f-links { gap: 12px; }
 }
 
 @media (max-width: 600px) {
@@ -1823,5 +1826,6 @@ footer { padding: 34px 72px; border-color: hsl(var(--editorial-line)); }
 .cookie-actions{display:flex;gap:8px;flex-wrap:wrap}
 .cookie-btn{font:inherit;font-size:11px;letter-spacing:.14em;text-transform:uppercase;padding:10px 16px;border:1px solid currentColor;background:transparent;color:inherit;cursor:pointer}
 .cookie-btn-primary{background:#141414;color:#fff;border-color:#141414}
-.f-cookie-link{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer;text-transform:inherit;letter-spacing:inherit}
+.f-links .f-cookie-link{font:inherit;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:#aaa;background:none;border:0;padding:0;cursor:pointer;transition:color .2s}
+.f-links .f-cookie-link:hover{color:#111}
 .cf-privacy-note{font-size:12px;line-height:1.6;opacity:.7;margin:4px 0 12px;grid-column:1/-1}.cf-privacy-note a{text-decoration:underline}
