@@ -60,7 +60,7 @@ const EN: Section[] = [
       "Google Analytics 4 (Google Ireland Ltd., Dublin / Google LLC, USA) - category \"Analytics\": helps us understand how visitors use our website (pseudonymised data, IP anonymisation enabled). Privacy policy: https://policies.google.com/privacy",
       "Microsoft Clarity (Microsoft Corporation, USA) - category \"Analytics\": helps us understand how our pages are used (e.g. heatmaps, anonymised session recordings). Privacy policy: https://privacy.microsoft.com/privacystatement",
     ]},
-    'You can withdraw or change your consent at any time with effect for the future by blocking cookies in your browser settings or using an ad/tracking blocker.',
+    'You can object at any time by blocking cookies in your browser settings or using an ad/tracking blocker.',
   ]},
   { h: "5. Meta lead forms (Facebook / Instagram)", body: [
     "If you send us an enquiry through a form inside Facebook or Instagram, Meta passes the information you entered to us. We use it only to answer your enquiry as described in this policy. Meta's own processing is governed by Meta's Privacy Policy: https://www.facebook.com/privacy/policy",
@@ -102,7 +102,7 @@ const DE: Section[] = [
   { h: "1. Welche Daten wir erheben", body: [
     "Wenn du uns kontaktierst - über unser Website-Formular, WhatsApp, E-Mail, Instagram, Facebook oder ein Meta-Lead-Formular auf Facebook/Instagram - erheben wir die Angaben, die du machst, z. B.: eure Namen, E-Mail-Adresse, Telefon-/WhatsApp-Nummer, Instagram-Handle, Hochzeitsdatum, Ort oder Location, gewünschte Leistungen (Foto, Film), Budgetrahmen und deine Nachricht.",
     "Wenn du uns buchst - zusätzlich die Angaben, die wir zur Planung und Umsetzung eurer Hochzeitsfotografie und -filme brauchen (z. B. Ablaufplan, Kontakte von Planer/Location, Rechnungsadresse und Rechnungsdaten).",
-    "Wenn du unsere Website besuchst - technische Daten wie IP-Adresse, Browsertyp, Gerät, Betriebssystem, verweisende Seite, Datum und Uhrzeit des Zugriffs sowie - nur mit deiner Einwilligung - Nutzungsdaten der in Abschnitt 4 genannten Analyse- und Werbetools.",
+    "Wenn du unsere Website besuchst - technische Daten wie IP-Adresse, Browsertyp, Gerät, Betriebssystem, verweisende Seite, Datum und Uhrzeit des Zugriffs sowie Nutzungsdaten der in Abschnitt 4 genannten Analyse- und Werbetools.",
     "Die Angabe deiner Daten ist freiwillig. Ohne die in unseren Formularen als erforderlich markierten Angaben können wir deine Anfrage ggf. nicht beantworten oder dein Datum nicht prüfen.",
   ]},
   { h: "2. Zwecke der Verarbeitung", body: [
@@ -112,11 +112,11 @@ const DE: Section[] = [
       "unseren Vertrag mit dir vorzubereiten, durchzuführen und zu verwalten (Planung, Shooting, Bearbeitung, Lieferung von Fotos und Filmen, Galerien);",
       "Rechnungen zu stellen und buchhalterische, steuerliche und sonstige gesetzliche Pflichten zu erfüllen;",
       "unsere Website zu betreiben, abzusichern und zu verbessern;",
-      "unsere Werbung auf Facebook und Instagram zu messen und zu verbessern (nur mit deiner Einwilligung);",
+      "unsere Werbung auf Facebook und Instagram zu messen und zu verbessern;",
       "mit dir über deine Buchung zu kommunizieren.",
     ]},
     "Wir nutzen deine Daten nicht für Direktmarketing, außer du hast eingewilligt. Diese Einwilligung kannst du jederzeit kostenlos per E-Mail an hello@hugo-nanny.de widerrufen.",
-    "Rechtsgrundlagen nach der DSGVO (für Besucher und Kunden aus der EU/dem EWR): vorvertragliche Maßnahmen und Vertragserfüllung (Art. 6 Abs. 1 lit. b); rechtliche Verpflichtungen (Art. 6 Abs. 1 lit. c); unser berechtigtes Interesse an der Beantwortung von Anfragen und dem sicheren Betrieb der Website (Art. 6 Abs. 1 lit. f); deine Einwilligung für Analyse- und Werbe-Cookies (Art. 6 Abs. 1 lit. a DSGVO i. V. m. § 25 Abs. 1 TDDDG).",
+    "Rechtsgrundlagen nach der DSGVO (für Besucher und Kunden aus der EU/dem EWR): vorvertragliche Maßnahmen und Vertragserfüllung (Art. 6 Abs. 1 lit. b); rechtliche Verpflichtungen (Art. 6 Abs. 1 lit. c); unser berechtigtes Interesse an der Beantwortung von Anfragen und dem sicheren Betrieb der Website (Art. 6 Abs. 1 lit. f); unser berechtigtes Interesse an der Analyse und Verbesserung unserer Website und Werbung (Art. 6 Abs. 1 lit. f).",
   ]},
   { h: "3. An wen wir Daten weitergeben", body: [
     "Wir geben personenbezogene Daten nur weiter, soweit dies für die oben genannten Zwecke erforderlich ist, und zwar an:",
@@ -129,13 +129,13 @@ const DE: Section[] = [
     "Wir verkaufen deine personenbezogenen Daten nicht.",
   ]},
   { h: "4. Cookies, Analyse- und Werbetools", body: [
-    "Beim ersten Besuch unserer Website fragt dich ein Cookie-Banner nach deiner Auswahl (Akzeptieren / Ablehnen / Einstellungen). Technisch notwendige Speicherung (z. B. das Speichern deiner Cookie-Auswahl) erfolgt immer. Die folgenden Tools werden erst nach deiner Einwilligung geladen - lehnst du ab, werden sie gar nicht geladen:",
+    "Unsere Website nutzt die folgenden Analyse- und Werbetools:",
     { list: [
       "Meta Pixel (Meta Platforms Ireland Ltd., Dublin / Meta Platforms, Inc., USA) - Kategorie „Marketing\": misst die Wirkung unserer Anzeigen auf Facebook und Instagram und hilft, sie Personen zu zeigen, die wahrscheinlich interessiert sind. Meta kann diese Informationen mit deinem Meta-Konto verknüpfen. Für die Erhebung und Übermittlung dieser Daten sind wir und Meta gemeinsam verantwortlich. Datenschutzrichtlinie: https://www.facebook.com/privacy/policy",
       "Google Analytics 4 (Google Ireland Ltd., Dublin / Google LLC, USA) - Kategorie „Analyse\": hilft uns zu verstehen, wie Besucher unsere Website nutzen (pseudonymisierte Daten, IP-Anonymisierung aktiv). Datenschutzerklärung: https://policies.google.com/privacy",
       "Microsoft Clarity (Microsoft Corporation, USA) - Kategorie „Analyse\": hilft uns zu verstehen, wie unsere Seiten genutzt werden (z. B. Heatmaps, anonymisierte Sitzungsaufzeichnungen). Datenschutzerklärung: https://privacy.microsoft.com/privacystatement",
     ]},
-    "Du kannst deine Einwilligung jederzeit mit Wirkung für die Zukunft über den Link „Cookies\" im Footer jeder Seite widerrufen oder ändern, oder Cookies in deinen Browser-Einstellungen blockieren.",
+    "Du kannst jederzeit widersprechen, indem du Cookies in deinen Browser-Einstellungen blockierst oder einen Tracking-Blocker nutzt.",
   ]},
   { h: "5. Meta-Lead-Formulare (Facebook / Instagram)", body: [
     "Wenn du uns über ein Formular innerhalb von Facebook oder Instagram eine Anfrage sendest, übermittelt Meta uns deine Angaben. Wir nutzen sie ausschließlich zur Beantwortung deiner Anfrage wie in dieser Erklärung beschrieben. Für Metas eigene Verarbeitung gilt Metas Datenschutzrichtlinie: https://www.facebook.com/privacy/policy",
