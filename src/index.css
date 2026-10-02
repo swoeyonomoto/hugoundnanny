@@ -1735,8 +1735,11 @@ body {
 .imprint-section { padding-block: 150px 110px; }
 .imprint-h { margin-bottom: 68px; }
 
-footer { padding: 34px 72px; border-color: hsl(var(--editorial-line)); }
-.f-links a { font-size: 10px; }
+footer { padding: 18px 72px 20px; border-color: hsl(var(--editorial-line)); background: transparent; }
+.f-main { display: block; }
+.f-links { flex-direction: row; flex-wrap: wrap; align-items: center; gap: 14px; }
+.f-links a { font-size: 9px; opacity: .75; }
+.f-links a:hover { opacity: 1; }
 
 @media (max-width: 960px) {
   :root { --editorial-section-space: 80px; }
