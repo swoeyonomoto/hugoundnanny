@@ -16,7 +16,8 @@ import Presentation from "./pages/Presentation.tsx";
 import Asia from "./pages/Asia.tsx";
 import Gallery from "./pages/Gallery";
 import GalleryAdmin from "./pages/GalleryAdmin";
-import CookieBanner from "./components/CookieBanner";
+import { loadAllTracking } from "./lib/consent";
+loadAllTracking();
 import ViewPresentation from "./pages/ViewPresentation.tsx";
 
 const queryClient = new QueryClient();
@@ -45,7 +46,6 @@ const App = () => {
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
-        <CookieBanner />
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>

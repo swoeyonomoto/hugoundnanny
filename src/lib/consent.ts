@@ -79,3 +79,5 @@ export const saveConsent = (c: Consent) => {
 };
 
 export const openCookieSettings = () => window.dispatchEvent(new Event(OPEN_SETTINGS_EVENT));
+
+export const loadAllTracking = () => { loadAnalytics(); loadMeta(); };
