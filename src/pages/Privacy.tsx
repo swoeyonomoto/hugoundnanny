@@ -6,7 +6,6 @@ import LogoHeader from "@/components/LogoHeader";
 import Footer from "@/components/sections/Footer";
 import SEO from "@/components/SEO";
 import { Link } from "react-router-dom";
-import { openCookieSettings } from "@/lib/consent";
 
 type Block = string | { list: string[] };
 type Section = { h?: string; body: Block[] };
@@ -28,7 +27,7 @@ const EN: Section[] = [
   { h: "1. Personal data we collect", body: [
     "When you contact us - via our website form, WhatsApp, email, Instagram, Facebook or a Meta lead form on Facebook/Instagram - we collect the information you provide, such as: your names, email address, phone/WhatsApp number, Instagram handle, wedding date, wedding location or venue, the services you are interested in (photo, film), your budget range and your message.",
     "When you book us - additionally the details required to plan and deliver your wedding photography and film (e.g. timeline, contacts of your planner/venue, billing address and invoicing details).",
-    "When you visit our website - technical data such as IP address, browser type, device, operating system, referring page, date and time of access, and - only if you consent - usage data collected by the analytics and advertising tools listed in section 4.",
+    "When you visit our website - technical data such as IP address, browser type, device, operating system, referring page, date and time of access and usage data collected by the analytics and advertising tools listed in section 4.",
     "Providing your details is voluntary. If you do not provide the information marked as required in our forms, we may not be able to answer your enquiry or check your date.",
   ]},
   { h: "2. Purposes of use", body: [
@@ -38,11 +37,11 @@ const EN: Section[] = [
       "prepare, perform and manage our contract with you (planning, shooting, editing, delivery of photos and films, galleries);",
       "issue invoices and comply with accounting, tax and other legal obligations;",
       "operate, secure and improve our website;",
-      "measure and improve our advertising on Facebook and Instagram (only with your consent);",
+      "measure and improve our advertising on Facebook and Instagram;",
       "communicate with you about your booking.",
     ]},
     "We will not use your personal data for direct marketing unless you have given us your consent. You can withdraw that consent at any time free of charge by writing to hello@hugo-nanny.de.",
-    "Legal bases under the GDPR (for EU/EEA visitors and clients): steps prior to entering into a contract and performance of a contract (Art. 6(1)(b)); legal obligations (Art. 6(1)(c)); our legitimate interests in answering enquiries and running a secure website (Art. 6(1)(f)); your consent for analytics and advertising cookies (Art. 6(1)(a) GDPR in conjunction with § 25(1) TDDDG / Art. 5(3) ePrivacy Directive).",
+    "Legal bases under the GDPR (for EU/EEA visitors and clients): steps prior to entering into a contract and performance of a contract (Art. 6(1)(b)); legal obligations (Art. 6(1)(c)); our legitimate interests in answering enquiries and running a secure website (Art. 6(1)(f)); our legitimate interest in analysing and improving our website and advertising (Art. 6(1)(f)).",
   ]},
   { h: "3. Who we share your data with", body: [
     "We only disclose personal data where necessary for the purposes above, to:",
@@ -55,13 +54,13 @@ const EN: Section[] = [
     "We do not sell your personal data.",
   ]},
   { h: "4. Cookies, analytics and advertising tools", body: [
-    'When you first visit our website, a cookie banner asks for your choice (Accept / Decline / Settings). Technically necessary storage (e.g. saving your cookie choice) is always used. The following tools are loaded only after you have given your consent - if you decline, they are not loaded at all:',
+    'Our website uses the following analytics and advertising tools:',
     { list: [
       "Meta Pixel (Meta Platforms Ireland Ltd., Dublin / Meta Platforms, Inc., USA) - category \"Marketing\": measures the effect of our ads on Facebook and Instagram and helps show our ads to people who are likely to be interested. Meta may link this information to your Meta account. We and Meta are joint controllers for the collection and transmission of this data. Privacy policy: https://www.facebook.com/privacy/policy",
       "Google Analytics 4 (Google Ireland Ltd., Dublin / Google LLC, USA) - category \"Analytics\": helps us understand how visitors use our website (pseudonymised data, IP anonymisation enabled). Privacy policy: https://policies.google.com/privacy",
       "Microsoft Clarity (Microsoft Corporation, USA) - category \"Analytics\": helps us understand how our pages are used (e.g. heatmaps, anonymised session recordings). Privacy policy: https://privacy.microsoft.com/privacystatement",
     ]},
-    'You can withdraw or change your consent at any time with effect for the future via the "Cookies" link in the footer of every page, or by blocking cookies in your browser settings.',
+    'You can withdraw or change your consent at any time with effect for the future by blocking cookies in your browser settings or using an ad/tracking blocker.',
   ]},
   { h: "5. Meta lead forms (Facebook / Instagram)", body: [
     "If you send us an enquiry through a form inside Facebook or Instagram, Meta passes the information you entered to us. We use it only to answer your enquiry as described in this policy. Meta's own processing is governed by Meta's Privacy Policy: https://www.facebook.com/privacy/policy",
@@ -205,11 +204,6 @@ const PrivacyContent = () => {
             </div>
           ))}
 
-          <p className="imprint-body">
-            <button type="button" className="f-cookie-link" style={{ textDecoration: "underline" }} onClick={openCookieSettings}>
-              {t("Cookie-Einstellungen öffnen", "Open cookie settings")}
-            </button>
-          </p>
         </div>
       </section>
 
