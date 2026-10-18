@@ -9,6 +9,11 @@ export function newLeadToken() {
   while (token.length < 24) for (const n of crypto.getRandomValues(new Uint8Array(32))) { if (n < 240 && token.length < 24) token += alphabet[n % alphabet.length]; }
   return token;
 }
+// Admin-chosen readable link names, e.g. "joel_+_selina_v01"; same rules as the database check.
+export function customLeadToken(raw: string) {
+  const slug = raw.trim().replace(/\s+/g, '_').replace(/[^A-Za-z0-9+_-]/g, '').replace(/([_+-])\1+/g, '$1');
+  return /^[A-Za-z0-9+_-]{8,64}$/.test(slug) ? slug : null;
+}
 export function validClip(file: Pick<File,'name'|'size'>) { return /\.(mp4|webm)$/i.test(file.name) && file.size <= clipLimit; }
 export function followUp(lead: {sent_at: string|null; contact: string|null; names: string|null; updated_at: string}, now = Date.now()) { return !lead.sent_at && Boolean(lead.contact || lead.names) && now - Date.parse(lead.updated_at) > 86400000; }
 export function restoreAnswers(lead: { answers?: unknown; names?: string|null; wedding_date?: string|null; location?: string|null; guests?: string|null; contact_via?: string|null; contact?: string|null; story?: string|null }): GuideAnswers {
