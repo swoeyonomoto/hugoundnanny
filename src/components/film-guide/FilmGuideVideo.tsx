@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import reel from "@/assets/film-guide-reel.mp4.asset.json";
+import poster from "@/assets/film-guide-poster.jpg.asset.json";
 
 interface Props { caption?: string; intro?: boolean; start?: number; end?: number; soundLabel: string; }
 
@@ -18,7 +19,7 @@ export default function FilmGuideVideo({ caption, intro = false, start = 0, end,
     return () => window.clearTimeout(timer);
   }, [start, end]);
   return <div className={`${intro ? "fg-hero-reel" : "fg-frame"}${swapping ? " fg-swap" : ""}`}>
-    <video ref={ref} src={reel.url} autoPlay muted={muted} loop playsInline preload="metadata"
+    <video ref={ref} src={reel.url} poster={poster.url} autoPlay muted={muted} loop playsInline preload="metadata"
       onLoadedMetadata={() => { if (ref.current) ref.current.currentTime = start; }}
       onTimeUpdate={() => { const video = ref.current; if (video && end && video.currentTime >= end) video.currentTime = start; }} />
     {!intro && <Button variant="ghost" className="fg-sound" aria-label={soundLabel} aria-pressed={!muted} onClick={() => setMuted(value => !value)}>{muted ? "♪" : "❚❚"}</Button>}

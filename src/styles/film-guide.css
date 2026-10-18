@@ -98,7 +98,7 @@
 .fg-k { font-size: 10px; text-transform: uppercase; color: hsl(var(--fg-soft)); }
 .fg-v { font-family: 'Cormorant Garamond',Georgia,serif; font-size: 19px; line-height: 1.25; }
 .fg-fine { font-size: 12px; color: hsl(var(--fg-soft)); margin-top: 10px; }
-.fg-dock { position: fixed; left: 0; right: 0; bottom: 0; z-index: 30; background: hsl(var(--fg-bg) / .94); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-top: 1px solid hsl(var(--fg-line)); padding-bottom: env(safe-area-inset-bottom); }
+.film-guide-page .fg-dock { position: fixed; display: block; padding: 0; left: 0; right: 0; bottom: 0; z-index: 30; background: hsl(var(--fg-bg) / .94); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-top: 1px solid hsl(var(--fg-line)); padding-bottom: env(safe-area-inset-bottom); }
 .fg-dock-inner { max-width: 1180px; margin: 0 auto; padding: 14px 24px; display: flex; align-items: center; gap: 16px; }
 .film-guide-page .fg-back { font-size: 11px; text-transform: uppercase; color: hsl(var(--fg-copy)); padding: 10px 0; }
 .fg-dock-space { flex: 1; }
