@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 import { Button } from "@/components/ui/button";
 import SEO from "@/components/SEO";
 import FilmGuideVideo from "@/components/film-guide/FilmGuideVideo";
@@ -46,6 +47,7 @@ export default function FilmGuide() {
   const options: GuideOption[] = (choices[id] ?? []).map(([key, en, de]) => ({ id: key, title: t(en, de), clip: !["how", "film", "speeches"].includes(id) && key !== "none", tag: (id === "days" || id === "crew") && key === "two" ? t("Recommended", "Empfohlen") : undefined, hours: id === "days" ? t(key === "one" ? "Wedding day · 10 h" : key === "two" ? "Wedding day 10 h + 1 day · 4 h" : "Wedding day 10 h + 2 days · 4 h each", key === "one" ? "Hochzeitstag · 10 Std." : key === "two" ? "Hochzeitstag 10 Std. + 1 Tag · 4 Std." : "Hochzeitstag 10 Std. + 2 Tage · je 4 Std.") : undefined }));
   const currentClip = clips[`${id}.${preview ?? answers[id]?.[0]}`] ?? clips[id];
   return <div className="film-guide-page">
+    <Helmet><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;1,400&display=swap" /><meta name="twitter:card" content="summary" /></Helmet>
     <SEO title="Film Guide | hugo + nanny" description="Explore your wedding film with Hugo + Nanny, one chapter at a time." path="/film-guide" />
     <header className="fg-top"><div className="fg-top-inner"><Link className="fg-wordmark" to="/">hugo + nanny</Link><span className="fg-top-step fg-label">{step > 0 ? `${String(step).padStart(2, "0")} / 11 · ${title}` : ""}</span><div className="fg-lang">{(["de", "en"] as const).map(language => <Button variant="ghost" key={language} className={language === lang ? "fg-on" : ""} aria-pressed={language === lang} onClick={() => setLang(language)}>{language.toUpperCase()}</Button>)}</div></div><progress className="fg-progress" max={11} value={step} aria-label={t("Progress", "Fortschritt")} /></header>
     <main className="fg-stage"><section key={id} className={`fg-chapter${single ? " fg-single" : ""}`}>
