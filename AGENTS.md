@@ -12,6 +12,7 @@
 - Keep public Film Guide persistence behind existing start/load/save/send functions and token-scoped local recovery; never query private leads from public pages because tokens must not bypass server validation.
 - Never redirect a failed personal Film Guide link to a blank guide or create a replacement record; show a retryable error to protect the couple's saved configuration.
 - Keep the Film Guide loader token-scoped with bounded input and explicit public fields; readable admin slugs and legacy random tokens must both resolve without revealing admin-only data.
+- Keep Film Guide saves token-scoped with the same readable-slug and legacy-token validation as loading, bounded bodies and the supplied writable-field allowlist; custom links must save progress without granting admin-field access.
 - Resolve admin discounts through the existing token load before public saves and local recovery; browser drafts must not overwrite couple-specific admin configuration.
 - Use the existing Film Guide admin RPC before rendering admin tools and rely on existing RLS for all table and storage operations; UI checks alone never authorize access.
 - Pass loaded settings through every Film Guide calculation, summary and handoff, and resolve clips from public configuration with bundled fallbacks; admin edits must remain authoritative.
