@@ -2,13 +2,14 @@
 
 ## Unified admin
 - [x] Prevent failed custom links from silently opening blank guides or creating duplicate couple records; verify Joey + Seli's EUR/35% configuration in recovery tests.
-- [ ] Repair custom-token resolution in deployed film-guide-load: authorized by user, but existing function source must be supplied before it can be safely edited.
+- [x] Repair custom-token resolution in deployed film-guide-load with user authorization and supplied source; real Sheetal and Joey links load saved names, Joey EUR and 35% visible; three server validation tests pass.
 - [x] Redesign the admin workspace with fast couple/package/price lookup and clear tool navigation.
 - [x] Prefill admin-created couple names in the public guide, including local recovery; controlled public browser flow and concrete tests pass.
 - [x] Add easy gallery link copying and move account settings to their own view.
 - [ ] Automatic Decks synchronization: blocked by required changes in the separate Decks project and the existing no-backend-changes restriction; document the integration handoff.
 - [x] Verify updated admin presentation with isolated sample records: search, couple details, gallery clipboard link, account view and mobile overflow; 81 tests pass.
-- [ ] Verify real admin edits and couple prefill: external Supabase authenticated session unavailable; the previously supplied Sheetal custom URL returns 404 from film-guide-load.
+- [x] Verify real couple prefill through public custom links for Sheetal + Amal and Joey + Seli.
+- [ ] Verify real admin edits: authenticated editing flow not yet exercised; public saved settings successfully load.
 
 ## Film Guide
 - [x] Preserve the saved admin discount when resuming a personal link and show it in the bottom estimate from the beginning; 77 tests pass and controlled 40% recovery/day-change checks pass. Real saved discounts are currently zero; signed-in admin verification remains blocked as below.
