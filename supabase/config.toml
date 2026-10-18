@@ -1,3 +1,5 @@
 project_id = "trfmpmwkkzdemcbutbuk"
 [functions.dropbox-media]
 verify_jwt = false
+[functions.film-guide-load]
+verify_jwt = false
