@@ -1,9 +1,10 @@
 import { describe,it,expect } from 'vitest';
-import { followUp, newLeadToken, validClip, leadPatch, restoreAnswers, restoreSessionAnswers, withLeadDiscount, mergeSettings, leadStatuses, linkSources } from './persistence';
+import { customLeadToken, followUp, newLeadToken, validClip, leadPatch, restoreAnswers, restoreSessionAnswers, withLeadDiscount, mergeSettings, leadStatuses, linkSources } from './persistence';
 import { initialAnswers, estimate } from './logic';
 import { defaultSettings } from './settings';
 describe('Part 4 contracts',()=>{
  it('admin tokens are 24 allowed characters',()=>{expect(newLeadToken()).toMatch(/^[A-Za-z2-9]{24}$/);});
+ it('custom link slugs are sanitized and bounded',()=>{expect(customLeadToken('Joel + Selina v01')).toBe('Joel_+_Selina_v01');expect(customLeadToken('joel_+_selina_v01')).toBe('joel_+_selina_v01');expect(customLeadToken('jöel!!')).toBeNull();expect(customLeadToken('ab')).toBeNull();expect(customLeadToken('')).toBeNull();});
  it('only specified statuses are offered',()=>{expect(leadStatuses).toEqual(['new','in progress','sent','contacted','call booked','booked','lost']);});
  it('admin link sources match the existing contract',()=>{expect(linkSources).toEqual(['link','facebook','whatsapp','manual']);});
  it('accepts 15 MB clips but rejects larger clips',()=>{expect(validClip({name:'style.natural.mp4',size:15*1024*1024})).toBe(true);expect(validClip({name:'style.natural.mp4',size:15*1024*1024+1})).toBe(false);});
