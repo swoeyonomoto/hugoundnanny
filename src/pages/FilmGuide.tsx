@@ -5,6 +5,8 @@ import { Button } from '@/components/ui/button';
 import SEO from '@/components/SEO';
 import FilmGuideVideo from '@/components/film-guide/FilmGuideVideo';
 import FilmGuidePlan from '@/components/film-guide/FilmGuidePlan';
+import { GuideRichText } from '@/components/film-guide/FilmGuideCopy';
+import { chapterCopy } from '@/lib/film-guide/copy';
 import { GuideChoices, GuideField, GuideStepper, type GuideOption } from '@/components/film-guide/FilmGuideControls';
 import { chapterIds, estimate, filmPrice, formatMoney, hoursText, initialAnswers, missingAnswers, nextChapter, priceLines, selectedExtras, startingLanguage, toggleMulti, updateAnswer, type GuideAnswers, type Language, type Days, type Crew } from '@/lib/film-guide/logic';
 import { chapters, choices, reduceLosses } from '@/lib/film-guide/content';
@@ -32,6 +34,9 @@ export default function FilmGuide() {
   const id = chapterIds[step];
   const chapter = chapters[step];
   const title = chapter[lang === 'en' ? 1 : 2];
+  const copy = chapterCopy[id];
+  const text = (question:string,part:'label'|'placeholder'|'description' = 'label') => copy.questions[question]?.[part]?.[lang] ?? '';
+  const copyTitle = (copy.title[lang] ?? `*${title}.*`).replace('{names}',a.names || t('you two','ihr zwei'));
   const key = questionKey[id];
   const single = ['intro','about','plan'].includes(id);
   const total = estimate(a);
@@ -99,11 +104,12 @@ export default function FilmGuide() {
     return price ? `+ ${money(price)}` : included;
   };
   const options:GuideOption[] = (choices[id] ?? []).filter(([value]) => !(id === 'shoot' && value === 'daybefore' && a.days === 'one') && !(id === 'extras' && value === 'none' && a.days === 'three')).map(([value,en,de]) => ({
-    id:value,title:t(en,de),clip:Boolean(optionClips[`${key}.${value}`]),
+    id:value,title:copy.questions[key]?.options[value]?.title?.[lang] ?? t(en,de),clip:Boolean(optionClips[`${key}.${value}`]),
+    description:copy.questions[key]?.options[value]?.description?.[lang],
     locked:id === 'extras' && a.days === 'three' && ['feature','social'].includes(value),
-    tag:['days','crew'].includes(id) && value === 'two' ? t('Recommended','Empfohlen') : undefined,
+    tag:copy.questions[key]?.options[value]?.tag?.[lang],
     price:!showPrices ? undefined : id === 'days' ? money(filmPrice(value as Days,a.crew)) : id === 'crew' ? money(filmPrice(a.days,value as Crew)) : ['shoot','voices','extras'].includes(id) ? addonPrice(key,value) : undefined,
-    hours:id === 'days' ? hoursText({...a,days:value as Days,extraHours:0},lang) : undefined,
+    hours:copy.questions[key]?.options[value]?.hours?.[lang],
   }));
   const currentValue = key ? a[key] : '';
   const selected = Array.isArray(currentValue) ? currentValue : [String(currentValue)];
@@ -128,13 +134,17 @@ export default function FilmGuide() {
     <SEO title="Film Guide | hugo + nanny" description="Explore your wedding film with Hugo + Nanny, one chapter at a time." path="/film-guide" />
     <header className="fg-top"><div className="fg-top-inner"><Link className="fg-wordmark" to="/">hugo + nanny</Link><span className="fg-top-step fg-label">{step ? `${String(step).padStart(2,'0')} / 11 · ${title}` : ''}</span><div className="fg-lang">{(['de','en'] as const).map(language => <Button variant="ghost" key={language} className={language === lang ? 'fg-on' : ''} aria-pressed={language === lang} onClick={() => setLang(language)}>{language.toUpperCase()}</Button>)}</div></div><progress className="fg-progress" max={11} value={step} aria-label={t('Progress','Fortschritt')} /></header>
     <main className="fg-stage"><section key={id} className={`fg-chapter${single ? ' fg-single' : ''}`}><div className="fg-copy"><span className="fg-label">{step ? `${String(step).padStart(2,'0')} - ${title}` : title}</span>
-      {id === 'intro' ? <><h1>{t('Your wedding film.','Euer Hochzeitsfilm.')} <em>{t('The film guide.','Der Film-Guide.')}</em></h1><div className="fg-fields">{field('names',t('Your names','Eure Namen'),'text','Mira + Jonas')}</div></> : <h2>{id === 'how' ? <>{t('Hey','Hey')} {a.names || t('you two','ihr zwei')}, <em>{title}.</em></> : <em>{title}.</em>}</h2>}
-      {id === 'shoot' && <div id="fg-shootLen"><GuideChoices label={t('How long?','Wie lange?')} compact selected={[a.shootLen]} onChange={value => change('shootLen',value)} options={['h1','h15','h2'].map(value => ({id:value,title:label('shootLen',value),price:addonPrice('shootLen',value)}))} /></div>}
-      {options.length > 0 && key && <div id={`fg-${key}`}><GuideChoices label={t('Your choice','Eure Wahl')} options={options} selected={id === 'extras' ? selectedExtras(a) : selected} multi={['film','voices','extras'].includes(id)} compact={['film','speeches'].includes(id)} onChange={value => change(key,value,['film','voices','extras'].includes(id))} onPreview={setPreview} /></div>}
-      {id === 'film' && a.loved.includes('other') && <div className="fg-fields">{field('lovedNote',t('Tell us what it was','Erzählt uns, was es war'))}</div>}
-      {id === 'days' && <>{a.days !== 'one' && <div className="fg-fields">{field('daysNote',t('Your own plan for the extra days (optional)','Euer eigener Plan für die Zusatztage (optional)'))}</div>}<GuideStepper label={t('Need more time?','Mehr Zeit nötig?')} value={a.extraHours} onChange={value => apply('extraHours',value)} detail={`${showPrices ? `${money(settings.prices.extraHour[a.crew])} ${t('per hour','pro Stunde')} · ` : ''}${t('Total','Gesamt')}: ${hoursText(a,lang)}`} /></>}
-      {id === 'speeches' && <><GuideChoices label={t('Keep them forever','Für immer behalten')} multi selected={a.speechesFilm} onChange={value => change('speechesFilm',value,true)} options={[{id:'yes',title:label('speechesFilm','yes'),price:addonPrice('speechesFilm','yes')}]} />{a.speechesFilm.length > 0 && a.crew === 'one' && <p className="fg-pkg">{t('With one cinematographer we can’t set up a fixed speech camera and film reactions at the same time. For a speeches film we recommend two.','Mit einer Kamera können wir nicht gleichzeitig eine feste Reden-Kamera einrichten und Reaktionen filmen. Für einen Reden-Film empfehlen wir zwei.')}</p>}</>}
-      {id === 'extras' && <div className="fg-included">{[t('Highlight film, 4-5 min','Highlight-Film, 4-5 Min.'),t('Drone footage','Drohnenaufnahmen'),t('Licensed music + colour grading','Lizenzierte Musik + Colorgrading'),t('Sneak peek within 2 weeks','Sneak Peek innerhalb von 2 Wochen')].map(text => <div key={text}><span>{text}</span><span>{included}</span></div>)}</div>}
+      {id === 'intro' ? <h1><GuideRichText text={copyTitle} /></h1> : <h2><GuideRichText text={copyTitle} /></h2>}
+      {copy.paragraphs.map((paragraph,index) => <p className="fg-lead" key={index}><GuideRichText text={paragraph[lang] ?? ''} /></p>)}
+      {copy.points.length > 0 && <ul className="fg-points">{copy.points.map((point,index) => <li key={index}><span><GuideRichText text={point[lang] ?? ''} /></span></li>)}</ul>}
+      {copy.afterList[lang] && <p className="fg-lead"><GuideRichText text={copy.afterList[lang] ?? ''} /></p>}
+      {id === 'intro' && <div className="fg-fields">{field('names',t('Your names','Eure Namen'),'text','Mira + Jonas')}</div>}
+      {copy.included && <div className="fg-included">{copy.included.map((row,index) => <div key={index}><span>{row[lang]}</span><span>{included}</span></div>)}</div>}
+      {id === 'shoot' && <div id="fg-shootLen"><GuideChoices label={text('shootLen')} compact selected={[a.shootLen]} onChange={value => change('shootLen',value)} options={['h1','h15','h2'].map(value => ({id:value,title:label('shootLen',value),price:addonPrice('shootLen',value)}))} /></div>}
+      {options.length > 0 && key && <div id={`fg-${key}`}><GuideChoices label={text(key)} options={options} selected={id === 'extras' ? selectedExtras(a) : selected} multi={['film','voices','extras'].includes(id)} compact={['film','speeches'].includes(id)} onChange={value => change(key,value,['film','voices','extras'].includes(id))} onPreview={setPreview} /></div>}
+      {id === 'film' && a.loved.includes('other') && <div className="fg-fields">{field('lovedNote',text('lovedNote'),'text',text('lovedNote','placeholder'))}</div>}
+      {id === 'days' && <>{a.days !== 'one' && <div className="fg-fields">{field('daysNote',text('daysNote'),'text',text('daysNote','placeholder'))}</div>}<GuideStepper label={text('extraHours')} description={text('extraHours','description')} value={a.extraHours} onChange={value => apply('extraHours',value)} detail={`${showPrices ? `${money(settings.prices.extraHour[a.crew])} ${t('per hour','pro Stunde')} · ` : ''}${t('Total','Gesamt')}: ${hoursText(a,lang)}`} /></>}
+      {id === 'speeches' && <><GuideChoices label={text('speechesFilm')} multi selected={a.speechesFilm} onChange={value => change('speechesFilm',value,true)} options={[{id:'yes',title:label('speechesFilm','yes'),description:copy.questions.speechesFilm?.options.yes?.description?.[lang],price:addonPrice('speechesFilm','yes')}]} />{a.speechesFilm.length > 0 && a.crew === 'one' && <p className="fg-pkg">{copy.note?.[lang]}</p>}</>}
       {id === 'about' && <div className="fg-fields">{field('names',t('Your names *','Eure Namen *'),'text','Mira + Jonas')}<div className="fg-two">{field('date',t('Wedding date *','Hochzeitsdatum *'),'date')}<label className="fg-field"><span>{t('Guests','Gäste')}</span><select value={a.guests} onChange={e => apply('guests',e.target.value)}><option value="">-</option><option value="under40">{t('Under 40','Unter 40')}</option>{['40-80','80-120','120+'].map(value => <option key={value}>{value}</option>)}</select></label></div>{field('place',t('Venue / location','Ort / Location'),'text','Köln, Toskana, ...')}<div className="fg-field"><span>{t('Best reached via','Am besten erreichbar per')}</span><div className="fg-seg">{(['whatsapp','email'] as const).map(via => <Button variant="ghost" key={via} className={via === a.contactVia ? 'fg-on' : ''} onClick={() => apply('contactVia',via)}>{via === 'whatsapp' ? 'WhatsApp' : 'E-Mail'}</Button>)}</div></div>{field('contact',a.contactVia === 'whatsapp' ? t('WhatsApp number *','WhatsApp-Nummer *') : t('Email *','E-Mail *'),a.contactVia === 'whatsapp' ? 'tel' : 'email')}{field('story',t('And this is our story (optional)','Und das ist unsere Geschichte (optional)'),'text',undefined,true)}<p className="fg-fine"><Link to="/privacy">{t('Privacy policy','Datenschutzerklärung')}</Link></p></div>}
       {id === 'plan' && <FilmGuidePlan answers={a} lang={lang} onSend={send} sent={sent} />}
     </div>{!single && <aside className="fg-media"><FilmGuideVideo caption={id === 'film' ? undefined : options.find(o => o.id === active)?.title ?? title} start={clip?.start ?? defaultClip?.[0] ?? 0} end={id === 'film' ? undefined : clip?.end ?? defaultClip?.[1]} soundLabel={t('Toggle sound','Ton umschalten')} /></aside>}</section>{id === 'intro' && <FilmGuideVideo intro soundLabel="" />}</main>
