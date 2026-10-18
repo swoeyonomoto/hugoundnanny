@@ -1,8 +1,8 @@
 # Roadmap
 
 ## Film Guide
-- [ ] Build Part 2: pricing, answer rules, reduce confirmation, summary and contact handoff.
-- [ ] Verify Part 2 calculations and complete the guide on desktop and mobile.
+- [x] Build Part 2: pricing, answer rules, reduce confirmation, summary and contact handoff.
+- [x] Verify Part 2 calculations and complete the guide on desktop and mobile.
 - [x] Build Part 1: isolated reference design, both Film Guide routes, chapter navigation and reusable presentation controls.
 - [x] Verify Part 1 on desktop and mobile without changing existing pages.
 
