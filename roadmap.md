@@ -1,6 +1,7 @@
 # Roadmap
 
 ## Film Guide
+- [ ] Preserve the saved admin discount when resuming a personal link and show it in the bottom estimate from the beginning; verify coverage-day changes.
 - [x] Clarify coverage, couple-shoot time and included films in the live overview; add a visible overview button beside the price with a gentle periodic nudge.
 - [x] Refine guide layout using Asia inspiration; default new visits to English.
 - [x] Default public currency to HKD with a two-way EUR calculator; keep saved estimates in EUR.
