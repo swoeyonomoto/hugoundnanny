@@ -16,6 +16,7 @@ import Presentation from "./pages/Presentation.tsx";
 import Asia from "./pages/Asia.tsx";
 import Gallery from "./pages/Gallery";
 import GalleryAdmin from "./pages/GalleryAdmin";
+import FilmGuide from "./pages/FilmGuide";
 import { loadAllTracking } from "./lib/consent";
 loadAllTracking();
 import ViewPresentation from "./pages/ViewPresentation.tsx";
@@ -43,6 +44,8 @@ const App = () => {
           <Route path="/asia" element={<Asia />} />
           <Route path="/gallery/:slug" element={<Gallery />} />
           <Route path="/gallery-admin" element={<GalleryAdmin />} />
+          <Route path="/film-guide" element={<FilmGuide />} />
+          <Route path="/film-guide/:token" element={<FilmGuide />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
