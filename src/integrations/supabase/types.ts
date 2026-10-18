@@ -47,6 +47,69 @@ export type Database = {
         }
         Relationships: []
       }
+      acquisition_requests: {
+        Row: {
+          answered_at: string | null
+          artwork_ids: string[]
+          catalogue_slug: string | null
+          created_at: string
+          email: string
+          id: string
+          lang: string | null
+          message: string | null
+          name: string
+          page_url: string | null
+          phone: string | null
+          selection_slug: string | null
+          status: string
+        }
+        Insert: {
+          answered_at?: string | null
+          artwork_ids: string[]
+          catalogue_slug?: string | null
+          created_at?: string
+          email: string
+          id?: string
+          lang?: string | null
+          message?: string | null
+          name: string
+          page_url?: string | null
+          phone?: string | null
+          selection_slug?: string | null
+          status?: string
+        }
+        Update: {
+          answered_at?: string | null
+          artwork_ids?: string[]
+          catalogue_slug?: string | null
+          created_at?: string
+          email?: string
+          id?: string
+          lang?: string | null
+          message?: string | null
+          name?: string
+          page_url?: string | null
+          phone?: string | null
+          selection_slug?: string | null
+          status?: string
+        }
+        Relationships: []
+      }
+      admin_secrets: {
+        Row: {
+          key: string
+          value: string
+        }
+        Insert: {
+          key: string
+          value: string
+        }
+        Update: {
+          key?: string
+          value?: string
+        }
+        Relationships: []
+      }
       artist_settings: {
         Row: {
           id: string
@@ -67,6 +130,50 @@ export type Database = {
           value?: string
         }
         Relationships: []
+      }
+      artwork_attention: {
+        Row: {
+          acquires: number
+          artwork_id: string
+          collects: number
+          day: string
+          dwell_ms: number
+          image_steps: number
+          session_id: string
+          updated_at: string
+          zooms: number
+        }
+        Insert: {
+          acquires?: number
+          artwork_id: string
+          collects?: number
+          day?: string
+          dwell_ms?: number
+          image_steps?: number
+          session_id: string
+          updated_at?: string
+          zooms?: number
+        }
+        Update: {
+          acquires?: number
+          artwork_id?: string
+          collects?: number
+          day?: string
+          dwell_ms?: number
+          image_steps?: number
+          session_id?: string
+          updated_at?: string
+          zooms?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "artwork_attention_artwork_id_fkey"
+            columns: ["artwork_id"]
+            isOneToOne: false
+            referencedRelation: "artworks"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       artwork_images: {
         Row: {
@@ -378,18 +485,21 @@ export type Database = {
           artwork_ids: string[]
           created_at: string
           id: string
+          kind: string
           slug: string
         }
         Insert: {
           artwork_ids: string[]
           created_at?: string
           id?: string
+          kind?: string
           slug: string
         }
         Update: {
           artwork_ids?: string[]
           created_at?: string
           id?: string
+          kind?: string
           slug?: string
         }
         Relationships: []
@@ -636,6 +746,18 @@ export type Database = {
         }
         Relationships: []
       }
+      site_admins: {
+        Row: {
+          email: string
+        }
+        Insert: {
+          email: string
+        }
+        Update: {
+          email?: string
+        }
+        Relationships: []
+      }
       site_settings: {
         Row: {
           background_color: string
@@ -761,7 +883,74 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      admin_create_catalogue_share: {
+        Args: { p_ids: string[]; p_slug: string; p_token: string }
+        Returns: undefined
+      }
+      admin_list_requests: {
+        Args: { p_token: string }
+        Returns: {
+          answered_at: string | null
+          artwork_ids: string[]
+          catalogue_slug: string | null
+          created_at: string
+          email: string
+          id: string
+          lang: string | null
+          message: string | null
+          name: string
+          page_url: string | null
+          phone: string | null
+          selection_slug: string | null
+          status: string
+        }[]
+        SetofOptions: {
+          from: "*"
+          to: "acquisition_requests"
+          isOneToOne: false
+          isSetofReturn: true
+        }
+      }
+      admin_token_ok: { Args: { p_token: string }; Returns: boolean }
+      admin_update_request: {
+        Args: {
+          p_catalogue_slug?: string
+          p_id: string
+          p_status: string
+          p_token: string
+        }
+        Returns: undefined
+      }
+      artwork_attention_scores: {
+        Args: never
+        Returns: {
+          artwork_id: string
+          avg_seconds: number
+          score: number
+          visits_30d: number
+        }[]
+      }
       get_portfolio_artwork_ids: { Args: { p_slug: string }; Returns: string[] }
+      get_portfolio_share: {
+        Args: { p_slug: string }
+        Returns: {
+          artwork_ids: string[]
+          kind: string
+        }[]
+      }
+      is_site_admin: { Args: never; Returns: boolean }
+      track_attention: {
+        Args: {
+          p_acquire?: boolean
+          p_artwork: string
+          p_collect?: boolean
+          p_dwell_ms?: number
+          p_session: string
+          p_steps?: number
+          p_zooms?: number
+        }
+        Returns: undefined
+      }
     }
     Enums: {
       app_role: "admin" | "moderator" | "user"
