@@ -1,6 +1,9 @@
 # Roadmap
 
 ## Film Guide
+- [ ] Build Part 4: private saved leads, personal links and resilient autosave.
+- [ ] Build Part 4: admin leads, funnel, editable settings and clips.
+- [ ] Verify Part 4 access restrictions, cross-device resume and guide-only Clarity.
 - [x] Build Part 3: exact bilingual chapter copy, descriptions, labels and emphasis.
 - [x] Verify Part 3 on desktop and mobile while preserving Part 2 pricing and answers.
 - [x] Build Part 2: pricing, answer rules, reduce confirmation, summary and contact handoff.
