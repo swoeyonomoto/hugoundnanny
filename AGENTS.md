@@ -15,3 +15,6 @@
 - Pass loaded settings through every Film Guide calculation, summary and handoff, and resolve clips from public configuration with bundled fallbacks; admin edits must remain authoritative.
 - Keep Film Guide currency conversion presentation-only with a dated public reference rate and offline fallback; shared pure conversion functions keep the calculator, estimates and handoff consistent while stored estimates stay in EUR.
 - Keep Clarity initialization and lifecycle scoped to the public Film Guide with a server-verified non-admin session; admin and unrelated pages must not record guide activity.
+- Keep the admin workspace theme scoped to `.gallery-admin` and account settings in a separate view so public styling and gallery editing remain independent.
+- Display stored lead estimates as saved estimates, not recomputed quotes, so admin reflects what was last saved by the couple; current calculations remain available in the plan detail.
+- Keep cross-project synchronization pending until a secure, authorized integration exists in both projects; external tool links do not imply shared records or prices.
