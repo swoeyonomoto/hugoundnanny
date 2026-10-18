@@ -1,6 +1,8 @@
 # Roadmap
 
 ## Film Guide
+- [x] Build Part 3: exact bilingual chapter copy, descriptions, labels and emphasis.
+- [x] Verify Part 3 on desktop and mobile while preserving Part 2 pricing and answers.
 - [x] Build Part 2: pricing, answer rules, reduce confirmation, summary and contact handoff.
 - [x] Verify Part 2 calculations and complete the guide on desktop and mobile.
 - [x] Build Part 1: isolated reference design, both Film Guide routes, chapter navigation and reusable presentation controls.
