@@ -14,6 +14,12 @@ export function customLeadToken(raw: string) {
   const slug = raw.trim().replace(/\s+/g, '_').replace(/[^A-Za-z0-9+_-]/g, '').replace(/([_+-])\1+/g, '$1');
   return /^[A-Za-z0-9+_-]{8,64}$/.test(slug) ? slug : null;
 }
+// Suggests a readable link name from the couple's names, e.g. "Sheetal + Amal" -> "sheetal_+_amal_v01".
+export function suggestLeadSlug(names: string) {
+  const base = names.trim().toLowerCase().replace(/\s*&\s*/g, ' + ').replace(/\s+und\s+/g, ' + ').replace(/\s+and\s+/g, ' + ');
+  const slug = customLeadToken(`${base}_v01`);
+  return slug || '';
+}
 export function validClip(file: Pick<File,'name'|'size'>) { return /\.(mp4|webm)$/i.test(file.name) && file.size <= clipLimit; }
 export function followUp(lead: {sent_at: string|null; contact: string|null; names: string|null; updated_at: string}, now = Date.now()) { return !lead.sent_at && Boolean(lead.contact || lead.names) && now - Date.parse(lead.updated_at) > 86400000; }
 export function restoreAnswers(lead: { answers?: unknown; names?: string|null; wedding_date?: string|null; location?: string|null; guests?: string|null; contact_via?: string|null; contact?: string|null; story?: string|null }): GuideAnswers {
