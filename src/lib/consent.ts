@@ -28,23 +28,18 @@ const addScript = (src: string) => {
   document.head.appendChild(s);
 };
 
-let gaLoaded = false, clarityLoaded = false, metaLoaded = false;
+let gaLoaded = false, metaLoaded = false;
 
 const loadAnalytics = () => {
   if (!gaLoaded) {
     gaLoaded = true;
     window.dataLayer = window.dataLayer || [];
-    window.gtag = function () { window.dataLayer!.push(arguments); };
+    window.gtag = function () { window.dataLayer?.push(arguments); };
     window.gtag("js", new Date());
     window.gtag("config", "G-ZLTETCHDJ1", { anonymize_ip: true });
     addScript("https://www.googletagmanager.com/gtag/js?id=G-ZLTETCHDJ1");
   }
-  if (!clarityLoaded) {
-    clarityLoaded = true;
-    const c = window as any;
-    c.clarity = c.clarity || function () { (c.clarity.q = c.clarity.q || []).push(arguments); };
-    addScript("https://www.clarity.ms/tag/w37cyu9vbh");
-  }
+
 };
 
 const loadMeta = () => {
