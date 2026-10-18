@@ -28,6 +28,12 @@ export default function FilmGuide() {
   const {a,setAnswers,lang,setLang,step,setStep,sent,setSent,ready,token,touch,markSent} = useGuideSession(settings);
   const [sending,setSending] = useState(false);
   const [currency,setCurrency] = useState<GuideCurrency>('HKD');
+  const currencyInit = useRef(false);
+  useEffect(() => {
+    if (!ready || currencyInit.current) return;
+    currencyInit.current = true;
+    if (a.currency === 'EUR' || a.currency === 'HKD') setCurrency(a.currency);
+  }, [ready, a.currency]);
   const [exchange,setExchange] = useState(referenceRate);
   useEffect(() => {
     const controller = new AbortController();
