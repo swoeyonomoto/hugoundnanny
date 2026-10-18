@@ -25,7 +25,7 @@ const questionKey: Record<string,keyof GuideAnswers> = { how:'start', film:'love
 
 export default function FilmGuide() {
   const {settings,clips} = useGuideConfig();
-  const {a,setAnswers,lang,setLang,step,setStep,sent,setSent,ready,token,touch,markSent} = useGuideSession(settings);
+  const {a,setAnswers,lang,setLang,step,setStep,sent,setSent,ready,loadError,token,touch,markSent} = useGuideSession(settings);
   const [sending,setSending] = useState(false);
   const [currency,setCurrency] = useState<GuideCurrency>('HKD');
   const currencyInit = useRef(false);
@@ -165,6 +165,7 @@ export default function FilmGuide() {
   const simulated = reduce ? updateAnswer(a,reduce.key,reduce.value) : a;
   const losses = reduce?.key === 'crew' ? [...reduceLosses.crew,...(a.speechesFilm.length ? [[t('Your speeches film would be filmed from one angle only','Euer Reden-Film wäre nur aus einer Perspektive gefilmt'),t('Your speeches film would be filmed from one angle only','Euer Reden-Film wäre nur aus einer Perspektive gefilmt')] as [string,string]] : [])] : reduce ? [...(a.days === 'three' ? reduceLosses.three : []),...(reduce.value === 'one' ? reduceLosses.two : [])] : [];
   if(!ready) return <div className="film-guide-page"><main className="fg-stage"><p role="status">{t('Loading your guide…','Euer Guide lädt…')}</p></main></div>;
+  if(loadError) return <div className="film-guide-page"><main className="fg-stage"><h1>{t('Your personal guide could not be loaded.','Euer persönlicher Guide konnte nicht geladen werden.')}</h1><p role="alert">{t('Please ask Hugo + Nanny to check your link. Your saved names, currency and discount have not been changed.','Bitte fragt Hugo + Nanny, euren Link zu prüfen. Eure gespeicherten Namen, Währung und Rabatt wurden nicht geändert.')}</p><Button variant="outline" onClick={()=>window.location.reload()}>{t('Try again','Erneut versuchen')}</Button></main></div>;
   return <div className="film-guide-page">
     <Helmet><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" /><meta name="twitter:card" content="summary" /></Helmet>
     <SEO title="Film Guide | hugo + nanny" description="Explore your wedding film with Hugo + Nanny, one chapter at a time." path="/film-guide" />

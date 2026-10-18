@@ -22,6 +22,7 @@ export function useGuideSession(settings: typeof defaultSettings) {
   const [step,setStep] = useState(0);
   const [sent,setSent] = useState(false);
   const [ready,setReady] = useState(false);
+  const [loadError,setLoadError] = useState(false);
   const [token,setToken] = useState<string|null>(null);
   const [revision,bump] = useState(0);
   const active = useRef(false), tokenRef = useRef<string|null>(null), startPromise = useRef<Promise<string|null>|null>(null);
@@ -31,6 +32,7 @@ export function useGuideSession(settings: typeof defaultSettings) {
   const cache = () => { try {localStorage.setItem(draftKey(tokenRef.current),JSON.stringify({patch:patch(),pending:true}));} catch { /* browser storage unavailable */ } };
   const ensureToken = async () => {
     if (tokenRef.current) return tokenRef.current;
+    if (routeToken) return null;
     if (!startPromise.current) startPromise.current = (async () => {
       const source = new URLSearchParams(location.search).get('source');
       const {data,error} = await supabase.functions.invoke('film-guide-start',{body:{lang:latest.current.lang,...(source && ['link','website','facebook','whatsapp','manual'].includes(source) ? {source} : {})}});
@@ -66,6 +68,7 @@ export function useGuideSession(settings: typeof defaultSettings) {
       if (t && t === tokenRef.current) {setReady(true);return;}
       if (routeToken && routeToken !== tokenRef.current) {setAnswers({...initialAnswers});setStep(0);setSent(false);active.current=false;tokenRef.current=null;setToken(null);furthest.current=0;times.current={};}
       setReady(false);
+      setLoadError(false);
       let local=readDraft(t);
       if (t) {
         const {data,error}=await supabase.functions.invoke('film-guide-load',{body:{token:t}});
@@ -81,6 +84,8 @@ export function useGuideSession(settings: typeof defaultSettings) {
         }
         // Only invalid tokens reset. Network failures retain the local draft and token.
         const invalid=error && 'context' in error && (error.context as Response)?.status === 404;
+        // A personal link must never silently become a blank guide or a different couple record.
+        if (routeToken) {active.current=false;setLoadError(true);setReady(true);return;}
         if (!invalid) {tokenRef.current=t;setToken(t);active.current=Boolean(local);}
         else {local=null;try {localStorage.removeItem(TOKEN_KEY);} catch { /* unavailable */ }navigate(`/film-guide${location.search}`,{replace:true});}
       }
@@ -104,5 +109,5 @@ export function useGuideSession(settings: typeof defaultSettings) {
   const touch=()=>{active.current=true;bump(x=>x+1);};
   const go=(next:number)=>{const old=latest.current.step;times.current[chapterIds[old]]=(times.current[chapterIds[old]] || 0)+(Date.now()-entered.current)/1000;entered.current=Date.now();furthest.current=Math.max(furthest.current,next);setStep(next);};
   const markSent=async(via:'whatsapp'|'email')=>{active.current=true;if(!await save()) return false;const t=tokenRef.current;if(!t)return false;const {error}=await supabase.functions.invoke('film-guide-send',{body:{token:t,via}});if(error)return false;setSent(true);return true;};
-  return {a,setAnswers,lang,setLang,step,setStep:go,sent,setSent,ready,token,touch,markSent};
+  return {a,setAnswers,lang,setLang,step,setStep:go,sent,setSent,ready,loadError,token,touch,markSent};
 }
