@@ -32,7 +32,9 @@ export function withLeadDiscount(answers: GuideAnswers, lead: { answers?: unknow
   return {...answers,discount:Number.isFinite(value) ? Math.min(100,Math.max(0,value)) : 0};
 }
 export function restoreSessionAnswers(lead: Parameters<typeof restoreAnswers>[0], draft?: Parameters<typeof restoreAnswers>[0]): GuideAnswers {
-  return withLeadDiscount(restoreAnswers(draft ?? lead),lead);
+  const recovered = restoreAnswers(draft ?? lead);
+  const saved = restoreAnswers(lead);
+  return withLeadDiscount({...recovered, names: recovered.names.trim() ? recovered.names : saved.names, currency: saved.currency},lead);
 }
 export function leadPatch(a: GuideAnswers, lang: Language, step: number, furthest: number, times: Record<string,number>, settings: GuideSettings = defaultSettings) {
   const total = estimate(a,settings);

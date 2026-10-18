@@ -1,0 +1,31 @@
+.gallery-admin {
+  --ga-ink: 160 12% 12%; --ga-paper: 150 10% 97%; --ga-panel: 0 0% 100%; --ga-line: 150 8% 87%;
+  --background: var(--ga-panel); --foreground: var(--ga-ink); --card: var(--ga-panel); --card-foreground: var(--ga-ink);
+  --primary: 163 45% 25%; --primary-foreground: 0 0% 100%; --secondary: 154 20% 93%; --secondary-foreground: 163 45% 25%;
+  --muted: 150 10% 95%; --muted-foreground: 155 6% 44%; --border: var(--ga-line); --input: var(--ga-line); --ring: var(--primary);
+  font-family: Inter,sans-serif;
+}
+#root .gallery-admin h1,#root .gallery-admin h2,#root .gallery-admin h3 {font-family:Inter,sans-serif;font-weight:500;letter-spacing:0;}
+.gallery-admin .ga-section h1,.gallery-admin .ga-login h1 {font-size:28px;line-height:1.25;}
+.gallery-admin .ga-head {background:hsl(var(--ga-panel));height:72px;}
+.gallery-admin .ga-head > div {text-transform:none;font-size:13px;}
+.gallery-admin .ga-head img {width:105px;}
+.gallery-admin .ga-shell {grid-template-columns:230px minmax(0,1fr);}
+.gallery-admin .ga-nav {top:72px;height:calc(100vh - 72px);background:hsl(var(--ga-panel));padding:26px 16px;overflow-y:auto;}
+.gallery-admin .ga-nav h2 {font:500 10px Inter,sans-serif;margin:25px 12px 8px;color:hsl(var(--muted-foreground));opacity:1;}
+.gallery-admin .ga-nav h2:first-child {margin-top:0;}
+.gallery-admin .ga-nav button {gap:10px;min-height:44px;border-radius:6px;font-size:13px;white-space:normal;height:auto;text-align:left;}
+.gallery-admin .ga-nav a.ga-link {display:flex;align-items:center;gap:10px;margin:0;padding:12px;font-size:13px;text-decoration:none;border-radius:6px;}
+.gallery-admin .ga-nav a.ga-link:hover {background:hsl(var(--muted));opacity:1;}
+.gallery-admin .ga-content {padding:36px 32px 80px;max-width:1600px;width:100%;}
+.gallery-admin .ga-section-head {margin-bottom:24px;align-items:center;flex-wrap:wrap;}
+.gallery-admin .ga-section-head p {color:hsl(var(--muted-foreground));opacity:1;}
+.gallery-admin label {font-size:11px;letter-spacing:0;gap:8px;}
+.gallery-admin input,.gallery-admin textarea,.gallery-admin select {border-radius:6px;font-family:Inter,sans-serif;}
+.gallery-admin .ga-section + .ga-section {margin-top:48px;padding-top:32px;}
+.gallery-admin .ga-photo-title h2 {font-size:20px;}
+.ga-share {display:flex;align-items:center;gap:8px;margin:0 0 24px;flex-wrap:wrap;}
+.ga-share input {flex:1;min-width:180px;max-width:560px;}
+.ga-account {max-width:760px;}
+.ga-account form + form {margin-top:32px;}
+@media(max-width:800px){.gallery-admin .ga-shell {grid-template-columns:minmax(0,1fr);}.gallery-admin .ga-nav {position:static;height:auto;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));overflow:visible;border-right:0;}.gallery-admin .ga-nav h2 {grid-column:1/-1;margin:16px 12px 4px;}.gallery-admin .ga-content {padding:28px 18px 60px;}.gallery-admin .ga-head {padding:0 18px;}.gallery-admin .ga-head > div {gap:12px;}}
