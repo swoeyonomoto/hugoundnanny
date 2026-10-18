@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { estimate, filmPrice, hoursText, initialAnswers, missingAnswers, nextChapter, packageFor, priceLines, selectedExtras, startingLanguage, toggleMulti, updateAnswer, type GuideAnswers } from './logic';
+import { discountAmount, estimate, filmPrice, hoursText, initialAnswers, missingAnswers, nextChapter, packageFor, priceLines, selectedExtras, startingLanguage, subtotal, toggleMulti, updateAnswer, type GuideAnswers } from './logic';
 import { planMessage, summaryRows } from './summary';
 const answer = (patch: Partial<GuideAnswers> = {}): GuideAnswers => ({...initialAnswers,...patch});
 describe('Film Guide pricing', () => {
@@ -12,7 +12,12 @@ describe('Film Guide pricing', () => {
   it('includes extended shooting outside the separate day', () => expect(estimate(answer({days:'three',shootWhen:'golden',shootLen:'h2'}))).toBe(12900));
   it.each([['interviews',450],['letters',0],['vows',0],['none',0]])('charges voice %s', (voice,amount) => expect(priceLines(answer({voices:[String(voice)]})).find(l => l.key.startsWith('voices'))?.amount).toBe(amount));
   it('charges full speeches film 800', () => expect(estimate(answer({speechesFilm:['yes']}))).toBe(11150));
-  it.each([['feature',1150],['social',250],['ceremony',500],['super8',650],['vhs',350],['photo',2450],['none',0]])('charges extra %s', (extra,amount) => expect(priceLines(answer({extras:[String(extra)]})).find(l => l.key.startsWith('extras'))?.amount).toBe(amount));
+  it.each([['feature',1150],['social',250],['ceremony',500],['super8',650],['vhs',350],['photo',0],['none',0]])('charges extra %s', (extra,amount) => expect(priceLines(answer({extras:[String(extra)]})).find(l => l.key.startsWith('extras'))?.amount).toBe(amount));
+  it('prices photographer per 10 h day', () => expect(priceLines(answer({extras:['photo'],photoDays:2})).find(l => l.key === 'photoDays')?.amount).toBe(5000));
+  it('prices content creation per day', () => expect(priceLines(answer({contentDays:2})).find(l => l.key === 'contentDays')?.amount).toBe(2400));
+  it('multiplies social shorts by count', () => expect(priceLines(answer({extras:['social'],socialCount:3})).find(l => l.key === 'extras.social')?.amount).toBe(750));
+  it('applies a per-couple discount after the subtotal', () => { const a = answer({discount:20}); expect(subtotal(a)).toBe(10350); expect(discountAmount(a)).toBe(2050); expect(estimate(a)).toBe(8300); });
+  it('ignores out-of-range discounts', () => { expect(discountAmount(answer({discount:150}))).toBe(subtotal(answer({}))); expect(discountAmount(answer({discount:-5}))).toBe(0); });
   it('never charges included extras twice', () => { const a = answer({days:'three',extras:['feature','social']}); expect(estimate(a)).toBe(12900); expect(selectedExtras(a)).toEqual(['feature','social']); });
   it('rounds the whole estimate to 50', () => expect(estimate(answer({extraHours:1}))).toBe(10750));
   it.each([[5050,'One eye'],[7550,'Two eyes'],[11050,'Three eyes']])('chooses package at threshold %i', (total,name) => expect(packageFor(Number(total))?.name).toBe(name));

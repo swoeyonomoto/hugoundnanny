@@ -8,11 +8,13 @@ export interface GuideAnswers {
   days: Days; crew: Crew; daysNote: string; extraHours: number;
   shootLen: 'h1' | 'h15' | 'h2'; shootWhen: string; voices: string[];
   speechCount: string; speechesFilm: string[]; extras: string[];
+  socialCount: number; photoDays: number; contentDays: number; discount: number;
   date: string; place: string; guests: string; contactVia: 'whatsapp' | 'email'; contact: string; story: string;
 }
 export const initialAnswers: GuideAnswers = {
   names: '', start: '', loved: [], lovedNote: '', style: '', days: 'two', crew: 'two', daysNote: '', extraHours: 0,
   shootLen: 'h1', shootWhen: '', voices: [], speechCount: '', speechesFilm: [], extras: [],
+  socialCount: 1, photoDays: 0, contentDays: 0, discount: 0,
   date: '', place: '', guests: '', contactVia: 'whatsapp', contact: '', story: '',
 };
 export const chapterIds = ['intro','how','film','style','days','crew','shoot','voices','speeches','extras','about','plan'] as const;
@@ -43,6 +45,11 @@ export function updateAnswer<K extends keyof GuideAnswers>(a: GuideAnswers, key:
     }
   }
   if (next.voices.includes('none')) { next.speechCount = ''; next.speechesFilm = []; }
+  if (key === 'extras') {
+    if (next.extras.includes('photo') && !next.photoDays) next.photoDays = 1;
+    if (!next.extras.includes('photo')) next.photoDays = 0;
+    if (!next.extras.includes('social')) next.socialCount = 1;
+  }
   return next;
 }
 export function toggleMulti(values: string[], value: string) {
@@ -78,10 +85,17 @@ export function priceLines(a: GuideAnswers, settings: GuideSettings = defaultSet
   if (a.shootWhen === 'dayafter') lines.push({ key: 'shootWhen.dayafter', amount: a.days === 'three' ? 0 : p.shootWhen.dayafter });
   for (const voice of a.voices) lines.push({ key: `voices.${voice}`, amount: p.voices[voice as keyof typeof p.voices] ?? 0 });
   if (!a.voices.includes('none') && a.speechesFilm.length) lines.push({ key: 'speechesFilm.yes', amount: p.speechesFilm });
-  for (const extra of selectedExtras(a)) lines.push({ key: `extras.${extra}`, amount: a.days === 'three' && ['feature','social'].includes(extra) ? 0 : p.extras[extra as keyof typeof p.extras] ?? 0 });
+  for (const extra of selectedExtras(a)) {
+    const unit = a.days === 'three' && ['feature','social'].includes(extra) ? 0 : p.extras[extra as keyof typeof p.extras] ?? 0;
+    lines.push({ key: `extras.${extra}`, amount: extra === 'social' ? unit * Math.max(1, a.socialCount) : extra === 'photo' ? 0 : unit });
+  }
+  if (a.extras.includes('photo')) lines.push({ key: 'photoDays', amount: Math.max(1, a.photoDays) * p.photographer.day });
+  if (a.contentDays) lines.push({ key: 'contentDays', amount: a.contentDays * p.contentCreator.day });
   return lines;
 }
-export function estimate(a: GuideAnswers, settings = defaultSettings) { return round50(priceLines(a, settings).reduce((sum, line) => sum + line.amount, 0)); }
+export function subtotal(a: GuideAnswers, settings = defaultSettings) { return round50(priceLines(a, settings).reduce((sum, line) => sum + line.amount, 0)); }
+export function discountAmount(a: GuideAnswers, settings = defaultSettings) { return round50(subtotal(a, settings) * Math.min(100, Math.max(0, a.discount)) / 100); }
+export function estimate(a: GuideAnswers, settings = defaultSettings) { return round50(subtotal(a, settings) - discountAmount(a, settings)); }
 export function packageFor(amount: number, settings = defaultSettings) { return [...settings.packages].sort((a,b) => b.from-a.from).find(p => amount >= p.from); }
 export function hoursText(a: GuideAnswers, lang: Language, settings = defaultSettings) {
   const additional = { one: 0, two: 1, three: 2 }[a.days];

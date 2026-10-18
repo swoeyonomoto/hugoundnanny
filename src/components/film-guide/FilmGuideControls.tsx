@@ -25,9 +25,9 @@ export function GuideField({ label, value, onChange, type = "text", placeholder,
   return <label className={`fg-field${error ? ' fg-err' : ''}`}><span>{label}</span>{multiline ? <textarea value={value} placeholder={placeholder} onChange={e => onChange(e.target.value)} /> : <input type={type} value={value} aria-invalid={error} placeholder={placeholder} onChange={e => onChange(e.target.value)} />}</label>;
 }
 
-export function GuideStepper({ label, value, onChange, detail, description }: { label: string; value: number; onChange: (n: number) => void; detail?: string; description?: string }) {
+export function GuideStepper({ label, value, onChange, detail, description, min = 0, max = 12 }: { label: string; value: number; onChange: (n: number) => void; detail?: string; description?: string; min?: number; max?: number }) {
   return <div className="fg-q"><span className="fg-label">{label}</span><div className="fg-stepper">{description && <span className="fg-opt-desc">{description}</span>}<div className="fg-stepper-ctl">
-    <Button variant="ghost" aria-label="−" disabled={value === 0} onClick={() => onChange(Math.max(0, value - 1))}>−</Button>
-    <output className="fg-stepper-val">{value}</output><Button variant="ghost" aria-label="+" onClick={() => onChange(value + 1)}>+</Button>
+    <Button variant="ghost" aria-label="−" disabled={value <= min} onClick={() => onChange(Math.max(min, value - 1))}>−</Button>
+    <output className="fg-stepper-val">{value}</output><Button variant="ghost" aria-label="+" disabled={value >= max} onClick={() => onChange(Math.min(max, value + 1))}>+</Button>
   </div>{detail && <span className="fg-opt-price">{detail}</span>}</div></div>;
 }

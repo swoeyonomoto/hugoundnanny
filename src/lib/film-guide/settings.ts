@@ -41,6 +41,12 @@ export const defaultSettings = {
       "none": 0
     },
     "speechesFilm": 800,
+    "photographer": {
+      "day": 2500
+    },
+    "contentCreator": {
+      "day": 1200
+    },
     "extras": {
       "none": 0,
       "feature": 1150,

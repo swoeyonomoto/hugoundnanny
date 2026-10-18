@@ -164,7 +164,7 @@
 /* Guide-only editorial refinement, echoing the Asia page. */
 .film-guide-page .fg-top-inner, .film-guide-page .fg-stage, .film-guide-page .fg-dock-inner { max-width: 1240px; }
 .film-guide-page .fg-stage { padding-top: 56px; }
-.film-guide-page .fg-chapter { grid-template-columns: minmax(0,1.1fr) minmax(0,1fr); gap: 56px; }
+.film-guide-page .fg-chapter { grid-template-columns: minmax(0,.92fr) minmax(0,1.2fr); gap: 48px; }
 .film-guide-page .fg-chapter.fg-single { grid-template-columns: 1fr; max-width: 760px; }
 #root .film-guide-page h1, #root .film-guide-page h2 { font-weight: 300; line-height: 1.04; }
 .film-guide-page h1 { font-size: 80px; }
@@ -180,7 +180,15 @@
 .film-guide-page .fg-pkg { background: transparent; border-left: 1px solid hsl(var(--fg-line)); padding: 8px 0 8px 16px; }
 .film-guide-page .fg-field input, .film-guide-page .fg-field textarea, .film-guide-page .fg-field select { font-family: 'Inter', sans-serif; font-size: 16px; padding: 8px 0; }
 .fg-currency { position: relative; }
-.fg-currency-tools { display: flex; align-items: center; gap: 10px; }
+.fg-currency-tools { display: flex; align-items: center; gap: 8px; }
+.fg-dock .fg-currency-tools .fg-lang { gap: 6px; }
+.fg-dock .fg-currency-tools .fg-lang button { font-size: 10px; letter-spacing: .08em; color: hsl(var(--fg-soft)); padding: 2px 1px; border-bottom: 1px solid transparent; }
+.fg-dock .fg-currency-tools .fg-lang button.fg-on { color: hsl(var(--fg-ink)); border-bottom-color: hsl(var(--fg-ink)); }
+.fg-gross { font-size: .62em; color: hsl(var(--fg-soft)); margin-right: 8px; font-weight: 300; }
+.fg-discount-tag { display: inline-block; font-style: normal; font-size: 10px; letter-spacing: .08em; text-transform: uppercase; background: hsl(var(--fg-tag)); color: hsl(var(--fg-ink)); padding: 3px 8px; margin-left: 10px; vertical-align: middle; animation: fg-discount-pop .6s cubic-bezier(.2,.7,.2,1); }
+.fg-num-discounted { display: inline-block; animation: fg-discount-pop .55s cubic-bezier(.2,.7,.2,1); }
+.fg-discount-row b { color: hsl(var(--fg-ink)); }
+@keyframes fg-discount-pop { 0% { opacity: 0; transform: translateY(8px) scale(.96); } 60% { opacity: 1; transform: translateY(-2px) scale(1.02); } 100% { opacity: 1; transform: none; } }
 .film-guide-page .fg-calc-toggle { padding: 4px; color: hsl(var(--fg-copy)); }
 .fg-calculator { position: absolute; top: calc(100% + 16px); right: 0; width: 340px; max-width: calc(100vw - 32px); padding: 20px; background: hsl(var(--fg-card)); border: 1px solid hsl(var(--fg-line)); z-index: 35; }
 .fg-calculator-heading { display: flex; align-items: center; justify-content: space-between; }

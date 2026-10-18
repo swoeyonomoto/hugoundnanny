@@ -14,3 +14,5 @@
 .fga-upload {position:relative;display:flex!important;align-items:center;gap:8px;border:1px solid hsl(var(--border));padding:10px;cursor:pointer;}.fga-upload input {position:absolute;inset:0;opacity:0;cursor:pointer;}
 .fga-detail {max-width:850px;max-height:90vh;overflow-y:auto;}.fga-detail .film-guide-page {min-height:0;padding:16px;}.fga-detail pre {white-space:pre-wrap;overflow-wrap:anywhere;font:inherit;font-size:12px;}.fga-time {display:flex;justify-content:space-between;font-size:12px;border-bottom:1px solid hsl(var(--border));padding:6px 0;}
 @media(max-width:700px){.fga-clips,.fga-form {grid-template-columns:minmax(0,1fr);}.fga-funnel-row {grid-template-columns:125px minmax(20px,1fr) 65px;gap:8px;}}
+.fga-discount { display: grid; gap: 6px; font-size: 13px; margin: 12px 0; max-width: 240px; }
+.fga-discount input { border: 1px solid hsl(38 18% 88%); padding: 8px 10px; font-size: 14px; }

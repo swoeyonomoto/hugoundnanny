@@ -1,5 +1,5 @@
 import { choices, dayDescriptions, styleDescriptions } from './content';
-import { estimate, filmPrice, formatMoney, hoursText, priceLines, selectedExtras, type GuideAnswers, type Language } from './logic';
+import { discountAmount, estimate, filmPrice, formatMoney, hoursText, priceLines, selectedExtras, subtotal, type GuideAnswers, type Language } from './logic';
 import { defaultSettings, type GuideSettings } from './settings';
 import { currencyMoney, referenceRate, type GuideCurrency } from './currency';
 
@@ -29,7 +29,9 @@ export function summaryRows(a: GuideAnswers, lang: Language, settings: GuideSett
     { key: 'voices', label: t('Voices','Stimmen'), value: a.voices.map(v => title('voices',v)).join(', ') || '-', amount: amount('voices') },
   ];
   if (!a.voices.includes('none')) rows.push({ key: 'speeches', label: t('Speeches','Reden'), value: title('speechCount',a.speechCount) });
-  rows.push({ key: 'extras', label: 'Extras', value: [...(a.speechesFilm.length && !a.voices.includes('none') ? [title('speechesFilm','yes')] : []),...extras.map(v => `${title('extras',v)}${a.days === 'three' && ['feature','social'].includes(v) ? t(' (incl.)',' (inkl.)') : ''}`)].join(', ') || '-', amount: amount('extras') + amount('speechesFilm') });
+  rows.push({ key: 'extras', label: 'Extras', value: [...(a.speechesFilm.length && !a.voices.includes('none') ? [title('speechesFilm','yes')] : []),...extras.map(v => `${title('extras',v)}${v === 'social' && a.socialCount > 1 ? ` ×${a.socialCount}` : ''}${a.days === 'three' && ['feature','social'].includes(v) ? t(' (incl.)',' (inkl.)') : ''}`)].join(', ') || '-', amount: amount('extras') + amount('speechesFilm') });
+  if (a.extras.includes('photo')) rows.push({ key: 'photoDays', label: t('Photographer','Fotograf'), value: `${Math.max(1,a.photoDays)} ${t('day(s) · 10 h','Tag(e) · 10 Std.')}`, amount: amount('photoDays') });
+  if (a.contentDays) rows.push({ key: 'contentDays', label: t('Content creation','Content Creation'), value: `${a.contentDays} ${t('day(s)','Tag(e)')}`, amount: amount('contentDays') });
   return rows;
 }
 export function planMessage(a: GuideAnswers, lang: Language, showPrices = defaultSettings.show_price_to_client, settings: GuideSettings = defaultSettings, currency: GuideCurrency = 'EUR', rate = referenceRate.rate) {
@@ -41,7 +43,7 @@ export function planMessage(a: GuideAnswers, lang: Language, showPrices = defaul
     a.loved.length ? `• ${t('Loved in the reel','Am Reel gefallen')}: ${a.loved.map(v => optionTitle('loved',v,lang)).join(', ')}${a.loved.includes('other') && a.lovedNote ? ` (${a.lovedNote})` : ''}` : '',
     a.days !== 'one' && a.daysNote ? `• ${t('Plan for the extra days','Plan für die Zusatztage')}: ${a.daysNote}` : '',
     `• ${t('Hours','Stunden')}: ${hoursText(a,lang,settings)}`,'',
-    showPrices ? `${t('Estimate','Schätzung')}: ${currencyMoney(estimate(a,settings),lang,currency,rate)} ${t('net','netto')}${currency === 'HKD' ? ` (${formatMoney(estimate(a,settings),lang)}; 1 EUR = ${rate} HKD; ${t('indicative conversion, final quote in EUR','unverbindliche Umrechnung, finales Angebot in EUR')})` : ''}` : '', '', a.story,'',
+    showPrices ? `${t('Estimate','Schätzung')}: ${currencyMoney(estimate(a,settings),lang,currency,rate)} ${t('net','netto')}${a.discount > 0 ? ` ${t('(after','(nach')} ${a.discount}% ${t('discount','Rabatt')}: ${formatMoney(subtotal(a,settings),lang)} - ${formatMoney(discountAmount(a,settings),lang)})` : ''}${currency === 'HKD' ? ` (${formatMoney(estimate(a,settings),lang)}; 1 EUR = ${rate} HKD; ${t('indicative conversion, final quote in EUR','unverbindliche Umrechnung, finales Angebot in EUR')})` : ''}` : '', '', a.story,'',
     `${t('Reach us via','Erreicht uns per')} ${a.contactVia === 'whatsapp' ? 'WhatsApp' : 'E-Mail'}: ${a.contact}`,
   ].filter(line => line !== '').join('\n');
 }
