@@ -3,7 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { chapterIds, initialAnswers, startingLanguage, type GuideAnswers, type Language } from '@/lib/film-guide/logic';
 import { defaultSettings } from '@/lib/film-guide/settings';
-import { leadPatch, mergeSettings, restoreAnswers } from '@/lib/film-guide/persistence';
+import { leadPatch, mergeSettings, restoreAnswers, restoreSessionAnswers, withLeadDiscount } from '@/lib/film-guide/persistence';
 export type GuideClip = {key:string;video_path:string;start_s:number;end_s:number};
 export function useGuideConfig() {
   const [settings,setSettings] = useState(defaultSettings);
@@ -27,7 +27,7 @@ export function useGuideSession(settings: typeof defaultSettings) {
   const active = useRef(false), tokenRef = useRef<string|null>(null), startPromise = useRef<Promise<string|null>|null>(null);
   const furthest = useRef(0), times = useRef<Record<string,number>>({}), entered = useRef(Date.now());
   const latest = useRef({a,lang,step,settings}); latest.current={a,lang,step,settings};
-  const patch = () => { const s=latest.current; return leadPatch(s.a,s.lang,s.step,furthest.current,{...times.current,[chapterIds[s.step]]:(times.current[chapterIds[s.step]] || 0)+(Date.now()-entered.current)/1000},s.settings); };
+  const patch = (answers = latest.current.a) => { const s=latest.current; return leadPatch(answers,s.lang,s.step,furthest.current,{...times.current,[chapterIds[s.step]]:(times.current[chapterIds[s.step]] || 0)+(Date.now()-entered.current)/1000},s.settings); };
   const cache = () => { try {localStorage.setItem(draftKey(tokenRef.current),JSON.stringify({patch:patch(),pending:true}));} catch { /* browser storage unavailable */ } };
   const ensureToken = async () => {
     if (tokenRef.current) return tokenRef.current;
@@ -44,7 +44,18 @@ export function useGuideSession(settings: typeof defaultSettings) {
   const saveChain = useRef(Promise.resolve(true));
   const save = () => {
     cache();
-    const work = async () => { const t=await ensureToken(); if (!t) return false; const current=patch(); const revisionAtSave=latest.current; const {error}=await supabase.functions.invoke('film-guide-save',{body:{token:t,patch:current}}); if (!error && latest.current.a === revisionAtSave.a && latest.current.step === revisionAtSave.step && latest.current.lang === revisionAtSave.lang) {try {localStorage.setItem(draftKey(t),JSON.stringify({patch:current,pending:false}));} catch { /* unavailable */ }} return !error; };
+    const work = async () => {
+      const t=await ensureToken(); if (!t) return false;
+      const loaded=await supabase.functions.invoke('film-guide-load',{body:{token:t}});
+      if(loaded.error || !loaded.data?.lead) return false;
+      const revisionAtSave=latest.current;
+      const answers=withLeadDiscount(revisionAtSave.a,loaded.data.lead);
+      const current=patch(answers);
+      if(answers.discount !== revisionAtSave.a.discount) setAnswers(old=>({...old,discount:answers.discount}));
+      const {error}=await supabase.functions.invoke('film-guide-save',{body:{token:t,patch:current}});
+      if (!error && latest.current.a === revisionAtSave.a && latest.current.step === revisionAtSave.step && latest.current.lang === revisionAtSave.lang) {try {localStorage.setItem(draftKey(t),JSON.stringify({patch:current,pending:false}));} catch { /* unavailable */ }}
+      return !error;
+    };
     saveChain.current = saveChain.current.then(work,work); return saveChain.current;
   };
   useEffect(() => {
@@ -61,7 +72,7 @@ export function useGuideSession(settings: typeof defaultSettings) {
         if (!live) return;
         if (!error && data?.lead) {
           const p=local?.pending ? local.patch : data.lead;
-          setAnswers(restoreAnswers(p)); setStep(Math.max(0,chapterIds.indexOf(p.last_step))); setSent(Boolean(data.lead.sent_at));
+          setAnswers(restoreSessionAnswers(data.lead,local?.pending ? local.patch : undefined)); setStep(Math.max(0,chapterIds.indexOf(p.last_step))); setSent(Boolean(data.lead.sent_at));
           if (!new URLSearchParams(location.search).has('lang')) setLang(p.lang === 'de' ? 'de' : 'en');
           furthest.current=Math.max(p.furthest_step || 0,data.lead.furthest_step || 0); times.current=p.step_times || {};entered.current=Date.now();active.current=true;tokenRef.current=t;setToken(t);
           try {localStorage.setItem(TOKEN_KEY,t);} catch { /* unavailable */ }
@@ -81,7 +92,10 @@ export function useGuideSession(settings: typeof defaultSettings) {
   useEffect(() => {if(!ready || !active.current) return; cache();const timer=setTimeout(() => {void save();},800);return () => clearTimeout(timer);},[a,lang,step,settings,ready,revision]);
   useEffect(() => {
     const flush=()=>{if(!active.current) return;cache();const t=tokenRef.current;if(!t) return;
-      void fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/film-guide-save`,{method:'POST',keepalive:true,headers:{'Content-Type':'application/json',apikey:import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,Authorization:`Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`},body:JSON.stringify({token:t,patch:patch()})}).catch(()=>{});
+      const headers={'Content-Type':'application/json',apikey:import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,Authorization:`Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`};
+      const current=patch();
+      void fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/film-guide-load`,{method:'POST',keepalive:true,headers,body:JSON.stringify({token:t})})
+        .then(async response=>{if(!response.ok)return;const data=await response.json();if(!data?.lead)return;const answers=withLeadDiscount(current.answers,data.lead);const safe=leadPatch(answers,current.lang,chapterIds.indexOf(current.last_step),current.furthest_step,current.step_times,latest.current.settings);await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/film-guide-save`,{method:'POST',keepalive:true,headers,body:JSON.stringify({token:t,patch:safe})});}).catch(()=>{});
     };
     const hidden=()=>{if(document.visibilityState === 'hidden') flush();}; const retry=()=>{if(active.current) bump(x=>x+1);};
     document.addEventListener('visibilitychange',hidden);window.addEventListener('pagehide',flush);window.addEventListener('online',retry);

@@ -10,6 +10,7 @@
 - Keep Film Guide answer transitions and pricing in pure tested functions, with configurable settings independent of presentation; this prevents summary, confirmation and handoff totals from diverging.
 - Keep Film Guide bilingual chapter copy in a dedicated data module and render only supported italic/bold markers as React elements; this preserves the supplied wording without unsafe HTML or pricing changes.
 - Keep public Film Guide persistence behind existing start/load/save/send functions and token-scoped local recovery; never query private leads from public pages because tokens must not bypass server validation.
+- Resolve admin discounts through the existing token load before public saves and local recovery; browser drafts must not overwrite couple-specific admin configuration.
 - Use the existing Film Guide admin RPC before rendering admin tools and rely on existing RLS for all table and storage operations; UI checks alone never authorize access.
 - Pass loaded settings through every Film Guide calculation, summary and handoff, and resolve clips from public configuration with bundled fallbacks; admin edits must remain authoritative.
 - Keep Film Guide currency conversion presentation-only with a dated public reference rate and offline fallback; shared pure conversion functions keep the calculator, estimates and handoff consistent while stored estimates stay in EUR.

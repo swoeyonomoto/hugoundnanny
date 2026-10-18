@@ -1,5 +1,5 @@
 import { describe,it,expect } from 'vitest';
-import { followUp, newLeadToken, validClip, leadPatch, restoreAnswers, mergeSettings, leadStatuses, linkSources } from './persistence';
+import { followUp, newLeadToken, validClip, leadPatch, restoreAnswers, restoreSessionAnswers, withLeadDiscount, mergeSettings, leadStatuses, linkSources } from './persistence';
 import { initialAnswers, estimate } from './logic';
 import { defaultSettings } from './settings';
 describe('Part 4 contracts',()=>{
@@ -11,6 +11,10 @@ describe('Part 4 contracts',()=>{
  it('follow up requires more than 24 hours without sending',()=>{const now=Date.parse('2026-10-18T12:00:00Z');const l={sent_at:null,contact:null,names:'Test',updated_at:'2026-10-17T12:00:00Z'};expect(followUp(l,now)).toBe(false);expect(followUp({...l,updated_at:'2026-10-17T11:59:59Z'},now)).toBe(true);expect(followUp({...l,sent_at:'2026-10-17T11:00:00Z'},now)).toBe(false);expect(followUp({...l,names:null,updated_at:'2026-10-16T12:00:00Z'},now)).toBe(false);});
  it('save uses allowed patch fields and keeps maximum progress',()=>{const p=leadPatch({...initialAnswers,date:'2027-05-20'},'en',3,8,{});expect(p.wedding_date).toBe('2027-05-20');expect(p.furthest_step).toBe(8);expect(p.last_step).toBe('style');expect(p).not.toHaveProperty('status');expect(p).not.toHaveProperty('admin_note');});
  it('restores couple-facing metadata and complete answers',()=>{expect(restoreAnswers({names:'Mira + Jonas',wedding_date:'2027-05-20',answers:{style:'natural',days:'one'}})).toMatchObject({names:'Mira + Jonas',date:'2027-05-20',style:'natural',days:'one',crew:'two'});});
+ it('keeps the saved 30% admin discount over an interrupted browser draft',()=>{const a=restoreSessionAnswers({answers:{discount:30}},{answers:{discount:0,days:'one'}});expect(a.discount).toBe(30);expect(a.days).toBe('one');expect(estimate(a)).toBe(6350);});
+ it('keeps 40% visible and applied when switching from one to three days',()=>{const a=restoreSessionAnswers({answers:{discount:40}},{answers:{discount:0,days:'one'}});expect(estimate(a)).toBe(5450);const three={...a,days:'three' as const};expect(three.discount).toBe(40);expect(estimate(three)).toBe(7750);});
+ it('uses the latest admin discount before saving ongoing couple choices',()=>{const a=withLeadDiscount({...initialAnswers,discount:30,days:'three'},{answers:{discount:40}});expect(leadPatch(a,'en',4,4,{}).answers.discount).toBe(40);expect(leadPatch(a,'en',4,4,{}).estimate_eur).toBe(7750);});
+ it('respects an admin removing the discount rather than recovering the old discount',()=>{expect(restoreSessionAnswers({answers:{discount:0}},{answers:{discount:40}}).discount).toBe(0);});
  it('configured prices drive calculations and fallback fills missing values',()=>{const s=mergeSettings({coverage_one_cam:{two:7000},second_cam_factor:{two:2},show_price_to_client:false});expect(estimate(initialAnswers,s)).toBe(14000);expect(s.prices.extras.feature).toBe(defaultSettings.prices.extras.feature);expect(s.show_price_to_client).toBe(false);});
  it('includes two-hour shooting even with legacy stored surcharges',()=>{const s=mergeSettings({prices:{shootLen:{h1:0,h15:200,h2:400}}});const a={...initialAnswers,shootLen:'h2' as const};expect(estimate(a,s)).toBe(10350);expect(leadPatch(a,'en',6,6,{},s).estimate_eur).toBe(10350);});
 });

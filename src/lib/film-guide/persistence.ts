@@ -15,6 +15,14 @@ export function restoreAnswers(lead: { answers?: unknown; names?: string|null; w
   const a = { ...initialAnswers, ...(lead.answers && typeof lead.answers === 'object' ? lead.answers : {}) } as GuideAnswers;
   return {...a, names:lead.names ?? a.names,date:lead.wedding_date ?? a.date,place:lead.location ?? a.place,guests:lead.guests ?? a.guests,contactVia:lead.contact_via === 'email' ? 'email' : a.contactVia,contact:lead.contact ?? a.contact,story:lead.story ?? a.story};
 }
+// Couple choices can be recovered locally; the discount always belongs to the saved admin configuration.
+export function withLeadDiscount(answers: GuideAnswers, lead: { answers?: unknown }): GuideAnswers {
+  const value = Number(restoreAnswers(lead).discount);
+  return {...answers,discount:Number.isFinite(value) ? Math.min(100,Math.max(0,value)) : 0};
+}
+export function restoreSessionAnswers(lead: Parameters<typeof restoreAnswers>[0], draft?: Parameters<typeof restoreAnswers>[0]): GuideAnswers {
+  return withLeadDiscount(restoreAnswers(draft ?? lead),lead);
+}
 export function leadPatch(a: GuideAnswers, lang: Language, step: number, furthest: number, times: Record<string,number>, settings: GuideSettings = defaultSettings) {
   const total = estimate(a,settings);
   return { lang,names:a.names,wedding_date:a.date || null,location:a.place,guests:a.guests,contact_via:a.contactVia,contact:a.contact,story:a.story,answers:a,estimate_eur:total,package_hint:packageFor(total,settings)?.name ?? null,last_step:chapterIds[step],furthest_step:Math.max(step,furthest),step_times:times };
