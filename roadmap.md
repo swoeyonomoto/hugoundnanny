@@ -1,5 +1,12 @@
 # Roadmap
 
+## Unified admin
+- [ ] Redesign the admin workspace with fast couple/package/price lookup and clear tool navigation.
+- [ ] Prefill admin-created couple names in the public guide, including local recovery.
+- [ ] Add easy gallery link copying and move account settings to their own view.
+- [ ] Automatic Decks synchronization: blocked by required changes in the separate Decks project and the existing no-backend-changes restriction; document the integration handoff.
+- [ ] Verify updated admin presentation and name recovery; authenticated live checks require an external Supabase session.
+
 ## Film Guide
 - [x] Preserve the saved admin discount when resuming a personal link and show it in the bottom estimate from the beginning; 77 tests pass and controlled 40% recovery/day-change checks pass. Real saved discounts are currently zero; signed-in admin verification remains blocked as below.
 - [x] Clarify coverage, couple-shoot time and included films in the live overview; add a visible overview button beside the price with a gentle periodic nudge.
