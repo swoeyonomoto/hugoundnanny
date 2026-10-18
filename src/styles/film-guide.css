@@ -160,3 +160,53 @@
   .fg-hero-reel { margin: 32px -16px 0; aspect-ratio: 4 / 5; }
 }
 @media (prefers-reduced-motion: reduce) { .fg-chapter { animation: none; } .fg-progress::-webkit-progress-value, .fg-frame video { transition: none; } }
+
+/* Guide-only editorial refinement, echoing the Asia page. */
+.film-guide-page .fg-top-inner, .film-guide-page .fg-stage, .film-guide-page .fg-dock-inner { max-width: 1240px; }
+.film-guide-page .fg-stage { padding-top: 56px; }
+.film-guide-page .fg-chapter { grid-template-columns: minmax(0,1.1fr) minmax(0,1fr); gap: 56px; }
+.film-guide-page .fg-chapter.fg-single { grid-template-columns: 1fr; max-width: 760px; }
+#root .film-guide-page h1, #root .film-guide-page h2 { font-weight: 300; line-height: 1.04; }
+.film-guide-page h1 { font-size: 80px; }
+.film-guide-page h2 { font-size: 60px; }
+.film-guide-page .fg-lead { font-size: 16px; line-height: 1.75; max-width: 52ch; }
+.film-guide-page .fg-copy > .fg-label { margin-bottom: 22px; }
+.film-guide-page .fg-opt { padding-top: 22px; padding-bottom: 22px; }
+.film-guide-page .fg-opt-head { flex-wrap: wrap; gap: 8px 16px; }
+.film-guide-page .fg-opt-title { font-size: 25px; font-weight: 300; }
+.film-guide-page .fg-opt-desc { font-size: 14px; line-height: 1.7; }
+.film-guide-page .fg-plan { background: transparent; border: 0; border-top: 1px solid hsl(var(--fg-line)); padding: 30px 0 0; }
+.film-guide-page .fg-plan-row { padding: 18px 0; }
+.film-guide-page .fg-pkg { background: transparent; border-left: 1px solid hsl(var(--fg-line)); padding: 8px 0 8px 16px; }
+.film-guide-page .fg-field input, .film-guide-page .fg-field textarea, .film-guide-page .fg-field select { font-family: 'Inter', sans-serif; font-size: 16px; padding: 8px 0; }
+.fg-currency { position: relative; }
+.fg-currency-tools { display: flex; align-items: center; gap: 10px; }
+.film-guide-page .fg-calc-toggle { padding: 4px; color: hsl(var(--fg-copy)); }
+.fg-calculator { position: absolute; top: calc(100% + 16px); right: 0; width: 340px; max-width: calc(100vw - 32px); padding: 20px; background: hsl(var(--fg-card)); border: 1px solid hsl(var(--fg-line)); z-index: 35; }
+.fg-calculator-heading { display: flex; align-items: center; justify-content: space-between; }
+.film-guide-page .fg-calculator-heading button { padding: 4px; }
+.fg-conversion { display: grid; grid-template-columns: minmax(0,1fr) 36px minmax(0,1fr); align-items: center; gap: 8px; margin-top: 14px; }
+.film-guide-page .fg-conversion button { padding: 6px; }
+.fg-conversion output { font-size: 16px; overflow-wrap: anywhere; font-variant-numeric: tabular-nums; }
+@media (min-width: 861px) and (max-width: 1100px) { .film-guide-page h1 { font-size: 64px; } .film-guide-page h2 { font-size: 48px; } .film-guide-page .fg-chapter { gap: 36px; } }
+@media (max-width: 860px) {
+  .film-guide-page .fg-top-inner { flex-wrap: wrap; gap: 12px; padding: 14px 20px 10px; }
+  .film-guide-page .fg-wordmark { margin-right: auto; }
+  .film-guide-page .fg-top-step { order: 4; flex-basis: 100%; text-align: left; }
+  .film-guide-page .fg-top-step:empty { display: none; }
+  .film-guide-page .fg-stage { padding: 28px 20px 150px; }
+  .film-guide-page .fg-chapter { grid-template-columns: 1fr; gap: 30px; }
+  .film-guide-page .fg-media { position: relative; top: auto; margin: 0 -20px; }
+  .film-guide-page h1 { font-size: 52px; }
+  .film-guide-page h2 { font-size: 44px; }
+  .film-guide-page .fg-lead { font-size: 15px; line-height: 1.7; }
+  .film-guide-page .fg-opt { padding-top: 18px; padding-bottom: 18px; }
+  .film-guide-page .fg-opt-title { font-size: 23px; }
+  .film-guide-page .fg-row .fg-opt-title { font-size: 20px; }
+  .film-guide-page .fg-plan { margin: 0; }
+  .film-guide-page .fg-plan-row { gap: 8px 14px; }
+  .film-guide-page .fg-hero-reel { margin-left: -20px; margin-right: -20px; }
+  .film-guide-page .fg-num { font-size: 22px; }
+  .film-guide-page .fg-amount { font-size: 38px; }
+  .fg-calculator { position: fixed; top: 62px; right: 16px; }
+}
