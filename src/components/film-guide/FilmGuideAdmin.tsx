@@ -21,7 +21,7 @@ export default function FilmGuideAdmin() {
   const [tab,setTab]=useState('leads'),[filter,setFilter]=useState('All');
   const [leads,setLeads]=useState<Lead[]>([]),[clips,setClips]=useState<GuideClip[]>([]),[settings,setSettings]=useState<GuideSettings>(defaultSettings);
   const [detail,setDetail]=useState<Lead|null>(null),[create,setCreate]=useState(false),[created,setCreated]=useState(''),[message,setMessage]=useState(''),[busy,setBusy]=useState(false);
-  const [draft,setDraft]=useState({names:'',wedding_date:'',source:'link',admin_note:'',lang:'en',slug:''});
+  const [draft,setDraft]=useState({names:'',wedding_date:'',source:'link',admin_note:'',lang:'en',slug:'',slugTouched:false});
   const leadSaveQueue=useRef(Promise.resolve());
   const report=(error: {message:string}|null,success:string)=>{setMessage(error ? error.message : success);};
   const copy=async(text:string)=>{try{await navigator.clipboard.writeText(text);setMessage('Copied.');}catch{setMessage('Copy failed. Please copy the link manually.');}};
