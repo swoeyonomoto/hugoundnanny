@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Copy, ExternalLink, Plus, RefreshCw, Save, Trash2, Upload } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import type { Database, Json } from '@/integrations/supabase/types';
@@ -22,6 +22,7 @@ export default function FilmGuideAdmin() {
   const [leads,setLeads]=useState<Lead[]>([]),[clips,setClips]=useState<GuideClip[]>([]),[settings,setSettings]=useState<GuideSettings>(defaultSettings);
   const [detail,setDetail]=useState<Lead|null>(null),[create,setCreate]=useState(false),[created,setCreated]=useState(''),[message,setMessage]=useState(''),[busy,setBusy]=useState(false);
   const [draft,setDraft]=useState({names:'',wedding_date:'',source:'link',admin_note:'',lang:'en'});
+  const leadSaveQueue=useRef(Promise.resolve());
   const report=(error: {message:string}|null,success:string)=>{setMessage(error ? error.message : success);};
   const copy=async(text:string)=>{try{await navigator.clipboard.writeText(text);setMessage('Copied.');}catch{setMessage('Copy failed. Please copy the link manually.');}};
   const load=async()=>{setBusy(true);try {
@@ -31,7 +32,14 @@ export default function FilmGuideAdmin() {
     if(s.error)throw s.error;if(c.error)throw c.error;setLeads(all);setSettings(mergeSettings(s.data.data));setClips(c.data || []);
   }catch(e){setMessage(e instanceof Error?e.message:'Could not load film guide.');}finally{setBusy(false);}};
   useEffect(()=>{let live=true;supabase.rpc('film_guide_is_admin').then(({data,error})=>{if(!live)return;setAllowed(!error && data === true);setChecked(true);if(!error && data === true)void load();});return()=>{live=false;};},[]);
-  const updateLead=async(lead:Lead,patch:Database['public']['Tables']['film_guide_leads']['Update'])=>{const {error}=await supabase.from('film_guide_leads').update(patch).eq('id',lead.id);report(error,'Lead saved.');if(!error){setLeads(old=>old.map(x=>x.id===lead.id?{...x,...patch} as Lead:x));setDetail(old=>old?.id===lead.id?{...old,...patch} as Lead:old);}};
+  const updateLead=(lead:Lead,patch:Database['public']['Tables']['film_guide_leads']['Update'])=>{
+    setMessage('Saving…');
+    setLeads(old=>old.map(x=>x.id===lead.id?{...x,...patch} as Lead:x));
+    setDetail(old=>old?.id===lead.id?{...old,...patch} as Lead:old);
+    const work=async()=>{const {error}=await supabase.from('film_guide_leads').update(patch).eq('id',lead.id);report(error,'Lead saved.');};
+    leadSaveQueue.current=leadSaveQueue.current.then(work,work);
+    return leadSaveQueue.current;
+  };
   const createLead=async()=>{setBusy(true);const {data:user}=await supabase.auth.getUser();const token=newLeadToken();const {error}=await supabase.from('film_guide_leads').insert({token,names:draft.names || null,wedding_date:draft.wedding_date || null,source:draft.source,admin_note:draft.admin_note || null,lang:draft.lang,created_by:user.user?.email || null});report(error,'Couple link created.');if(!error){setCreated(token);await load();}setBusy(false);};
   const saveSettings=async()=>{const {error}=await supabase.from('film_guide_settings').update({data:settings as unknown as Json}).eq('id',1);report(error,'Settings saved.');};
   const saveClip=async(clip:GuideClip)=>{if(clip.start_s<0 || clip.end_s<=clip.start_s){setMessage('End must be after start.');return;}const {error}=await supabase.from('film_guide_clips').upsert(clip);report(error,'Clip saved.');};
