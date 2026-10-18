@@ -486,6 +486,20 @@ body {
 .card-btn:hover { background: #111; color: #fff; }
 .card.hi .card-btn { border-color: #fff; color: #fff; }
 .card.hi .card-btn:hover { background: #fff; color: #111; }
+.pricing-guide-cta {
+  text-align: center; margin: 56px auto 0; max-width: 560px;
+}
+.pricing-guide-cta-text {
+  font-family: "Cormorant Garamond", serif; font-weight: 300;
+  font-size: clamp(22px, 2.6vw, 30px); line-height: 1.35; color: #141414;
+  margin: 0 0 22px;
+}
+.pricing-guide-cta-btn {
+  display: inline-block; padding: 16px 34px;
+  font-size: 10px; letter-spacing: .2em; text-transform: uppercase; text-decoration: none;
+  background: #111; color: #fff; transition: opacity .2s;
+}
+.pricing-guide-cta-btn:hover { opacity: .82; }
 .pricing-note {
   text-align: center; margin-top: 40px; font-size: 12px; color: #999; line-height: 1.75;
 }
