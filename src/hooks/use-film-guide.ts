@@ -37,14 +37,14 @@ export function useGuideSession(settings: typeof defaultSettings) {
       if (error || !data?.token) return null;
       tokenRef.current=data.token; setToken(data.token);
       try {localStorage.setItem(TOKEN_KEY,data.token);} catch { /* unavailable */ }
-      cache(); navigate(`/film-guide/${data.token}${location.search}`,{replace:true}); return data.token as string;
+      cache(); try {localStorage.removeItem(draftKey(null));} catch { /* unavailable */ } navigate(`/film-guide/${data.token}${location.search}`,{replace:true}); return data.token as string;
     })().finally(() => {startPromise.current=null;});
     return startPromise.current;
   };
   const saveChain = useRef(Promise.resolve(true));
   const save = () => {
     cache();
-    const work = async () => { const t=await ensureToken(); if (!t) return false; const current=patch(); const {error}=await supabase.functions.invoke('film-guide-save',{body:{token:t,patch:current}}); if (!error) {try {localStorage.setItem(draftKey(t),JSON.stringify({patch:current,pending:false}));} catch { /* unavailable */ }} return !error; };
+    const work = async () => { const t=await ensureToken(); if (!t) return false; const current=patch(); const revisionAtSave=latest.current; const {error}=await supabase.functions.invoke('film-guide-save',{body:{token:t,patch:current}}); if (!error && latest.current.a === revisionAtSave.a && latest.current.step === revisionAtSave.step && latest.current.lang === revisionAtSave.lang) {try {localStorage.setItem(draftKey(t),JSON.stringify({patch:current,pending:false}));} catch { /* unavailable */ }} return !error; };
     saveChain.current = saveChain.current.then(work,work); return saveChain.current;
   };
   useEffect(() => {
@@ -53,6 +53,7 @@ export function useGuideSession(settings: typeof defaultSettings) {
       let stored:string|null=null; try {stored=localStorage.getItem(TOKEN_KEY);} catch { /* unavailable */ }
       const t=routeToken || stored;
       if (t && t === tokenRef.current) {setReady(true);return;}
+      if (routeToken && routeToken !== tokenRef.current) {setAnswers({...initialAnswers});setStep(0);setSent(false);active.current=false;tokenRef.current=null;setToken(null);furthest.current=0;times.current={};}
       setReady(false);
       let local=readDraft(t);
       if (t) {
@@ -77,7 +78,7 @@ export function useGuideSession(settings: typeof defaultSettings) {
       if(live) setReady(true);
     })();return () => {live=false;};
   },[routeToken,navigate]);
-  useEffect(() => {if(!ready || !active.current) return; cache();const timer=setTimeout(() => {void save();},800);return () => clearTimeout(timer);},[a,lang,step,ready,revision]);
+  useEffect(() => {if(!ready || !active.current) return; cache();const timer=setTimeout(() => {void save();},800);return () => clearTimeout(timer);},[a,lang,step,settings,ready,revision]);
   useEffect(() => {
     const flush=()=>{if(!active.current) return;cache();const t=tokenRef.current;if(!t) return;
       void fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/film-guide-save`,{method:'POST',keepalive:true,headers:{'Content-Type':'application/json',apikey:import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,Authorization:`Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`},body:JSON.stringify({token:t,patch:patch()})}).catch(()=>{});
