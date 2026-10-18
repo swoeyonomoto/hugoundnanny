@@ -66,6 +66,8 @@ export default function GalleryAdmin() {
         setAllowed(Boolean(role));
         const {data:filmRole}=await supabase.rpc("film_guide_is_admin");
         setFilmAllowed(filmRole === true);
+        setAllowed(Boolean(role) || filmRole === true);
+        if (!role && filmRole === true) setAdminView("film");
         if (role) await load();
       }
       setSessionReady(true);

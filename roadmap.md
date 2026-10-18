@@ -3,9 +3,11 @@
 ## Film Guide
 - [x] Confirm Part 4 uses only the existing external Supabase and hugoundnanny storage, never Lovable Cloud.
 - [x] Respect the already-tested backend: connect frontend only, with no backend resource changes.
-- [ ] Build Part 4: private saved leads, personal links and resilient autosave.
-- [ ] Build Part 4: admin leads, funnel, editable settings and clips.
-- [ ] Verify Part 4 access restrictions, cross-device resume and guide-only Clarity.
+- [x] Build Part 4: private saved leads, personal links and resilient autosave.
+- [x] Build Part 4: admin leads, funnel, editable settings and clips.
+- [x] Verify Part 4 anonymous access restrictions, cross-device resume, send-before-handoff and guide-only Clarity initialization.
+- [ ] Verify signed-in admin editing and clip uploads: blocked by external Supabase without an available authenticated browser session.
+- [ ] Verify video playback: configured reel URL fails in sandbox; bundled asset URLs remain pending in local preview.
 - [x] Build Part 3: exact bilingual chapter copy, descriptions, labels and emphasis.
 - [x] Verify Part 3 on desktop and mobile while preserving Part 2 pricing and answers.
 - [x] Build Part 2: pricing, answer rules, reduce confirmation, summary and contact handoff.
@@ -32,7 +34,7 @@
 - [x] Simplify the folder filter styling.
 - [x] Use faster Dropbox thumbnails while preserving original downloads.
 - [x] Package multi-image downloads as one ZIP.
-- [ ] Add gallery-specific share title, URL, and cover image metadata for WhatsApp.
+- [ ] Add gallery-specific share title, URL, and cover image metadata for WhatsApp (separate earlier request; not in this frontend-only Part 4 scope).
 - [x] Expand the shop with Prints, Print Pack, Frames, Canvas, Deckled Prints, Metal Prints, Dibond Prints, Everyday Albums, Hardcover Books, and Lay Flat Albums.
 - [x] Add product detail views with editable descriptions and preview images.
 - [x] Add product flow: choose size, select photos, calculate quantity-based totals.
