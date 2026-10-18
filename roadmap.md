@@ -1,6 +1,7 @@
 # Roadmap
 
 ## Film Guide
+- [x] Confirm Part 4 uses only the existing external Supabase and hugoundnanny storage, never Lovable Cloud.
 - [ ] Build Part 4: private saved leads, personal links and resilient autosave.
 - [ ] Build Part 4: admin leads, funnel, editable settings and clips.
 - [ ] Verify Part 4 access restrictions, cross-device resume and guide-only Clarity.
