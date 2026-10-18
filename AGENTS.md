@@ -5,3 +5,4 @@
 - Keep gallery administration behind Supabase Auth and a server-enforced separate admin role; public gallery pages only read active gallery configuration.
 - Store editable gallery and print-product presentation data in Supabase; use bundled assets only as visual fallbacks so admin changes remain authoritative.
 - Pair Cormorant Garamond Light headlines with Inter body text on all public pages, while preserving independently scoped Asia and gallery compositions and the admin typography.
+- Keep Film Guide presentation in dedicated components and page-scoped styles; its reference typography is an intentional isolated exception so existing public pages remain unchanged.
