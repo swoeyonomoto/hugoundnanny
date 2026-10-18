@@ -11,4 +11,5 @@
 - Keep public Film Guide persistence behind existing start/load/save/send functions and token-scoped local recovery; never query private leads from public pages because tokens must not bypass server validation.
 - Use the existing Film Guide admin RPC before rendering admin tools and rely on existing RLS for all table and storage operations; UI checks alone never authorize access.
 - Pass loaded settings through every Film Guide calculation, summary and handoff, and resolve clips from public configuration with bundled fallbacks; admin edits must remain authoritative.
+- Keep Film Guide currency conversion presentation-only with a dated public reference rate and offline fallback; shared pure conversion functions keep the calculator, estimates and handoff consistent while stored estimates stay in EUR.
 - Keep Clarity initialization and lifecycle scoped to the public Film Guide with a server-verified non-admin session; admin and unrelated pages must not record guide activity.

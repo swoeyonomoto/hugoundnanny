@@ -1,6 +1,10 @@
 # Roadmap
 
 ## Film Guide
+- [x] Refine guide layout using Asia inspiration; default new visits to English.
+- [x] Default public currency to HKD with a two-way EUR calculator; keep saved estimates in EUR.
+- [x] Include all couple-shoot lengths in every package and rewrite family/friends statements.
+- [x] Test prices, language and conversion; verify the updated public flow and layouts.
 - [x] Confirm Part 4 uses only the existing external Supabase and hugoundnanny storage, never Lovable Cloud.
 - [x] Respect the already-tested backend: connect frontend only, with no backend resource changes.
 - [x] Build Part 4: private saved leads, personal links and resilient autosave.

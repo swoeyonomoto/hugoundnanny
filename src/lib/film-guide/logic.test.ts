@@ -6,10 +6,10 @@ describe('Film Guide pricing', () => {
   it.each([['one','one',5050],['one','two',9100],['two','one',6100],['two','two',10350],['three','one',8050],['three','two',12900]] as const)('%s day / %s crew costs %i', (days,crew,price) => expect(filmPrice(days,crew)).toBe(price));
   it('starts on two days and two cinematographers', () => { expect(initialAnswers.days).toBe('two'); expect(initialAnswers.crew).toBe('two'); expect(estimate(answer())).toBe(10350); });
   it.each([['one',260],['two',420]] as const)('charges extra hours with %s crew', (crew,rate) => expect(priceLines(answer({crew,extraHours:2})).find(l => l.key === 'extraHours')?.amount).toBe(rate*2));
-  it.each([['h1',0],['h15',200],['h2',400]] as const)('charges shoot length %s', (shootLen,amount) => expect(priceLines(answer({shootLen})).find(l => l.key.startsWith('shootLen'))?.amount).toBe(amount));
+  it.each(['one','two','three'] as const)('includes all shoot lengths with %s days', days => { for (const shootLen of ['h1','h15','h2'] as const) { expect(priceLines(answer({days,shootLen,shootWhen:'golden'})).find(l => l.key.startsWith('shootLen'))?.amount).toBe(0); expect(estimate(answer({days,shootLen,shootWhen:'golden'}))).toBe(filmPrice(days,'two')); } });
   it('charges a separate day 600 outside three days', () => expect(priceLines(answer({shootWhen:'dayafter'})).find(l => l.key === 'shootWhen.dayafter')?.amount).toBe(600));
   it('includes separate-day shoot up to two hours with three days', () => { const a = answer({days:'three',shootWhen:'dayafter',shootLen:'h2'}); expect(estimate(a)).toBe(12900); expect(priceLines(a).filter(l => l.key.startsWith('shoot')).every(l => l.amount === 0)).toBe(true); });
-  it('still charges extended shoot when not on the separate day', () => expect(estimate(answer({days:'three',shootWhen:'golden',shootLen:'h2'}))).toBe(13300));
+  it('includes extended shooting outside the separate day', () => expect(estimate(answer({days:'three',shootWhen:'golden',shootLen:'h2'}))).toBe(12900));
   it.each([['interviews',450],['letters',0],['vows',0],['none',0]])('charges voice %s', (voice,amount) => expect(priceLines(answer({voices:[String(voice)]})).find(l => l.key.startsWith('voices'))?.amount).toBe(amount));
   it('charges full speeches film 800', () => expect(estimate(answer({speechesFilm:['yes']}))).toBe(11150));
   it.each([['feature',1150],['social',250],['ceremony',500],['super8',650],['vhs',350],['photo',2450],['none',0]])('charges extra %s', (extra,amount) => expect(priceLines(answer({extras:[String(extra)]})).find(l => l.key.startsWith('extras'))?.amount).toBe(amount));
@@ -36,7 +36,7 @@ describe('Film Guide answer rules', () => {
   it('requires answers for mandatory chapters', () => { expect(missingAnswers('film',answer())).toEqual(['loved']); expect(missingAnswers('shoot',answer())).toEqual(['shootWhen']); expect(missingAnswers('about',answer())).toEqual(['names','date','contact']); });
   it('does not require optional fields', () => expect(missingAnswers('about',answer({names:'Mira + Jonas',date:'2027-06-18',contact:'+49123456789'}))).toEqual([]));
   it('explicit URL language wins', () => { expect(startingLanguage('?lang=en','de-DE')).toBe('en'); expect(startingLanguage('?lang=de','en-US')).toBe('de'); });
-  it('uses browser language otherwise', () => { expect(startingLanguage('','de-DE')).toBe('de'); expect(startingLanguage('','fr-FR')).toBe('en'); });
+  it('defaults to English regardless of browser language', () => { expect(startingLanguage('','de-DE')).toBe('en'); expect(startingLanguage('','fr-FR')).toBe('en'); });
   it('omits speeches summary for purely visual', () => expect(summaryRows(answer({voices:['none']}),'en').some(r => r.key === 'speeches')).toBe(false));
   it('hides message prices without changing calculated total', () => { const a = answer(); expect(planMessage(a,'en',false)).not.toContain('€'); expect(estimate(a)).toBe(10350); });
 });

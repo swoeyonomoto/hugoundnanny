@@ -11,7 +11,7 @@ export const choices: Record<string, [string, string, string][]> = {
   days: [["one", "One day", "Ein Tag"], ["two", "Two days", "Zwei Tage"], ["three", "Three days", "Drei Tage"]],
   crew: [["one", "One cinematographer", "Eine Kamera"], ["two", "Two cinematographers", "Zwei Kameras"]],
   shoot: [["golden", "Golden hour, on the day", "Goldene Stunde, am Tag"], ["firstlook", "First look, before the ceremony", "First Look, vor der Trauung"], ["both", "Golden hour + first look", "Goldene Stunde + First Look"], ["daybefore", "The day before, at golden hour", "Am Vortag, zur goldenen Stunde"], ["dayafter", "A separate day", "Ein eigener Tag"]],
-  voices: [["interviews", "Interviews with loved ones", "Interviews mit euren Liebsten"], ["letters", "Letters to each other", "Briefe aneinander"], ["vows", "Your vows & speeches", "Eure Gelübde & Reden"], ["none", "Purely visual", "Rein visuell"]],
+  voices: [["interviews", "Priceless statements from family & friends", "Unbezahlbare Worte von Familie & Freunden"], ["letters", "Letters to each other", "Briefe aneinander"], ["vows", "Your vows & speeches", "Eure Gelübde & Reden"], ["none", "Purely visual", "Rein visuell"]],
   speeches: [["0", "None", "Keine"], ["1-2", "1-2", "1-2"], ["3-5", "3-5", "3-5"], ["6+", "6+", "6+"]],
   extras: [["none", "Just the highlight film", "Nur der Highlight-Film"], ["feature", "Long film, about 30 min", "Langer Film, ca. 30 Min."], ["social", "Social shorts", "Social Shorts"], ["ceremony", "Full ceremony film", "Komplette Trauung"], ["super8", "Super 8", "Super 8"], ["vhs", "VHS nostalgia film", "VHS-Nostalgiefilm"], ["photo", "Photography too", "Auch Fotografie"]],
 };

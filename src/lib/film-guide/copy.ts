@@ -408,8 +408,8 @@ export const chapterCopy: Record<string, ChapterCopy> = {
         "de": "Die intimsten Bilder eures Films entstehen hier. Und es braucht Zeit: Die ersten zwanzig Minuten spürt ihr die Kamera - dann vergesst ihr sie."
       },
       {
-        "en": "That’s why we plan **one hour minimum**. It’s the one thing we never shorten - and the part couples thank us for most.",
-        "de": "Deshalb planen wir **mindestens eine Stunde**. Das Einzige, das wir nie kürzen - und der Teil, für den Paare uns am meisten danken."
+        "en": "That’s why we plan **one hour minimum**. Choose the time that feels right for you - **all lengths are included in every package**, within your coverage hours. It simply helps us plan your day.",
+        "de": "Deshalb planen wir **mindestens eine Stunde**. Wählt die Zeit, die sich für euch richtig anfühlt - **jede Dauer ist in jedem Paket enthalten**, innerhalb eurer Begleitungszeit. So können wir euren Tag besser planen."
       }
     ],
     "points": [],
@@ -527,12 +527,12 @@ export const chapterCopy: Record<string, ChapterCopy> = {
         "options": {
           "interviews": {
             "title": {
-              "en": "Interviews with loved ones",
-              "de": "Interviews mit euren Liebsten"
+              "en": "Priceless statements from family & friends",
+              "de": "Unbezahlbare Worte von Familie & Freunden"
             },
             "description": {
-              "en": "3-6 people, about five minutes each - on the day or the day before.",
-              "de": "3-6 Personen, je ca. fünf Minuten - am Tag oder am Vortag."
+              "en": "We ask 3-6 of your closest people about you, your wedding and the little stories only they know. Their words make your film shine with personality - and will probably make you cry. Honest, unexpected, unmatched energy.",
+              "de": "Wir fragen 3-6 eurer engsten Menschen nach euch, eurer Hochzeit und den kleinen Geschichten, die nur sie kennen. Ihre Worte bringen eure Persönlichkeit in den Film - und euch wahrscheinlich zum Weinen. Ehrlich, überraschend, mit unvergleichlicher Energie."
             },
             "tag": {
               "en": "Our favourite",

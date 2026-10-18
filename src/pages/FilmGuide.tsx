@@ -5,6 +5,8 @@ import { Button } from '@/components/ui/button';
 import SEO from '@/components/SEO';
 import FilmGuideVideo from '@/components/film-guide/FilmGuideVideo';
 import FilmGuidePlan from '@/components/film-guide/FilmGuidePlan';
+import FilmGuideCurrency from '@/components/film-guide/FilmGuideCurrency';
+import { currencyMoney, referenceRate, type GuideCurrency } from '@/lib/film-guide/currency';
 import { GuideRichText } from '@/components/film-guide/FilmGuideCopy';
 import { chapterCopy } from '@/lib/film-guide/copy';
 import { GuideChoices, GuideField, GuideStepper, type GuideOption } from '@/components/film-guide/FilmGuideControls';
@@ -23,6 +25,16 @@ export default function FilmGuide() {
   const {settings,clips} = useGuideConfig();
   const {a,setAnswers,lang,setLang,step,setStep,sent,setSent,ready,token,touch,markSent} = useGuideSession(settings);
   const [sending,setSending] = useState(false);
+  const [currency,setCurrency] = useState<GuideCurrency>('HKD');
+  const [exchange,setExchange] = useState(referenceRate);
+  useEffect(() => {
+    const controller = new AbortController();
+    fetch('https://api.frankfurter.dev/v1/latest?base=EUR&symbols=HKD', {signal:controller.signal})
+      .then(response => response.ok ? response.json() : null)
+      .then(data => { if (typeof data?.rates?.HKD === 'number' && data.rates.HKD > 0 && typeof data.date === 'string') setExchange({rate:data.rates.HKD,date:data.date}); })
+      .catch(() => { /* Retain the dated reference rate when offline. */ });
+    return () => controller.abort();
+  }, []);
   const [preview,setPreview] = useState<string|null>(null);
   const [lastPicked,setLastPicked] = useState<Record<string,string>>({});
   const [breakdown,setBreakdown] = useState(false);
@@ -45,7 +57,7 @@ export default function FilmGuide() {
   const missing = missingAnswers(id,a);
   const included = t('included','inklusive');
   const showPrices = settings.show_price_to_client;
-  const money = (value:number) => formatMoney(value,lang);
+  const money = (value:number) => currencyMoney(value,lang,currency,exchange.rate);
   const label = (field:string,value:string) => optionTitle(field,value,lang);
   useEffect(() => () => { if (timer.current) clearTimeout(timer.current); },[]);
   useEffect(() => {
@@ -96,7 +108,7 @@ export default function FilmGuide() {
   const addonPrice = (field:string,value:string) => {
     if (!showPrices) return undefined;
     let price = 0;
-    if (field === 'shootLen') price = a.days === 'three' && a.shootWhen === 'dayafter' ? 0 : settings.prices.shootLen[value as keyof typeof settings.prices.shootLen];
+    if (field === 'shootLen') price = 0;
     if (field === 'shootWhen') price = value === 'dayafter' && a.days !== 'three' ? settings.prices.shootWhen.dayafter : 0;
     if (field === 'voices') price = settings.prices.voices[value as keyof typeof settings.prices.voices];
     if (field === 'extras') {
@@ -132,7 +144,7 @@ export default function FilmGuide() {
     try {
       if(!await markSent(via)) {popup?.close();setToast(t('Could not send yet. Your answers are kept - please try again.','Noch nicht gesendet. Eure Antworten bleiben gespeichert - bitte versucht es erneut.'));return;}
       guideEvent(`guide_sent_${via}`);
-      const text = planMessage(a,lang,showPrices,settings);
+      const text = planMessage(a,lang,showPrices,settings,currency,exchange.rate);
       if(via === 'whatsapp') {
         const url=`https://wa.me/${settings.whatsapp}?text=${encodeURIComponent(text)}`;
         if(popup) popup.location.href=url; else window.location.href=url;
@@ -144,9 +156,9 @@ export default function FilmGuide() {
   const losses = reduce?.key === 'crew' ? [...reduceLosses.crew,...(a.speechesFilm.length ? [[t('Your speeches film would be filmed from one angle only','Euer Reden-Film wäre nur aus einer Perspektive gefilmt'),t('Your speeches film would be filmed from one angle only','Euer Reden-Film wäre nur aus einer Perspektive gefilmt')] as [string,string]] : [])] : reduce ? [...(a.days === 'three' ? reduceLosses.three : []),...(reduce.value === 'one' ? reduceLosses.two : [])] : [];
   if(!ready) return <div className="film-guide-page"><main className="fg-stage"><p role="status">{t('Loading your guide…','Euer Guide lädt…')}</p></main></div>;
   return <div className="film-guide-page">
-    <Helmet><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;1,400&display=swap" /><meta name="twitter:card" content="summary" /></Helmet>
+    <Helmet><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" /><meta name="twitter:card" content="summary" /></Helmet>
     <SEO title="Film Guide | hugo + nanny" description="Explore your wedding film with Hugo + Nanny, one chapter at a time." path="/film-guide" />
-    <header className="fg-top"><div className="fg-top-inner"><Link className="fg-wordmark" to="/">hugo + nanny</Link><span className="fg-top-step fg-label">{step ? `${String(step).padStart(2,'0')} / 11 · ${title}` : ''}</span><div className="fg-lang">{(['de','en'] as const).map(language => <Button variant="ghost" key={language} className={language === lang ? 'fg-on' : ''} aria-pressed={language === lang} onClick={() => {touch();setLang(language);}}>{language.toUpperCase()}</Button>)}</div></div><progress className="fg-progress" max={11} value={step} aria-label={t('Progress','Fortschritt')} /></header>
+    <header className="fg-top"><div className="fg-top-inner"><Link className="fg-wordmark" to="/">hugo + nanny</Link><span className="fg-top-step fg-label">{step ? `${String(step).padStart(2,'0')} / 11 · ${title}` : ''}</span>{showPrices && <FilmGuideCurrency currency={currency} onChange={setCurrency} rate={exchange.rate} date={exchange.date} lang={lang} />}<div className="fg-lang">{(['en','de'] as const).map(language => <Button variant="ghost" key={language} className={language === lang ? 'fg-on' : ''} aria-pressed={language === lang} onClick={() => {touch();setLang(language);}}>{language.toUpperCase()}</Button>)}</div></div><progress className="fg-progress" max={11} value={step} aria-label={t('Progress','Fortschritt')} /></header>
     <main className="fg-stage"><section key={id} className={`fg-chapter${single ? ' fg-single' : ''}`}><div className="fg-copy"><span className="fg-label">{step ? `${String(step).padStart(2,'0')} - ${title}` : title}</span>
       {id === 'intro' ? <h1><GuideRichText text={copyTitle} /></h1> : <h2><GuideRichText text={copyTitle} /></h2>}
       {copy.paragraphs.map((paragraph,index) => <p className="fg-lead" key={index}><GuideRichText text={paragraph[lang] ?? ''} /></p>)}
@@ -161,7 +173,7 @@ export default function FilmGuide() {
       {id === 'days' && <>{a.days !== 'one' && <div className="fg-fields">{field('daysNote',text('daysNote'),'text',text('daysNote','placeholder'))}</div>}<GuideStepper label={text('extraHours')} description={text('extraHours','description')} value={a.extraHours} onChange={value => apply('extraHours',value)} detail={`${showPrices ? `${money(settings.prices.extraHour[a.crew])} ${t('per hour','pro Stunde')} · ` : ''}${t('Total','Gesamt')}: ${hoursText(a,lang,settings)}`} /></>}
       {id === 'speeches' && <><GuideChoices label={text('speechesFilm')} multi selected={a.speechesFilm} onChange={value => change('speechesFilm',value,true)} options={[{id:'yes',title:label('speechesFilm','yes'),description:copy.questions.speechesFilm?.options.yes?.description?.[lang],price:addonPrice('speechesFilm','yes')}]} />{a.speechesFilm.length > 0 && a.crew === 'one' && <p className="fg-pkg">{copy.note?.[lang]}</p>}</>}
       {id === 'about' && <div className="fg-fields">{field('names',t('Your names *','Eure Namen *'),'text','Mira + Jonas')}<div className="fg-two">{field('date',t('Wedding date *','Hochzeitsdatum *'),'date')}<label className="fg-field"><span>{t('Guests','Gäste')}</span><select value={a.guests} onChange={e => apply('guests',e.target.value)}><option value="">-</option><option value="under40">{t('Under 40','Unter 40')}</option>{['40-80','80-120','120+'].map(value => <option key={value}>{value}</option>)}</select></label></div>{field('place',t('Venue / location','Ort / Location'),'text','Köln, Toskana, ...')}<div className="fg-field"><span>{t('Best reached via','Am besten erreichbar per')}</span><div className="fg-seg">{(['whatsapp','email'] as const).map(via => <Button variant="ghost" key={via} className={via === a.contactVia ? 'fg-on' : ''} onClick={() => apply('contactVia',via)}>{via === 'whatsapp' ? 'WhatsApp' : 'E-Mail'}</Button>)}</div></div>{field('contact',a.contactVia === 'whatsapp' ? t('WhatsApp number *','WhatsApp-Nummer *') : t('Email *','E-Mail *'),a.contactVia === 'whatsapp' ? 'tel' : 'email')}{field('story',t('And this is our story (optional)','Und das ist unsere Geschichte (optional)'),'text',undefined,true)}<p className="fg-fine"><Link to="/privacy">{t('Privacy policy','Datenschutzerklärung')}</Link></p></div>}
-      {id === 'plan' && <FilmGuidePlan answers={a} lang={lang} onSend={send} sent={sent} settings={settings} sending={sending} />}
+      {id === 'plan' && <><FilmGuidePlan answers={a} lang={lang} onSend={send} sent={sent} settings={settings} sending={sending} formatAmount={money} />{showPrices && currency === 'HKD' && <p className="fg-fine">{t('Indicative HKD conversion. Final quote in EUR.','Unverbindliche HKD-Umrechnung. Finales Angebot in EUR.')} 1 EUR = {exchange.rate} HKD · {exchange.date}</p>}</>}
     </div>{!single && <aside className="fg-media"><FilmGuideVideo src={videoUrl} caption={id === 'film' ? undefined : options.find(o => o.id === active)?.title ?? title} start={clip?.start ?? defaultClip?.[0] ?? 0} end={id === 'film' ? undefined : clip?.end ?? defaultClip?.[1]} soundLabel={t('Toggle sound','Ton umschalten')} /></aside>}</section>{id === 'intro' && <FilmGuideVideo intro src={clips['chapter.intro']?.video_path || settings.reel_url} soundLabel="" />}</main>
     <footer className="fg-dock"><div className="fg-dock-inner">{step > 0 && <Button variant="ghost" className="fg-back" onClick={() => navigate(-1)}>← {t('Back','Zurück')}</Button>}{step > 1 && showPrices ? <Button variant="ghost" className="fg-est" aria-expanded={breakdown} aria-controls="fg-breakdown" onClick={() => {if(!breakdown) guideEvent('guide_breakdown_open');setBreakdown(value => !value);}}><span className="fg-label">{t('Your estimate','Eure Schätzung')}</span><span className="fg-num">{money(total)} <small>{t('net','netto')}</small></span></Button> : <div className="fg-dock-space" />}{step < 11 && <Button className={`fg-btn${missing.length ? ' fg-off' : ''}`} onClick={() => navigate(1)}>{step === 0 ? t("Let's begin",'Los geht’s') : step === 10 ? t('See our plan','Unser Plan') : t('Continue','Weiter')}</Button>}</div></footer>
     {breakdown && showPrices && <div id="fg-breakdown" className="fg-breakdown" role="region" aria-label={t('Estimate breakdown','Preisübersicht')}>{priceLines(a,settings).map(line => <div key={line.key}><span>{priceLabel(line.key)}</span><span>{line.amount ? money(line.amount) : included}</span></div>)}<div><b>{t('Your estimate','Eure Schätzung')}</b><b>{money(total)}</b></div><p className="fg-fine">{t('Net, excl. VAT, travel & accommodation.','Netto, zzgl. MwSt., Reise & Unterkunft.')}</p></div>}
