@@ -8,11 +8,13 @@ export interface GuideAnswers {
   days: Days; crew: Crew; daysNote: string; extraHours: number;
   shootLen: 'h1' | 'h15' | 'h2'; shootWhen: string; voices: string[];
   speechCount: string; speechesFilm: string[]; extras: string[];
+  socialCount: number; photoDays: number; contentDays: number; discount: number;
   date: string; place: string; guests: string; contactVia: 'whatsapp' | 'email'; contact: string; story: string;
 }
 export const initialAnswers: GuideAnswers = {
   names: '', start: '', loved: [], lovedNote: '', style: '', days: 'two', crew: 'two', daysNote: '', extraHours: 0,
   shootLen: 'h1', shootWhen: '', voices: [], speechCount: '', speechesFilm: [], extras: [],
+  socialCount: 1, photoDays: 0, contentDays: 0, discount: 0,
   date: '', place: '', guests: '', contactVia: 'whatsapp', contact: '', story: '',
 };
 export const chapterIds = ['intro','how','film','style','days','crew','shoot','voices','speeches','extras','about','plan'] as const;
