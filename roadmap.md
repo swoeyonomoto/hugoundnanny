@@ -1,5 +1,9 @@
 # Roadmap
 
+## Film Guide
+- [ ] Build Part 1: isolated reference design, both Film Guide routes, chapter navigation and reusable presentation controls.
+- [ ] Verify Part 1 on desktop and mobile without changing existing pages.
+
 - [x] Preserve the current version as the rollback point in project History before the site-wide typography refinement.
 - [x] Align public-page typography and spacing with the gallery’s editorial visual system across desktop and mobile.
 - [x] Use Cormorant Garamond Light for headlines across all public pages.
