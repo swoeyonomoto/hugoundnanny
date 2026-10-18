@@ -1,0 +1,15 @@
+import { describe,it,expect } from 'vitest';
+import { followUp, newLeadToken, validClip, leadPatch, restoreAnswers, mergeSettings, leadStatuses, linkSources } from './persistence';
+import { initialAnswers, estimate } from './logic';
+import { defaultSettings } from './settings';
+describe('Part 4 contracts',()=>{
+ it('admin tokens are 24 allowed characters',()=>{expect(newLeadToken()).toMatch(/^[A-Za-z2-9]{24}$/);});
+ it('only specified statuses are offered',()=>{expect(leadStatuses).toEqual(['new','in progress','sent','contacted','call booked','booked','lost']);});
+ it('admin link sources match the existing contract',()=>{expect(linkSources).toEqual(['link','facebook','whatsapp','manual']);});
+ it('accepts 15 MB clips but rejects larger clips',()=>{expect(validClip({name:'style.natural.mp4',size:15*1024*1024})).toBe(true);expect(validClip({name:'style.natural.mp4',size:15*1024*1024+1})).toBe(false);});
+ it('only MP4 and WebM clips are accepted',()=>{expect(validClip({name:'clip.webm',size:100})).toBe(true);expect(validClip({name:'clip.mov',size:100})).toBe(false);});
+ it('follow up requires more than 24 hours without sending',()=>{const now=Date.parse('2026-10-18T12:00:00Z');const l={sent_at:null,contact:null,names:'Test',updated_at:'2026-10-17T12:00:00Z'};expect(followUp(l,now)).toBe(false);expect(followUp({...l,updated_at:'2026-10-17T11:59:59Z'},now)).toBe(true);expect(followUp({...l,sent_at:'2026-10-17T11:00:00Z'},now)).toBe(false);expect(followUp({...l,names:null,updated_at:'2026-10-16T12:00:00Z'},now)).toBe(false);});
+ it('save uses allowed patch fields and keeps maximum progress',()=>{const p=leadPatch({...initialAnswers,date:'2027-05-20'},'en',3,8,{});expect(p.wedding_date).toBe('2027-05-20');expect(p.furthest_step).toBe(8);expect(p.last_step).toBe('style');expect(p).not.toHaveProperty('status');expect(p).not.toHaveProperty('admin_note');});
+ it('restores couple-facing metadata and complete answers',()=>{expect(restoreAnswers({names:'Mira + Jonas',wedding_date:'2027-05-20',answers:{style:'natural',days:'one'}})).toMatchObject({names:'Mira + Jonas',date:'2027-05-20',style:'natural',days:'one',crew:'two'});});
+ it('configured prices drive calculations and fallback fills missing values',()=>{const s=mergeSettings({coverage_one_cam:{two:7000},second_cam_factor:{two:2},show_price_to_client:false});expect(estimate(initialAnswers,s)).toBe(14000);expect(s.prices.extras.feature).toBe(defaultSettings.prices.extras.feature);expect(s.show_price_to_client).toBe(false);});
+});

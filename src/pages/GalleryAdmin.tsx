@@ -4,6 +4,8 @@ import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Film, parseFilms } from "@/components/gallery/FilmView";
 
+import FilmGuideAdmin from "@/components/film-guide/FilmGuideAdmin";
+
 type Entry = { tag: string; name: string; path: string };
 type GalleryConfig = {
   id: string; slug: string; dropbox_path: string; couple_name: string; wedding_date: string; location: string;
@@ -31,6 +33,8 @@ async function listDropbox(path: string) {
 }
 
 export default function GalleryAdmin() {
+  const [adminView,setAdminView] = useState("galleries");
+  const [filmAllowed,setFilmAllowed] = useState(false);
   const [sessionReady, setSessionReady] = useState(false);
   const [signedIn, setSignedIn] = useState(false);
   const [allowed, setAllowed] = useState(false);
@@ -60,6 +64,8 @@ export default function GalleryAdmin() {
       if (hasSession) {
         const { data: role } = await supabase.from("user_roles").select("id").eq("role", "admin").maybeSingle();
         setAllowed(Boolean(role));
+        const {data:filmRole}=await supabase.rpc("film_guide_is_admin");
+        setFilmAllowed(filmRole === true);
         if (role) await load();
       }
       setSessionReady(true);
@@ -108,9 +114,10 @@ export default function GalleryAdmin() {
   return <main className="gallery-admin">
     <header className="ga-head"><div><img src="/photos/logo-left.png" alt="Hugo + Nanny" /><span>Gallery Manager</span></div><Button variant="ghost" size="icon" title="Abmelden" onClick={() => supabase.auth.signOut().then(() => window.location.reload())}><LogOut /></Button></header>
     <div className="ga-shell">
-      <nav className="ga-nav"><h2>Galerien</h2>{galleries.map((item) => <Button key={item.id} variant={item.id === activeId ? "secondary" : "ghost"} onClick={() => setActiveId(item.id)}>{item.couple_name}</Button>)}</nav>
+      <nav className="ga-nav">{filmAllowed && <><Button variant={adminView === "film" ? "secondary" : "ghost"} onClick={()=>setAdminView("film")}>Film guide</Button><Button variant={adminView === "galleries" ? "secondary" : "ghost"} onClick={()=>setAdminView("galleries")}>Galerien & Shop</Button></>}<h2>Galerien</h2>{galleries.map((item) => <Button key={item.id} variant={item.id === activeId ? "secondary" : "ghost"} onClick={() => {setActiveId(item.id);setAdminView("galleries");}}>{item.couple_name}</Button>)}</nav>
       <div className="ga-content">
         {message && <button className="ga-message" onClick={() => setMessage("")}>{message}</button>}
+        {adminView === "film" && filmAllowed ? <FilmGuideAdmin /> : <>
         <AccountSettings onMessage={setMessage} />
         {gallery && <section className="ga-section"><div className="ga-section-head"><div><p>Galerie</p><h1>{gallery.couple_name}</h1></div><Button onClick={saveGallery}><Save /> Speichern</Button></div>
           <div className="ga-form-grid">
@@ -136,6 +143,7 @@ export default function GalleryAdmin() {
           <div className="ga-photo-grid">{photos.map((photo) => { const isCover = gallery.cover_path === photo.path; const isHighlight = gallery.highlight_paths.includes(photo.path); const filmImgs = gallery.film_image_paths ?? []; const isFilmImg = filmImgs.includes(photo.path); return <article key={photo.path} className={isCover || isHighlight || isFilmImg ? "is-chosen" : ""}><img src={thumb(photo.path)} alt={photo.name} loading="lazy" /><div><Button size="sm" variant={isCover ? "default" : "outline"} onClick={() => updateGallery("cover_path", photo.path)}>{isCover && <Check />} Titelbild</Button><Button size="sm" variant={isHighlight ? "default" : "outline"} onClick={() => updateGallery("highlight_paths", isHighlight ? gallery.highlight_paths.filter((path) => path !== photo.path) : [...gallery.highlight_paths, photo.path])}>{isHighlight && <Check />} Highlight</Button><Button size="sm" variant={isFilmImg ? "default" : "outline"} onClick={() => updateGallery("film_image_paths", isFilmImg ? filmImgs.filter((p) => p !== photo.path) : [...filmImgs, photo.path])}>{isFilmImg && <Check />} Film-Bild</Button></div></article>; })}</div>
         </section>}
         <section className="ga-section"><div className="ga-section-head"><div><p>Shop</p><h1>Produkte</h1></div></div><div className="ga-product-list">{products.map((product) => <article key={product.id}><div className="ga-product-fields"><label>Name<input value={product.title} onChange={(e) => setProducts((items) => items.map((item) => item.id === product.id ? { ...item, title: e.target.value } : item))} /></label><label>Bild-URL<input value={product.image_url} onChange={(e) => setProducts((items) => items.map((item) => item.id === product.id ? { ...item, image_url: e.target.value } : item))} /></label><label className="ga-wide">Beschreibung Deutsch<textarea rows={2} value={product.description_de} onChange={(e) => setProducts((items) => items.map((item) => item.id === product.id ? { ...item, description_de: e.target.value } : item))} /></label><label className="ga-wide">Beschreibung Englisch<textarea rows={2} value={product.description_en} onChange={(e) => setProducts((items) => items.map((item) => item.id === product.id ? { ...item, description_en: e.target.value } : item))} /></label></div><div className="ga-sizes">{parsedSizes(product.sizes).map((size, index) => <div key={`${size.label}-${index}`}><input aria-label="Größe" value={size.label} onChange={(e) => setProducts((items) => items.map((item) => item.id === product.id ? { ...item, sizes: parsedSizes(item.sizes).map((old, i) => i === index ? { ...old, label: e.target.value } : old) } : item))} /><input aria-label="Preis" type="number" value={size.price} onChange={(e) => setProducts((items) => items.map((item) => item.id === product.id ? { ...item, sizes: parsedSizes(item.sizes).map((old, i) => i === index ? { ...old, price: Number(e.target.value) } : old) } : item))} /></div>)}</div><div className="ga-product-actions"><label><input type="checkbox" checked={product.coming_soon} onChange={(e) => setProducts((items) => items.map((item) => item.id === product.id ? { ...item, coming_soon: e.target.checked } : item))} /> Coming soon</label><Button onClick={() => saveProduct(product)}><Save /> Speichern</Button></div></article>)}</div></section>
+        </>}
       </div>
     </div>
   </main>;

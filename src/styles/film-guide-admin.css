@@ -1,0 +1,16 @@
+.film-guide-admin { min-width:0; color:hsl(var(--foreground)); font-family:Inter,sans-serif; }
+#root .film-guide-admin h1,#root .film-guide-admin h2,#root .film-guide-admin h3 {font-family:Inter,sans-serif;font-weight:500;letter-spacing:0;}
+.film-guide-admin h1 {font-size:28px;} .film-guide-admin h2 {font-size:17px;margin:24px 0 12px;}
+.fga-head,.fga-actions,.fga-tabs {display:flex;align-items:center;gap:12px;flex-wrap:wrap;} .fga-head {justify-content:space-between;margin-bottom:24px;}
+.fga-tabs {border-bottom:1px solid hsl(var(--border));padding:12px 0;margin-bottom:16px;}
+.fga-message {background:hsl(var(--secondary));padding:12px;color:hsl(var(--foreground));}
+.fga-funnel {padding:0 0 24px;border-bottom:1px solid hsl(var(--border));}
+.fga-funnel-row {display:grid;grid-template-columns:170px minmax(40px,1fr) 85px;align-items:center;gap:16px;font-size:12px;margin:8px 0;} .fga-funnel-row meter {width:100%;height:10px;} .fga-funnel-row meter::-webkit-meter-bar {background:hsl(var(--muted));border:0;border-radius:0;} .fga-funnel-row meter::-webkit-meter-optimum-value {background:hsl(var(--primary));}
+.fga-table-wrap {overflow-x:auto;} .film-guide-admin table {width:100%;border-collapse:collapse;font-size:12px;} .film-guide-admin th {text-align:left;font-weight:500;color:hsl(var(--muted-foreground));white-space:nowrap;} .film-guide-admin th,.film-guide-admin td {padding:12px 8px;border-bottom:1px solid hsl(var(--border));vertical-align:top;} .film-guide-admin td {min-width:105px;} .film-guide-admin td button {padding:0;text-align:left;}
+.film-guide-admin input,.film-guide-admin select,.film-guide-admin textarea,.fga-dialog input,.fga-dialog select,.fga-dialog textarea {width:100%;min-width:0;border:1px solid hsl(var(--input));border-radius:0;background:hsl(var(--background));color:hsl(var(--foreground));padding:8px;font:inherit;font-size:13px;}
+.fga-form {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin:12px 0 24px;}.fga-form label,.fga-clips label,.fga-settings label {display:grid;gap:6px;font-size:12px;}.fga-form > div {display:grid;gap:12px;}
+.fga-settings fieldset {margin:20px 0;border:1px solid hsl(var(--border));padding:16px;}.fga-settings .fga-check {display:flex;align-items:center;}.fga-check input {width:16px;}
+.fga-clips {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;}.fga-clips article {min-width:0;border-bottom:1px solid hsl(var(--border));padding-bottom:24px;}.fga-clips video {display:block;aspect-ratio:16/9;width:100%;object-fit:contain;background:hsl(var(--foreground));margin:14px 0;}.fga-clips h2 {margin-top:0;}
+.fga-upload {position:relative;display:flex!important;align-items:center;gap:8px;border:1px solid hsl(var(--border));padding:10px;cursor:pointer;}.fga-upload input {position:absolute;inset:0;opacity:0;cursor:pointer;}
+.fga-detail {max-width:850px;max-height:90vh;overflow-y:auto;}.fga-detail .film-guide-page {min-height:0;padding:16px;}.fga-detail pre {white-space:pre-wrap;overflow-wrap:anywhere;font:inherit;font-size:12px;}.fga-time {display:flex;justify-content:space-between;font-size:12px;border-bottom:1px solid hsl(var(--border));padding:6px 0;}
+@media(max-width:700px){.fga-clips,.fga-form {grid-template-columns:minmax(0,1fr);}.fga-funnel-row {grid-template-columns:125px minmax(20px,1fr) 65px;gap:8px;}}
