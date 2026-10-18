@@ -44,6 +44,6 @@ export default function FilmGuideOverview({ answers: a, lang, settings, money, g
     {rows.map(row => <div className="fg-overview-row" key={row.key}><span><strong>{row.label}</strong>{row.detail && <small>{row.detail}</small>}{row.key === 'film' && <small>{t('Includes a 4-5 minute highlight film, drone footage, music and colour grading.', 'Inklusive 4-5 Minuten Highlight-Film, Drohnenaufnahmen, Musik und Colorgrading.')}</small>}</span><span className={row.amount ? '' : 'fg-overview-included'}>{row.amount ? money(row.amount) : t('Included', 'Inklusive')}</span></div>)}
     {discount > 0 && <><div className="fg-overview-row"><span>{t('Before your discount', 'Vor eurem Rabatt')}</span><s>{money(gross)}</s></div><div className="fg-overview-row fg-discount-row"><b>{t('Your discount', 'Euer Rabatt')} (-{a.discount}%)</b><b>- {money(discount)}</b></div></>}
     <div className="fg-overview-row fg-overview-total"><b>{t('Your estimate', 'Eure Schätzung')}</b><b>{money(total)}</b></div>
-    <p className="fg-fine">{t('Net, excl. VAT, travel & accommodation. No payment now.', 'Netto, zzgl. MwSt., Reise & Unterkunft. Jetzt keine Zahlung.')}</p>
+    <p className="fg-fine">{t('Net, excl. VAT. All travel and accommodation costs are included. No payment now.', 'Netto, zzgl. MwSt. Alle Reise- und Unterkunftskosten sind enthalten. Jetzt keine Zahlung.')}</p>
   </section>;
 }
