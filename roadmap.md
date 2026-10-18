@@ -1,6 +1,7 @@
 # Roadmap
 
 ## Unified admin
+- [x] Repair uploaded film-guide-save custom-token validation; deployed only that function, 10 server tests pass, real Joey + Seli browser flow saves and reloads furthest_step=5 / crew with EUR and 35% preserved. Authenticated admin view remains unverified as noted below.
 - [x] Prevent failed custom links from silently opening blank guides or creating duplicate couple records; verify Joey + Seli's EUR/35% configuration in recovery tests.
 - [x] Repair custom-token resolution in deployed film-guide-load with user authorization and supplied source; real Sheetal and Joey links load saved names, Joey EUR and 35% visible; three server validation tests pass.
 - [x] Redesign the admin workspace with fast couple/package/price lookup and clear tool navigation.
