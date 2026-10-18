@@ -33,8 +33,10 @@
 .film-guide-page h1 { font-size: 76px; margin-bottom: 26px; }
 .film-guide-page h2 { font-size: 56px; margin-bottom: 22px; }
 .film-guide-page h1 em, .film-guide-page h2 em { font-family: inherit; font-weight: inherit; font-style: italic; }
-.fg-lead { color: hsl(var(--fg-copy)); max-width: 46ch; }
-.fg-lead + .fg-lead { margin-top: 14px; }
+.film-guide-page .fg-lead { font-family: 'Inter',sans-serif; font-weight: 300; font-size: 15px; line-height: 1.6; color: hsl(var(--fg-copy)); max-width: 46ch; }
+.film-guide-page .fg-lead + .fg-lead { margin-top: 14px; }
+.film-guide-page .fg-points + .fg-lead { margin-top: 14px; }
+.film-guide-page .fg-lead b { font-weight: 500; color: hsl(var(--fg-ink)); }
 .fg-points { list-style: none; padding: 0; margin: 22px 0 0; max-width: 48ch; }
 .fg-points li { padding: 11px 0; border-top: 1px solid hsl(var(--fg-line)); color: hsl(var(--fg-copy)); display: grid; grid-template-columns: 22px 1fr; }
 .fg-points li:last-child { border-bottom: 1px solid hsl(var(--fg-line)); }
