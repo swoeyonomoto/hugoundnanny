@@ -115,6 +115,7 @@ export default function FilmGuide() {
     if (field === 'voices') price = settings.prices.voices[value as keyof typeof settings.prices.voices];
     if (field === 'extras') {
       if (a.days === 'three' && ['feature','social'].includes(value)) return t('included with 3 days','inkl. bei 3 Tagen');
+      if (value === 'photo') return `${money(settings.prices.photographer.day)} ${t('per day (10 h)','pro Tag (10 Std.)')}`;
       price = settings.prices.extras[value as keyof typeof settings.prices.extras];
     }
     if (field === 'speechesFilm') price = settings.prices.speechesFilm;
@@ -137,7 +138,7 @@ export default function FilmGuide() {
   const clipUrl = storedClip?.video_path;
   const videoUrl = clipUrl ? (/^https?:\/\//.test(clipUrl) ? clipUrl : `${import.meta.env.VITE_SUPABASE_URL}/storage/v1/object/public/hugoundnanny/${clipUrl}`) : undefined;
   const defaultClip = chapterDefaults[id];
-  const priceLabel = (lineKey:string) => lineKey === 'film' ? `Film · ${label('days',a.days)} · ${label('crew',a.crew)}` : lineKey === 'extraHours' ? `${a.extraHours} ${t('extra hours','Zusatzstunden')}` : label(lineKey.split('.')[0],lineKey.split('.')[1]);
+  const priceLabel = (lineKey:string) => lineKey === 'film' ? `Film · ${label('days',a.days)} · ${label('crew',a.crew)}` : lineKey === 'extraHours' ? `${a.extraHours} ${t('extra hours','Zusatzstunden')}` : lineKey === 'photoDays' ? `${t('Photographer','Fotograf')} · ${Math.max(1,a.photoDays)} × 10 ${t('h','Std.')}` : lineKey === 'contentDays' ? `${t('Content creation','Content Creation')} · ${a.contentDays} ${t('day(s)','Tag(e)')}` : label(lineKey.split('.')[0],lineKey.split('.')[1]);
   const send = async (via:'whatsapp'|'email') => {
     if(sending) return;
     setSending(true);
