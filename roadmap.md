@@ -1,7 +1,7 @@
 # Roadmap
 
 ## Film Guide
-- [ ] Preserve the saved admin discount when resuming a personal link and show it in the bottom estimate from the beginning; verify coverage-day changes.
+- [x] Preserve the saved admin discount when resuming a personal link and show it in the bottom estimate from the beginning; 77 tests pass and controlled 40% recovery/day-change checks pass. Real saved discounts are currently zero; signed-in admin verification remains blocked as below.
 - [x] Clarify coverage, couple-shoot time and included films in the live overview; add a visible overview button beside the price with a gentle periodic nudge.
 - [x] Refine guide layout using Asia inspiration; default new visits to English.
 - [x] Default public currency to HKD with a two-way EUR calculator; keep saved estimates in EUR.
