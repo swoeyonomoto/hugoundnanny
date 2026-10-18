@@ -372,6 +372,132 @@ export type Database = {
         }
         Relationships: []
       }
+      film_guide_clips: {
+        Row: {
+          end_s: number
+          key: string
+          start_s: number
+          updated_at: string
+          video_path: string
+        }
+        Insert: {
+          end_s?: number
+          key: string
+          start_s?: number
+          updated_at?: string
+          video_path: string
+        }
+        Update: {
+          end_s?: number
+          key?: string
+          start_s?: number
+          updated_at?: string
+          video_path?: string
+        }
+        Relationships: []
+      }
+      film_guide_leads: {
+        Row: {
+          admin_note: string | null
+          answers: Json
+          contact: string | null
+          contact_via: string | null
+          created_at: string
+          created_by: string | null
+          estimate_eur: number | null
+          furthest_step: number
+          guests: string | null
+          id: string
+          lang: string | null
+          last_step: string | null
+          location: string | null
+          names: string | null
+          opened_at: string | null
+          package_hint: string | null
+          sent_at: string | null
+          sent_via: string | null
+          source: string
+          status: string
+          step_times: Json
+          story: string | null
+          token: string
+          updated_at: string
+          wedding_date: string | null
+        }
+        Insert: {
+          admin_note?: string | null
+          answers?: Json
+          contact?: string | null
+          contact_via?: string | null
+          created_at?: string
+          created_by?: string | null
+          estimate_eur?: number | null
+          furthest_step?: number
+          guests?: string | null
+          id?: string
+          lang?: string | null
+          last_step?: string | null
+          location?: string | null
+          names?: string | null
+          opened_at?: string | null
+          package_hint?: string | null
+          sent_at?: string | null
+          sent_via?: string | null
+          source?: string
+          status?: string
+          step_times?: Json
+          story?: string | null
+          token: string
+          updated_at?: string
+          wedding_date?: string | null
+        }
+        Update: {
+          admin_note?: string | null
+          answers?: Json
+          contact?: string | null
+          contact_via?: string | null
+          created_at?: string
+          created_by?: string | null
+          estimate_eur?: number | null
+          furthest_step?: number
+          guests?: string | null
+          id?: string
+          lang?: string | null
+          last_step?: string | null
+          location?: string | null
+          names?: string | null
+          opened_at?: string | null
+          package_hint?: string | null
+          sent_at?: string | null
+          sent_via?: string | null
+          source?: string
+          status?: string
+          step_times?: Json
+          story?: string | null
+          token?: string
+          updated_at?: string
+          wedding_date?: string | null
+        }
+        Relationships: []
+      }
+      film_guide_settings: {
+        Row: {
+          data: Json
+          id: number
+          updated_at: string
+        }
+        Insert: {
+          data: Json
+          id?: number
+          updated_at?: string
+        }
+        Update: {
+          data?: Json
+          id?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
       gallery_configs: {
         Row: {
           active: boolean
@@ -930,6 +1056,7 @@ export type Database = {
           visits_30d: number
         }[]
       }
+      film_guide_is_admin: { Args: never; Returns: boolean }
       get_portfolio_artwork_ids: { Args: { p_slug: string }; Returns: string[] }
       get_portfolio_share: {
         Args: { p_slug: string }

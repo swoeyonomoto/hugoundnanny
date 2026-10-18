@@ -30,6 +30,7 @@ const EN: Section[] = [
     "When you visit our website - technical data such as IP address, browser type, device, operating system, referring page, date and time of access and usage data collected by the analytics and advertising tools listed in section 4.",
     "Providing your details is voluntary. If you do not provide the information marked as required in our forms, we may not be able to answer your enquiry or check your date.",
   ]},
+  { h: "Film guide", body: ["Your Film Guide answers are saved as you fill it in, so you can return to your plan and we can answer your enquiry. They are stored in our database (Supabase) and deleted on request or after 12 months without a booking. Your browser also keeps a local copy for recovery if saving is interrupted. Microsoft Clarity analyses usage of the guide using a pseudonymous guide ID; typed inputs and textareas remain masked. It does not run in the admin area."]},
   { h: "2. Purposes of use", body: [
     "We use your personal data to:",
     { list: [
@@ -105,6 +106,7 @@ const DE: Section[] = [
     "Wenn du unsere Website besuchst - technische Daten wie IP-Adresse, Browsertyp, Gerät, Betriebssystem, verweisende Seite, Datum und Uhrzeit des Zugriffs sowie Nutzungsdaten der in Abschnitt 4 genannten Analyse- und Werbetools.",
     "Die Angabe deiner Daten ist freiwillig. Ohne die in unseren Formularen als erforderlich markierten Angaben können wir deine Anfrage ggf. nicht beantworten oder dein Datum nicht prüfen.",
   ]},
+  { h: "Film-Guide", body: ["Eure Antworten im Film-Guide werden schon beim Ausfüllen gespeichert, damit ihr euren Plan später fortsetzen könnt und wir eure Anfrage beantworten können. Sie werden in unserer Datenbank (Supabase) gespeichert und auf Wunsch oder nach 12 Monaten ohne Buchung gelöscht. Euer Browser hält außerdem eine lokale Kopie vor, falls das Speichern unterbrochen wird. Microsoft Clarity analysiert die Nutzung des Guides mit einer pseudonymen Guide-ID; Eingaben und Textfelder bleiben maskiert. Im Admin-Bereich wird Clarity nicht geladen."]},
   { h: "2. Zwecke der Verarbeitung", body: [
     "Wir verwenden deine personenbezogenen Daten, um:",
     { list: [
@@ -187,7 +189,7 @@ const PrivacyContent = () => {
         <div className="wrap" style={{ maxWidth: 720 }}>
           <Link to="/" className="imprint-back">← {t("Zurück", "Back")}</Link>
           <h1 className="imprint-h">{t("Datenschutzerklärung", "Privacy Policy")}</h1>
-          <p className="imprint-body">{t("Stand: 2. Oktober 2026", "Last updated: 2 October 2026")}</p>
+          <p className="imprint-body">{t("Stand: 18. Oktober 2026", "Last updated: 18 October 2026")}</p>
 
           {sections.map((s, i) => (
             <div className="imprint-block" key={i}>

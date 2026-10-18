@@ -1,0 +1,29 @@
+import { chapterIds, estimate, initialAnswers, packageFor, type GuideAnswers, type Language } from './logic';
+import { defaultSettings, type GuideSettings } from './settings';
+export const leadStatuses = ['new','in progress','sent','contacted','call booked','booked','lost'] as const;
+export const linkSources = ['link','facebook','whatsapp','manual'] as const;
+export const clipLimit = 15 * 1024 * 1024;
+export function newLeadToken() {
+  const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz23456789';
+  let token = '';
+  while (token.length < 24) for (const n of crypto.getRandomValues(new Uint8Array(32))) { if (n < 240 && token.length < 24) token += alphabet[n % alphabet.length]; }
+  return token;
+}
+export function validClip(file: Pick<File,'name'|'size'>) { return /\.(mp4|webm)$/i.test(file.name) && file.size <= clipLimit; }
+export function followUp(lead: {sent_at: string|null; contact: string|null; names: string|null; updated_at: string}, now = Date.now()) { return !lead.sent_at && Boolean(lead.contact || lead.names) && now - Date.parse(lead.updated_at) > 86400000; }
+export function restoreAnswers(lead: { answers?: unknown; names?: string|null; wedding_date?: string|null; location?: string|null; guests?: string|null; contact_via?: string|null; contact?: string|null; story?: string|null }): GuideAnswers {
+  const a = { ...initialAnswers, ...(lead.answers && typeof lead.answers === 'object' ? lead.answers : {}) } as GuideAnswers;
+  return {...a, names:lead.names ?? a.names,date:lead.wedding_date ?? a.date,place:lead.location ?? a.place,guests:lead.guests ?? a.guests,contactVia:lead.contact_via === 'email' ? 'email' : a.contactVia,contact:lead.contact ?? a.contact,story:lead.story ?? a.story};
+}
+export function leadPatch(a: GuideAnswers, lang: Language, step: number, furthest: number, times: Record<string,number>, settings: GuideSettings = defaultSettings) {
+  const total = estimate(a,settings);
+  return { lang,names:a.names,wedding_date:a.date || null,location:a.place,guests:a.guests,contact_via:a.contactVia,contact:a.contact,story:a.story,answers:a,estimate_eur:total,package_hint:packageFor(total,settings)?.name ?? null,last_step:chapterIds[step],furthest_step:Math.max(step,furthest),step_times:times };
+}
+export function mergeSettings(value: unknown): GuideSettings {
+  const merge = (base: unknown, incoming: unknown): unknown => {
+    if (Array.isArray(base)) return Array.isArray(incoming) ? incoming : base;
+    if (base && typeof base === 'object') return Object.fromEntries(Object.entries(base).map(([k,v]) => [k,merge(v,incoming && typeof incoming === 'object' ? (incoming as Record<string,unknown>)[k] : undefined)]));
+    return typeof incoming === typeof base ? incoming : base;
+  };
+  return merge(defaultSettings,value) as GuideSettings;
+}

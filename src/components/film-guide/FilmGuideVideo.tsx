@@ -4,12 +4,14 @@ import reel from "@/assets/film-guide-reel.mp4.asset.json";
 import poster from "@/assets/film-guide-poster.jpg.asset.json";
 import webm from "@/assets/film-guide-reel.webm.asset.json";
 
-interface Props { caption?: string; intro?: boolean; start?: number; end?: number; soundLabel: string; }
+interface Props { caption?: string; intro?: boolean; start?: number; end?: number; soundLabel: string; src?: string; }
 
-export default function FilmGuideVideo({ caption, intro = false, start = 0, end, soundLabel }: Props) {
+export default function FilmGuideVideo({ caption, intro = false, start = 0, end, soundLabel, src }: Props) {
   const ref = useRef<HTMLVideoElement>(null);
   const [muted, setMuted] = useState(true);
   const [swapping, setSwapping] = useState(false);
+  const [failed, setFailed] = useState(false);
+  useEffect(() => {setFailed(false);},[src]);
   useEffect(() => {
     setSwapping(true);
     const timer = window.setTimeout(() => {
@@ -18,12 +20,12 @@ export default function FilmGuideVideo({ caption, intro = false, start = 0, end,
       setSwapping(false);
     }, 180);
     return () => window.clearTimeout(timer);
-  }, [start, end]);
+  }, [start, end, src]);
   return <div className={`${intro ? "fg-hero-reel" : "fg-frame"}${swapping ? " fg-swap" : ""}`}>
-    <video ref={ref} poster={poster.url} autoPlay muted={muted} loop playsInline preload="metadata"
+    <video key={failed ? 'fallback' : src || reel.url} ref={ref} poster={poster.url} autoPlay muted={muted} loop playsInline preload="metadata" onError={() => setFailed(true)}
       onLoadedMetadata={() => { if (ref.current) ref.current.currentTime = start; }}
       onTimeUpdate={() => { const video = ref.current; if (video && end && video.currentTime >= end) video.currentTime = start; }}>
-      <source src={webm.url} type="video/webm" /><source src={reel.url} type="video/mp4" />
+      {src && !failed ? <source src={src} onError={() => setFailed(true)} /> : <><source src={webm.url} type="video/webm" /><source src={reel.url} type="video/mp4" /></>}
     </video>
     {!intro && <Button variant="ghost" className="fg-sound" aria-label={soundLabel} aria-pressed={!muted} onClick={() => setMuted(value => !value)}>{muted ? "♪" : "❚❚"}</Button>}
     {!intro && caption && <span className="fg-cap">{caption}</span>}
