@@ -1,6 +1,7 @@
 # Roadmap
 
 ## Unified admin
+- [ ] Repair uploaded film-guide-save custom-token validation and verify Joey + Seli progress saves and reloads from Supabase.
 - [x] Prevent failed custom links from silently opening blank guides or creating duplicate couple records; verify Joey + Seli's EUR/35% configuration in recovery tests.
 - [x] Repair custom-token resolution in deployed film-guide-load with user authorization and supplied source; real Sheetal and Joey links load saved names, Joey EUR and 35% visible; three server validation tests pass.
 - [x] Redesign the admin workspace with fast couple/package/price lookup and clear tool navigation.
