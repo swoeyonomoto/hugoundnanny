@@ -20,7 +20,7 @@ export type Chapter = typeof chapterIds[number];
 export const round50 = (amount: number) => Math.round(amount / 50) * 50;
 export function startingLanguage(search: string, browser: string): Language {
   const query = new URLSearchParams(search).get('lang');
-  return query === 'en' || query === 'de' ? query : browser.toLowerCase().startsWith('de') ? 'de' : 'en';
+  return query === 'en' || query === 'de' ? query : 'en';
 }
 export function formatMoney(amount: number, lang: Language) { return `€ ${amount.toLocaleString(lang === 'de' ? 'de-DE' : 'en-US')}`; }
 export function filmPrice(days: Days, crew: Crew, settings = defaultSettings) {
@@ -74,7 +74,7 @@ export function priceLines(a: GuideAnswers, settings: GuideSettings = defaultSet
   const p = settings.prices;
   const lines: PriceLine[] = [{ key: 'film', amount: filmPrice(a.days, a.crew, settings) }];
   if (a.extraHours) lines.push({ key: 'extraHours', amount: a.extraHours * p.extraHour[a.crew] });
-  if (a.shootLen) lines.push({ key: `shootLen.${a.shootLen}`, amount: a.days === 'three' && a.shootWhen === 'dayafter' ? 0 : p.shootLen[a.shootLen] });
+  if (a.shootLen) lines.push({ key: `shootLen.${a.shootLen}`, amount: 0 });
   if (a.shootWhen === 'dayafter') lines.push({ key: 'shootWhen.dayafter', amount: a.days === 'three' ? 0 : p.shootWhen.dayafter });
   for (const voice of a.voices) lines.push({ key: `voices.${voice}`, amount: p.voices[voice as keyof typeof p.voices] ?? 0 });
   if (!a.voices.includes('none') && a.speechesFilm.length) lines.push({ key: 'speechesFilm.yes', amount: p.speechesFilm });

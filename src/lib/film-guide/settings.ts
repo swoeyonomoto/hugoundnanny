@@ -24,8 +24,8 @@ export const defaultSettings = {
     },
     "shootLen": {
       "h1": 0,
-      "h15": 200,
-      "h2": 400
+      "h15": 0,
+      "h2": 0
     },
     "shootWhen": {
       "golden": 0,
