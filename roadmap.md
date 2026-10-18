@@ -13,6 +13,8 @@
 - [ ] Verify real admin edits: authenticated editing flow not yet exercised; public saved settings successfully load.
 
 ## Film Guide
+- [ ] Replace final WhatsApp/email handoff with Finish and a saved 48-hour confirmation.
+- [ ] Notify admin on completion; inspect existing email delivery before enabling notifications.
 - [x] Preserve the saved admin discount when resuming a personal link and show it in the bottom estimate from the beginning; 77 tests pass and controlled 40% recovery/day-change checks pass. Real saved discounts are currently zero; signed-in admin verification remains blocked as below.
 - [x] Clarify coverage, couple-shoot time and included films in the live overview; add a visible overview button beside the price with a gentle periodic nudge.
 - [x] Refine guide layout using Asia inspiration; default new visits to English.
