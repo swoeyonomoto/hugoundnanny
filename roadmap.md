@@ -1,6 +1,8 @@
 # Roadmap
 
 ## Unified admin
+- [x] Prevent failed custom links from silently opening blank guides or creating duplicate couple records; verify Joey + Seli's EUR/35% configuration in recovery tests.
+- [ ] Repair custom-token resolution in deployed film-guide-load: authorized by user, but existing function source must be supplied before it can be safely edited.
 - [x] Redesign the admin workspace with fast couple/package/price lookup and clear tool navigation.
 - [x] Prefill admin-created couple names in the public guide, including local recovery; controlled public browser flow and concrete tests pass.
 - [x] Add easy gallery link copying and move account settings to their own view.
