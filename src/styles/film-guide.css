@@ -112,7 +112,7 @@
 .fg-est .fg-label { font-size: 9.5px; }
 .fg-num { font-family: 'Cormorant Garamond',Georgia,serif; font-size: 26px; font-variant-numeric: tabular-nums; }
 .fg-num small { font-family: 'Inter',sans-serif; font-size: 11px; color: hsl(var(--fg-soft)); }
-.fg-breakdown { position: fixed; left: 50%; bottom: calc(84px + env(safe-area-inset-bottom)); transform: translateX(-50%); width: min(420px,calc(100% - 32px)); max-height: 65vh; overflow-y: auto; background: hsl(var(--fg-card)); border: 1px solid hsl(var(--fg-line)); padding: 18px 20px 14px; z-index: 31; }
+.fg-breakdown { position: fixed; left: 50%; bottom: calc(90px + env(safe-area-inset-bottom)); transform: translateX(-50%); width: min(640px,calc(100% - 32px)); max-height: 65vh; overflow-y: auto; background: hsl(var(--fg-card)); border: 1px solid hsl(var(--fg-line)); padding: 24px; z-index: 31; }
 .fg-breakdown > div { display: flex; justify-content: space-between; gap: 12px; font-size: 13px; padding: 6px 0; border-bottom: 1px solid hsl(var(--fg-line-soft)); color: hsl(var(--fg-copy)); }
 .fg-breakdown > div span:last-child { white-space: nowrap; font-variant-numeric: tabular-nums; }
 .fg-toast { position: fixed; left: 50%; bottom: calc(92px + env(safe-area-inset-bottom)); transform: translateX(-50%); background: hsl(var(--fg-ink)); color: hsl(var(--fg-card)); font-size: 13px; padding: 10px 16px; z-index: 45; max-width: calc(100% - 32px); text-align: center; }
@@ -189,6 +189,32 @@
 .fg-num-discounted { display: inline-block; animation: fg-discount-pop .55s cubic-bezier(.2,.7,.2,1); }
 .fg-discount-row b { color: hsl(var(--fg-ink)); }
 @keyframes fg-discount-pop { 0% { opacity: 0; transform: translateY(8px) scale(.96); } 60% { opacity: 1; transform: translateY(-2px) scale(1.02); } 100% { opacity: 1; transform: none; } }
+.fg-estimate-group { flex: 1; display: flex; justify-content: center; align-items: center; gap: 18px; min-width: 0; }
+.fg-estimate-group .fg-est { flex: initial; text-align: left; }
+.film-guide-page .fg-overview-trigger { display: inline-flex; align-items: center; gap: 8px; padding: 10px 14px; border: 1px solid hsl(var(--fg-ink)); background: hsl(var(--fg-card)); font-size: 12px; white-space: nowrap; animation: fg-overview-nudge 9s ease-in-out infinite; }
+.fg-overview-trigger.fg-open { animation: none; }
+.fg-overview-trigger.fg-open svg { transform: rotate(180deg); }
+@keyframes fg-overview-nudge { 0%, 85%, 100% { transform: translateX(0); } 88%, 94% { transform: translateX(-3px); } 91%, 97% { transform: translateX(3px); } }
+.fg-overview-heading { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+#root .film-guide-page .fg-overview-heading h3 { font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 300; font-size: 32px; line-height: 1.1; }
+.fg-overview-heading button { padding: 6px; }
+.film-guide-page .fg-overview-intro { font-size: 13px; color: hsl(var(--fg-soft)); margin: 10px 0 18px; }
+.fg-breakdown > .fg-overview-row { padding: 13px 0; align-items: start; font-size: 14px; }
+.fg-overview-row > span:first-child { min-width: 0; }
+.fg-overview-row strong { font-weight: 500; color: hsl(var(--fg-ink)); }
+.fg-overview-row small { display: block; font-size: 12px; line-height: 1.6; margin-top: 5px; }
+.fg-overview-included { color: hsl(var(--fg-soft)); font-size: 12px; }
+.fg-breakdown > .fg-overview-total { color: hsl(var(--fg-ink)); border-top: 1px solid hsl(var(--fg-ink)); border-bottom: 0; font-size: 16px; }
+@media (max-width: 860px) {
+  .film-guide-page .fg-dock-inner { display: grid; grid-template-columns: auto 1fr; gap: 8px 16px; }
+  .fg-estimate-group { grid-column: 1 / -1; grid-row: 1; justify-content: space-between; gap: 10px; }
+  .film-guide-page .fg-dock-inner > .fg-btn { justify-self: end; }
+  .fg-breakdown { bottom: calc(142px + env(safe-area-inset-bottom)); max-height: calc(100dvh - 230px); padding: 18px; }
+  .film-guide-page .fg-overview-trigger { font-size: 11px; padding: 9px 10px; gap: 4px; }
+  .fg-estimate-group .fg-num { font-size: 21px; }
+  .fg-estimate-group .fg-gross { display: block; }
+}
+@media (prefers-reduced-motion: reduce) { .film-guide-page .fg-overview-trigger, .fg-num-discounted, .fg-discount-tag { animation: none; } }
 .film-guide-page .fg-calc-toggle { padding: 4px; color: hsl(var(--fg-copy)); }
 .fg-calculator { position: absolute; top: calc(100% + 16px); right: 0; width: 340px; max-width: calc(100vw - 32px); padding: 20px; background: hsl(var(--fg-card)); border: 1px solid hsl(var(--fg-line)); z-index: 35; }
 .fg-calculator-heading { display: flex; align-items: center; justify-content: space-between; }

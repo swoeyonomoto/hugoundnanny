@@ -6,6 +6,7 @@
 - Store editable gallery and print-product presentation data in Supabase; use bundled assets only as visual fallbacks so admin changes remain authoritative.
 - Pair Cormorant Garamond Light headlines with Inter body text on all public pages, while preserving independently scoped Asia and gallery compositions and the admin typography.
 - Keep Film Guide presentation in dedicated components and page-scoped styles; its reference typography is an intentional isolated exception so existing public pages remain unchanged.
+- Keep the live Film Guide overview in a dedicated presentation component using existing price lines and loaded settings so clearer descriptions never change pricing.
 - Keep Film Guide answer transitions and pricing in pure tested functions, with configurable settings independent of presentation; this prevents summary, confirmation and handoff totals from diverging.
 - Keep Film Guide bilingual chapter copy in a dedicated data module and render only supported italic/bold markers as React elements; this preserves the supplied wording without unsafe HTML or pricing changes.
 - Keep public Film Guide persistence behind existing start/load/save/send functions and token-scoped local recovery; never query private leads from public pages because tokens must not bypass server validation.

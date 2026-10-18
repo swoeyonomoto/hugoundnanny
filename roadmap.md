@@ -1,6 +1,7 @@
 # Roadmap
 
 ## Film Guide
+- [x] Clarify coverage, couple-shoot time and included films in the live overview; add a visible overview button beside the price with a gentle periodic nudge.
 - [x] Refine guide layout using Asia inspiration; default new visits to English.
 - [x] Default public currency to HKD with a two-way EUR calculator; keep saved estimates in EUR.
 - [x] Include all couple-shoot lengths in every package and rewrite family/friends statements.
