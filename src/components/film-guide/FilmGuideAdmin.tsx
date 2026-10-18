@@ -9,7 +9,7 @@ import { chapterIds, filmPrice } from '@/lib/film-guide/logic';
 import { defaultSettings, type GuideSettings } from '@/lib/film-guide/settings';
 import { chapters } from '@/lib/film-guide/content';
 import { planMessage, optionTitle } from '@/lib/film-guide/summary';
-import { customLeadToken, followUp, leadStatuses, linkSources, mergeSettings, newLeadToken, restoreAnswers, validClip } from '@/lib/film-guide/persistence';
+import { customLeadToken, followUp, leadStatuses, linkSources, mergeSettings, restoreAnswers, suggestLeadSlug, validClip } from '@/lib/film-guide/persistence';
 import type { GuideClip } from '@/hooks/use-film-guide';
 import '@/styles/film-guide.css';
 import '@/styles/film-guide-admin.css';
