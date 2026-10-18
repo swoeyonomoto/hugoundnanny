@@ -46,3 +46,6 @@
 - [x] Add product flow: choose size, select photos, calculate quantity-based totals.
 - [x] Keep album configurators marked coming soon.
 - /admin -> Couple-Deck-Creator, Film Guide, Galerie
+- [ ] /admin als zentrale Übersicht: Film Guide, Galerie, Decks-Admin und Planner-Admin (externe Projekte, eigene Backends) verlinken.
+- [ ] Film Guide: Fortschritt des Test-Couples (4/11 Steps) zurücksetzen.
+- [ ] Film Guide: Admin legt pro Couple fest, ob EUR oder HKD zuerst angezeigt wird.
