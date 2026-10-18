@@ -80,10 +80,17 @@ export function priceLines(a: GuideAnswers, settings: GuideSettings = defaultSet
   if (a.shootWhen === 'dayafter') lines.push({ key: 'shootWhen.dayafter', amount: a.days === 'three' ? 0 : p.shootWhen.dayafter });
   for (const voice of a.voices) lines.push({ key: `voices.${voice}`, amount: p.voices[voice as keyof typeof p.voices] ?? 0 });
   if (!a.voices.includes('none') && a.speechesFilm.length) lines.push({ key: 'speechesFilm.yes', amount: p.speechesFilm });
-  for (const extra of selectedExtras(a)) lines.push({ key: `extras.${extra}`, amount: a.days === 'three' && ['feature','social'].includes(extra) ? 0 : p.extras[extra as keyof typeof p.extras] ?? 0 });
+  for (const extra of selectedExtras(a)) {
+    const unit = a.days === 'three' && ['feature','social'].includes(extra) ? 0 : p.extras[extra as keyof typeof p.extras] ?? 0;
+    lines.push({ key: `extras.${extra}`, amount: extra === 'social' ? unit * Math.max(1, a.socialCount) : unit });
+  }
+  if (a.photoDays) lines.push({ key: 'photoDays', amount: a.photoDays * p.photographer.day });
+  if (a.contentDays) lines.push({ key: 'contentDays', amount: a.contentDays * p.contentCreator.day });
   return lines;
 }
-export function estimate(a: GuideAnswers, settings = defaultSettings) { return round50(priceLines(a, settings).reduce((sum, line) => sum + line.amount, 0)); }
+export function subtotal(a: GuideAnswers, settings = defaultSettings) { return round50(priceLines(a, settings).reduce((sum, line) => sum + line.amount, 0)); }
+export function discountAmount(a: GuideAnswers, settings = defaultSettings) { return round50(subtotal(a, settings) * Math.min(100, Math.max(0, a.discount)) / 100); }
+export function estimate(a: GuideAnswers, settings = defaultSettings) { return round50(subtotal(a, settings) - discountAmount(a, settings)); }
 export function packageFor(amount: number, settings = defaultSettings) { return [...settings.packages].sort((a,b) => b.from-a.from).find(p => amount >= p.from); }
 export function hoursText(a: GuideAnswers, lang: Language, settings = defaultSettings) {
   const additional = { one: 0, two: 1, three: 2 }[a.days];
