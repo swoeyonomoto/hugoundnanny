@@ -108,6 +108,6 @@ export function useGuideSession(settings: typeof defaultSettings) {
   },[]);
   const touch=()=>{active.current=true;bump(x=>x+1);};
   const go=(next:number)=>{const old=latest.current.step;times.current[chapterIds[old]]=(times.current[chapterIds[old]] || 0)+(Date.now()-entered.current)/1000;entered.current=Date.now();furthest.current=Math.max(furthest.current,next);setStep(next);};
-  const markSent=async(via:'whatsapp'|'email')=>{active.current=true;if(!await save()) return false;const t=tokenRef.current;if(!t)return false;const {error}=await supabase.functions.invoke('film-guide-send',{body:{token:t,via}});if(error)return false;setSent(true);return true;};
-  return {a,setAnswers,lang,setLang,step,setStep:go,sent,setSent,ready,loadError,token,touch,markSent};
+  const finish=async()=>{active.current=true;if(!await save()) return false;const t=tokenRef.current;if(!t)return false;const {data,error}=await supabase.functions.invoke('film-guide-save',{body:{token:t,patch:patch(),complete:true}});if(error || data?.completed !== true)return false;setSent(true);return true;};
+  return {a,setAnswers,lang,setLang,step,setStep:go,sent,setSent,ready,loadError,token,touch,finish};
 }

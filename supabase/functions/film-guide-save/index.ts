@@ -1,6 +1,7 @@
 import { createClient } from 'npm:@supabase/supabase-js@2';
 import { corsHeaders } from 'npm:@supabase/supabase-js@2/cors';
 import { buildUpdate, isRecord, validToken } from './handler.ts';
+import { completionUpdate, notifyCompletion, readyToFinish } from './completion.ts';
 
 const json = (body: unknown, status = 200) => new Response(JSON.stringify(body), {
   status, headers: { ...corsHeaders, 'Content-Type': 'application/json', 'Cache-Control': 'no-store' },
@@ -28,6 +29,7 @@ Deno.serve(async (req) => {
     const body: unknown = JSON.parse(new TextDecoder().decode(bytes));
     if (!isRecord(body) || !validToken(body.token) || !isRecord(body.patch)) return json({ error: 'bad request' }, 400);
     const { token, patch } = body;
+    if ('complete' in body && typeof body.complete !== 'boolean') return json({ error: 'bad request' }, 400);
     const url = Deno.env.get('SUPABASE_URL');
     const key = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY');
     if (!url || !key) throw new Error('Missing server configuration');
@@ -37,6 +39,18 @@ Deno.serve(async (req) => {
     if (!lead) return json({ error: 'not found' }, 404);
     const { error } = await client.from('film_guide_leads').update(buildUpdate(patch, lead)).eq('token', token);
     if (error) throw error;
+    if (body.complete === true) {
+      const { data: saved, error: savedError } = await client.from('film_guide_leads').select('status, sent_at, names, wedding_date, location, contact, contact_via, estimate_eur, package_hint, last_step, furthest_step').eq('token', token).single();
+      if (savedError) throw savedError;
+      if (!readyToFinish(saved)) return json({ error: 'Please complete your details and reach the final chapter first.' }, 400);
+      if (saved.sent_at) return json({ ok: true, completed: true });
+      const { data: claimed, error: completionError } = await client.from('film_guide_leads').update(completionUpdate(saved, new Date().toISOString())).eq('token', token).is('sent_at', null).select('sent_at').maybeSingle();
+      if (completionError) throw completionError;
+      if (!claimed) return json({ ok: true, completed: true });
+      let notified = false;
+      try { notified = await notifyCompletion(saved); } catch { console.error('[film-guide-finish] inbox notification unavailable'); }
+      return json({ ok: true, completed: true, notified });
+    }
     return json({ ok: true });
   } catch {
     console.error('[film-guide-save] could not save');
