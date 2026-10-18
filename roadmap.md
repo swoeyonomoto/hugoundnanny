@@ -45,3 +45,4 @@
 - [x] Add product detail views with editable descriptions and preview images.
 - [x] Add product flow: choose size, select photos, calculate quantity-based totals.
 - [x] Keep album configurators marked coming soon.
+- /admin -> Couple-Deck-Creator, Film Guide, Galerie

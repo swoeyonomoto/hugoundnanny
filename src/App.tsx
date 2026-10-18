@@ -44,6 +44,7 @@ const App = () => {
           <Route path="/asia" element={<Asia />} />
           <Route path="/gallery/:slug" element={<Gallery />} />
           <Route path="/gallery-admin" element={<GalleryAdmin />} />
+          <Route path="/admin" element={<GalleryAdmin />} />
           <Route path="/film-guide" element={<FilmGuide />} />
           <Route path="/film-guide/:token" element={<FilmGuide />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
