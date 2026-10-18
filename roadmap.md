@@ -1,11 +1,12 @@
 # Roadmap
 
 ## Unified admin
-- [ ] Redesign the admin workspace with fast couple/package/price lookup and clear tool navigation.
-- [ ] Prefill admin-created couple names in the public guide, including local recovery.
-- [ ] Add easy gallery link copying and move account settings to their own view.
+- [x] Redesign the admin workspace with fast couple/package/price lookup and clear tool navigation.
+- [x] Prefill admin-created couple names in the public guide, including local recovery; controlled public browser flow and concrete tests pass.
+- [x] Add easy gallery link copying and move account settings to their own view.
 - [ ] Automatic Decks synchronization: blocked by required changes in the separate Decks project and the existing no-backend-changes restriction; document the integration handoff.
-- [ ] Verify updated admin presentation and name recovery; authenticated live checks require an external Supabase session.
+- [x] Verify updated admin presentation with isolated sample records: search, couple details, gallery clipboard link, account view and mobile overflow; 81 tests pass.
+- [ ] Verify real admin edits and couple prefill: external Supabase authenticated session unavailable; the previously supplied Sheetal custom URL returns 404 from film-guide-load.
 
 ## Film Guide
 - [x] Preserve the saved admin discount when resuming a personal link and show it in the bottom estimate from the beginning; 77 tests pass and controlled 40% recovery/day-change checks pass. Real saved discounts are currently zero; signed-in admin verification remains blocked as below.
@@ -53,6 +54,6 @@
 - [x] Add product flow: choose size, select photos, calculate quantity-based totals.
 - [x] Keep album configurators marked coming soon.
 - /admin -> Couple-Deck-Creator, Film Guide, Galerie
-- [ ] /admin als zentrale Übersicht: Film Guide, Galerie, Decks-Admin und Planner-Admin (externe Projekte, eigene Backends) verlinken.
+- [x] /admin als zentrale Übersicht: Film Guide, Galerie, Decks-Admin und Planner-Admin (externe Projekte, eigene Backends) verlinken.
 - [x] Film Guide: Fortschritt des Test-Couples (Sheetal + Amal, 4/11) zurückgesetzt.
 - [x] Film Guide: Admin legt pro Couple fest, ob EUR oder HKD zuerst angezeigt wird (78 Tests, Build OK).
