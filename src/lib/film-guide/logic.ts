@@ -45,6 +45,11 @@ export function updateAnswer<K extends keyof GuideAnswers>(a: GuideAnswers, key:
     }
   }
   if (next.voices.includes('none')) { next.speechCount = ''; next.speechesFilm = []; }
+  if (key === 'extras') {
+    if (next.extras.includes('photo') && !next.photoDays) next.photoDays = 1;
+    if (!next.extras.includes('photo')) next.photoDays = 0;
+    if (!next.extras.includes('social')) next.socialCount = 1;
+  }
   return next;
 }
 export function toggleMulti(values: string[], value: string) {
@@ -82,9 +87,9 @@ export function priceLines(a: GuideAnswers, settings: GuideSettings = defaultSet
   if (!a.voices.includes('none') && a.speechesFilm.length) lines.push({ key: 'speechesFilm.yes', amount: p.speechesFilm });
   for (const extra of selectedExtras(a)) {
     const unit = a.days === 'three' && ['feature','social'].includes(extra) ? 0 : p.extras[extra as keyof typeof p.extras] ?? 0;
-    lines.push({ key: `extras.${extra}`, amount: extra === 'social' ? unit * Math.max(1, a.socialCount) : unit });
+    lines.push({ key: `extras.${extra}`, amount: extra === 'social' ? unit * Math.max(1, a.socialCount) : extra === 'photo' ? 0 : unit });
   }
-  if (a.photoDays) lines.push({ key: 'photoDays', amount: a.photoDays * p.photographer.day });
+  if (a.extras.includes('photo')) lines.push({ key: 'photoDays', amount: Math.max(1, a.photoDays) * p.photographer.day });
   if (a.contentDays) lines.push({ key: 'contentDays', amount: a.contentDays * p.contentCreator.day });
   return lines;
 }
