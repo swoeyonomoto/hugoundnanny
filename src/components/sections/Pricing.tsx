@@ -139,6 +139,7 @@ const Pricing = () => {
               ))}
             </div>
           </RevealOnScroll>
+          )}
 
           <RevealOnScroll>
             <div className="pricing-guide-cta">
