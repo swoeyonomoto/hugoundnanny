@@ -1,6 +1,8 @@
 import { useLang } from "@/contexts/LanguageContext";
 import RevealOnScroll from "@/components/RevealOnScroll";
 
+const SHOW_PACKAGES = false;
+
 const Pricing = () => {
   const { t } = useLang();
 
@@ -94,6 +96,8 @@ const Pricing = () => {
             </div>
           </RevealOnScroll>
 
+          {/* Hidden for now - the Film Guide replaces the fixed packages. Set SHOW_PACKAGES = true to bring them back. */}
+          {SHOW_PACKAGES && (
           <RevealOnScroll>
             <div className="cards">
               {packages.map((pkg, i) => (
