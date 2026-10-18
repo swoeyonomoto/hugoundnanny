@@ -126,6 +126,14 @@
 .fg-next li { counter-increment: fg-n; display: grid; grid-template-columns: 34px 1fr; padding: 11px 0; border-top: 1px solid hsl(var(--fg-line)); color: hsl(var(--fg-copy)); font-size: 14px; }
 .fg-next li::before { content: '0' counter(fg-n); font-size: 11px; color: hsl(var(--fg-soft)); padding-top: 2px; }
 .fg-send { display: grid; gap: 10px; margin-top: 26px; }
+.film-guide-page .fg-finish { min-height: 56px; font-size: 13px; }
+.fg-finishing { animation: fg-spin 1s linear infinite; }
+.fg-received { margin-top: 32px; padding: 32px 0; border-top: 1px solid hsl(var(--fg-line)); animation: fg-rise .5s ease-out; }
+.fg-received svg { margin-bottom: 16px; }
+#root .film-guide-page .fg-received h3 { font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 300; font-size: 38px; line-height: 1.1; margin-bottom: 12px; }
+.fg-received p { color: hsl(var(--fg-copy)); font-size: 15px; }
+@keyframes fg-spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .fg-received, .fg-finishing { animation: none; } }
 .fg-modal { position: fixed; inset: 0; z-index: 40; background: hsl(var(--fg-ink) / .35); display: flex; align-items: center; justify-content: center; padding: 16px; }
 .fg-sheet { background: hsl(var(--fg-card)); max-width: 460px; width: 100%; max-height: calc(100dvh - 32px); overflow-y: auto; padding: 26px 24px 22px; }
 #root .film-guide-page .fg-sheet h3 { font-family: 'Cormorant Garamond',Georgia,serif; font-weight: 400; font-size: 28px; line-height: 1.1; margin: 8px 0 14px; }

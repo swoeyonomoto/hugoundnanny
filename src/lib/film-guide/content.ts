@@ -43,8 +43,8 @@ export const reduceLosses: Record<string, [string,string][]> = {
  ['Both of you getting ready, filmed at the same time','Euer beider Getting Ready, gleichzeitig gefilmt']],
 };
 export const nextSteps: [string,string][] = [
- ['You send us your plan - via WhatsApp or email, one tap.','Ihr schickt uns euren Plan - per WhatsApp oder E-Mail, ein Klick.'],
- ['Within 24 hours we tell you whether your date is free.','Innerhalb von 24 Stunden sagen wir euch, ob euer Datum frei ist.'],
+ ['Finish your plan. We’ll take it from here.','Schließt euren Plan ab. Ab hier übernehmen wir.'],
+ ['Within 48 hours we get back to you about your date and plan.','Innerhalb von 48 Stunden melden wir uns zu eurem Datum und Plan.'],
  ['A 30-minute call to go through your plan together.','Kennenlern-Call, 30 Minuten. Wir gehen euren Plan gemeinsam durch.'],
  ['Contract + deposit - your date is reserved.','Vertrag + Anzahlung - und euer Datum ist fest reserviert.'],
  ['Planning in our app: timeline, interview questions, references. Nothing to prepare on your own.','Planung über unsere App: Zeitplan, Interview-Fragen, Referenzen. Ihr müsst nichts vorbereiten, was wir nicht mit euch zusammen machen.'],

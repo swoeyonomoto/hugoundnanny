@@ -16,7 +16,7 @@ describe('Personal couple link loading', () => {
     await waitFor(() => expect(result.current.ready).toBe(true));
     expect(result.current.loadError).toBe(true);
     expect(mocks.navigate).not.toHaveBeenCalled();
-    await act(async () => { expect(await result.current.markSent('email')).toBe(false); });
+    await act(async () => { expect(await result.current.finish()).toBe(false); });
     expect(mocks.invoke.mock.calls.some(([name]) => name === 'film-guide-start')).toBe(false);
   });
   it('loads Joey + Seli with EUR first and their 35 percent discount', async () => {
@@ -27,5 +27,21 @@ describe('Personal couple link loading', () => {
     expect(result.current.a.currency).toBe('EUR');
     expect(result.current.a.discount).toBe(35);
     expect(result.current.loadError).toBe(false);
+  });
+  it('finishes only after saved completion is acknowledged', async () => {
+    mocks.invoke.mockImplementation(async (name, options) => name === 'film-guide-load' ? {data:{lead:{names:'Joey + Seli',last_step:'plan',furthest_step:11}},error:null} : {data:options?.body?.complete ? {ok:true,completed:true} : {ok:true},error:null});
+    const {result}=renderHook(()=>useGuideSession(defaultSettings));
+    await waitFor(()=>expect(result.current.ready).toBe(true));
+    await act(async()=>{expect(await result.current.finish()).toBe(true);});
+    expect(result.current.sent).toBe(true);
+    expect(mocks.invoke).toHaveBeenCalledWith('film-guide-save',expect.objectContaining({body:expect.objectContaining({token:'joey_+_seli_v01',complete:true})}));
+    expect(mocks.invoke.mock.calls.some(([name])=>name==='film-guide-send')).toBe(false);
+  });
+  it('does not show receipt when saving completion fails', async () => {
+    mocks.invoke.mockImplementation(async (name, options) => name === 'film-guide-load' ? {data:{lead:{names:'Joey + Seli',last_step:'plan',furthest_step:11}},error:null} : options?.body?.complete ? {data:null,error:{message:'unavailable'}} : {data:{ok:true},error:null});
+    const {result}=renderHook(()=>useGuideSession(defaultSettings));
+    await waitFor(()=>expect(result.current.ready).toBe(true));
+    await act(async()=>{expect(await result.current.finish()).toBe(false);});
+    expect(result.current.sent).toBe(false);
   });
 });
