@@ -10,7 +10,7 @@ import { currencyMoney, referenceRate, type GuideCurrency } from '@/lib/film-gui
 import { GuideRichText } from '@/components/film-guide/FilmGuideCopy';
 import { chapterCopy } from '@/lib/film-guide/copy';
 import { GuideChoices, GuideField, GuideStepper, type GuideOption } from '@/components/film-guide/FilmGuideControls';
-import { chapterIds, estimate, filmPrice, formatMoney, hoursText, initialAnswers, missingAnswers, nextChapter, priceLines, selectedExtras, startingLanguage, toggleMulti, updateAnswer, type GuideAnswers, type Language, type Days, type Crew } from '@/lib/film-guide/logic';
+import { chapterIds, discountAmount, estimate, filmPrice, formatMoney, hoursText, initialAnswers, missingAnswers, nextChapter, priceLines, selectedExtras, startingLanguage, subtotal, toggleMulti, updateAnswer, type GuideAnswers, type Language, type Days, type Crew } from '@/lib/film-guide/logic';
 import { chapters, choices, reduceLosses } from '@/lib/film-guide/content';
 import { optionClips } from '@/lib/film-guide/settings';
 import { formattedDate, optionTitle, planMessage } from '@/lib/film-guide/summary';
@@ -53,6 +53,8 @@ export default function FilmGuide() {
   const key = questionKey[id];
   const single = ['intro','about','plan'].includes(id);
   const total = estimate(a,settings);
+  const gross = subtotal(a,settings);
+  const discount = discountAmount(a,settings);
   useGuideClarity(token,id,a,total);
   const missing = missingAnswers(id,a);
   const included = t('included','inklusive');
