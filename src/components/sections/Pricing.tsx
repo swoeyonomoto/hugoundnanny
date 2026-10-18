@@ -136,6 +136,20 @@ const Pricing = () => {
             </div>
           </RevealOnScroll>
 
+          <RevealOnScroll>
+            <div className="pricing-guide-cta">
+              <p className="pricing-guide-cta-text">
+                {t(
+                  "Stell dir deine Hochzeit selbst zusammen - in 5 Minuten zum persönlichen Kostenvoranschlag.",
+                  "Build your wedding your way - your personal estimate in 5 minutes."
+                )}
+              </p>
+              <a href="/film-guide" className="pricing-guide-cta-btn">
+                {t("Zum Film Guide - eigenen Preis erstellen", "Open the Film Guide - create your estimate")}
+              </a>
+            </div>
+          </RevealOnScroll>
+
           <p className="pricing-note">
             {t(
               "*Ticket- und Übernachtungskosten sind nicht enthalten // Alle Preise verstehen sich zzgl. MwSt.",
