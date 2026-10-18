@@ -1,10 +1,11 @@
 import { FormEvent, useEffect, useMemo, useState } from "react";
-import { Check, LogOut, Save } from "lucide-react";
+import { Check, Copy, ExternalLink, Film as FilmIcon, Images, LayoutTemplate, CalendarDays, Settings, LogOut, Save } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Film, parseFilms } from "@/components/gallery/FilmView";
 
 import FilmGuideAdmin from "@/components/film-guide/FilmGuideAdmin";
+import "@/styles/admin-workspace.css";
 
 type Entry = { tag: string; name: string; path: string };
 type GalleryConfig = {
@@ -33,7 +34,8 @@ async function listDropbox(path: string) {
 }
 
 export default function GalleryAdmin() {
-  const [adminView,setAdminView] = useState("galleries");
+  const [adminView,setAdminView] = useState("film");
+  const [galleryAllowed,setGalleryAllowed] = useState(false);
   const [filmAllowed,setFilmAllowed] = useState(false);
   const [sessionReady, setSessionReady] = useState(false);
   const [signedIn, setSignedIn] = useState(false);
@@ -64,10 +66,12 @@ export default function GalleryAdmin() {
       if (hasSession) {
         const { data: role } = await supabase.from("user_roles").select("id").eq("role", "admin").maybeSingle();
         setAllowed(Boolean(role));
+        setGalleryAllowed(Boolean(role));
         const {data:filmRole}=await supabase.rpc("film_guide_is_admin");
         setFilmAllowed(filmRole === true);
         setAllowed(Boolean(role) || filmRole === true);
         if (!role && filmRole === true) setAdminView("film");
+        if (role && filmRole !== true) setAdminView("galleries");
         if (role) await load();
       }
       setSessionReady(true);
@@ -110,18 +114,18 @@ export default function GalleryAdmin() {
   const selectedCount = useMemo(() => gallery?.highlight_paths.length ?? 0, [gallery]);
 
   if (!sessionReady) return <main className="gallery-admin"><p>Lädt …</p></main>;
-  if (!signedIn) return <main className="gallery-admin"><form className="ga-login" onSubmit={signIn}><img src="/photos/logo-left.png" alt="Hugo + Nanny" /><h1>Gallery Manager</h1><label>E-Mail<input type="email" value={email} onChange={(event) => setEmail(event.target.value)} required /></label><label>Passwort<input type="password" value={password} onChange={(event) => setPassword(event.target.value)} required /></label>{message && <p>{message}</p>}<Button type="submit">Anmelden</Button></form></main>;
+  if (!signedIn) return <main className="gallery-admin"><form className="ga-login" onSubmit={signIn}><img src="/photos/logo-left.png" alt="Hugo + Nanny" /><h1>Client workspace</h1><label>E-Mail<input type="email" value={email} onChange={(event) => setEmail(event.target.value)} required /></label><label>Passwort<input type="password" value={password} onChange={(event) => setPassword(event.target.value)} required /></label>{message && <p>{message}</p>}<Button type="submit">Anmelden</Button></form></main>;
   if (!allowed) return <main className="gallery-admin"><p>Dieses Konto hat keinen Admin-Zugriff.</p><Button onClick={() => supabase.auth.signOut().then(() => window.location.reload())}>Abmelden</Button></main>;
 
   return <main className="gallery-admin">
-    <header className="ga-head"><div><img src="/photos/logo-left.png" alt="Hugo + Nanny" /><span>Gallery Manager</span></div><Button variant="ghost" size="icon" title="Abmelden" onClick={() => supabase.auth.signOut().then(() => window.location.reload())}><LogOut /></Button></header>
+    <header className="ga-head"><div><img src="/photos/logo-left.png" alt="Hugo + Nanny" /><span>Client workspace</span></div><Button variant="ghost" size="icon" title="Abmelden" onClick={() => supabase.auth.signOut().then(() => window.location.reload())}><LogOut /></Button></header>
     <div className="ga-shell">
-      <nav className="ga-nav">{filmAllowed && <><Button variant={adminView === "film" ? "secondary" : "ghost"} onClick={()=>setAdminView("film")}>Film guide</Button><Button variant={adminView === "galleries" ? "secondary" : "ghost"} onClick={()=>setAdminView("galleries")}>Galerien & Shop</Button></>}<h2>Tools</h2><a className="ga-link" href="https://hugonannystory.lovable.app" target="_blank" rel="noreferrer">Couple Decks</a><a className="ga-link" href="https://hugonanny-planner.lovable.app" target="_blank" rel="noreferrer">Planner & Day Management</a><h2>Galerien</h2>{galleries.map((item) => <Button key={item.id} variant={item.id === activeId ? "secondary" : "ghost"} onClick={() => {setActiveId(item.id);setAdminView("galleries");}}>{item.couple_name}</Button>)}</nav>
+      <nav className="ga-nav" aria-label="Client workspace"><h2>Workspace</h2>{filmAllowed && <Button variant={adminView === "film" ? "secondary" : "ghost"} onClick={()=>setAdminView("film")}><FilmIcon size={17}/>Film guide</Button>}{galleryAllowed && <Button variant={adminView === "galleries" ? "secondary" : "ghost"} onClick={()=>setAdminView("galleries")}><Images size={17}/>Galerien & Shop</Button>}<h2>Tools</h2><a className="ga-link" href="https://hugonannystory.lovable.app" target="_blank" rel="noreferrer"><LayoutTemplate size={17}/>Couple Decks<ExternalLink size={12}/></a><a className="ga-link" href="https://hugonanny-planner.lovable.app" target="_blank" rel="noreferrer"><CalendarDays size={17}/>Planner & Day Management<ExternalLink size={12}/></a>{galleries.length > 0 && <h2>Galerien</h2>}{galleries.map((item) => <Button key={item.id} variant={adminView === "galleries" && item.id === activeId ? "secondary" : "ghost"} onClick={() => {setActiveId(item.id);setAdminView("galleries");}}>{item.couple_name}</Button>)}<h2>Account</h2><Button variant={adminView === "account" ? "secondary" : "ghost"} onClick={()=>setAdminView("account")}><Settings size={17}/>Login & Sicherheit</Button></nav>
       <div className="ga-content">
-        {message && <button className="ga-message" onClick={() => setMessage("")}>{message}</button>}
-        {adminView === "film" && filmAllowed ? <FilmGuideAdmin /> : <>
-        <AccountSettings onMessage={setMessage} />
+        {message && <Button className="ga-message" onClick={() => setMessage("")}>{message}</Button>}
+        {adminView === "account" ? <div className="ga-account"><AccountSettings onMessage={setMessage} /></div> : adminView === "film" && filmAllowed ? <FilmGuideAdmin /> : galleryAllowed && <>
         {gallery && <section className="ga-section"><div className="ga-section-head"><div><p>Galerie</p><h1>{gallery.couple_name}</h1></div><Button onClick={saveGallery}><Save /> Speichern</Button></div>
+          <div className="ga-share"><input aria-label="Gallery share link" readOnly value={`https://hugo-nanny.de/gallery/${encodeURIComponent(gallery.slug)}`}/><Button variant="outline" onClick={async()=>{try{await navigator.clipboard.writeText(`https://hugo-nanny.de/gallery/${encodeURIComponent(gallery.slug)}`);setMessage("Galerie-Link kopiert.");}catch{setMessage("Bitte den Galerie-Link im Feld kopieren.");}}}><Copy size={16}/>Link kopieren</Button><Button variant="ghost" size="icon" title="Galerie öffnen" onClick={()=>window.open(`/gallery/${encodeURIComponent(gallery.slug)}`,"_blank","noopener,noreferrer")}><ExternalLink size={16}/></Button>{!gallery.active && <span>Galerie ist inaktiv</span>}</div>
           <div className="ga-form-grid">
             <label>Name<input value={gallery.couple_name} onChange={(e) => updateGallery("couple_name", e.target.value)} /></label>
             <label>Datum<input value={gallery.wedding_date} onChange={(e) => updateGallery("wedding_date", e.target.value)} /></label>
@@ -184,7 +188,7 @@ function AccountSettings({ onMessage }: { onMessage: (m: string) => void }) {
       <label className="ga-wide">Neue E-Mail<input type="email" required value={newEmail} onChange={(e) => setNewEmail(e.target.value)} /></label>
       <Button type="submit"><Save /> E-Mail ändern</Button>
     </form>
-    <form className="ga-form-grid" onSubmit={savePassword} style={{ marginTop: 24 }}>
+    <form className="ga-form-grid" onSubmit={savePassword}>
       <label>Aktuelles Passwort<input type="password" required value={currentPw} onChange={(e) => setCurrentPw(e.target.value)} /></label>
       <label>Neues Passwort<input type="password" required value={newPw} onChange={(e) => setNewPw(e.target.value)} /></label>
       <label>Neues Passwort wiederholen<input type="password" required value={newPw2} onChange={(e) => setNewPw2(e.target.value)} /></label>
