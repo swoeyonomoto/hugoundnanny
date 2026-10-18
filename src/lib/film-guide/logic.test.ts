@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { estimate, filmPrice, hoursText, initialAnswers, missingAnswers, nextChapter, packageFor, priceLines, selectedExtras, startingLanguage, toggleMulti, updateAnswer, type GuideAnswers } from './logic';
+import { discountAmount, estimate, filmPrice, hoursText, initialAnswers, missingAnswers, nextChapter, packageFor, priceLines, selectedExtras, startingLanguage, subtotal, toggleMulti, updateAnswer, type GuideAnswers } from './logic';
 import { planMessage, summaryRows } from './summary';
 const answer = (patch: Partial<GuideAnswers> = {}): GuideAnswers => ({...initialAnswers,...patch});
 describe('Film Guide pricing', () => {
