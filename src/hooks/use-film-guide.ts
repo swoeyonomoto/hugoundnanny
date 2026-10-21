@@ -49,7 +49,7 @@ export function useGuideSession(settings: typeof defaultSettings) {
   const saveChain = useRef(Promise.resolve(true));
   const save = () => {
     cache();
-    const work = async () => {
+    const work = async () => { try {
       const t=await ensureToken(); if (!t) return false;
       const loaded=await supabase.functions.invoke('film-guide-load',{body:{token:t}});
       if(loaded.error || !loaded.data?.lead) return false;
@@ -60,7 +60,7 @@ export function useGuideSession(settings: typeof defaultSettings) {
       const {error}=await supabase.functions.invoke('film-guide-save',{body:{token:t,patch:current}});
       if (!error && latest.current.a === revisionAtSave.a && latest.current.step === revisionAtSave.step && latest.current.lang === revisionAtSave.lang) {try {localStorage.setItem(draftKey(t),JSON.stringify({patch:current,pending:false}));} catch { /* unavailable */ }}
       return !error;
-    };
+    } catch { return false; } };
     saveChain.current = saveChain.current.then(work,work); return saveChain.current;
   };
   useEffect(() => {
@@ -95,7 +95,7 @@ export function useGuideSession(settings: typeof defaultSettings) {
       local=local || (!t ? readDraft(null) : null);
       if(local?.patch) {setAnswers(restoreAnswers(local.patch));setStep(Math.max(0,chapterIds.indexOf(local.patch.last_step)));furthest.current=local.patch.furthest_step || 0;times.current=local.patch.step_times || {};active.current=true;bump(x=>x+1);}
       if(live) setReady(true);
-    })();return () => {live=false;};
+    })().catch(()=>{ if(live){ if(routeToken){active.current=false;setLoadError(true);} setReady(true);} });return () => {live=false;};
   },[routeToken,navigate]);
   useEffect(() => {if(!ready || !active.current) return; cache();const timer=setTimeout(() => {void save();},800);return () => clearTimeout(timer);},[a,lang,step,settings,ready,revision]);
   useEffect(() => {
