@@ -22,3 +22,4 @@
 - Keep the admin workspace theme scoped to `.gallery-admin` and account settings in a separate view so public styling and gallery editing remain independent.
 - Display stored lead estimates as saved estimates, not recomputed quotes, so admin reflects what was last saved by the couple; current calculations remain available in the plan detail.
 - Keep cross-project synchronization pending until a secure, authorized integration exists in both projects; external tool links do not imply shared records or prices.
+- Render Film Guide custom offers only from the server-returned enabled offer, accept them through the existing save endpoint, and keep offer price maths in a pure tested module; couples can never alter offer terms.

@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { chapterIds, initialAnswers, startingLanguage, type GuideAnswers, type Language } from '@/lib/film-guide/logic';
 import { defaultSettings } from '@/lib/film-guide/settings';
+import { parseOffer, type CustomOffer } from '@/lib/film-guide/offer';
 import { leadPatch, mergeSettings, restoreAnswers, restoreSessionAnswers, withLeadDiscount } from '@/lib/film-guide/persistence';
 export type GuideClip = {key:string;video_path:string;start_s:number;end_s:number};
 export function useGuideConfig() {
@@ -25,10 +26,12 @@ export function useGuideSession(settings: typeof defaultSettings) {
   const [loadError,setLoadError] = useState(false);
   const [token,setToken] = useState<string|null>(null);
   const [revision,bump] = useState(0);
+  const [offer,setOffer] = useState<CustomOffer|null>(null);
+  const offerMode = useRef(false);
   const active = useRef(false), tokenRef = useRef<string|null>(null), startPromise = useRef<Promise<string|null>|null>(null);
   const furthest = useRef(0), times = useRef<Record<string,number>>({}), entered = useRef(Date.now());
   const latest = useRef({a,lang,step,settings}); latest.current={a,lang,step,settings};
-  const patch = (answers = latest.current.a) => { const s=latest.current; return leadPatch(answers,s.lang,s.step,furthest.current,{...times.current,[chapterIds[s.step]]:(times.current[chapterIds[s.step]] || 0)+(Date.now()-entered.current)/1000},s.settings); };
+  const patch = (answers = latest.current.a) => { const s=latest.current; const out=leadPatch(answers,s.lang,s.step,furthest.current,{...times.current,[chapterIds[s.step]]:(times.current[chapterIds[s.step]] || 0)+(Date.now()-entered.current)/1000},s.settings); return offerMode.current ? {...out,last_step:'offer'} : out; };
   const cache = () => { try {localStorage.setItem(draftKey(tokenRef.current),JSON.stringify({patch:patch(),pending:true}));} catch { /* browser storage unavailable */ } };
   const ensureToken = async () => {
     if (tokenRef.current) return tokenRef.current;
@@ -75,7 +78,7 @@ export function useGuideSession(settings: typeof defaultSettings) {
         if (!live) return;
         if (!error && data?.lead) {
           const p=local?.pending ? local.patch : data.lead;
-          setAnswers(restoreSessionAnswers(data.lead,local?.pending ? local.patch : undefined)); setStep(Math.max(0,chapterIds.indexOf(p.last_step))); setSent(Boolean(data.lead.sent_at));
+          setAnswers(restoreSessionAnswers(data.lead,local?.pending ? local.patch : undefined)); setStep(Math.max(0,chapterIds.indexOf(p.last_step))); setSent(Boolean(data.lead.sent_at)); setOffer(parseOffer(data.lead.custom_offer));
           if (!new URLSearchParams(location.search).has('lang')) setLang(p.lang === 'de' ? 'de' : 'en');
           furthest.current=Math.max(p.furthest_step || 0,data.lead.furthest_step || 0); times.current=p.step_times || {};entered.current=Date.now();active.current=true;tokenRef.current=t;setToken(t);
           try {localStorage.setItem(TOKEN_KEY,t);} catch { /* unavailable */ }
@@ -100,7 +103,7 @@ export function useGuideSession(settings: typeof defaultSettings) {
       const headers={'Content-Type':'application/json',apikey:import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,Authorization:`Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`};
       const current=patch();
       void fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/film-guide-load`,{method:'POST',keepalive:true,headers,body:JSON.stringify({token:t})})
-        .then(async response=>{if(!response.ok)return;const data=await response.json();if(!data?.lead)return;const answers=withLeadDiscount(current.answers,data.lead);const safe=leadPatch(answers,current.lang,chapterIds.indexOf(current.last_step),current.furthest_step,current.step_times,latest.current.settings);await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/film-guide-save`,{method:'POST',keepalive:true,headers,body:JSON.stringify({token:t,patch:safe})});}).catch(()=>{});
+        .then(async response=>{if(!response.ok)return;const data=await response.json();if(!data?.lead)return;const answers=withLeadDiscount(current.answers,data.lead);const safe=leadPatch(answers,current.lang,Math.max(0,chapterIds.indexOf(current.last_step as typeof chapterIds[number])),current.furthest_step,current.step_times,latest.current.settings);if(offerMode.current)(safe as {last_step:string}).last_step="offer";await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/film-guide-save`,{method:'POST',keepalive:true,headers,body:JSON.stringify({token:t,patch:safe})});}).catch(()=>{});
     };
     const hidden=()=>{if(document.visibilityState === 'hidden') flush();}; const retry=()=>{if(active.current) bump(x=>x+1);};
     document.addEventListener('visibilitychange',hidden);window.addEventListener('pagehide',flush);window.addEventListener('online',retry);
@@ -109,5 +112,11 @@ export function useGuideSession(settings: typeof defaultSettings) {
   const touch=()=>{active.current=true;bump(x=>x+1);};
   const go=(next:number)=>{const old=latest.current.step;times.current[chapterIds[old]]=(times.current[chapterIds[old]] || 0)+(Date.now()-entered.current)/1000;entered.current=Date.now();furthest.current=Math.max(furthest.current,next);setStep(next);};
   const finish=async()=>{active.current=true;if(!await save()) return false;const t=tokenRef.current;if(!t)return false;const {data,error}=await supabase.functions.invoke('film-guide-save',{body:{token:t,patch:patch(),complete:true}});if(error || data?.completed !== true)return false;setSent(true);return true;};
-  return {a,setAnswers,lang,setLang,step,setStep:go,sent,setSent,ready,loadError,token,touch,finish};
+  const showOffer=(on:boolean)=>{if(offerMode.current===on)return;offerMode.current=on;touch();};
+  const acceptOffer=async():Promise<true|string>=>{active.current=true;const t=tokenRef.current;if(!t)return 'missing';await save();const c=latest.current.a;const {data,error}=await supabase.functions.invoke('film-guide-save',{body:{token:t,patch:{names:c.names,contact:c.contact,contact_via:c.contactVia},accept_offer:true}});
+    if(!error && data?.accepted===true){setSent(true);return true;}
+    let message=typeof data?.error==='string'?data.error:'';
+    if(!message && error && 'context' in error){try{const body=await (error.context as Response).json();if(typeof body?.error==='string')message=body.error;}catch{/* no body */}}
+    return message || 'error';};
+  return {offer,showOffer,acceptOffer,a,setAnswers,lang,setLang,step,setStep:go,sent,setSent,ready,loadError,token,touch,finish};
 }
