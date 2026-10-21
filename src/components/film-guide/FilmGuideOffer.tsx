@@ -46,7 +46,7 @@ export default function FilmGuideOffer(p: Props) {
       </div>}
       {p.error && <p className="fg-offer-error" role="alert">{p.error}</p>}
       <div className="fg-offer-actions">
-        <Button className="fg-finish" disabled={p.sending} onClick={p.onAccept}>{p.sending ? t('Sending…', 'Wird gesendet…') : t('Accept offer', 'Angebot annehmen')}</Button>
+        <Button className="fg-btn fg-finish" disabled={p.sending} onClick={p.onAccept}>{p.sending ? t('Sending…', 'Wird gesendet…') : t('Accept offer', 'Angebot annehmen')}</Button>
         <Button variant="outline" asChild><a href={question} target="_blank" rel="noopener noreferrer">{t('Ask us a question', 'Frage stellen')}</a></Button>
       </div>
     </>}
