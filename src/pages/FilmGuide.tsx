@@ -6,6 +6,7 @@ import SEO from '@/components/SEO';
 import FilmGuideVideo from '@/components/film-guide/FilmGuideVideo';
 import FilmGuidePlan from '@/components/film-guide/FilmGuidePlan';
 import FilmGuideCurrency from '@/components/film-guide/FilmGuideCurrency';
+import FilmGuideOffer from '@/components/film-guide/FilmGuideOffer';
 import FilmGuideOverview from '@/components/film-guide/FilmGuideOverview';
 import { ChevronUp } from 'lucide-react';
 import { currencyMoney, referenceRate, type GuideCurrency } from '@/lib/film-guide/currency';
@@ -25,8 +26,12 @@ const questionKey: Record<string,keyof GuideAnswers> = { how:'start', film:'love
 
 export default function FilmGuide() {
   const {settings,clips} = useGuideConfig();
-  const {a,setAnswers,lang,setLang,step,setStep,sent,setSent,ready,loadError,token,touch,finish} = useGuideSession(settings);
+  const {offer,showOffer,acceptOffer,a,setAnswers,lang,setLang,step,setStep,sent,setSent,ready,loadError,token,touch,finish} = useGuideSession(settings);
   const [sending,setSending] = useState(false);
+  const [fullGuide,setFullGuide] = useState(false);
+  const [offerError,setOfferError] = useState('');
+  const offerView = Boolean(offer) && !fullGuide;
+  useEffect(() => { if (ready && !loadError) showOffer(offerView); }, [ready, loadError, offerView]); // eslint-disable-line react-hooks/exhaustive-deps
   const [currency,setCurrency] = useState<GuideCurrency>('HKD');
   const currencyInit = useRef(false);
   useEffect(() => {
@@ -63,7 +68,7 @@ export default function FilmGuide() {
   const total = estimate(a,settings);
   const gross = subtotal(a,settings);
   const discount = discountAmount(a,settings);
-  useGuideClarity(token,id,a,total);
+  useGuideClarity(token,offerView ? 'offer' : id,a,total);
   const missing = missingAnswers(id,a);
   const included = t('included','inklusive');
   const showPrices = settings.show_price_to_client;
@@ -156,6 +161,13 @@ export default function FilmGuide() {
     } catch {setToast(t('Could not finish. Please try again.','Abschließen fehlgeschlagen. Bitte erneut versuchen.'));}
     finally {setSending(false);}
   };
+  const accept = async () => {
+    if (sending) return;
+    if (!a.names.trim() || !a.contact.trim()) { setOfferError(t('Please add your names and WhatsApp or email.','Bitte ergänzt eure Namen und WhatsApp oder E-Mail.')); return; }
+    setSending(true); setOfferError('');
+    try { const result = await acceptOffer(); if (result === true) guideEvent('guide_offer_accepted'); else setOfferError(result.length > 8 && result !== 'missing' ? result : t('Could not send. Please try again.','Senden fehlgeschlagen. Bitte erneut versuchen.')); }
+    finally { setSending(false); }
+  };
   const simulated = reduce ? updateAnswer(a,reduce.key,reduce.value) : a;
   const losses = reduce?.key === 'crew' ? [...reduceLosses.crew,...(a.speechesFilm.length ? [[t('Your speeches film would be filmed from one angle only','Euer Reden-Film wäre nur aus einer Perspektive gefilmt'),t('Your speeches film would be filmed from one angle only','Euer Reden-Film wäre nur aus einer Perspektive gefilmt')] as [string,string]] : [])] : reduce ? [...(a.days === 'three' ? reduceLosses.three : []),...(reduce.value === 'one' ? reduceLosses.two : [])] : [];
   if(!ready) return <div className="film-guide-page"><main className="fg-stage"><p role="status">{t('Loading your guide…','Euer Guide lädt…')}</p></main></div>;
@@ -163,8 +175,8 @@ export default function FilmGuide() {
   return <div className="film-guide-page">
     <Helmet><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" /><meta name="twitter:card" content="summary" /></Helmet>
     <SEO title="Film Guide | hugo + nanny" description="Explore your wedding film with Hugo + Nanny, one chapter at a time." path="/film-guide" />
-    <header className="fg-top"><div className="fg-top-inner"><Link className="fg-wordmark" to="/">hugo + nanny</Link><span className="fg-top-step fg-label">{step ? `${String(step).padStart(2,'0')} / 11 · ${title}` : ''}</span><div className="fg-lang">{(['en','de'] as const).map(language => <Button variant="ghost" key={language} className={language === lang ? 'fg-on' : ''} aria-pressed={language === lang} onClick={() => {touch();setLang(language);}}>{language.toUpperCase()}</Button>)}</div></div><progress className="fg-progress" max={11} value={step} aria-label={t('Progress','Fortschritt')} /></header>
-    <main className="fg-stage"><section key={id} className={`fg-chapter${single ? ' fg-single' : ''}`}><div className="fg-copy"><span className="fg-label">{step ? `${String(step).padStart(2,'0')} - ${title}` : title}</span>
+    <header className="fg-top"><div className="fg-top-inner"><Link className="fg-wordmark" to="/">hugo + nanny</Link>{offer && fullGuide && <Button variant="link" className="fg-offer-back" onClick={() => {setFullGuide(false);window.scrollTo({top:0});}}>← {t('Back to your offer','Zurück zu eurem Angebot')}</Button>}<span className="fg-top-step fg-label">{!offerView && step ? `${String(step).padStart(2,'0')} / 11 · ${title}` : ''}</span><div className="fg-lang">{(['en','de'] as const).map(language => <Button variant="ghost" key={language} className={language === lang ? 'fg-on' : ''} aria-pressed={language === lang} onClick={() => {touch();setLang(language);}}>{language.toUpperCase()}</Button>)}</div></div><progress className="fg-progress" max={11} value={step} aria-label={t('Progress','Fortschritt')} /></header>
+    {offerView && offer ? <main className="fg-stage"><FilmGuideOffer offer={offer} lang={lang} names={a.names} date={a.date} place={a.place} contact={a.contact} needsDetails={!a.names.trim() || !a.contact.trim() || needsDetails.current} sent={sent} sending={sending} error={offerError} whatsapp={settings.whatsapp} onNames={value => {needsDetails.current=true;apply('names',value);}} onContact={value => {needsDetails.current=true;apply('contact',value);apply('contactVia',value.includes('@') ? 'email' : 'whatsapp');}} onAccept={() => void accept()} onFullGuide={() => {setFullGuide(true);window.scrollTo({top:0});}} /></main> : <><main className="fg-stage"><section key={id} className={`fg-chapter${single ? ' fg-single' : ''}`}><div className="fg-copy"><span className="fg-label">{step ? `${String(step).padStart(2,'0')} - ${title}` : title}</span>
       {id === 'intro' ? <h1><GuideRichText text={copyTitle} /></h1> : <h2><GuideRichText text={copyTitle} /></h2>}
       {copy.paragraphs.map((paragraph,index) => <p className="fg-lead" key={index}><GuideRichText text={paragraph[lang] ?? ''} /></p>)}
       {copy.points.length > 0 && <ul className="fg-points">{copy.points.map((point,index) => <li key={index}><span><GuideRichText text={point[lang] ?? ''} /></span></li>)}</ul>}
