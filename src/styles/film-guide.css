@@ -265,7 +265,8 @@
 .fg-offer-actions { display: grid; gap: 12px; margin-top: 16px; }
 .fg-offer-actions a { min-height: 48px; }
 .fg-offer-error { font-size: 14px; color: hsl(var(--fg-error)); }
-.fg-offer-guide { margin-top: 40px; text-align: center; }
-.fg-offer-guide button { text-decoration: underline; text-underline-offset: 3px; background: none; border: 0; cursor: pointer; color: inherit; font: inherit; }
+.fg-offer-guide { margin-top: 56px; padding-top: 24px; border-top: 1px solid hsl(var(--fg-line)); text-align: left; font-size: 15px; letter-spacing: .01em; }
+.fg-offer-guide button { display: inline-flex; align-items: baseline; gap: 6px; text-decoration: underline; text-underline-offset: 3px; background: none; border: 0; cursor: pointer; color: inherit; font: inherit; font-size: 15px; }
+.fg-offer-guide button::after { content: '\2192'; text-decoration: none; }
 .film-guide-page .fg-offer-back { padding: 0; height: auto; font-size: 12px; }
 @media (min-width: 768px) { .fg-offer-actions { grid-template-columns: 1fr 1fr; } }
