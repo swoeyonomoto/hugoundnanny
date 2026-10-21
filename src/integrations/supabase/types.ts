@@ -404,6 +404,7 @@ export type Database = {
           contact_via: string | null
           created_at: string
           created_by: string | null
+          custom_offer: Json | null
           estimate_eur: number | null
           furthest_step: number
           guests: string | null
@@ -431,6 +432,7 @@ export type Database = {
           contact_via?: string | null
           created_at?: string
           created_by?: string | null
+          custom_offer?: Json | null
           estimate_eur?: number | null
           furthest_step?: number
           guests?: string | null
@@ -458,6 +460,7 @@ export type Database = {
           contact_via?: string | null
           created_at?: string
           created_by?: string | null
+          custom_offer?: Json | null
           estimate_eur?: number | null
           furthest_step?: number
           guests?: string | null
