@@ -45,3 +45,5 @@
 .fga-saved-price {display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 0;margin-top:16px;border-block:1px solid hsl(var(--border));}
 .fga-saved-price strong {font-size:20px;font-weight:500;}
 @media(max-width:700px){.fga-metrics {grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;}.fga-search {width:100%;max-width:none;}.fga-detail-meta {grid-template-columns:minmax(0,1fr);}.fga-head h1 {font-size:24px;}.fga-tabs {gap:4px;}}
+.film-guide-admin .fga-offer, .fga-detail .fga-offer { margin: 24px 0; padding: 20px; border: 1px solid hsl(var(--border)); border-radius: 12px; display: grid; gap: 12px; }
+.fga-check { display: flex !important; flex-direction: row !important; align-items: center; gap: 8px; }
