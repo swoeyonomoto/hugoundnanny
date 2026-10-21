@@ -253,3 +253,19 @@
   .film-guide-page .fg-amount { font-size: 38px; }
   .fg-calculator { position: fixed; top: 62px; right: 16px; }
 }
+/* Custom offer view */
+.fg-offer h2 { margin-top: 24px; }
+.fg-offer-details { display: flex; flex-wrap: wrap; gap: 8px 24px; margin: 24px 0; padding: 16px 0; border-top: 1px solid hsl(var(--fg-line)); border-bottom: 1px solid hsl(var(--fg-line)); font-size: 14px; letter-spacing: .04em; text-transform: uppercase; }
+.fg-offer .fg-points { margin-bottom: 32px; }
+.fg-offer-price { display: grid; gap: 4px; margin: 32px 0; padding: 28px; border: 1px solid hsl(var(--fg-line)); text-align: center; }
+.fg-offer-price strong { font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 300; font-size: 48px; line-height: 1.1; }
+.fg-offer-price .fg-gross { opacity: .55; }
+.fg-offer-save { font-size: 14px; }
+.fg-offer-price small { font-size: 12px; opacity: .7; margin-top: 8px; }
+.fg-offer-actions { display: grid; gap: 12px; margin-top: 16px; }
+.fg-offer-actions a { min-height: 48px; }
+.fg-offer-error { font-size: 14px; color: hsl(var(--destructive)); }
+.fg-offer-guide { margin-top: 40px; text-align: center; }
+.fg-offer-guide button { text-decoration: underline; text-underline-offset: 3px; background: none; border: 0; cursor: pointer; color: inherit; font: inherit; }
+.film-guide-page .fg-offer-back { padding: 0; height: auto; font-size: 12px; }
+@media (min-width: 768px) { .fg-offer-actions { grid-template-columns: 1fr 1fr; } }
