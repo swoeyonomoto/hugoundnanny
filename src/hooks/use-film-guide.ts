@@ -103,7 +103,7 @@ export function useGuideSession(settings: typeof defaultSettings) {
       const headers={'Content-Type':'application/json',apikey:import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,Authorization:`Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`};
       const current=patch();
       void fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/film-guide-load`,{method:'POST',keepalive:true,headers,body:JSON.stringify({token:t})})
-        .then(async response=>{if(!response.ok)return;const data=await response.json();if(!data?.lead)return;const answers=withLeadDiscount(current.answers,data.lead);const safe=leadPatch(answers,current.lang,chapterIds.indexOf(current.last_step),current.furthest_step,current.step_times,latest.current.settings);await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/film-guide-save`,{method:'POST',keepalive:true,headers,body:JSON.stringify({token:t,patch:safe})});}).catch(()=>{});
+        .then(async response=>{if(!response.ok)return;const data=await response.json();if(!data?.lead)return;const answers=withLeadDiscount(current.answers,data.lead);const safe=leadPatch(answers,current.lang,Math.max(0,chapterIds.indexOf(current.last_step as typeof chapterIds[number])),current.furthest_step,current.step_times,latest.current.settings);await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/film-guide-save`,{method:'POST',keepalive:true,headers,body:JSON.stringify({token:t,patch:safe})});}).catch(()=>{});
     };
     const hidden=()=>{if(document.visibilityState === 'hidden') flush();}; const retry=()=>{if(active.current) bump(x=>x+1);};
     document.addEventListener('visibilitychange',hidden);window.addEventListener('pagehide',flush);window.addEventListener('online',retry);
