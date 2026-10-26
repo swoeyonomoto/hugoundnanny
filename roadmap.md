@@ -50,7 +50,8 @@
 - [x] Show the book designer as coming soon.
 - [x] Refine the gallery with a white editorial split header, brand logo, subtle parallax, Dropbox folder filters, and a three-column image grid.
 ## Gallery improvements
-- [ ] Add new-gallery creation and branded playback of Dropbox shared video links, preserving existing galleries.
+- [x] Add new-gallery creation as inactive drafts and inline Dropbox shared-file video playback, preserving Wistia; seven tests pass and existing Karo + Amir cover loads without runtime errors.
+- [ ] Verify live gallery creation and Dropbox film playback: external Supabase admin session unavailable, and no actual Dropbox video file link supplied.
 - [x] Make highlights and gallery display copy configurable.
 - [x] Simplify the folder filter styling.
 - [x] Use faster Dropbox thumbnails while preserving original downloads.
