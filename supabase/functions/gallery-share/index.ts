@@ -11,12 +11,15 @@ const FALLBACK_IMAGE = 'https://trfmpmwkkzdemcbutbuk.supabase.co/storage/v1/obje
 const DBX_API = 'https://api.dropboxapi.com/2'
 
 function esc(value: string): string {
-  return value
-    .split('&').join('&')
-    .split('<').join('<')
-    .split('>').join('>')
-    .split('"').join('"')
-    .split("'").join('&#39;')
+  return value.replace(/[&<>"']/g, (c) => {
+    switch (c) {
+      case '&': return '&' + 'amp;'
+      case '<': return '&' + 'lt;'
+      case '>': return '&' + 'gt;'
+      case '"': return '&' + 'quot;'
+      default: return '&' + '#39;'
+    }
+  })
 }
 
 function mediaUrl(path: string): string {
