@@ -1,3 +1,5 @@
+import { dropboxVideoUrl } from "@/lib/gallery-media";
+
 export type Film = { id: string; kind: "highlight" | "film" | "reel"; title: string; url: string };
 
 export const wistiaId = (value: string) => {
@@ -11,17 +13,20 @@ export const parseFilms = (value: unknown): Film[] =>
     ? value.filter((f): f is Film => Boolean(f) && typeof f === "object" && "url" in f).map((f, i) => ({ id: f.id || `f${i}`, kind: f.kind || "film", title: f.title || "", url: String(f.url) }))
     : [];
 
-const Player = ({ film, vertical }: { film: Film; vertical?: boolean }) => (
+const Player = ({ film, vertical }: { film: Film; vertical?: boolean }) => {
+  const videoUrl = dropboxVideoUrl(film.url);
+  return (
   <div className={`gf-player${vertical ? " is-vertical" : ""}`}>
-    <iframe
+    {videoUrl ? <video src={videoUrl} controls playsInline preload="metadata" aria-label={film.title || "Film"} className="absolute inset-0 h-full w-full object-contain" /> : <iframe
       src={`https://fast.wistia.net/embed/iframe/${wistiaId(film.url)}?videoFoam=false&playerColor=141414`}
       title={film.title || "Film"}
       allow="autoplay; fullscreen; picture-in-picture"
       allowFullScreen
       loading="lazy"
-    />
+    />}
   </div>
-);
+  );
+};
 
 const Heading = ({ children }: { children: string }) => (
   <header className="gf-heading"><h2>{children}</h2><span aria-hidden /></header>

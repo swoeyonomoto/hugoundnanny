@@ -1,10 +1,12 @@
 import { FormEvent, useEffect, useMemo, useState } from "react";
-import { Check, Copy, ExternalLink, Film as FilmIcon, Images, LayoutTemplate, CalendarDays, Settings, LogOut, Save } from "lucide-react";
+import { Check, Copy, ExternalLink, Film as FilmIcon, Images, LayoutTemplate, CalendarDays, Settings, LogOut, Save, Plus } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Film, parseFilms } from "@/components/gallery/FilmView";
 
 import FilmGuideAdmin from "@/components/film-guide/FilmGuideAdmin";
+import NewGalleryForm from "@/components/gallery/NewGalleryForm";
+import { validGalleryFilm, validGalleryFolder } from "@/lib/gallery-media";
 import "@/styles/admin-workspace.css";
 
 type Entry = { tag: string; name: string; path: string };
@@ -35,6 +37,7 @@ async function listDropbox(path: string) {
 
 export default function GalleryAdmin() {
   const [adminView,setAdminView] = useState("film");
+  const [creatingGallery, setCreatingGallery] = useState(false);
   const [galleryAllowed,setGalleryAllowed] = useState(false);
   const [filmAllowed,setFilmAllowed] = useState(false);
   const [sessionReady, setSessionReady] = useState(false);
@@ -79,10 +82,16 @@ export default function GalleryAdmin() {
   }, []);
 
   useEffect(() => {
-    if (!gallery) return;
-    Promise.all([listDropbox(gallery.dropbox_path), listDropbox(gallery.dropbox_path).then((items) => Promise.all(items.filter((item) => item.tag === "folder").map((folder) => listDropbox(folder.path)))).then((groups) => groups.flat())])
-      .then(([, nested]) => setPhotos(nested.filter((item) => item.tag === "file" && isImage(item.name))))
+    setPhotos([]);
+    if (!gallery?.dropbox_path) return;
+    let cancelled = false;
+    listDropbox(gallery.dropbox_path).then(async (items) => {
+      const groups = await Promise.all(items.filter((item) => item.tag === "folder").map((folder) => listDropbox(folder.path)));
+      return [...items, ...groups.flat()];
+    })
+      .then((items) => { if (!cancelled) setPhotos(items.filter((item) => item.tag === "file" && isImage(item.name))); })
       .catch(() => setPhotos([]));
+    return () => { cancelled = true; };
   }, [gallery?.id, gallery?.dropbox_path]);
 
   const updateGallery = (field: keyof GalleryConfig, value: string | boolean | string[] | Film[] | null) => {
@@ -99,6 +108,8 @@ export default function GalleryAdmin() {
 
   const saveGallery = async () => {
     if (!gallery) return;
+    if (gallery.has_photos !== false && !validGalleryFolder(gallery.dropbox_path)) return setMessage("Bitte einen Dropbox-Ordnerpfad eingeben, z. B. /2026/Karo_Amir.");
+    if (parseFilms(gallery.films).some((film) => !validGalleryFilm(film.url))) return setMessage("Bitte gültige Dropbox-Dateilinks oder Wistia-Links für die Filme eingeben.");
     const { id, ...changes } = gallery;
     const { error } = await supabase.from("gallery_configs").update(changes as never).eq("id", id);
     setMessage(error ? "Galerie konnte nicht gespeichert werden." : "Galerie gespeichert.");
@@ -124,7 +135,8 @@ export default function GalleryAdmin() {
       <div className="ga-content">
         {message && <Button className="ga-message" onClick={() => setMessage("")}>{message}</Button>}
         {adminView === "account" ? <div className="ga-account"><AccountSettings onMessage={setMessage} /></div> : adminView === "film" && filmAllowed ? <FilmGuideAdmin /> : galleryAllowed && <>
-        {gallery && <section className="ga-section"><div className="ga-section-head"><div><p>Galerie</p><h1>{gallery.couple_name}</h1></div><Button onClick={saveGallery}><Save /> Speichern</Button></div>
+         <div className="ga-section-head"><h2>Galerien</h2><Button onClick={() => setCreatingGallery(true)}><Plus size={16} />Neue Galerie</Button></div>
+         {creatingGallery ? <NewGalleryForm onCancel={() => setCreatingGallery(false)} onCreated={async (id) => { await load(); setActiveId(id); setCreatingGallery(false); setMessage("Galerie erstellt. Nach der Einrichtung aktivieren und speichern."); }} /> : gallery && <section className="ga-section"><div className="ga-section-head"><div><p>Galerie</p><h1>{gallery.couple_name}</h1></div><Button onClick={saveGallery}><Save /> Speichern</Button></div>
           <div className="ga-share"><input aria-label="Gallery share link" readOnly value={`https://hugo-nanny.de/gallery/${encodeURIComponent(gallery.slug)}`}/><Button variant="outline" onClick={async()=>{try{await navigator.clipboard.writeText(`https://hugo-nanny.de/gallery/${encodeURIComponent(gallery.slug)}`);setMessage("Galerie-Link kopiert.");}catch{setMessage("Bitte den Galerie-Link im Feld kopieren.");}}}><Copy size={16}/>Link kopieren</Button><Button variant="ghost" size="icon" title="Galerie öffnen" onClick={()=>window.open(`/gallery/${encodeURIComponent(gallery.slug)}`,"_blank","noopener,noreferrer")}><ExternalLink size={16}/></Button>{!gallery.active && <span>Galerie ist inaktiv</span>}</div>
           <div className="ga-form-grid">
             <label>Name<input value={gallery.couple_name} onChange={(e) => updateGallery("couple_name", e.target.value)} /></label>
@@ -139,11 +151,11 @@ export default function GalleryAdmin() {
             <label className="ga-wide">Überschrift Englisch<input value={gallery.story_heading_en} onChange={(e) => updateGallery("story_heading_en", e.target.value)} /></label>
           </div>
           <label className="ga-check-label"><input type="checkbox" checked={gallery.has_photos !== false} onChange={(e) => updateGallery("has_photos", e.target.checked)} /> Foto-Galerie anzeigen (aus = nur Film)</label>
-          <div className="ga-photo-title"><h2>Filme (Wistia)</h2><Button size="sm" variant="outline" onClick={() => updateGallery("films", [...parseFilms(gallery.films), { id: `f${Date.now()}`, kind: "highlight", title: "", url: "" }])}>+ Film</Button></div>
+          <div className="ga-photo-title"><h2>Filme</h2><Button size="sm" variant="outline" onClick={() => updateGallery("films", [...parseFilms(gallery.films), { id: `f${Date.now()}`, kind: "highlight", title: "", url: "" }])}>+ Film</Button></div>
           <div className="ga-product-list">{parseFilms(gallery.films).map((film, index) => { const set = (patch: Partial<Film>) => updateGallery("films", parseFilms(gallery.films).map((f, i) => i === index ? { ...f, ...patch } : f)); return <article key={film.id}><div className="ga-product-fields">
             <label>Typ<select value={film.kind} onChange={(e) => set({ kind: e.target.value as Film["kind"] })}><option value="highlight">Highlight-Film</option><option value="film">Weiterer Film</option><option value="reel">Reel (hochkant)</option></select></label>
             <label>Titel<input value={film.title} onChange={(e) => set({ title: e.target.value })} /></label>
-            <label className="ga-wide">Wistia-Link oder ID<input value={film.url} placeholder="https://….wistia.com/medias/abc123" onChange={(e) => set({ url: e.target.value })} /></label>
+            <label className="ga-wide">Dropbox-Dateilink oder Wistia-Link / ID<input value={film.url} placeholder="https://www.dropbox.com/scl/fi/…/film.mp4?…" onChange={(e) => set({ url: e.target.value })} /></label>
           </div><div className="ga-product-actions"><span /><Button size="sm" variant="outline" onClick={() => updateGallery("films", parseFilms(gallery.films).filter((_, i) => i !== index))}>Entfernen</Button></div></article>; })}</div>
           <div className="ga-photo-title"><h2>Titelbild, Highlights & Film-Bilder</h2><span>{selectedCount} Highlights · {gallery.film_image_paths?.length ?? 0} Film-Bilder</span></div>
           <div className="ga-photo-grid">{photos.map((photo) => { const isCover = gallery.cover_path === photo.path; const isHighlight = gallery.highlight_paths.includes(photo.path); const filmImgs = gallery.film_image_paths ?? []; const isFilmImg = filmImgs.includes(photo.path); return <article key={photo.path} className={isCover || isHighlight || isFilmImg ? "is-chosen" : ""}><img src={thumb(photo.path)} alt={photo.name} loading="lazy" /><div><Button size="sm" variant={isCover ? "default" : "outline"} onClick={() => updateGallery("cover_path", photo.path)}>{isCover && <Check />} Titelbild</Button><Button size="sm" variant={isHighlight ? "default" : "outline"} onClick={() => updateGallery("highlight_paths", isHighlight ? gallery.highlight_paths.filter((path) => path !== photo.path) : [...gallery.highlight_paths, photo.path])}>{isHighlight && <Check />} Highlight</Button><Button size="sm" variant={isFilmImg ? "default" : "outline"} onClick={() => updateGallery("film_image_paths", isFilmImg ? filmImgs.filter((p) => p !== photo.path) : [...filmImgs, photo.path])}>{isFilmImg && <Check />} Film-Bild</Button></div></article>; })}</div>
