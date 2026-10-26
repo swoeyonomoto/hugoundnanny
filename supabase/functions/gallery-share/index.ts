@@ -11,7 +11,12 @@ const FALLBACK_IMAGE = 'https://trfmpmwkkzdemcbutbuk.supabase.co/storage/v1/obje
 const DBX_API = 'https://api.dropboxapi.com/2'
 
 function esc(value: string): string {
-  return value.replace(/[&<>"']/g, (c) => ({ '&': '&', '<': '<', '>': '>', '"': '"', "'": '&#39;' })[c] ?? c)
+  return value
+    .split('&').join('&')
+    .split('<').join('<')
+    .split('>').join('>')
+    .split('"').join('"')
+    .split("'").join('&#39;')
 }
 
 function mediaUrl(path: string): string {
