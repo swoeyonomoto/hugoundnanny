@@ -3,8 +3,8 @@ import { getDropboxToken } from '../_shared/dropbox-token.ts'
 // Serves a tiny HTML page for link previews (WhatsApp, iMessage, ...).
 // It carries the couple's names + header photo as og tags, then opens the
 // real gallery on https://hugo-nanny.de/gallery/<slug>.
-// The browser never receives the Dropbox token; image links are fresh
-// temporary Dropbox links generated server-side per preview request.
+// The browser never receives the Dropbox token; the preview image is served
+// through the existing dropbox-media endpoint, which streams thumbnails.
 
 const SITE = 'https://hugo-nanny.de'
 const FALLBACK_IMAGE = 'https://trfmpmwkkzdemcbutbuk.supabase.co/storage/v1/object/public/hugoundnanny/Logo/Hugo_Nanny_Square.jpg'
@@ -12,6 +12,11 @@ const DBX_API = 'https://api.dropboxapi.com/2'
 
 function esc(value: string): string {
   return value.replace(/[&<>"']/g, (c) => ({ '&': '&', '<': '<', '>': '>', '"': '"', "'": '&#39;' })[c] ?? c)
+}
+
+function mediaUrl(path: string): string {
+  const base = Deno.env.get('SUPABASE_URL') ?? 'https://trfmpmwkkzdemcbutbuk.supabase.co'
+  return `${base}/functions/v1/dropbox-media?mode=thumb&size=w2048h1536&path=${encodeURIComponent(path)}`
 }
 
 async function dbxJson(path: string, body: unknown): Promise<any> {
@@ -27,25 +32,21 @@ async function dbxJson(path: string, body: unknown): Promise<any> {
   return res.json()
 }
 
-async function tempLink(path: string): Promise<string | null> {
-  try {
-    const data = await dbxJson('/files/get_temporary_link', { path })
-    return typeof data?.link === 'string' ? data.link : null
-  } catch {
-    return null
-  }
-}
-
 async function pickImage(config: Record<string, unknown>): Promise<string | null> {
+  const isImage = (name: string) => /\.(jpe?g|png|webp)$/i.test(name)
   const cover = typeof config.cover_path === 'string' ? config.cover_path : ''
+  const filmImages = Array.isArray(config.film_image_paths) ? (config.film_image_paths as unknown[]) : []
+  const candidates: string[] = []
+  if (cover && isImage(cover)) candidates.push(cover)
+  for (const item of filmImages) if (typeof item === 'string' && isImage(item)) candidates.push(item)
+  if (candidates.length) return mediaUrl(candidates[0])
+  // No image configured: take the first photo found in the gallery folder.
   const folder = typeof config.dropbox_path === 'string' ? config.dropbox_path : ''
-  if (cover && /\.(jpe?g|png|webp)$/i.test(cover)) return tempLink(cover)
-  // No cover set: take the first photo found in the gallery folder.
   if (folder) {
     try {
       const data = await dbxJson('/files/list_folder', { path: folder, limit: 100 })
-      const first = (data?.entries ?? []).find((e: any) => e['.tag'] === 'file' && /\.(jpe?g|png|webp)$/i.test(String(e.name)))
-      if (first) return tempLink(first.path_lower)
+      const first = (data?.entries ?? []).find((e: any) => e['.tag'] === 'file' && isImage(String(e.name)))
+      if (first) return mediaUrl(String(first.path_lower))
     } catch {
       // fall through to fallback image
     }
@@ -78,8 +79,6 @@ function html(slug: string, title: string, description: string, image: string): 
 <meta property="og:title" content="${esc(title)}">
 <meta property="og:description" content="${esc(description)}">
 <meta property="og:image" content="${esc(image)}">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="${esc(title)}">
