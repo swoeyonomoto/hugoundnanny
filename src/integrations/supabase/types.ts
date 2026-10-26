@@ -372,6 +372,48 @@ export type Database = {
         }
         Relationships: []
       }
+      drop01_rsvps: {
+        Row: {
+          created_at: string
+          day: string
+          email: string
+          guests: number
+          id: string
+          lang: string | null
+          name: string
+          newsletter: boolean
+          times_updated: number
+          updated_at: string
+          version: string | null
+        }
+        Insert: {
+          created_at?: string
+          day: string
+          email: string
+          guests?: number
+          id?: string
+          lang?: string | null
+          name: string
+          newsletter?: boolean
+          times_updated?: number
+          updated_at?: string
+          version?: string | null
+        }
+        Update: {
+          created_at?: string
+          day?: string
+          email?: string
+          guests?: number
+          id?: string
+          lang?: string | null
+          name?: string
+          newsletter?: boolean
+          times_updated?: number
+          updated_at?: string
+          version?: string | null
+        }
+        Relationships: []
+      }
       film_guide_clips: {
         Row: {
           end_s: number
@@ -605,6 +647,45 @@ export type Database = {
           slug?: string
           sort_index?: number
           title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      jr_early_access: {
+        Row: {
+          created_at: string
+          drops: string[]
+          email: string | null
+          id: string
+          name: string
+          note: string | null
+          phone: string | null
+          source: string | null
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          drops?: string[]
+          email?: string | null
+          id?: string
+          name: string
+          note?: string | null
+          phone?: string | null
+          source?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          drops?: string[]
+          email?: string | null
+          id?: string
+          name?: string
+          note?: string | null
+          phone?: string | null
+          source?: string | null
+          status?: string
           updated_at?: string
         }
         Relationships: []
@@ -1058,6 +1139,18 @@ export type Database = {
           score: number
           visits_30d: number
         }[]
+      }
+      drop01_rsvp_submit: {
+        Args: {
+          p_day: string
+          p_email: string
+          p_guests: number
+          p_lang?: string
+          p_name: string
+          p_newsletter: boolean
+          p_version?: string
+        }
+        Returns: Json
       }
       film_guide_is_admin: { Args: never; Returns: boolean }
       get_portfolio_artwork_ids: { Args: { p_slug: string }; Returns: string[] }

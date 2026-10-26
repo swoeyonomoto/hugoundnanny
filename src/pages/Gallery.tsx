@@ -132,15 +132,21 @@ const GalleryContent = () => {
   }, [t]);
 
   useEffect(() => {
-    if (!g) return;
+    if (!g?.path) return;
+    let cancelled = false;
     list(g.path).then(async (items) => {
       const f = items.filter((i) => i.tag === "folder");
-      setFolders(f);
-      setOpen((current) => current ?? f[0] ?? null);
+      const rootPhotos = items.filter((i) => i.tag === "file" && isImg(i.name));
+      const segments = rootPhotos.length ? [{ tag: "folder", name: t("Fotos", "Photos"), path: g.path }, ...f] : f;
       const map: Record<string, Entry[]> = {};
+      if (rootPhotos.length) map[g.path] = rootPhotos;
       await Promise.all(f.map(async (x) => (map[x.path] = (await list(x.path)).filter((i) => i.tag === "file" && isImg(i.name)))));
+      if (cancelled) return;
+      setFolders(segments);
+      setOpen((current) => segments.find((entry) => entry.path === current?.path) ?? segments[0] ?? null);
       setCovers(map);
-    });
+    }).catch((error) => { if (!cancelled) console.error("Gallery photos could not be loaded", error); });
+    return () => { cancelled = true; };
   }, [g]);
 
   useEffect(() => {
@@ -312,7 +318,7 @@ const GalleryContent = () => {
       </nav>
 
       <section id="gal-hero" className="gal-hero">
-        <div className="gal-hero-media-wrap"><div ref={heroMediaRef} className="gal-hero-media">{hero && <img src={img(hero.path, "w2048h1536")} alt={g.couple} width={2048} height={1536} fetchPriority="high" />}</div></div>
+        <div className="gal-hero-media-wrap"><div ref={heroMediaRef} className="gal-hero-media">{(hero?.path || g.cover || filmImages[0]) && <img src={img(hero?.path || g.cover || filmImages[0], "w2048h1536")} alt={g.couple} width={2048} height={1536} fetchPriority="high" />}</div></div>
         <div ref={heroCopyRef} className="gal-hero-inner">
           <img className="gal-hero-logo" src="/photos/logo-left.png" alt="Hugo + Nanny" width="1200" height="348" />
           <h1>{g.couple}</h1>
