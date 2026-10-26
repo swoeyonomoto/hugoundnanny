@@ -50,6 +50,7 @@
 - [x] Show the book designer as coming soon.
 - [x] Refine the gallery with a white editorial split header, brand logo, subtle parallax, Dropbox folder filters, and a three-column image grid.
 ## Gallery improvements
+- [ ] Add new-gallery creation and branded playback of Dropbox shared video links, preserving existing galleries.
 - [x] Make highlights and gallery display copy configurable.
 - [x] Simplify the folder filter styling.
 - [x] Use faster Dropbox thumbnails while preserving original downloads.
