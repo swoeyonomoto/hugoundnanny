@@ -44,7 +44,7 @@ Deno.serve(async (req) => {
   try {
     const qs = new URL(req.url).searchParams
     const body = req.method === 'GET'
-      ? { path: qs.get('path'), mode: qs.get('mode'), size: qs.get('size') }
+      ? { path: qs.get('path'), mode: qs.get('mode'), size: qs.get('size'), format: qs.get('format') }
       : await req.json().catch(() => ({}))
     // Only gallery folders are readable
     if (typeof body.path === 'string' && !/^\/20\d\d\//.test(body.path.toLowerCase())) {
@@ -84,12 +84,13 @@ Deno.serve(async (req) => {
       })
     }
 
+    const thumbFmt = mode === 'thumb' && body.format === 'webp' ? 'webp' : 'jpeg'
     const arg =
       mode === 'thumb'
         ? {
             resource: { '.tag': 'path', path: filePath },
-            format: 'jpeg',
-            size: ['w960h640','w1024h768','w2048h1536'].includes(body.size) ? body.size : 'w480h320',
+            format: thumbFmt,
+            size: ['w640h480','w960h640','w1024h768','w2048h1536'].includes(body.size) ? body.size : 'w480h320',
             mode: 'fitone_bestfit',
           }
         : { path: filePath, format: 'jpeg' }
@@ -100,8 +101,8 @@ Deno.serve(async (req) => {
       status: 200,
       headers: {
         ...corsHeaders,
-        'Content-Type': 'image/jpeg',
-        'Cache-Control': 'private, max-age=3600',
+        'Content-Type': thumbFmt === 'webp' ? 'image/webp' : 'image/jpeg',
+        'Cache-Control': 'public, max-age=604800, stale-while-revalidate=86400',
       },
     })
   } catch (err) {
