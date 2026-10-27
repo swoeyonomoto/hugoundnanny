@@ -8,6 +8,8 @@ import Footer from "@/components/sections/Footer";
 import SEO from "@/components/SEO";
 import { supabase } from "@/integrations/supabase/client";
 import FilmView, { Film, parseFilms } from "@/components/gallery/FilmView";
+import FilmExtras from "@/components/gallery/FilmExtras";
+import { galleryPreview, parseFilmExtras, FilmExtra } from "@/lib/gallery-extras";
 import dibondImage from "@/assets/gallery-dibond.jpg";
 import printsImage from "@/assets/gallery-prints.jpg";
 import printPackImage from "@/assets/gallery-print-pack.jpg";
@@ -24,8 +26,7 @@ const GALLERIES: Record<string, { path: string; couple: string; date: string; lo
 };
 
 const FN = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/dropbox-media`;
-const img = (path: string, size = "w960h640") =>
-  `${FN}?mode=thumb&format=webp&size=${size}&path=${encodeURIComponent(path)}`;
+const img = galleryPreview;
 const original = (path: string) => `${FN}?mode=original&path=${encodeURIComponent(path)}`;
 
 type Entry = { tag: string; name: string; path: string };
@@ -94,6 +95,7 @@ const GalleryContent = () => {
   const heroCopyRef = useRef<HTMLDivElement>(null);
 
   const [films, setFilms] = useState<Film[]>([]);
+  const [filmExtras, setFilmExtras] = useState<FilmExtra[]>([]);
   const [filmImages, setFilmImages] = useState<string[]>([]);
   const [hasPhotos, setHasPhotos] = useState(true);
   const [mode, setMode] = useState<"photos" | "film">("photos");
@@ -106,6 +108,7 @@ const GalleryContent = () => {
       setGallery({ path: d.dropbox_path, couple: d.couple_name, date: d.wedding_date, location: d.location, cover: d.cover_path, highlights: d.highlight_paths, labelDe: d.story_label_de, labelEn: d.story_label_en, headingDe: d.story_heading_de, headingEn: d.story_heading_en });
       const f = parseFilms(d.films);
       setFilms(f);
+      setFilmExtras(parseFilmExtras(d.films));
       setFilmImages(d.film_image_paths ?? []);
       const photosOn = d.has_photos !== false;
       setHasPhotos(photosOn);
@@ -372,7 +375,7 @@ const GalleryContent = () => {
           </>}
       </main>}
 
-      <section id="shop" className="gal-shop">
+      {mode === "film" ? <FilmExtras extras={filmExtras} couple={g.couple} slug={slug} t={t} /> : <section id="shop" className="gal-shop">
         <RevealOnScroll className="gal-shop-heading">
           <p className="gal-label">N°02 - Print Shop</p>
           <h2 className="gal-h">{t("Eure Bilder, ", "Your photographs, ")}<em>{t("zum Anfassen.", "made tangible.")}</em></h2>
@@ -391,7 +394,7 @@ const GalleryContent = () => {
           ))}
         </div>
         <p className="gal-price-note">{t("Die Preise sind vorläufig und werden vor der Zahlung persönlich bestätigt.", "Prices are provisional and will be personally confirmed before payment.")}</p>
-      </section>
+      </section>}
 
       {productOpen && products.find((item) => item.id === productOpen) && (() => { const product = products.find((item) => item.id === productOpen); if (!product) return null; const chosen = product.sizes.find((size) => size.label === productOptions[product.id]) ?? product.sizes[0]; return <div className="gal-modal" role="dialog" aria-modal="true" aria-label={product.title}><div className="gal-product-dialog"><button className="gal-dialog-close" onClick={() => setProductOpen(null)} aria-label={t("Schließen", "Close")}><X /></button><img src={product.image} alt={product.title} width={1200} height={900} /><div className="gal-product-detail"><p className="gal-label">Print Shop</p><h2>{product.title}</h2><p>{product.description}</p>{product.comingSoon ? <span className="gal-coming">{t("Konfigurator · Bald verfügbar", "Configurator · Coming soon")}</span> : <><p className="gal-step">01 - {t("Größe wählen", "Choose a size")}</p><div className="gal-size-options">{product.sizes.map((size) => <button key={size.label} className={chosen?.label === size.label ? "is-active" : ""} onClick={() => setProductOptions((options) => ({ ...options, [product.id]: size.label }))}><span>{size.label}</span><strong>€{size.price}</strong></button>)}</div><p className="gal-step">02 - {t("Bilder auswählen", "Select photographs")}</p><p className="gal-product-note">{t("Im nächsten Schritt wählt ihr die Bilder. Drei Bilder ergeben drei Produkte zum jeweiligen Einzelpreis.", "Next, select the photographs. Three photographs create three products at the listed unit price.")}</p><button className="gal-dialog-submit" onClick={() => chooseProduct(product.id)}>{t("Bilder auswählen", "Select photographs")} · €{chosen?.price ?? 0} {t("pro Bild", "each")}</button></>}</div></div></div>; })()}
 

@@ -50,6 +50,8 @@
 - [x] Show the book designer as coming soon.
 - [x] Refine the gallery with a white editorial split header, brand logo, subtle parallax, Dropbox folder filters, and a three-column image grid.
 ## Gallery improvements
+- [x] Keep compressed previews as the shared default and replace film photo upsells with editable, per-gallery film extras; Nina + Dustin public view and request form checked on desktop/mobile.
+- [ ] Verify signed-in film-extra saving and inbox delivery: external Supabase authenticated checks unavailable; request wiring covered by tests.
 - [x] Add new-gallery creation as inactive drafts and inline Dropbox shared-file video playback, preserving Wistia; seven tests pass and existing Karo + Amir cover loads without runtime errors.
 - [ ] Verify live gallery creation and Dropbox film playback: external Supabase admin session unavailable, and no actual Dropbox video file link supplied.
 - [x] Make highlights and gallery display copy configurable.

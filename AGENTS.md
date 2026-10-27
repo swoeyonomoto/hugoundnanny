@@ -4,6 +4,8 @@
 - Keep gallery commerce as a no-payment request flow: temporary selections use browser storage and final requests go through Formspree, because payment is completed later by an emailed PayPal link.
 - Keep gallery administration behind Supabase Auth and a server-enforced separate admin role; public gallery pages only read active gallery configuration.
 - Store editable gallery and print-product presentation data in Supabase; use bundled assets only as visual fallbacks so admin changes remain authoritative.
+- Store per-gallery film booking extras as a metadata record in the existing films JSON, preserving it when editing films; use the existing request inbox without schema changes or payment integration.
+- Use the shared galleryPreview helper for compressed gallery thumbnails; reserve larger sizes for opened photos and intentional display images.
 - Create galleries as inactive drafts through existing RLS-protected configuration; play public Dropbox file links as inline HTML video while retaining Wistia so no tokens or Dropbox pages reach the gallery presentation.
 - Pair Cormorant Garamond Light headlines with Inter body text on all public pages, while preserving independently scoped Asia and gallery compositions and the admin typography.
 - Keep Film Guide presentation in dedicated components and page-scoped styles; its reference typography is an intentional isolated exception so existing public pages remain unchanged.
