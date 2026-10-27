@@ -25,7 +25,7 @@ const GALLERIES: Record<string, { path: string; couple: string; date: string; lo
 
 const FN = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/dropbox-media`;
 const img = (path: string, size = "w960h640") =>
-  `${FN}?mode=thumb&size=${size}&path=${encodeURIComponent(path)}`;
+  `${FN}?mode=thumb&format=webp&size=${size}&path=${encodeURIComponent(path)}`;
 const original = (path: string) => `${FN}?mode=original&path=${encodeURIComponent(path)}`;
 
 type Entry = { tag: string; name: string; path: string };
@@ -70,6 +70,7 @@ const GalleryContent = () => {
   const { slug = "" } = useParams();
   const [gallery, setGallery] = useState(GALLERIES[slug]);
   const g = gallery;
+  const [configChecked, setConfigChecked] = useState(false);
   const [folders, setFolders] = useState<Entry[]>([]);
   const [covers, setCovers] = useState<Record<string, Entry[]>>({});
   const [open, setOpen] = useState<Entry | null>(null);
@@ -99,6 +100,7 @@ const GalleryContent = () => {
 
   useEffect(() => {
     supabase.from("gallery_configs").select("*").eq("slug", slug).eq("active", true).maybeSingle().then(({ data }) => {
+      setConfigChecked(true);
       if (!data) return;
       const d = data as typeof data & { films?: unknown; film_image_paths?: string[]; has_photos?: boolean };
       setGallery({ path: d.dropbox_path, couple: d.couple_name, date: d.wedding_date, location: d.location, cover: d.cover_path, highlights: d.highlight_paths, labelDe: d.story_label_de, labelEn: d.story_label_en, headingDe: d.story_heading_de, headingEn: d.story_heading_en });
@@ -288,6 +290,7 @@ const GalleryContent = () => {
     }
   };
 
+  if (!g && !configChecked) return <div className="gal-empty" aria-busy="true" />;
   if (!g)
     return (
       <div className="gal-empty">
@@ -359,7 +362,7 @@ const GalleryContent = () => {
                 const index = photos.findIndex((photo) => photo.path === p.path);
                 return (
                 <figure key={p.path} className={selected.has(p.path) ? "is-sel" : ""}>
-                   <img src={img(p.path, "w960h640")} alt={p.name} loading="lazy" onClick={() => setLightbox(index)} />
+                   <img src={img(p.path, "w640h480")} alt={p.name} loading="lazy" decoding="async" onClick={() => setLightbox(index)} />
                   <button className="gal-check" aria-label={t("Auswählen", "Select")} onClick={() => toggle(p.path)}>
                     {selected.has(p.path) ? <Check size={15} /> : <Heart size={14} />}
                   </button>
