@@ -362,7 +362,7 @@ const GalleryContent = () => {
                 const index = photos.findIndex((photo) => photo.path === p.path);
                 return (
                 <figure key={p.path} className={selected.has(p.path) ? "is-sel" : ""}>
-                   <img src={img(p.path, "w640h480")} alt={p.name} loading="lazy" decoding="async" onClick={() => setLightbox(index)} />
+                   <img src={img(p.path, "w640h480")} srcSet={`${img(p.path, "w480h320")} 480w, ${img(p.path, "w640h480")} 640w`} sizes="(max-width: 700px) 50vw, 33vw" alt={p.name} loading="lazy" decoding="async" onClick={() => setLightbox(index)} />
                   <button className="gal-check" aria-label={t("Auswählen", "Select")} onClick={() => toggle(p.path)}>
                     {selected.has(p.path) ? <Check size={15} /> : <Heart size={14} />}
                   </button>
